@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour {
 
-    private float projectileSpeed;
-    private float projectileDamage;
-    private float projectileHitStun;
+    [HideInInspector]
+    public float projectileSpeed;
+    [HideInInspector]
+    public float projectileDamage;
+    [HideInInspector]
+    public float projectileHitStun;
 
-    private float projectilemaxDuration;
-    private float projectileMaxDuration;
-    private float projectileBreakChance;
-    private bool usesConstantForceProjectile = true;
-    private bool breaksHittingWall = true;
+    [HideInInspector]
+    public float projectileMaxDuration;
+    [HideInInspector]
+    public float projectileBreakChance;
+    [HideInInspector]
+    public bool usesConstantForceProjectile = true;
+    [HideInInspector]
+    public bool breaksHittingWall = true;
 
     private float currentLife;
     private bool breaking = false;
@@ -22,14 +28,18 @@ public class PlayerProjectile : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        projectileSpeed = player.GetComponent<PlayerController>().projectileSpeed;
-        projectileDamage = player.GetComponent<PlayerController>().projectileDamage;
-        projectileHitStun = player.GetComponent<PlayerController>().projectileHitStun;
-        projectileMaxDuration = player.GetComponent<PlayerController>().projectileMaxDuration;
-        projectileBreakChance = player.GetComponent<PlayerController>().projectileBreakChance;
-        usesConstantForceProjectile = player.GetComponent<PlayerController>().usesConstantForceProjectile;
-        breaksHittingWall = player.GetComponent<PlayerController>().breaksHittingWall;
-        myElement = player.GetComponent<PlayerController>().element;
+
+        if (player.GetComponent<PlayerController>() != null)
+        {
+            projectileSpeed = player.GetComponent<PlayerController>().projectileSpeed;
+            projectileDamage = player.GetComponent<PlayerController>().projectileDamage;
+            projectileHitStun = player.GetComponent<PlayerController>().projectileHitStun;
+            projectileMaxDuration = player.GetComponent<PlayerController>().projectileMaxDuration;
+            projectileBreakChance = player.GetComponent<PlayerController>().projectileBreakChance;
+            usesConstantForceProjectile = player.GetComponent<PlayerController>().usesConstantForceProjectile;
+            breaksHittingWall = player.GetComponent<PlayerController>().breaksHittingWall;
+        }
+        myElement = player.GetComponent<PlayerHealth>().element;
 
         if (gameObject.GetComponent<Collider>().enabled == false)
         {

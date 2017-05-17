@@ -9,46 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1715407163714218}
+  m_RootGameObject: {fileID: 1391775472913824}
   m_IsPrefabParent: 1
---- !u!1 &1715407163714218
+--- !u!1 &1391775472913824
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4304718567077646}
-  - component: {fileID: 33765612555139214}
-  - component: {fileID: 136208142890659570}
-  - component: {fileID: 23649765059430130}
-  - component: {fileID: 114424318743031072}
+  - component: {fileID: 4946173461340968}
+  - component: {fileID: 33097158016823432}
+  - component: {fileID: 23425300034118496}
+  - component: {fileID: 114110390856949468}
   m_Layer: 0
-  m_Name: Spawner Earth
+  m_Name: Block Effect 3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4304718567077646
+--- !u!4 &4946173461340968
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1715407163714218}
+  m_GameObject: {fileID: 1391775472913824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.6, y: 6.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalScale: {x: 1, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23649765059430130
+--- !u!23 &23425300034118496
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1715407163714218}
+  m_GameObject: {fileID: 1391775472913824}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -56,7 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 28c2d505e14b3f146a294081fc2e1872, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,37 +73,22 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33765612555139214
+--- !u!33 &33097158016823432
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1715407163714218}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114424318743031072
+  m_GameObject: {fileID: 1391775472913824}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114110390856949468
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1715407163714218}
+  m_GameObject: {fileID: 1391775472913824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0acb1b26844ab46b54aecdcc7ad843, type: 3}
+  m_Script: {fileID: 11500000, guid: e08881fe11179ef46b26d86c6efbe5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabArray:
-  - {fileID: 1469408872181644, guid: 1685530517662f0498cd7126b37b8c97, type: 2}
-  numOfSpawners: 5
---- !u!136 &136208142890659570
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1715407163714218}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 25
-  m_Height: 25
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  blocking: 0

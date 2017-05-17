@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyBlocking : MonoBehaviour {
 
-    public bool blocking;
+    [HideInInspector]public bool blocking;
 	// Use this for initialization
 	void Start () {
         
@@ -12,7 +12,15 @@ public class DestroyBlocking : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        blocking = GetComponentInParent<PlayerController>().blocking;
+        if (gameObject.GetComponentInParent<PlayerController>() != null)
+        {
+            blocking = GetComponentInParent<PlayerController>().blocking;
+        }
+        else
+        {
+            blocking = GetComponentInParent<PlayerMovement>().blocking;
+        }
+        
         if (!blocking)
         {
             Debug.Log("DESTROY block effect");

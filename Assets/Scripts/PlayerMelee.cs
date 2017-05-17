@@ -9,13 +9,13 @@ public class PlayerMelee : MonoBehaviour {
     [HideInInspector]
     public GameObject myPlayer;
 
-    [Tooltip("How Long the hitbox stays out. 'Keep very small'")]
-    private float meleeHitBoxLife = 0;
+    [HideInInspector]
+    public float meleeHitBoxLife = 0;
 
-    [Tooltip("How much damge this object deals.")]
-    private float meleeDamage;
-    [Tooltip("How much damage this object deals. 'The size of what you are hitting will be important.'")]
-    private float stunLockOut;
+    [HideInInspector]
+    public float meleeDamage;
+    [HideInInspector]
+    public float stunLockOut;
 
     private float currentLife;
 
@@ -24,10 +24,14 @@ public class PlayerMelee : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        meleeHitBoxLife = player.GetComponent<PlayerController>().meleeHitBoxLife;
-        meleeDamage = player.GetComponent<PlayerController>().meleeDamage;
-        stunLockOut = player.GetComponent<PlayerController>().meleeHitStun;
-        myElement = player.GetComponent<PlayerController>().element;
+
+        if(player.GetComponent<PlayerController>() != null)
+        {
+            meleeHitBoxLife = player.GetComponent<PlayerController>().meleeHitBoxLife;
+            meleeDamage = player.GetComponent<PlayerController>().meleeDamage;
+            stunLockOut = player.GetComponent<PlayerController>().meleeHitStun;
+        }
+        myElement = player.GetComponent<PlayerHealth>().element;
         currentLife = Time.time + meleeHitBoxLife;
     }
 	

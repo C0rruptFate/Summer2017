@@ -511,8 +511,6 @@ public class PlayerController : MonoBehaviour
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
             }
         }
-
-
     }
 
     private void PlayerMovement()

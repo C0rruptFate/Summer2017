@@ -43,14 +43,14 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool groundJumpInitiated = false;
     private int currentJumpTimer = 0;
-    private int bounceJumpsUsed;
+    [HideInInspector]public int bounceJumpsUsed;
     private int arialJumpsUsed;
-    private bool grounded = false;
+    [HideInInspector]public bool grounded = false;
     private bool enemyBelow = false;
     private bool playerBelow = false;
 
 
-    private bool blocking;
+    [HideInInspector]public bool blocking;
 
     void Start () {
         //initialize components
@@ -61,12 +61,10 @@ public class PlayerMovement : MonoBehaviour {
 	private void Update () {
         //get player horizontal input
         hDir = Input.GetAxis("Horizontal");
-
-        //horizontal movement forces
-        if (hDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
-            rb.AddForce(new Vector2(hDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
-        else if (hDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
-            rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
+        if (!blocking)
+        {
+            MovingPlayer();
+        }
 
         //Player jump
         if (Input.GetButtonDown("Jump"))
@@ -175,19 +173,26 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    private void JumpAttack()
+    public void PlayerFacing()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 0.0f);
-        // Arial Jump
-        Vector2 arialJump = new Vector2();
-        arialJump.y = arialJumpForce;
-        rb.AddForce(arialJump, ForceMode2D.Impulse);
-        bounceJumpsUsed++;
-        //Attacking below as you jump.
-        GameObject newJumpMelee = Instantiate(meleeObject, jumpMeleeGun.position, jumpMeleeGun.rotation);
-        newJumpMelee.transform.parent = playerWeaponParent.transform;
-        newJumpMelee.GetComponent<PlayerMelee>().player = gameObject;
-        newJumpMelee.GetComponent<PlayerMelee>().myGun = jumpMeleeGun;
-        Debug.Log("Jump attack used " + bounceJumpsUsed);
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, 180, transform.eulerAngles.z);
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+            }
+        }
+    }
+
+    public void MovingPlayer()
+    {
+        if (hDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
+            rb.AddForce(new Vector2(hDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
+        else if (hDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
+            rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
     }
 }
