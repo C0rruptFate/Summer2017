@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
     //This player's UI component
     [HideInInspector]
     public GameObject playerUI;
+    public PlayerAttacks playerAttacks;
 
     private GameObject[] enemiesList;
     private Behaviour playerScript;
@@ -33,18 +34,16 @@ public class PlayerHealth : MonoBehaviour
 
     //Special
 
-
-
     // Use this for initialization
     void Start()
     {
         health = startingHealth;
         mana = startingMana;
 
-        if(gameObject.GetComponent<PlayerController>() != null)
+        if (gameObject.GetComponent<PlayerController>() != null)
         {
             playerScript = gameObject.GetComponent<PlayerController>();
-            element = gameObject.GetComponent<PlayerController>().element;
+            //element = gameObject.GetComponent<PlayerController>().element;
             blocking = gameObject.GetComponent<PlayerController>().blocking;
             blockingResistanceModifier = gameObject.GetComponent<PlayerController>().blockingResistanceModifier;
         }
@@ -79,11 +78,11 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            if (whatHitMe.GetComponent<Enemy>().element == Constants.whatCountersMe(element))
+            if (whatHitMe.GetComponent<EnemyHealth>().element == Constants.whatCountersMe(element))
             {
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<Enemy>().element == Constants.whatICounter(element))
+            else if (whatHitMe.GetComponent<EnemyHealth>().element == Constants.whatICounter(element))
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }
@@ -98,6 +97,7 @@ public class PlayerHealth : MonoBehaviour
         //[TODO] if hitStun == 0 disable below
         if (hitStun  != 0)
         {
+            //[TODO] change to new attack script
             playerScript.enabled = false;
             Invoke("HitStun", hitStun);
         }

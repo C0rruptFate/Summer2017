@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     [HideInInspector]
-    public Element myElement;
+    public Element element;
     [Tooltip("How much health does this enemy have?")]
     public float health = 100f;
     [Tooltip("Fill with empty drops and pick ups that could be dropped.")]
@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         myEnemyScript = gameObject.GetComponent<Enemy>();
-        myElement = gameObject.GetComponent<Enemy>().element;
+        element = gameObject.GetComponent<Enemy>().element;
         enemyHPUI.maxValue = health;
         whatCantHitMe = gameObject;
 
@@ -59,22 +59,22 @@ public class EnemyHealth : MonoBehaviour
 
         if (whatHitMe.CompareTag("Projectile"))
         {
-            if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatCountersMe(myElement))
+            if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatCountersMe(element))
             {
                 damage = damage * counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatICounter(myElement))
+            else if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatICounter(element))
             {
                 damage = damage * counterResistanceModifier;
             }
         }
         else
         {
-            if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatCountersMe(myElement))
+            if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatCountersMe(element))
             {
                 damage = damage * counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatICounter(myElement))
+            else if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatICounter(element))
             {
                 damage = damage * counterResistanceModifier;
             }
@@ -100,7 +100,7 @@ public class EnemyHealth : MonoBehaviour
 
                 if(drops[whatToSpawn].GetComponent<PickUpHealth>() != null)
                 {
-                    drops[whatToSpawn].GetComponent<PickUpHealth>().myElement = myElement;
+                    drops[whatToSpawn].GetComponent<PickUpHealth>().myElement = element;
                 } 
                 //trigger death animation
 

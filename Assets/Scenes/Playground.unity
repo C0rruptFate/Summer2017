@@ -533,7 +533,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.5}
+  m_Size: {x: 0.95, y: 0.5}
 --- !u!1001 &239826479
 Prefab:
   m_ObjectHideFlags: 0
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 280148813}
   - component: {fileID: 280148812}
   m_Layer: 0
-  m_Name: Ground (2)
+  m_Name: Walls
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1407,7 +1407,7 @@ GameObject:
   - component: {fileID: 680433472}
   - component: {fileID: 680433471}
   m_Layer: 0
-  m_Name: Ground (1)
+  m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2430,7 +2430,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1342735423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -17.16, z: 0}
+  m_LocalPosition: {x: 0, y: -6.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 849574699}
@@ -2468,6 +2468,8 @@ MonoBehaviour:
   arialJumpForce: 40
   bounceJumpsUsed: 0
   grounded: 0
+  enemyBelow: 0
+  playerBelow: 0
   blocking: 0
 --- !u!50 &1342735427
 Rigidbody2D:
@@ -2519,9 +2521,9 @@ MonoBehaviour:
   meleeFireRate: 0.5
   groundMeleeType: 4
   groundMeleeTwoType: 5
-  airMeleeType: 3
+  airMeleeType: 4
   airMeleeTwoType: 3
-  meleeHitBoxLife: 0.1
+  meleeHitBoxLife: 0.3
   meleeDamage: 10
   meleeHitStun: 0.5
   newGroundMelee: {fileID: 0}
@@ -2532,11 +2534,11 @@ MonoBehaviour:
     type: 2}
   projectileFireRate: 0.5
   groundProjectileType: 4
-  groundProjectileTwoType: 2
+  groundProjectileTwoType: 0
   airProjectileType: 6
   airProjectileTwoType: 4
   lobbedForce: {x: 7, y: 7, z: 0}
-  projectileSpeed: 10
+  projectileSpeed: 25
   projectileDamage: 5
   projectileHitStun: 0.25
   projectileMaxDuration: 10
@@ -2559,7 +2561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d422fb378e78e6242b29a7ffc72fbe2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: 0
+  element: 2
   startingHealth: 100
   health: 100
   maxMana: 100
@@ -3314,7 +3316,7 @@ GameObject:
   - component: {fileID: 1608218310}
   - component: {fileID: 1608218309}
   m_Layer: 0
-  m_Name: Ground (3)
+  m_Name: Walls
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3846,7 +3848,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4892016919200802, guid: f36a91712fb02fb46a81dd686585bc03, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.3
+      value: 3.12
       objectReference: {fileID: 0}
     - target: {fileID: 4892016919200802, guid: f36a91712fb02fb46a81dd686585bc03, type: 2}
       propertyPath: m_LocalPosition.y

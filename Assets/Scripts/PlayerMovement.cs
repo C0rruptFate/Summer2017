@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 
     //components
     private Rigidbody2D rb;
+    //[HideInInspector]
+    //public AttacksFire attackScript;
 
     //horizontal movement fields
     [HideInInspector]
@@ -46,11 +48,12 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]public int bounceJumpsUsed;
     private int arialJumpsUsed;
     [HideInInspector]public bool grounded = false;
-    private bool enemyBelow = false;
-    private bool playerBelow = false;
+    [HideInInspector]public bool enemyBelow = false;
+    [HideInInspector]public bool playerBelow = false;
 
 
     [HideInInspector]public bool blocking;
+    public PlayerAttacks playerAttacks;
 
     void Start () {
         //initialize components
@@ -86,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             // do full jump
             groundJumpForce.y = fullJumpForce;
-            Debug.Log("full jump " + (maxJumpTimer - currentJumpTimer));
+            //Debug.Log("full jump " + (maxJumpTimer - currentJumpTimer));
             rb.AddForce(groundJumpForce, ForceMode2D.Impulse);
             groundJumpInitiated = false;
         }
@@ -108,7 +111,7 @@ public class PlayerMovement : MonoBehaviour {
             case "Ground":
                 grounded = true;
                 arialJumpsUsed = 0;
-                Debug.Log("Enter Ground");
+                //Debug.Log("Enter Ground");
                 break;
             case "Enemy":
                 enemyBelow = true;
@@ -129,7 +132,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             case "Ground":
                 grounded = false;
-                Debug.Log("Exit Ground");
+                //Debug.Log("Exit Ground");
                 break;
             case "Enemy":
                 enemyBelow = false;
@@ -150,12 +153,28 @@ public class PlayerMovement : MonoBehaviour {
         {
             currentJumpTimer = maxJumpTimer;
             groundJumpInitiated = true;
-            Debug.Log("Ground Jump");
+            //Debug.Log("Ground Jump");
         }
         else if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
         {
-                //[TODO]Attach to the JumpAttack script from the attack script
-                //JumpAttack();
+            playerAttacks
+            //switch (GetComponent<PlayerHealth>().element)
+            //{
+            //    case Element.Fire:
+            //        GetComponent<AttacksFire>().JumpAttack();
+            //        break;
+            //    case Element.Ice:
+            //        //GetComponent<AttacksIce>().JumpAttack();
+            //        break;
+            //    case Element.Air:
+            //        //GetComponent<AttacksAir>().JumpAttack();
+            //        break;
+            //    case Element.Earth:
+            //        //GetComponent<AttacksEarth>().JumpAttack();
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
         else
         {
@@ -164,7 +183,7 @@ public class PlayerMovement : MonoBehaviour {
                 // Reset our velocity
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);
                 // Arial Jump
-                Debug.Log("Air Jump used" + rb.velocity.y);
+                //Debug.Log("Air Jump used" + rb.velocity.y);
                 Vector2 arialJump = new Vector2();
                 arialJump.y = arialJumpForce;
                 rb.AddForce(arialJump, ForceMode2D.Impulse);

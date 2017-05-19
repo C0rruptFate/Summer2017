@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttacksFire : MonoBehaviour {
+public class PlayerAttacks : MonoBehaviour
+{
+    public virtual void PlayerAttackType()
+    {
+
+    }
+}
+
+public class AttacksFire : PlayerAttacks {
 
     [Header("Melee Attack Settings")]
     #region
@@ -94,15 +102,22 @@ public class AttacksFire : MonoBehaviour {
     private float meleeNextFire = 0.0f;
     private float blockNextFire = 0.0f;
     private Transform jumpMeleeGun;
+
     //Jump Attack
     private Rigidbody2D rb;
     private float arialJumpForce;
+    //private Component playerMovement;
     #endregion
 
     // Use this for initialization
     void Start () {
-
+        //GetComponent<PlayerHealth>().attackScript = this.ToString();
+        GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksFire>();
+        GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksFire>();
         rb = GetComponent<Rigidbody2D>();
+        //playerMovement = GetComponent<PlayerMovement>();
+        //Change for each element attack type.
+        //GetComponent<PlayerMovement>().attackScript = GetComponent<AttacksFire>();
 
         //Set's up the player's weapon parent object
         playerWeaponParent = GameObject.Find("Player Attacks");
@@ -397,14 +412,18 @@ public class AttacksFire : MonoBehaviour {
             PlayerDefend();
         }
         //Remove Defend when jumping
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (gameObject.GetComponent<PlayerMovement>().blocking == true)
-            {
-                gameObject.GetComponent<PlayerMovement>().blocking = false;
-                blockNextFire = Time.time + blockFireRate;
-            } 
-        }
+        //if (Input.GetButtonDown("Jump"))
+        //{
+        //    if (gameObject.GetComponent<PlayerMovement>().blocking == true)
+        //    {
+        //        gameObject.GetComponent<PlayerMovement>().blocking = false;
+        //        blockNextFire = Time.time + blockFireRate;
+        //    }
+        //    if(gameObject.GetComponent<PlayerMovement>().enemyBelow || gameObject.GetComponent<PlayerMovement>().playerBelow)
+        //    {
+        //        JumpAttack();
+        //    } 
+        //}
     }
 
     private void MeleeAttack()
@@ -536,7 +555,7 @@ public class AttacksFire : MonoBehaviour {
         }
     }
 
-    private void JumpAttack()
+    public void JumpAttack()
     {
         //Set Jump attack force at the moment of jump
         arialJumpForce = gameObject.GetComponent<PlayerMovement>().arialJumpForce;
@@ -581,5 +600,10 @@ public class AttacksFire : MonoBehaviour {
         projectile.GetComponent<PlayerProjectile>().projectileBreakChance = projectileBreakChance;
         projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
         projectile.GetComponent<PlayerProjectile>().breaksHittingWall = breaksHittingWall;
+    }
+
+    private void ConvertStringToType(string inputString)
+    {
+        return System.Activator.CreateInstance(Types.GetType(inputString));
     }
 }
