@@ -9,8 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //components
     private Rigidbody2D rb;
-    //[HideInInspector]
-    //public AttacksFire attackScript;
+    [HideInInspector] public PlayerAttacks playerAttacks;
 
     //horizontal movement fields
     [HideInInspector]
@@ -51,10 +50,6 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]public bool enemyBelow = false;
     [HideInInspector]public bool playerBelow = false;
 
-
-    [HideInInspector]public bool blocking;
-    public PlayerAttacks playerAttacks;
-
     void Start () {
         //initialize components
         rb = GetComponent<Rigidbody2D>();
@@ -64,7 +59,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void Update () {
         //get player horizontal input
         hDir = Input.GetAxis("Horizontal");
-        if (!blocking)
+        if (!playerAttacks.blocking)
         {
             MovingPlayer();
         }
@@ -76,7 +71,13 @@ public class PlayerMovement : MonoBehaviour {
             {
                 groundJumpForce.y = shortJumpForce;
                 rb.AddForce(groundJumpForce, ForceMode2D.Impulse);
-                blocking = false;
+                //Debug.Log("player Attacks.blocking: " + playerAttacks.blocking);
+                if (playerAttacks.blocking)
+                {
+                    playerAttacks.blocking = false;
+                    playerAttacks.blockNextFire = Time.time + playerAttacks.blockFireRate;
+                }
+                //Debug.Log("player Attacks.blocking: " + playerAttacks.blocking);
                 PlayerJump();
             }
             else
@@ -111,15 +112,16 @@ public class PlayerMovement : MonoBehaviour {
             case "Ground":
                 grounded = true;
                 arialJumpsUsed = 0;
+                bounceJumpsUsed = 0;
                 //Debug.Log("Enter Ground");
                 break;
             case "Enemy":
                 enemyBelow = true;
-                Debug.Log("Enter Enemy");
+                //Debug.Log("Enter Enemy");
                 break;
             case "Player":
                 playerBelow = true;
-                Debug.Log("Enter Player");
+                //Debug.Log("Enter Player");
                 break;
             default:
                 break;
@@ -136,11 +138,11 @@ public class PlayerMovement : MonoBehaviour {
                 break;
             case "Enemy":
                 enemyBelow = false;
-                Debug.Log("Exit Enemy");
+                //Debug.Log("Exit Enemy");
                 break;
             case "Player":
                 playerBelow = false;
-                Debug.Log("Exit Player");
+                //Debug.Log("Exit Player");
                 break;
             default:
                 break;
@@ -157,7 +159,8 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
         {
-            playerAttacks
+            playerAttacks.JumpAttack();
+            //Debug.Log("Jumped off of enemy");
             //switch (GetComponent<PlayerHealth>().element)
             //{
             //    case Element.Fire:

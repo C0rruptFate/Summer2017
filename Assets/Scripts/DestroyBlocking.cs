@@ -5,10 +5,13 @@ using UnityEngine;
 public class DestroyBlocking : MonoBehaviour {
 
     [HideInInspector]public bool blocking;
+
+    public PlayerAttacks playerAttacks;
 	// Use this for initialization
 	void Start () {
-        
-	}
+        playerAttacks = GetComponentInParent<PlayerMovement>().playerAttacks;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,7 +21,7 @@ public class DestroyBlocking : MonoBehaviour {
         }
         else
         {
-            blocking = GetComponentInParent<PlayerMovement>().blocking;
+            blocking = playerAttacks.blocking;
         }
         
         if (!blocking)

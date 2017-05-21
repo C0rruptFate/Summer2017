@@ -24,7 +24,7 @@ public class PlayerMelee : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        //Debug.Log("Jump Attack exists");
         if(player.GetComponent<PlayerController>() != null)
         {
             meleeHitBoxLife = player.GetComponent<PlayerController>().meleeHitBoxLife;
@@ -47,6 +47,7 @@ public class PlayerMelee : MonoBehaviour {
 
         if (Time.time >= currentLife)
         {
+            //Debug.Log("Jump Attack dead");
             Destroy(gameObject);
         }
     }
