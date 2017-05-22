@@ -10,11 +10,11 @@ public class PickUpHealth : MonoBehaviour {
     public float mana;
 
     [Tooltip("What element am I? This should be changed by the enemy that drops it.")]
-    public Element myElement;
+    public Element pickUpElement;
     [Tooltip("How much is my my heal/mana multiplied by if my element matches the player?")]
     public float sameElementBonus = 2;
 
-    private Component playerScript;
+    private PlayerHealth playerHealth;
 
 	// Use this for initialization
 	void Start () {
@@ -31,18 +31,18 @@ public class PickUpHealth : MonoBehaviour {
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            playerScript = other.GetComponent<PlayerHealth>();
-            if (other.GetComponent<PlayerHealth>().element == myElement)
+            playerHealth = other.GetComponent<PlayerHealth>();
+            if (other.GetComponent<PlayerHealth>().element == pickUpElement)
             {
                 heal = heal * sameElementBonus;
                 mana = mana * sameElementBonus;
             }
-            playerScript.GetComponent<PlayerHealth>().Heal(heal);
-            playerScript.GetComponent<PlayerHealth>().GainMana(mana);
+            playerHealth.GetComponent<PlayerHealth>().Heal(heal);
+            playerHealth.GetComponent<PlayerHealth>().GainMana(mana);
             Destroy(gameObject);
         }
     }

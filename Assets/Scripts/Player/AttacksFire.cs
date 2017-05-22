@@ -69,11 +69,11 @@ public class AttacksFire : PlayerAttacks {
                 groundMeleeGunTwo = transform;//Targets self rather than a gun set up.
                 break;
             case AttackFromLocation.Horizontal:
-                groundMeleeGun = transform.Find("Horizontal Gun");
+                groundMeleeGunTwo = transform.Find("Horizontal Gun");
                 break;
             case AttackFromLocation.Empty:
             default:
-                groundMeleeGun = null;
+                groundMeleeGunTwo = null;
                 break;
         }
         if (groundMeleeGunTwo == null)

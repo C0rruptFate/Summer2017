@@ -28,7 +28,6 @@ public class PlayerProjectile : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
         if (player.GetComponent<PlayerController>() != null)
         {
             projectileSpeed = player.GetComponent<PlayerController>().projectileSpeed;
@@ -41,9 +40,9 @@ public class PlayerProjectile : MonoBehaviour {
         }
         myElement = player.GetComponent<PlayerHealth>().element;
 
-        if (gameObject.GetComponent<Collider>().enabled == false)
+        if (gameObject.GetComponent<Collider2D>().enabled == false)
         {
-            gameObject.GetComponent<Collider>().enabled = true;
+            gameObject.GetComponent<Collider2D>().enabled = true;
         }
 
         currentLife = Time.time + projectileMaxDuration;
@@ -64,13 +63,13 @@ public class PlayerProjectile : MonoBehaviour {
 
         if (usesConstantForceProjectile)
         {
-            transform.Translate(Vector3.right * projectileSpeed * Time.deltaTime);
+            transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
         }
 
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == ("Enemy"))
         {
@@ -85,12 +84,11 @@ public class PlayerProjectile : MonoBehaviour {
                 //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
                 //otherRB.AddForce(new Vector3(distX, distY, 0), ForceMode.Impulse);
                 health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
-                Destroy(gameObject);
-            }
-            
-        }else if (other.tag != ("Player") && breaking)
-        {
-            Destroy(gameObject);
+                if (breaking)
+                {
+                    Destroy(gameObject); 
+                }
+            }   
         }
         else if (other.tag == ("Ground") && breaksHittingWall)
         {

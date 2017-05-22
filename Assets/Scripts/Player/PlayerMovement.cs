@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             MovingPlayer();
         }
+        PlayerFacing();
 
         //Player jump
         if (Input.GetButtonDown("Jump"))
@@ -201,11 +202,11 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, 180, transform.eulerAngles.z);
+                transform.eulerAngles = new Vector2(transform.eulerAngles.x, 180);
             }
             else
             {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+                transform.eulerAngles = new Vector2(transform.eulerAngles.x, 0);
             }
         }
     }

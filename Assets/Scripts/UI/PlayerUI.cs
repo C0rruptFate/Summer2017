@@ -36,7 +36,7 @@ public class PlayerUI : MonoBehaviour
     private float maxMana;
 
     //Other
-    private PlayerController playerController;
+    private PlayerHealth playerHealth;
     private GameObject player;
     private PlayerHealth playerResources;
 
@@ -83,8 +83,8 @@ public class PlayerUI : MonoBehaviour
         SetManaUI();
 
         //Make the player's panal match their color
-        playerController = player.GetComponent<PlayerController>();
-        switch (playerController.element)
+        playerHealth = player.GetComponent<PlayerHealth>();
+        switch (playerHealth.element)
         {
             case Element.Air:
                 playerUIPanel.color = airColor;

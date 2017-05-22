@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Tooltip("Sets the element of the player, and her attacks.")]
     public Element element; //element of this player
     [Tooltip("How much Health do I start with? 'This is also max health.'")]
     public float startingHealth = 100f;
@@ -24,10 +25,12 @@ public class PlayerHealth : MonoBehaviour
     //This player's UI component
     [HideInInspector]
     public GameObject playerUI;
+    //Player Attacks Script
+    [HideInInspector]
     public PlayerAttacks playerAttacks;
 
     private GameObject[] enemiesList;
-    private Behaviour playerScript;
+    //private Behaviour playerScript;
     private GameObject gameManager;
     private bool blocking;
     private float blockingResistanceModifier;
@@ -42,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (gameObject.GetComponent<PlayerController>() != null)
         {
-            playerScript = gameObject.GetComponent<PlayerController>();
+            //playerScript = gameObject.GetComponent<PlayerController>();
             //element = gameObject.GetComponent<PlayerController>().element;
             blocking = gameObject.GetComponent<PlayerController>().blocking;
             blockingResistanceModifier = gameObject.GetComponent<PlayerController>().blockingResistanceModifier;
@@ -59,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void HitStun()
     {
-        playerScript.enabled = true;
+        playerAttacks.enabled = true;
     }
 
     public void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
@@ -98,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
         if (hitStun  != 0)
         {
             //[TODO] change to new attack script
-            playerScript.enabled = false;
+            playerAttacks.enabled = false;
             Invoke("HitStun", hitStun);
         }
         playerUI.GetComponent<PlayerUI>().SetHealthUI();

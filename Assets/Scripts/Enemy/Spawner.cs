@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour {
 
     bool isTimeToSpawn(GameObject enemyGameObject)
     {
-        Enemy enemy = enemyGameObject.GetComponent<Enemy>();
+        EnemyHealth enemy = enemyGameObject.GetComponent<EnemyHealth>();
 
         float meanSpawnDelay = enemy.seenEverySeconds;
         float spawnsPerSecond = 1 / meanSpawnDelay;

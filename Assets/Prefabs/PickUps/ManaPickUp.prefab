@@ -9,49 +9,49 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1058402032370298}
+  m_RootGameObject: {fileID: 1677576405076214}
   m_IsPrefabParent: 1
---- !u!1 &1058402032370298
+--- !u!1 &1677576405076214
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4147671888093552}
-  - component: {fileID: 212060985596379562}
-  - component: {fileID: 61466173199970854}
-  - component: {fileID: 114976221975115212}
+  - component: {fileID: 4108992440807196}
+  - component: {fileID: 114536097946182750}
+  - component: {fileID: 212987665229022728}
+  - component: {fileID: 61553333136844496}
   m_Layer: 0
-  m_Name: Melee Attack
+  m_Name: ManaPickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4147671888093552
+--- !u!4 &4108992440807196
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1058402032370298}
+  m_GameObject: {fileID: 1677576405076214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 0.9, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.4, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61466173199970854
+--- !u!61 &61553333136844496
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1058402032370298}
+  m_GameObject: {fileID: 1677576405076214}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -67,30 +67,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114976221975115212
+--- !u!114 &114536097946182750
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1058402032370298}
+  m_GameObject: {fileID: 1677576405076214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00e2a5a531b81034e9bbc3f9e9f252e4, type: 3}
+  m_Script: {fileID: 11500000, guid: d84dfaa114b1429498b2ff1cbafb7a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myGun: {fileID: 0}
-  myPlayer: {fileID: 0}
-  meleeHitBoxLife: 0
-  meleeDamage: 0
-  stunLockOut: 0
-  player: {fileID: 0}
-  myElement: 1
---- !u!212 &212060985596379562
+  heal: 10
+  mana: 0
+  pickUpElement: 0
+  sameElementBonus: 3
+--- !u!212 &212987665229022728
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1058402032370298}
+  m_GameObject: {fileID: 1677576405076214}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -116,9 +113,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 90f85a7356d3f804884851c22d362f5a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7058823, b: 0.9558824, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

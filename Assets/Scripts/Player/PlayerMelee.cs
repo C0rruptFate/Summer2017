@@ -40,9 +40,9 @@ public class PlayerMelee : MonoBehaviour {
 
         transform.position = myGun.transform.position;
 
-        if (gameObject.GetComponent<Collider>().enabled == false)
+        if (gameObject.GetComponent<Collider2D>().enabled == false)
         {
-            gameObject.GetComponent<Collider>().enabled = true;
+            gameObject.GetComponent<Collider2D>().enabled = true;
         }
 
         if (Time.time >= currentLife)
@@ -52,7 +52,7 @@ public class PlayerMelee : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.transform.tag == ("Enemy"))
         {
