@@ -16,11 +16,14 @@ public class PlayerMelee : MonoBehaviour {
     public float meleeDamage;
     [HideInInspector]
     public float stunLockOut;
+    [HideInInspector]
+    public float knockBack;
 
     private float currentLife;
 
     [HideInInspector]public GameObject player;
-    [HideInInspector]public Element myElement;
+    [HideInInspector]
+    public Element myElement;
 
     // Use this for initialization
     void Start () {
@@ -32,6 +35,7 @@ public class PlayerMelee : MonoBehaviour {
             stunLockOut = player.GetComponent<PlayerController>().meleeHitStun;
         }
         myElement = player.GetComponent<PlayerHealth>().element;
+        GetComponent<PointEffector2D>().forceMagnitude = knockBack;
         currentLife = Time.time + meleeHitBoxLife;
     }
 	
@@ -62,7 +66,8 @@ public class PlayerMelee : MonoBehaviour {
             if (enemy && health)
             {
                 health.TakeDamage(gameObject, meleeDamage, stunLockOut);
-                Destroy(gameObject);
+                //Uncomment if you only want it to hit a single guy, we can add a bool for hitting multipule guys if we want.
+                //Destroy(gameObject);
             }
 
         }

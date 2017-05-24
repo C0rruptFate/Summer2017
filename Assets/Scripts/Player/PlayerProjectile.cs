@@ -19,12 +19,17 @@ public class PlayerProjectile : MonoBehaviour {
     public bool usesConstantForceProjectile = true;
     [HideInInspector]
     public bool breaksHittingWall = true;
+    [HideInInspector]
+    public Vector3 lobbedForce;
 
     private float currentLife;
     private bool breaking = false;
 
     [HideInInspector]public GameObject player;
-    [HideInInspector]public Element myElement;
+    [HideInInspector]
+    public Element myElement;
+
+    private Rigidbody2D rb;
 
     // Use this for initialization
     void Start () {
@@ -43,6 +48,13 @@ public class PlayerProjectile : MonoBehaviour {
         if (gameObject.GetComponent<Collider2D>().enabled == false)
         {
             gameObject.GetComponent<Collider2D>().enabled = true;
+        }
+
+        if(!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
+        {
+            gameObject.AddComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody2D>();
+            rb.AddForce(lobbedForce,ForceMode2D.Impulse);
         }
 
         currentLife = Time.time + projectileMaxDuration;

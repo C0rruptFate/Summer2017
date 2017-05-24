@@ -11,7 +11,10 @@ public class PlayerUI : MonoBehaviour
     public Color iceColor;
     public Color earthColor;
     public Color airColor;
-    public string playerNumber;
+
+    //Finding the Player
+    [HideInInspector]public GameObject[] players;
+    public int playerNumber;
 
     //Dealing with Health
     public Image hpFillImage;
@@ -32,7 +35,7 @@ public class PlayerUI : MonoBehaviour
     private Transform manaUI;
     private Slider manaSlider;
     private float currentMana;
-    //private float startingMana;
+    private float startingMana;
     private float maxMana;
 
     //Other
@@ -56,7 +59,16 @@ public class PlayerUI : MonoBehaviour
         }
 
         //Find our player
-        player = GameObject.Find(playerNumber);
+        players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var possiblePlayer in players)
+        {
+            if(possiblePlayer.GetComponent<PlayerHealth>().playerNumber == playerNumber)
+            {
+                player = possiblePlayer;
+            }
+        }
+            //////////
+            //player = GameObject.Find(playerNumber);
         if (player == null)
         {
             Destroy(gameObject);
@@ -73,7 +85,7 @@ public class PlayerUI : MonoBehaviour
         
 
         //Find player Special
-        //startingMana = playerResources.startingMana;
+        startingMana = playerResources.startingMana;
         maxMana = playerResources.maxMana;
         manaSlider.maxValue = maxMana;
 
@@ -131,8 +143,10 @@ public class PlayerUI : MonoBehaviour
     {
         currentMana = playerResources.mana;
         manaSlider.value = currentMana;
+        //Debug.Log("Current mana: " + currentMana);
         if (currentMana == 0)
         {
+            //[TODO]bug is here! current mana is = to 0 when it should be 100.
             manaFillImage.enabled = false;
         }
         else

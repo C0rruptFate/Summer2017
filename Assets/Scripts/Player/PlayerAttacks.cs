@@ -27,10 +27,18 @@ public class PlayerAttacks : MonoBehaviour {
     public float meleeDamage = 10f;
     [Tooltip("How long it will stop the enemy from moving or attacking.")]
     public float meleeHitStun = 0.5f;
+    [Tooltip("How long it will stop the enemy from moving or attacking.")]
+    public float meleeKnockBack = 500f;
     [HideInInspector]
     public GameObject newGroundMelee;
     [HideInInspector]
     public GameObject newAirMelee;
+
+    //Jump Attack
+    [HideInInspector]
+    public Rigidbody2D rb;
+    [HideInInspector]
+    public float arialJumpForce;
     #endregion
 
     [Header("Ranged Attack Settings")]
@@ -50,7 +58,7 @@ public class PlayerAttacks : MonoBehaviour {
     [Tooltip("Do I have a second AIR projectile location. Where does my second air projectile come from?")]
     public AttackFromLocation airProjectileTwoType;
     [Tooltip("What force is applied if I use a lobbed projectile. 'This is only applied if a lobbed projectile is used'.")]
-    public Vector3 lobbedForce = new Vector3(7, 7, 0);
+    public Vector2 lobbedForce = new Vector2(7, 7);
 
     [Header("Projectile Settings")]
     [Tooltip("How fast the projectiles you shoot move?")]
@@ -71,10 +79,10 @@ public class PlayerAttacks : MonoBehaviour {
 
     [Header("Block Settings")]
     #region
-    [HideInInspector]
-    public bool blocking = false;
     public float blockFireRate = 0.5f;
     public float blockingResistanceModifier = 15f;
+    [HideInInspector]
+    public bool blocking = false;
     [Tooltip("Attach a gameObject that will be spawned when you are blocking.")]
     public GameObject blockEffect; //attach a game object that will be spawned when you ar blocking.
     #endregion
@@ -111,13 +119,15 @@ public class PlayerAttacks : MonoBehaviour {
     public float blockNextFire = 0.0f;
     [HideInInspector]
     public Transform jumpMeleeGun;
+    //Scripts and player setup
+    [HideInInspector]
+    public int playerNumber = 1;
+    [HideInInspector]
+    public PlayerHealth playerHealth;
+    [HideInInspector]
+    public PlayerMovement playerMovement;
 
-    //Jump Attack
-    [HideInInspector]
-    public Rigidbody2D rb;
-    [HideInInspector]
-    public float arialJumpForce;
-    //private Component playerMovement;
+
     #endregion
 
     // Use this for initialization

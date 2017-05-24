@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [Tooltip("Sets the element of the player, and her attacks.")]
+    [Tooltip("Sets the element, player number, and her attacks.")]
+    public int playerNumber = 1;
     public Element element; //element of this player
     [Tooltip("How much Health do I start with? 'This is also max health.'")]
     public float startingHealth = 100f;
@@ -25,9 +26,11 @@ public class PlayerHealth : MonoBehaviour
     //This player's UI component
     [HideInInspector]
     public GameObject playerUI;
-    //Player Attacks Script
+    //Player Script
     [HideInInspector]
     public PlayerAttacks playerAttacks;
+    [HideInInspector]
+    public PlayerMovement playerMovement;
 
     private GameObject[] enemiesList;
     //private Behaviour playerScript;
@@ -40,9 +43,15 @@ public class PlayerHealth : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //Setting up the player
+        GetComponent<PlayerMovement>().playerHealth = GetComponent<PlayerHealth>();
+        GetComponent<PlayerAttacks>().playerHealth = GetComponent<PlayerHealth>();
+        //playerAttacks.playerNumber = playerNumber;
+        //playerMovement.playerNumber = playerNumber;
+
         health = startingHealth;
         mana = startingMana;
-
+        //Debug.Log("Mana: " + mana);
         if (gameObject.GetComponent<PlayerController>() != null)
         {
             //playerScript = gameObject.GetComponent<PlayerController>();
@@ -144,6 +153,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void SpendMana(float manaCost)
     {
+        //[TODO] Set up mana cost requirment that you have enough mana.
         mana -= manaCost;
         playerUI.GetComponent<PlayerUI>().SetManaUI();
     }

@@ -142,6 +142,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33173096982320174
 MeshFilter:
@@ -188,7 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f3dd4c53e31774c8896eefbc6cb88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seenEverySeconds: 3
   element: 0
   enemyTargetType: 2
   relentless: 0
@@ -199,7 +199,12 @@ MonoBehaviour:
   hitStun: 0.1
   knockback: 10
   swingTimer: 0.5
+  rb: {fileID: 0}
+  targets: []
   target: {fileID: 0}
+  newNextTarget: 0
+  direction: {x: 0, y: 0}
+  newSwingTimer: 0
 --- !u!114 &114189284351089652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,7 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffb68dd5265d09409943f6c4e879881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myElement: 0
+  seenEverySeconds: 0
+  element: 0
   health: 10
   enemyHPUI: {fileID: 114791463667420748}
   enemyHPUIObject: {fileID: 1930962270973784}
@@ -228,6 +234,10 @@ MonoBehaviour:
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
+  enemiesList: []
+  myEnemyScript: {fileID: 0}
+  canvas: {fileID: 0}
+  whatCantHitMe: {fileID: 0}
 --- !u!114 &114349687878963528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -353,7 +363,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1910411681382450}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -362,6 +372,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

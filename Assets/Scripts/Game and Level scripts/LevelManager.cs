@@ -8,10 +8,10 @@ public class LevelManager : MonoBehaviour
     [Tooltip("How long does it take to load the next level, leave at 0 to avoid loading the next level.")]
     public float autoLoadNextLevelAfter;
 
-    //void Awake()
-    //{
-    //    DontDestroyOnLoad(transform.gameObject);
-    //}
+    void Awake()
+    {
+            DontDestroyOnLoad(transform.gameObject);
+    }
 
     void Start()
     {

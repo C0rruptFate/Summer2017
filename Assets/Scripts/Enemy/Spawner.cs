@@ -48,7 +48,7 @@ public class Spawner : MonoBehaviour {
         myEnemy.transform.position = transform.position;
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerStay2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
         {
@@ -59,7 +59,7 @@ public class Spawner : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {

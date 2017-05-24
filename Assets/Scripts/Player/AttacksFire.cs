@@ -9,6 +9,7 @@ public class AttacksFire : PlayerAttacks {
         // [TODO] CHANGE THESE GETCOMPONENTS FOR EACH ELEMENTAL ATTACK SCRIPT.
         GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksFire>();
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksFire>();
+        playerNumber = playerHealth.playerNumber;
         rb = GetComponent<Rigidbody2D>();
 
         //Set's up the player's weapon parent object
@@ -138,7 +139,7 @@ public class AttacksFire : PlayerAttacks {
         }
         if (airMeleeGunTwo == null)
         {
-            Debug.LogError("Can't find the SECONDARY AIR MELEE gun for player " + gameObject);
+            Debug.Log("Can't find the SECONDARY AIR MELEE gun for player " + gameObject);
         }
         //Jump attack Setup
         jumpMeleeGun = transform.Find("Below Gun");
@@ -268,18 +269,18 @@ public class AttacksFire : PlayerAttacks {
     // Update is called once per frame
     void Update () {
         //Melee Attack
-        if (Input.GetButtonDown("Fire1") && Time.time > meleeNextFire)
+        if (Input.GetButtonDown("Melee"+ playerNumber) && Time.time > meleeNextFire)
         {
             MeleeAttack();
         }
         //Ranged Attack
-        if (Input.GetButtonDown("Fire2") && Time.time > projectileNextFire)
+        if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)
         {
             RangedAttack();
         }
 
         //Defend
-        if (Input.GetButton("Fire3") && Time.time >= blockNextFire)
+        if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)
         {
             if(!blocking)
             {
@@ -448,6 +449,7 @@ public class AttacksFire : PlayerAttacks {
         melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
         melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
         melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
+        melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
     }
 
     private void SetBasicRangedAttackStats(GameObject projectile)
@@ -458,6 +460,7 @@ public class AttacksFire : PlayerAttacks {
         projectile.GetComponent<PlayerProjectile>().projectileMaxDuration = projectileMaxDuration;
         projectile.GetComponent<PlayerProjectile>().projectileBreakChance = projectileBreakChance;
         projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
+        projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
         projectile.GetComponent<PlayerProjectile>().breaksHittingWall = breaksHittingWall;
     }
 }

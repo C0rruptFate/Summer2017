@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
+    //Player
+    [HideInInspector]
+    public int playerNumber = 1;
 
-    [Tooltip("Force applied to the short jump.")]
-    public int shortJumpForce = 5; //Force applied to the short jump.
+    //Movement
+    [HideInInspector]
+    public string horizontalMovement;
 
     //components
     private Rigidbody2D rb;
     [HideInInspector] public PlayerAttacks playerAttacks;
+    [HideInInspector] public PlayerHealth playerHealth;
 
     //horizontal movement fields
     [HideInInspector]
-    public float hDir;
+    public float horizontalDir;
     [SerializeField]
     private float runForce;
     [SerializeField]
@@ -23,9 +28,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     private float minSpeed;
 
-    private Vector3 groundJumpForce;
-
     //Jumping
+    [Tooltip("Force applied to the short jump.")]
+    public int shortJumpForce = 5; //Force applied to the short jump.
     [Tooltip("Used to set how long a jump needs to be held down.")]
     public int maxJumpTimer = 10;
     [Tooltip("Used to check for a short jump or full jump, if the button is held down for more frames than this it will do a full jump.")]
@@ -40,6 +45,7 @@ public class PlayerMovement : MonoBehaviour {
     //double jump
     [Tooltip("Force applied to the air jump.")]
     public float arialJumpForce = 10f; //Force applied to the air jump.
+    private Vector3 groundJumpForce;
 
 
     private bool groundJumpInitiated = false;
@@ -51,22 +57,38 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]public bool playerBelow = false;
 
     void Start () {
+        GetComponent<PlayerHealth>().playerMovement = GetComponent<PlayerMovement>();
+        GetComponent<PlayerAttacks>().playerMovement = GetComponent<PlayerMovement>();
+        playerNumber = playerHealth.playerNumber;
+
+        //Setup what player I control
+        horizontalMovement = "Horizontal" + playerNumber;
+
         //initialize components
         rb = GetComponent<Rigidbody2D>();
     }
 	
 	// Update is called once per frame
 	private void Update () {
+
+        PlayerFacing();
+
         //get player horizontal input
-        hDir = Input.GetAxis("Horizontal");
+        horizontalDir = Input.GetAxis(horizontalMovement);
         if (!playerAttacks.blocking)
         {
             MovingPlayer();
         }
-        PlayerFacing();
 
         //Player jump
-        if (Input.GetButtonDown("Jump"))
+
+        //DISABLE this if we want to player to need to push jump to bounce off of enemies/players.
+        if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
+        {
+            playerAttacks.JumpAttack();
+        }//
+
+        if (Input.GetButtonDown("Jump"+ playerNumber))
         {
             if (grounded)
             {
@@ -87,7 +109,7 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        if (Input.GetButton("Jump") && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
+        if (Input.GetButton("Jump" + playerNumber) && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
         {
             // do full jump
             groundJumpForce.y = fullJumpForce;
@@ -158,28 +180,11 @@ public class PlayerMovement : MonoBehaviour {
             groundJumpInitiated = true;
             //Debug.Log("Ground Jump");
         }
-        else if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
-        {
-            playerAttacks.JumpAttack();
-            //Debug.Log("Jumped off of enemy");
-            //switch (GetComponent<PlayerHealth>().element)
-            //{
-            //    case Element.Fire:
-            //        GetComponent<AttacksFire>().JumpAttack();
-            //        break;
-            //    case Element.Ice:
-            //        //GetComponent<AttacksIce>().JumpAttack();
-            //        break;
-            //    case Element.Air:
-            //        //GetComponent<AttacksAir>().JumpAttack();
-            //        break;
-            //    case Element.Earth:
-            //        //GetComponent<AttacksEarth>().JumpAttack();
-            //        break;
-            //    default:
-            //        break;
-            //}
-        }
+        //ENABLE this if we want to player to need to push jump to bounce off of enemies/players.
+        //else if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
+        //{
+        //    playerAttacks.JumpAttack();
+        //}
         else
         {
             if (arialJumpsUsed < arialJumpsAllowed)
@@ -198,9 +203,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public void PlayerFacing()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0)
+        if (Input.GetAxisRaw(horizontalMovement) != 0)
         {
-            if (Input.GetAxisRaw("Horizontal") < 0)
+            if (Input.GetAxisRaw(horizontalMovement) < 0)
             {
                 transform.eulerAngles = new Vector2(transform.eulerAngles.x, 180);
             }
@@ -213,9 +218,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public void MovingPlayer()
     {
-        if (hDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
-            rb.AddForce(new Vector2(hDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
-        else if (hDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
+        if (horizontalDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
+            rb.AddForce(new Vector2(horizontalDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
+        else if (horizontalDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
             rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
     }
 }

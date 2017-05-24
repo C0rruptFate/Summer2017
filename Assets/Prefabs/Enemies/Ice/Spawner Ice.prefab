@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4272633180120278}
   - component: {fileID: 33813759566845874}
-  - component: {fileID: 136305494727195168}
+  - component: {fileID: 58458807128703946}
   - component: {fileID: 23406306563104264}
   - component: {fileID: 114760568580585236}
   m_Layer: 0
@@ -73,6 +73,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33813759566845874
 MeshFilter:
@@ -81,6 +82,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1556868001665110}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!58 &58458807128703946
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1556868001665110}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.000000059604645, y: 0}
+  serializedVersion: 2
+  m_Radius: 15
 --- !u!114 &114760568580585236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,18 +109,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabArray:
-  - {fileID: 1618070710260474, guid: b2e3e010d1d81ca44bac1a190775f5d4, type: 2}
-  numOfSpawners: 2
---- !u!136 &136305494727195168
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1556868001665110}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 25
-  m_Height: 25
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  - {fileID: 1310213564182836, guid: 788827180e9216d49849568943319a0f, type: 2}
+  numOfSpawners: 1

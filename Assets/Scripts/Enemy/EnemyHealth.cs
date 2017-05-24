@@ -102,15 +102,15 @@ public class EnemyHealth : MonoBehaviour
             {
                 //Spawns a random drop from drops
                 int whatToSpawn = Random.Range(0, drops.Length);
-                Instantiate(drops[whatToSpawn], transform.position, Quaternion.identity);
+                GameObject pickUp = Instantiate(drops[whatToSpawn], transform.position, Quaternion.identity);
                 if (drops == null)
                 {
-                    Debug.LogError("Set up drops");
+                    Debug.LogError("Set up pickups");
                 }
 
                 if (drops[whatToSpawn].GetComponent<PickUpHealth>() != null)
                 {
-                    drops[whatToSpawn].GetComponent<PickUpHealth>().pickUpElement = element;
+                    pickUp.GetComponent<PickUpHealth>().pickUpElement = element;
                 } 
                 //trigger death animation
 
