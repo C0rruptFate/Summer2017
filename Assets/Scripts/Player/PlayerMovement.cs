@@ -6,10 +6,10 @@ public class PlayerMovement : MonoBehaviour {
     //Player
     [HideInInspector]
     public int playerNumber = 1;
-
-    //Movement
     [HideInInspector]
     public string horizontalMovement;
+    [HideInInspector]
+    public string jumpMovement;
 
     //components
     private Rigidbody2D rb;
@@ -63,6 +63,9 @@ public class PlayerMovement : MonoBehaviour {
 
         //Setup what player I control
         horizontalMovement = "Horizontal" + playerNumber;
+        jumpMovement = "Jump" + playerNumber;
+        //Debug.Log("horizontalMovement" + gameObject + horizontalMovement);
+        //Debug.Log("jumpMovement" + gameObject + jumpMovement);
 
         //initialize components
         rb = GetComponent<Rigidbody2D>();
@@ -88,7 +91,7 @@ public class PlayerMovement : MonoBehaviour {
             playerAttacks.JumpAttack();
         }//
 
-        if (Input.GetButtonDown("Jump"+ playerNumber))
+        if (Input.GetButtonDown(jumpMovement))
         {
             if (grounded)
             {
@@ -109,7 +112,7 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        if (Input.GetButton("Jump" + playerNumber) && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
+        if (Input.GetButton(jumpMovement) && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
         {
             // do full jump
             groundJumpForce.y = fullJumpForce;
