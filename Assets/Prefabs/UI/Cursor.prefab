@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 61752516782467616}
   m_Layer: 5
   m_Name: Cursor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
-  speed: 5000
+  speed: 100
   activePlayer: 0
   playerSelect: 
   playerCancel: 
@@ -145,6 +145,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -487, y: -245}
+  m_AnchoredPosition: {x: -150, y: -400}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}

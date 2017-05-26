@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Element { Fire, Ice, Earth, Air, None };
+public enum Element { None, Fire, Ice, Earth, Wind, };
 public enum AttackFromLocation { Empty, Self, Overhead, DownAngled, Horizontal, Behind, Below }; //Set up Self and Infront and behind
 public enum EnemyTargetType { Element, Proximity, Random, Roam };
 
-public class Constants : MonoBehaviour {
+public class Constants : MonoBehaviour
+{
 
     [Tooltip("How far below the player do we check to count them as 'Grounded'")]
     public static float whatsBelowMeChecker = -0.7f; //make this private after feel check maybe this should be .6
+    public static int playerCount;
+
+    public static Element player1Element = Element.None;
+    public static Element player2Element = Element.None;
+    public static Element player3Element = Element.None;
+    public static Element player4Element = Element.None;
 
     public static Element whatICounter(Element myElement)
     {
@@ -18,8 +25,8 @@ public class Constants : MonoBehaviour {
             case Element.Fire:
                 return Element.Earth;
             case Element.Earth:
-                return Element.Air;
-            case Element.Air:
+                return Element.Wind;
+            case Element.Wind:
                 return Element.Ice;
             case Element.Ice:
                 return Element.Fire;
@@ -36,10 +43,10 @@ public class Constants : MonoBehaviour {
                 return Element.Ice;
             case Element.Earth:
                 return Element.Fire;
-            case Element.Air:
+            case Element.Wind:
                 return Element.Earth;
             case Element.Ice:
-                return Element.Air;
+                return Element.Wind;
             default:
                 return Element.None;
         }
@@ -108,18 +115,4 @@ public class Constants : MonoBehaviour {
             }
     }
 
-    //Use this OnDrawGizmos to draw our check lines.
-    //public static void OnDrawGizmos()
-    //{
-    //    //used to check below player
-    //    Vector3 belowCheckUI = new Vector3(0.0f, Constants.whatsBelowMeChecker, 0.0f);
-    //    Gizmos.DrawRay(transform.position, belowCheckUI);
-    //    //Used for a sphere below us
-    //    //Gizmos.DrawSphere(new Vector3(transform.position.x,transform.position.y -0.2f, transform.position.z), 0.5f);
-    //    //Use to cast a thick ray
-    //    //Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), new Vector3(0.5f,0.5f,0f));
-
-    //    Vector3 projectileCheckUI = new Vector3(0.5f, -0.5f, 0.0f);
-    //    Gizmos.DrawRay(transform.position, projectileCheckUI);
-    //}
 }

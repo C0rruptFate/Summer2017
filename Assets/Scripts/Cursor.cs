@@ -26,14 +26,18 @@ public class Cursor : MonoBehaviour {
     private float horizontalDir;
     private float verticalDir;
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool characterSelected = false;
-    //[HideInInspector]
-    public GameObject characterSelectedPrefab = null;
-    private GameObject possibleCharacter;
+
+    public Element element = Element.None;
+    public Element possibleElement = Element.None;
 
     private Rigidbody2D rb;
     private GameObject characterSelectionManager;
+
+    private float player_width;
+    private float player_height;
+
 
     // Use this for initialization
     void Start () {
@@ -42,10 +46,14 @@ public class Cursor : MonoBehaviour {
         playerSelect = "Jump" + playerNumber;
         playerCancel = "Ranged" + playerNumber;
         gameObject.name = "Player " + playerNumber + " Cursor";
-
+        
         rb = GetComponent<Rigidbody2D>();
         GetComponent<Image>().enabled = false;
         characterSelectionManager = GameObject.Find("Character Selection Manager");
+
+        //initialize size attributes
+        player_width = GetComponent<RectTransform>().localScale.x;
+        player_height = GetComponent<RectTransform>().localScale.y;
     }
 	
 	// Update is called once per frame
@@ -58,7 +66,7 @@ public class Cursor : MonoBehaviour {
         if (Input.GetButtonDown(playerSelect) && !activePlayer)
         {
             activePlayer = true;
-            characterSelectionManager.GetComponent<CharacterSelectionManager>().playerCount++;
+            Constants.playerCount++;
             mouseMovementAllowed = true;
             //Debug.Log(activePlayer);
             GetComponent<Image>().enabled = true;
@@ -70,7 +78,7 @@ public class Cursor : MonoBehaviour {
         }
 
         //Selects the character
-        if (Input.GetButtonDown(playerSelect) && possibleCharacter != null)
+        if (Input.GetButtonDown(playerSelect) && possibleElement != Element.None)
         {
             if(characterSelected == false)
             {
@@ -78,7 +86,8 @@ public class Cursor : MonoBehaviour {
             }
             characterSelected = true;
             mouseMovementAllowed = false;
-            characterSelectedPrefab = possibleCharacter.GetComponent<CharacterSelector>().characterSelectedPrefab;
+            element = possibleElement;
+            //characterSelectedPrefab = possibleCharacter.GetComponent<CharacterSelector>().characterSelectedPrefab;
             rb.velocity = new Vector2(0, 0);
         }
         //Deselects the character
@@ -86,7 +95,7 @@ public class Cursor : MonoBehaviour {
         {
             characterSelected = false;
             mouseMovementAllowed = true;
-            characterSelectedPrefab = null;
+            //characterSelectedPrefab = null;
             characterSelectionManager.GetComponent<CharacterSelectionManager>().playersReady--;
         }
 
@@ -97,17 +106,39 @@ public class Cursor : MonoBehaviour {
         Vector2 movement = new Vector2(horizontalDir, verticalDir);
 
         rb.AddForce(movement * speed);
+
+        ScreenCollisions();
+        //rb.position = new Vector2(Mathf.Clamp(rb.position.x, 0, maxWidth), Mathf.Clamp(rb.position.y, 0, maxHeight));
+    }
+
+    private void ScreenCollisions()
+    {
+        //prevent object from leaving screen boundaries
+        Vector3 screen_bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+        if (transform.position.x > (screen_bounds.x - (player_width / 2)))
+
+            transform.position = new Vector3(screen_bounds.x - (player_width / 2), transform.position.y, 0);
+
+        else if (transform.position.x < (-screen_bounds.x + (player_width / 2)))
+            transform.position = new Vector3(-screen_bounds.x + (player_width / 2), transform.position.y, 0);
+        else if (transform.position.y < (-screen_bounds.y + (player_height / 2)))
+            transform.position = new Vector3(transform.position.x, -screen_bounds.y + (player_height / 2), 0);
+        else if (transform.position.y > (screen_bounds.y - (player_height / 2)))
+
+            transform.position = new Vector3(transform.position.x, screen_bounds.y - (player_height / 2), 0);
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log(other.gameObject);
-        possibleCharacter = other.gameObject;
+        possibleElement = other.GetComponent<CharacterSelector>().element;
+        //possibleCharacter = other.gameObject;
     }
 
     public void OnTriggerExit2D(Collider2D other)
     {
         //Debug.Log(other.gameObject);
-        possibleCharacter = null;
+        possibleElement = Element.None;
+        //possibleCharacter = null;
     }
 }

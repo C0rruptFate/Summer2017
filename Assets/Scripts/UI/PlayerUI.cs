@@ -98,7 +98,7 @@ public class PlayerUI : MonoBehaviour
         playerHealth = player.GetComponent<PlayerHealth>();
         switch (playerHealth.element)
         {
-            case Element.Air:
+            case Element.Wind:
                 playerUIPanel.color = airColor;
                 break;
             case Element.Earth:

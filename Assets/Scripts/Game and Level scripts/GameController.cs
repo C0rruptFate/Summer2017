@@ -17,9 +17,11 @@ public class GameController : MonoBehaviour {
     private GameObject levelManager;
 
     // Use this for initialization
-    void Start () {
-        players = GameObject.FindGameObjectsWithTag("Player");
+    void Awake () {
+
         levelManager = GameObject.Find("Level Manager");
+        levelManager.GetComponent<LevelManager>().SpawnPlayers();
+        players = GameObject.FindGameObjectsWithTag("Player");
 
         pauseText.enabled = false;
         if (pauseText == null)

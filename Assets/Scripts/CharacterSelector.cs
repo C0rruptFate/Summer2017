@@ -6,6 +6,8 @@ public class CharacterSelector : MonoBehaviour {
 
     public GameObject characterSelectedPrefab;
 
+    public Element element;
+
     // Use this for initialization
     void Start () {
 		
