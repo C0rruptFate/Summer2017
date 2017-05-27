@@ -367,9 +367,9 @@ MonoBehaviour:
     type: 2}
   meleeFireRate: 0.5
   groundMeleeType: 4
-  groundMeleeTwoType: 5
+  groundMeleeTwoType: 0
   airMeleeType: 4
-  airMeleeTwoType: 3
+  airMeleeTwoType: 2
   meleeHitBoxLife: 0.3
   meleeDamage: 10
   meleeHitStun: 0.5
@@ -385,8 +385,8 @@ MonoBehaviour:
   projectileFireRate: 0.5
   groundProjectileType: 4
   groundProjectileTwoType: 0
-  airProjectileType: 6
-  airProjectileTwoType: 4
+  airProjectileType: 3
+  airProjectileTwoType: 0
   lobbedForce: {x: 15, y: 15}
   projectileSpeed: 25
   projectileDamage: 5

@@ -345,9 +345,9 @@ MonoBehaviour:
   maxJumpTimer: 10
   fullJumpLimit: 5
   fullJumpForce: 20
-  bounceJumpsAllowed: 2
+  bounceJumpsAllowed: 3
   arialJumpsAllowed: 1
-  arialJumpForce: 40
+  arialJumpForce: 50
   bounceJumpsUsed: 0
   grounded: 0
   enemyBelow: 0
@@ -390,9 +390,9 @@ MonoBehaviour:
     type: 2}
   meleeFireRate: 0.5
   groundMeleeType: 4
-  groundMeleeTwoType: 5
+  groundMeleeTwoType: 2
   airMeleeType: 4
-  airMeleeTwoType: 3
+  airMeleeTwoType: 6
   meleeHitBoxLife: 0.3
   meleeDamage: 10
   meleeHitStun: 0.5
@@ -408,8 +408,8 @@ MonoBehaviour:
   projectileFireRate: 0.5
   groundProjectileType: 4
   groundProjectileTwoType: 0
-  airProjectileType: 6
-  airProjectileTwoType: 4
+  airProjectileType: 4
+  airProjectileTwoType: 0
   lobbedForce: {x: 15, y: 15}
   projectileSpeed: 25
   projectileDamage: 5

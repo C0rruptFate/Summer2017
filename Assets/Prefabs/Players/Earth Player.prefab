@@ -351,20 +351,20 @@ MonoBehaviour:
   airProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
     type: 2}
   projectileFireRate: 0.5
-  groundProjectileType: 4
+  groundProjectileType: 2
   groundProjectileTwoType: 0
-  airProjectileType: 6
-  airProjectileTwoType: 4
+  airProjectileType: 4
+  airProjectileTwoType: 0
   lobbedForce: {x: 15, y: 15}
   projectileSpeed: 25
   projectileDamage: 5
   projectileHitStun: 0.25
-  projectileMaxDuration: 2
-  projectileBreakChance: 100
-  usesConstantForceProjectile: 1
+  projectileMaxDuration: 5
+  projectileBreakChance: 0
+  usesConstantForceProjectile: 0
   breaksHittingWall: 1
   blockFireRate: 2
-  blockingResistanceModifier: 15
+  blockingResistanceModifier: 30
   blocking: 0
   blockEffect: {fileID: 1391775472913824, guid: 996b877da488dcb48afcb64b0105c24a,
     type: 2}
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   element: 3
-  startingHealth: 100
+  startingHealth: 175
   health: 100
   maxMana: 100
   startingMana: 100
@@ -426,7 +426,7 @@ MonoBehaviour:
   playerAttacks: {fileID: 0}
   playerHealth: {fileID: 0}
   horizontalDir: 0
-  runForce: 5000
+  runForce: 4300
   maxSpeed: 15
   decelerationForce: 1500
   minSpeed: 0
