@@ -13,8 +13,6 @@ public class LevelManager : MonoBehaviour
     private Transform spawnPoint3;
     private Transform spawnPoint4;
 
-    public string testString;
-
     public GameObject fireCharacter;
     public GameObject waterCharacter;
     public GameObject windCharacter;
@@ -49,7 +47,6 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(string name)
     {
         SceneManager.LoadScene(name);
-        testString = "String is working";
         SpawnPlayers();
         //Invoke("SpawnPlayers", 0.01f);
     }
@@ -73,22 +70,22 @@ public class LevelManager : MonoBehaviour
         switch (player1Element)
         {
             case Element.Fire:
-                newPlayer = Instantiate(fireCharacter, spawnPoint1.position, spawnPoint1.rotation);
+                newPlayer = Instantiate(fireCharacter, spawnPoint1.transform.position, spawnPoint1.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 1;
                 newPlayer.name = "Player 1";
                 break;
             case Element.Ice:
-                newPlayer = Instantiate(waterCharacter, spawnPoint1.position, spawnPoint1.rotation);
+                newPlayer = Instantiate(waterCharacter, spawnPoint1.transform.position, spawnPoint1.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 1;
                 newPlayer.name = "Player 1";
                 break;
             case Element.Earth:
-                newPlayer = Instantiate(earthCharacter, spawnPoint1.position, spawnPoint1.rotation);
+                newPlayer = Instantiate(earthCharacter, spawnPoint1.transform.position, spawnPoint1.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 1;
                 newPlayer.name = "Player 1";
                 break;
             case Element.Wind:
-                newPlayer = Instantiate(windCharacter, spawnPoint1.position, spawnPoint1.rotation);
+                newPlayer = Instantiate(windCharacter, spawnPoint1.transform.position, spawnPoint1.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 1;
                 newPlayer.name = "Player 1";
                 break;
@@ -100,22 +97,22 @@ public class LevelManager : MonoBehaviour
         switch (player2Element)
         {
             case Element.Fire:
-                newPlayer = Instantiate(fireCharacter, spawnPoint2.position, spawnPoint2.rotation);
+                newPlayer = Instantiate(fireCharacter, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 2;
                 newPlayer.name = "Player 2";
                 break;
             case Element.Ice:
-                newPlayer = Instantiate(waterCharacter, spawnPoint2.position, spawnPoint2.rotation);
+                newPlayer = Instantiate(waterCharacter, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 2;
                 newPlayer.name = "Player 2";
                 break;
             case Element.Earth:
-                newPlayer = Instantiate(earthCharacter, spawnPoint2.position, spawnPoint2.rotation);
+                newPlayer = Instantiate(earthCharacter, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 2;
                 newPlayer.name = "Player 2";
                 break;
             case Element.Wind:
-                newPlayer = Instantiate(windCharacter, spawnPoint2.position, spawnPoint2.rotation);
+                newPlayer = Instantiate(windCharacter, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 2;
                 newPlayer.name = "Player 2";
                 break;
@@ -127,22 +124,22 @@ public class LevelManager : MonoBehaviour
         switch (player3Element)
         {
             case Element.Fire:
-                newPlayer = Instantiate(fireCharacter, spawnPoint3.position, spawnPoint3.rotation);
+                newPlayer = Instantiate(fireCharacter, spawnPoint3.transform.position, spawnPoint3.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 3;
                 newPlayer.name = "Player 3";
                 break;
             case Element.Ice:
-                newPlayer = Instantiate(waterCharacter, spawnPoint3.position, spawnPoint3.rotation);
+                newPlayer = Instantiate(waterCharacter, spawnPoint3.transform.position, spawnPoint3.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 3;
                 newPlayer.name = "Player 3";
                 break;
             case Element.Earth:
-                newPlayer = Instantiate(earthCharacter, spawnPoint3.position, spawnPoint3.rotation);
+                newPlayer = Instantiate(earthCharacter, spawnPoint3.transform.position, spawnPoint3.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 3;
                 newPlayer.name = "Player 3";
                 break;
             case Element.Wind:
-                newPlayer = Instantiate(windCharacter, spawnPoint3.position, spawnPoint3.rotation);
+                newPlayer = Instantiate(windCharacter, spawnPoint3.transform.position, spawnPoint3.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 3;
                 newPlayer.name = "Player 3";
                 break;
@@ -154,22 +151,22 @@ public class LevelManager : MonoBehaviour
         switch (player4Element)
         {
             case Element.Fire:
-                newPlayer = Instantiate(fireCharacter, spawnPoint4.position, spawnPoint4.rotation);
+                newPlayer = Instantiate(fireCharacter, spawnPoint4.transform.position, spawnPoint4.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 4;
                 newPlayer.name = "Player 4";
                 break;
             case Element.Ice:
-                newPlayer = Instantiate(waterCharacter, spawnPoint4.position, spawnPoint4.rotation);
+                newPlayer = Instantiate(waterCharacter, spawnPoint4.transform.position, spawnPoint4.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 4;
                 newPlayer.name = "Player 4";
                 break;
             case Element.Earth:
-                newPlayer = Instantiate(earthCharacter, spawnPoint4.position, spawnPoint4.rotation);
+                newPlayer = Instantiate(earthCharacter, spawnPoint4.transform.position, spawnPoint4.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 4;
                 newPlayer.name = "Player 4";
                 break;
             case Element.Wind:
-                newPlayer = Instantiate(windCharacter, spawnPoint4.position, spawnPoint4.rotation);
+                newPlayer = Instantiate(windCharacter, spawnPoint4.transform.position, spawnPoint4.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 4;
                 newPlayer.name = "Player 4";
                 break;

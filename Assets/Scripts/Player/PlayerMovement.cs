@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour {
     private float decelerationForce;
     [SerializeField]
     private float minSpeed;
+    private float player_width;
+    private float player_height;
 
     //Jumping
     [Tooltip("Force applied to the short jump.")]
@@ -61,6 +63,9 @@ public class PlayerMovement : MonoBehaviour {
         GetComponent<PlayerAttacks>().playerMovement = GetComponent<PlayerMovement>();
         playerNumber = playerHealth.playerNumber;
 
+        player_width = GetComponent<SpriteRenderer>().bounds.size.x;
+        player_height = GetComponent<SpriteRenderer>().bounds.size.y;
+
         //Setup what player I control
         horizontalMovement = "Horizontal" + playerNumber;
         jumpMovement = "Jump" + playerNumber;
@@ -75,7 +80,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void Update () {
 
         PlayerFacing();
-
+        ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
         if (!playerAttacks.blocking)
@@ -225,5 +230,23 @@ public class PlayerMovement : MonoBehaviour {
             rb.AddForce(new Vector2(horizontalDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
         else if (horizontalDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
             rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
+
+    }
+
+    private void ScreenCollisions()
+    {
+        //prevent object from leaving screen boundaries
+        Vector3 screen_bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+        if (transform.position.x > (screen_bounds.x - (player_width / 2)))
+
+            transform.position = new Vector3(screen_bounds.x - (player_width / 2), transform.position.y, 0);
+
+        else if (transform.position.x < (-screen_bounds.x + (player_width / 2)))
+            transform.position = new Vector3(-screen_bounds.x + (player_width / 2), transform.position.y, 0);
+        else if (transform.position.y < (-screen_bounds.y + (player_height / 2)))
+            transform.position = new Vector3(transform.position.x, -screen_bounds.y + (player_height / 2), 0);
+        else if (transform.position.y > (screen_bounds.y - (player_height / 2)))
+
+            transform.position = new Vector3(transform.position.x, screen_bounds.y - (player_height / 2), 0);
     }
 }
