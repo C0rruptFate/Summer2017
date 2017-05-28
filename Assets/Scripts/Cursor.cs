@@ -38,6 +38,9 @@ public class Cursor : MonoBehaviour {
     private float player_width;
     private float player_height;
 
+    //Used to make it so you can't pick the same character as someone else.
+    private GameObject currentlySelected;
+
 
     // Use this for initialization
     void Start () {
@@ -78,9 +81,9 @@ public class Cursor : MonoBehaviour {
         }
 
         //Selects the character
-        if (Input.GetButtonDown(playerSelect) && possibleElement != Element.None)
+        if (Input.GetButtonDown(playerSelect) && possibleElement != Element.None && !currentlySelected.GetComponent<CharacterSelector>().alreadySelected)
         {
-            if(characterSelected == false)
+            if (characterSelected == false)
             {
                 characterSelectionManager.GetComponent<CharacterSelectionManager>().playersReady++;
             }
@@ -89,6 +92,7 @@ public class Cursor : MonoBehaviour {
             element = possibleElement;
             //characterSelectedPrefab = possibleCharacter.GetComponent<CharacterSelector>().characterSelectedPrefab;
             rb.velocity = new Vector2(0, 0);
+            currentlySelected.GetComponent<CharacterSelector>().alreadySelected = true;
         }
         //Deselects the character
         if (Input.GetButtonDown(playerCancel) && characterSelected)
@@ -97,6 +101,7 @@ public class Cursor : MonoBehaviour {
             mouseMovementAllowed = true;
             //characterSelectedPrefab = null;
             characterSelectionManager.GetComponent<CharacterSelectionManager>().playersReady--;
+            currentlySelected.GetComponent<CharacterSelector>().alreadySelected = false;
         }
 
     }
@@ -132,6 +137,7 @@ public class Cursor : MonoBehaviour {
     {
         //Debug.Log(other.gameObject);
         possibleElement = other.GetComponent<CharacterSelector>().element;
+        currentlySelected = other.gameObject;
         //possibleCharacter = other.gameObject;
     }
 
@@ -139,6 +145,7 @@ public class Cursor : MonoBehaviour {
     {
         //Debug.Log(other.gameObject);
         possibleElement = Element.None;
+        currentlySelected = null;
         //possibleCharacter = null;
     }
 }

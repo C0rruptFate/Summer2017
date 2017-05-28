@@ -50,10 +50,6 @@ public class CharacterSelectionManager : MonoBehaviour {
             readyText.text = "";
             countDown = loadLevelWaitTime;
         }
-
-        if(readyToStart)
-        {
-        }
 	}
 
     void CharactersSelect()
@@ -78,6 +74,8 @@ public class CharacterSelectionManager : MonoBehaviour {
             if (countDown == 0)
             {
                 CharactersSelect();
+                yield return new WaitForSeconds(1.0f);
+                levelManager.GetComponent<LevelManager>().SpawnPlayers();
             }
         }
     }

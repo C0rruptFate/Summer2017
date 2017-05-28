@@ -26,17 +26,12 @@ public class PickUpHealth : MonoBehaviour {
 		
 	}
 
-    void OnCollisionEnter()
+    void OnCollisionEnter2D(Collision2D other)
     {
-
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            playerHealth = other.GetComponent<PlayerHealth>();
-            if (other.GetComponent<PlayerHealth>().element == pickUpElement)
+            playerHealth = other.gameObject.GetComponent<PlayerHealth>();
+            if (other.gameObject.GetComponent<PlayerHealth>().element == pickUpElement)
             {
                 heal = heal * sameElementBonus;
                 mana = mana * sameElementBonus;
@@ -46,4 +41,20 @@ public class PickUpHealth : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.tag == "Player")
+    //    {
+    //        playerHealth = other.GetComponent<PlayerHealth>();
+    //        if (other.GetComponent<PlayerHealth>().element == pickUpElement)
+    //        {
+    //            heal = heal * sameElementBonus;
+    //            mana = mana * sameElementBonus;
+    //        }
+    //        playerHealth.GetComponent<PlayerHealth>().Heal(heal);
+    //        playerHealth.GetComponent<PlayerHealth>().GainMana(mana);
+    //        Destroy(gameObject);
+    //    }
+    //}
 }

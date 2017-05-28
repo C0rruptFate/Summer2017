@@ -8,6 +8,9 @@ public class CharacterSelector : MonoBehaviour {
 
     public Element element;
 
+    [HideInInspector]
+    public bool alreadySelected = false;
+
     // Use this for initialization
     void Start () {
 		

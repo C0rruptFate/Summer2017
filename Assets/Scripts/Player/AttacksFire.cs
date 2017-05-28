@@ -261,7 +261,7 @@ public class AttacksFire : PlayerAttacks {
         }
         if (airGunTwo == null)
         {
-            Debug.LogError("No air projectile selected on SECONDARY gun for " + gameObject);
+            Debug.Log("No air projectile selected on SECONDARY gun for " + gameObject);
         }
         #endregion
     }
