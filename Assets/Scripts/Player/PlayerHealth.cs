@@ -163,6 +163,7 @@ public class PlayerHealth : MonoBehaviour
         //Destroy(playerScript.GetComponent<PlayerController>().newGroundMelee);
         //Destroy(playerScript.GetComponent<PlayerController>().newAirMelee);
         gameManager.GetComponent<GameController>().LowerPlayerCount();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }

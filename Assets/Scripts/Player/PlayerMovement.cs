@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour {
         if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
         {
             playerAttacks.JumpAttack();
-        }//
+        }
 
         if (Input.GetButtonDown(jumpMovement))
         {
@@ -233,20 +233,31 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
+    //Used to make it so that the player can't go past the edge of the screen
     private void ScreenCollisions()
     {
         //prevent object from leaving screen boundaries
         Vector3 screen_bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
         if (transform.position.x > (screen_bounds.x - (player_width / 2)))
-
+        {
             transform.position = new Vector3(screen_bounds.x - (player_width / 2), transform.position.y, 0);
+            Debug.Log(gameObject + "Hit Right Bounds");
+        }
 
-        else if (transform.position.x < (-screen_bounds.x + (player_width / 2)))
+        else if (transform.position.x < (-screen_bounds.x + (player_width / 2)))//Remove the -10 and extra () 
+        {
             transform.position = new Vector3(-screen_bounds.x + (player_width / 2), transform.position.y, 0);
+            Debug.Log(gameObject + "Hit Left Bounds");
+        }
         else if (transform.position.y < (-screen_bounds.y + (player_height / 2)))
+        {
             transform.position = new Vector3(transform.position.x, -screen_bounds.y + (player_height / 2), 0);
+            Debug.Log(gameObject + "Hit Bottom Bounds");
+        }
         else if (transform.position.y > (screen_bounds.y - (player_height / 2)))
-
+        {
             transform.position = new Vector3(transform.position.x, screen_bounds.y - (player_height / 2), 0);
+            Debug.Log(gameObject + "Hit Top Bounds");
+        }
     }
 }
