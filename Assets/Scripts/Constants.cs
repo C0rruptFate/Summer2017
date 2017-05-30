@@ -5,6 +5,7 @@ using UnityEngine;
 public enum Element { None, Fire, Ice, Earth, Wind, };
 public enum AttackFromLocation { Empty, Self, Overhead, DownAngled, Horizontal, Behind, Below }; //Set up Self and Infront and behind
 public enum EnemyTargetType { Element, Proximity, Random, Roam };
+public enum CameraEdges { Left, Right, Top, Bottom};
 
 public class Constants : MonoBehaviour
 {

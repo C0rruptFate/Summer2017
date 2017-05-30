@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void Update () {
 
         PlayerFacing();
-        ScreenCollisions();
+        //ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
         if (!playerAttacks.blocking)
@@ -259,5 +259,8 @@ public class PlayerMovement : MonoBehaviour {
             transform.position = new Vector3(transform.position.x, screen_bounds.y - (player_height / 2), 0);
             Debug.Log(gameObject + "Hit Top Bounds");
         }
+
+        Debug.Log(gameObject.name + "Screen width: " + Screen.width);
+        Debug.Log(gameObject.name + "Screen Height: " + Screen.height);
     }
 }
