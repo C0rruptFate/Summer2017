@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void Update () {
 
         PlayerFacing();
-        //ScreenCollisions();
+        ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
         if (!playerAttacks.blocking)
