@@ -141,7 +141,8 @@ MonoBehaviour:
   projectileBreakChance: 0
   usesConstantForceProjectile: 1
   breaksHittingWall: 1
-  lobbedForce: {x: 0, y: 0, z: 0}
+  lobbedForce: {x: 0, y: 0}
+  throwWaitTime: 2
   player: {fileID: 0}
   myElement: 0
 --- !u!212 &212608184359845614

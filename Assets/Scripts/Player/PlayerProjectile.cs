@@ -20,7 +20,10 @@ public class PlayerProjectile : MonoBehaviour {
     [HideInInspector]
     public bool breaksHittingWall = true;
     [HideInInspector]
-    public Vector3 lobbedForce;
+    public Vector2 lobbedForce;
+    [HideInInspector]
+    public float throwWaitTime;
+    private Transform formerParent;
 
     private float currentLife;
     private bool breaking = false;
@@ -33,16 +36,7 @@ public class PlayerProjectile : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        if (player.GetComponent<PlayerController>() != null)
-        {
-            projectileSpeed = player.GetComponent<PlayerController>().projectileSpeed;
-            projectileDamage = player.GetComponent<PlayerController>().projectileDamage;
-            projectileHitStun = player.GetComponent<PlayerController>().projectileHitStun;
-            projectileMaxDuration = player.GetComponent<PlayerController>().projectileMaxDuration;
-            projectileBreakChance = player.GetComponent<PlayerController>().projectileBreakChance;
-            usesConstantForceProjectile = player.GetComponent<PlayerController>().usesConstantForceProjectile;
-            breaksHittingWall = player.GetComponent<PlayerController>().breaksHittingWall;
-        }
+
         myElement = player.GetComponent<PlayerHealth>().element;
 
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -52,9 +46,9 @@ public class PlayerProjectile : MonoBehaviour {
 
         if(!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
         {
-            gameObject.AddComponent<Rigidbody2D>();
-            rb = GetComponent<Rigidbody2D>();
-            rb.AddForce(lobbedForce,ForceMode2D.Impulse);
+            formerParent = transform.parent;
+            transform.parent = player.transform;
+            Invoke("ThrowForce", throwWaitTime);
         }
 
         currentLife = Time.time + projectileMaxDuration;
@@ -107,4 +101,24 @@ public class PlayerProjectile : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+    private void ThrowForce()
+    {
+        transform.parent = formerParent;
+        gameObject.AddComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        BoxCollider2D physicalCollider = gameObject.AddComponent<BoxCollider2D>();
+        physicalCollider.size = new Vector2(3f,3f);
+
+        //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        if (player.GetComponent<Transform>().rotation.y < 0)
+        {
+            rb.AddForce(new Vector2(-lobbedForce.x, lobbedForce.y), ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(lobbedForce, ForceMode2D.Impulse);
+        }
+    }
+
 }

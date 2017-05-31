@@ -48,7 +48,7 @@ public class MovingPlatform : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.transform.tag == ("Player") || other.transform.tag == ("Enemy"))
+        if (other.transform.tag == ("Player") || other.transform.tag == ("Enemy") || other.transform.tag == ("Projectile"))
         {
             other.transform.parent = gameObject.transform;
         }
@@ -56,7 +56,7 @@ public class MovingPlatform : MonoBehaviour {
 
     void OnCollisionExit2D(Collision2D other)
     {
-        if (other.transform.tag == ("Player") || other.transform.tag == ("Enemy"))
+        if (other.transform.tag == ("Player") || other.transform.tag == ("Enemy") || other.transform.tag == ("Projectile"))
         {
             other.transform.parent = null;
         }

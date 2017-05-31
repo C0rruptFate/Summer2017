@@ -7,8 +7,7 @@ public class CameraControls : MonoBehaviour {
     public float m_DampTime = 0.2f; //How long the camera takes to move to it's target location.
     public float m_ScreenEdgeBuffer = 4f; //Stops the players from reaching the edge of the screen.
     public float m_MinSize = 6.5f; //Min size of the camera used for zooming
-    //[HideInInspector]
-    //public Transform[] m_Targets; //This will be set when objects are spawned and removed when despawned.
+    [HideInInspector]
     public List<Transform> players;
 
 
@@ -34,7 +33,7 @@ public class CameraControls : MonoBehaviour {
     private void Update() //Might want to change to update because that is what is used to move our players
     {
         MoveCamera();
-        //Zoom();
+        Zoom();
     }
 
 
@@ -50,7 +49,6 @@ public class CameraControls : MonoBehaviour {
     {
         Vector3 averagePos = new Vector3();
         int numTargets = 0;
-
         for (int i = 0; i < playersArray.Length; i++)
         {
             if (!playersArray[i].gameObject.activeSelf)
@@ -71,39 +69,39 @@ public class CameraControls : MonoBehaviour {
     }
 
 
-    //private void Zoom()
-    //{
-    //    float requiredSize = FindRequiredSize();
-    //    m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
-    //}
+    private void Zoom()
+    {
+        float requiredSize = FindRequiredSize();
+        m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
+    }
 
 
-    //private float FindRequiredSize()
-    //{
-    //    Vector3 desiredLocalPos = transform.InverseTransformPoint(m_DesiredPosition);
+    private float FindRequiredSize()
+    {
+        Vector3 desiredLocalPos = transform.InverseTransformPoint(m_DesiredPosition);
 
-    //    float size = 0f;
+        float size = 0f;
 
-    //    for (int i = 0; i < playersArray.Length; i++)
-    //    {
-    //        if (!playersArray[i].gameObject.activeSelf)
-    //            continue;
+        for (int i = 0; i < playersArray.Length; i++)
+        {
+            if (!playersArray[i].gameObject.activeSelf)
+                continue;
 
-    //        Vector3 targetLocalPos = transform.InverseTransformPoint(playersArray[i].position);
+            Vector3 targetLocalPos = transform.InverseTransformPoint(playersArray[i].position);
 
-    //        Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
+            Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
 
-    //        size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
 
-    //        size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / m_Camera.aspect);
-    //    }
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / m_Camera.aspect);
+        }
 
-    //    size += m_ScreenEdgeBuffer;
+        size += m_ScreenEdgeBuffer;
 
-    //    size = Mathf.Max(size, m_MinSize);
+        size = Mathf.Max(size, m_MinSize);
 
-    //    return size;
-    //}
+        return size;
+    }
 
 
     public void SetStartPositionAndSize()
@@ -112,6 +110,6 @@ public class CameraControls : MonoBehaviour {
 
         transform.position = m_DesiredPosition;
 
-        //m_Camera.orthographicSize = FindRequiredSize();
+        m_Camera.orthographicSize = FindRequiredSize();
     }
 }

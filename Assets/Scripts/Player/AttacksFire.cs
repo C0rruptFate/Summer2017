@@ -11,6 +11,12 @@ public class AttacksFire : PlayerAttacks {
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksFire>();
         playerNumber = playerHealth.playerNumber;
         rb = GetComponent<Rigidbody2D>();
+        //Finds the wisp target location object and changes it's name
+        myWispTargetLocation = transform.Find("Wisp Target Location");
+        myWispTargetLocation.name = gameObject.name + "Wisp Target Location";
+        myWispTargetLocation.parent = null;
+        //Find the wisp object
+        wisp = GameObject.Find("Wisp");
 
         //Set's up the player's weapon parent object
         playerWeaponParent = GameObject.Find("Player Attacks");
@@ -268,11 +274,38 @@ public class AttacksFire : PlayerAttacks {
 
     // Update is called once per frame
     void Update () {
+
+        //Call Wisp
+
+        if (Input.GetAxisRaw("CallWisp" + playerNumber) == 1)
+        {
+            //print("CallWisp Trigger pressed" + Input.GetAxis("CallWisp" + playerNumber));
+            //Move player tracking empty transform to player's transform
+            //Tell Wisp to move to the player's player tracking empty transform
+            CallWisp();
+        }
+
+        //Special Atack
+        if (Input.GetAxisRaw("Special" + playerNumber) == 1)
+        {
+            //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
+
+            //[TODO]Play special particle effect
+            //turn special is active to true
+            specialActive = true;
+        }
+        if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)
+        {
+            //Turn off special
+            specialActive = false;
+        }
+
         //Melee Attack
-        if (Input.GetButtonDown("Melee"+ playerNumber) && Time.time > meleeNextFire)
+            if (Input.GetButtonDown("Melee"+ playerNumber) && Time.time > meleeNextFire)
         {
             MeleeAttack();
         }
+
         //Ranged Attack
         if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)
         {
@@ -444,6 +477,16 @@ public class AttacksFire : PlayerAttacks {
 
     }
 
+    public override void CallWisp()
+    {
+        //Moves target location to the player
+        myWispTargetLocation.position = gameObject.transform.position;
+
+        //Tells the Wisp to move to the targeted location
+        wisp.GetComponent<Wisp>().targetLocation = myWispTargetLocation;
+        wisp.GetComponent<Wisp>().moving = true;
+    }
+
     private void SetBasicMeleeAttackStats(GameObject melee)
     {
         melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
@@ -462,5 +505,7 @@ public class AttacksFire : PlayerAttacks {
         projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
         projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
         projectile.GetComponent<PlayerProjectile>().breaksHittingWall = breaksHittingWall;
+        projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
+
     }
 }

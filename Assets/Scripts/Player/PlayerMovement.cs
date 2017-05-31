@@ -27,8 +27,6 @@ public class PlayerMovement : MonoBehaviour {
     private float decelerationForce;
     [SerializeField]
     private float minSpeed;
-    private float player_width;
-    private float player_height;
 
     //Jumping
     [Tooltip("Force applied to the short jump.")]
@@ -48,6 +46,8 @@ public class PlayerMovement : MonoBehaviour {
     [Tooltip("Force applied to the air jump.")]
     public float arialJumpForce = 10f; //Force applied to the air jump.
     private Vector3 groundJumpForce;
+    public GameObject jumpEffect;
+    private Transform whatsBelowMeChecker;
 
 
     private bool groundJumpInitiated = false;
@@ -63,9 +63,6 @@ public class PlayerMovement : MonoBehaviour {
         GetComponent<PlayerAttacks>().playerMovement = GetComponent<PlayerMovement>();
         playerNumber = playerHealth.playerNumber;
 
-        player_width = GetComponent<SpriteRenderer>().bounds.size.x;
-        player_height = GetComponent<SpriteRenderer>().bounds.size.y;
-
         //Setup what player I control
         horizontalMovement = "Horizontal" + playerNumber;
         jumpMovement = "Jump" + playerNumber;
@@ -74,13 +71,18 @@ public class PlayerMovement : MonoBehaviour {
 
         //initialize components
         rb = GetComponent<Rigidbody2D>();
+        whatsBelowMeChecker = transform.Find("Whats Below Me");
+        if(whatsBelowMeChecker == null)
+        {
+            Debug.LogError("Can't find: " + whatsBelowMeChecker);
+        }
     }
 	
 	// Update is called once per frame
 	private void Update () {
 
         PlayerFacing();
-        ScreenCollisions();
+        //ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
         if (!playerAttacks.blocking)
@@ -91,9 +93,10 @@ public class PlayerMovement : MonoBehaviour {
         //Player jump
 
         //DISABLE this if we want to player to need to push jump to bounce off of enemies/players.
-        if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
+        if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed && !grounded)
         {
             playerAttacks.JumpAttack();
+            Instantiate(jumpEffect, whatsBelowMeChecker.position,whatsBelowMeChecker.rotation);
         }
 
         if (Input.GetButtonDown(jumpMovement))
@@ -198,6 +201,7 @@ public class PlayerMovement : MonoBehaviour {
             if (arialJumpsUsed < arialJumpsAllowed)
             {
                 // Reset our velocity
+                Instantiate(jumpEffect, whatsBelowMeChecker.position, whatsBelowMeChecker.rotation);
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);
                 // Arial Jump
                 //Debug.Log("Air Jump used" + rb.velocity.y);
@@ -234,33 +238,30 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     //Used to make it so that the player can't go past the edge of the screen
-    private void ScreenCollisions()
-    {
-        //prevent object from leaving screen boundaries
-        Vector3 screen_bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
-        if (transform.position.x > (screen_bounds.x - (player_width / 2)))
-        {
-            transform.position = new Vector3(screen_bounds.x - (player_width / 2), transform.position.y, 0);
-            Debug.Log(gameObject + "Hit Right Bounds");
-        }
+    //private void ScreenCollisions()
+    //{
+    //    //prevent object from leaving screen boundaries
+    //    //Vector3 screen_bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+    //    //if (transform.position.x > (screen_bounds.x - (player_width / 2)))
+    //    //{
+    //    //    transform.position = new Vector3(screen_bounds.x - (player_width / 2), transform.position.y, 0);
+    //    //    Debug.Log(gameObject + "Hit Right Bounds");
+    //    //}
 
-        else if (transform.position.x < (-screen_bounds.x + (player_width / 2)))//Remove the -10 and extra () 
-        {
-            transform.position = new Vector3(-screen_bounds.x + (player_width / 2), transform.position.y, 0);
-            Debug.Log(gameObject + "Hit Left Bounds");
-        }
-        else if (transform.position.y < (-screen_bounds.y + (player_height / 2)))
-        {
-            transform.position = new Vector3(transform.position.x, -screen_bounds.y + (player_height / 2), 0);
-            Debug.Log(gameObject + "Hit Bottom Bounds");
-        }
-        else if (transform.position.y > (screen_bounds.y - (player_height / 2)))
-        {
-            transform.position = new Vector3(transform.position.x, screen_bounds.y - (player_height / 2), 0);
-            Debug.Log(gameObject + "Hit Top Bounds");
-        }
-
-        Debug.Log(gameObject.name + "Screen width: " + Screen.width);
-        Debug.Log(gameObject.name + "Screen Height: " + Screen.height);
-    }
+    //    //else if (transform.position.x < (-screen_bounds.x + (player_width / 2)))//Remove the -10 and extra () 
+    //    //{
+    //    //    transform.position = new Vector3(-screen_bounds.x + (player_width / 2), transform.position.y, 0);
+    //    //    Debug.Log(gameObject + "Hit Left Bounds");
+    //    //}
+    //    //else if (transform.position.y < (-screen_bounds.y + (player_height / 2)))
+    //    //{
+    //    //    transform.position = new Vector3(transform.position.x, -screen_bounds.y + (player_height / 2), 0);
+    //    //    Debug.Log(gameObject + "Hit Bottom Bounds");
+    //    //}
+    //    //else if (transform.position.y > (screen_bounds.y - (player_height / 2)))
+    //    //{
+    //    //    transform.position = new Vector3(transform.position.x, screen_bounds.y - (player_height / 2), 0);
+    //    //    Debug.Log(gameObject + "Hit Top Bounds");
+    //    //}
+    //}
 }

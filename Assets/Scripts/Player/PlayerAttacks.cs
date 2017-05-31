@@ -58,7 +58,9 @@ public class PlayerAttacks : MonoBehaviour {
     [Tooltip("Do I have a second AIR projectile location. Where does my second air projectile come from?")]
     public AttackFromLocation airProjectileTwoType;
     [Tooltip("What force is applied if I use a lobbed projectile. 'This is only applied if a lobbed projectile is used'.")]
-    public Vector2 lobbedForce = new Vector2(7, 7);
+    public Vector2 lobbedForce = new Vector2(15, 15);
+    [Tooltip("How long before the lobbed projectile is fired.")]
+    public float throwWaitTime;
 
     [Header("Projectile Settings")]
     [Tooltip("How fast the projectiles you shoot move?")]
@@ -85,6 +87,20 @@ public class PlayerAttacks : MonoBehaviour {
     public bool blocking = false;
     [Tooltip("Attach a gameObject that will be spawned when you are blocking.")]
     public GameObject blockEffect; //attach a game object that will be spawned when you ar blocking.
+    #endregion
+
+    //[Header("Special Settings")]
+    #region
+    [HideInInspector]
+    public bool specialActive = false;
+    #endregion
+
+    //[Header("Wisp Settings")]
+    #region
+    [HideInInspector]
+    public Transform myWispTargetLocation;
+    [HideInInspector]
+    public GameObject wisp;
     #endregion
 
     //Private Attack extras
@@ -166,6 +182,11 @@ public class PlayerAttacks : MonoBehaviour {
     }
 
     public virtual void SpecialRanged()
+    {
+
+    }
+
+    public virtual void CallWisp()
     {
 
     }

@@ -9,6 +9,9 @@ public class Cursor : MonoBehaviour {
     public int playerNumber = 1;
     public float speed;
 
+    public GameObject lockedInEffect;
+    private GameObject ImLockedInEffect;
+
     [HideInInspector]
     public bool activePlayer = false;
     [HideInInspector]
@@ -29,7 +32,9 @@ public class Cursor : MonoBehaviour {
     [HideInInspector]
     public bool characterSelected = false;
 
+    //[HideInInspector]
     public Element element = Element.None;
+    //[HideInInspector]
     public Element possibleElement = Element.None;
 
     private Rigidbody2D rb;
@@ -49,7 +54,7 @@ public class Cursor : MonoBehaviour {
         playerSelect = "Jump" + playerNumber;
         playerCancel = "Ranged" + playerNumber;
         gameObject.name = "Player " + playerNumber + " Cursor";
-        
+
         rb = GetComponent<Rigidbody2D>();
         GetComponent<Image>().enabled = false;
         characterSelectionManager = GameObject.Find("Character Selection Manager");
@@ -93,6 +98,7 @@ public class Cursor : MonoBehaviour {
             //characterSelectedPrefab = possibleCharacter.GetComponent<CharacterSelector>().characterSelectedPrefab;
             rb.velocity = new Vector2(0, 0);
             currentlySelected.GetComponent<CharacterSelector>().alreadySelected = true;
+            ImLockedInEffect = Instantiate(lockedInEffect, transform.position, lockedInEffect.transform.rotation);
         }
         //Deselects the character
         if (Input.GetButtonDown(playerCancel) && characterSelected)
@@ -102,6 +108,7 @@ public class Cursor : MonoBehaviour {
             //characterSelectedPrefab = null;
             characterSelectionManager.GetComponent<CharacterSelectionManager>().playersReady--;
             currentlySelected.GetComponent<CharacterSelector>().alreadySelected = false;
+            Destroy(ImLockedInEffect);
         }
 
     }
