@@ -277,12 +277,17 @@ public class AttacksFire : PlayerAttacks {
 
         //Call Wisp
 
-        if (Input.GetAxisRaw("CallWisp" + playerNumber) == 1)
+        if (Input.GetAxisRaw("CallWisp" + playerNumber) >= .25f)
         {
-            //print("CallWisp Trigger pressed" + Input.GetAxis("CallWisp" + playerNumber));
-            //Move player tracking empty transform to player's transform
-            //Tell Wisp to move to the player's player tracking empty transform
-            CallWisp();
+            if (!callingWisp)
+            {
+                CallWisp();
+                callingWisp = true;
+            }
+        }
+        if (Input.GetAxisRaw("CallWisp" + playerNumber) < 0.25f)
+        {
+            callingWisp = false;
         }
 
         //Special Atack
@@ -485,6 +490,7 @@ public class AttacksFire : PlayerAttacks {
         //Tells the Wisp to move to the targeted location
         wisp.GetComponent<Wisp>().targetLocation = myWispTargetLocation;
         wisp.GetComponent<Wisp>().moving = true;
+        //callingWisp = false;
     }
 
     private void SetBasicMeleeAttackStats(GameObject melee)

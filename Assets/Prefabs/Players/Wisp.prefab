@@ -179,9 +179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLocation: {fileID: 0}
-  arcMode: 1
   moving: 0
   speed: 6
+  attachedSpeed: 50
 --- !u!198 &198244256355781594
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -215,7 +215,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1964830812
+  randomSeed: -1624239248
   InitialModule:
     serializedVersion: 3
     enabled: 1
