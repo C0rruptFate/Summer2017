@@ -50,15 +50,6 @@ public class Wisp : MonoBehaviour {
             shape.arcMode = ParticleSystemShapeMultiModeValue.Loop;
         }
 
-        //New
-        //if (attachedToPlayer)
-        //{
-        //    //Causes the wisp to pulse and grant mana
-
-        //    //transform.position = new Vector2(attachedPlayer.transform.position.x, attachedPlayer.transform.position.y);
-        //    //Debug.Log("I am attached to " + attachedPlayer.name);
-        //}
-
         if (playerICouldAttachTo != null && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
         {
             wispNextCall = Time.time + wispCallTime;
@@ -108,22 +99,11 @@ public class Wisp : MonoBehaviour {
             WispPlayerBuff();
         }
         //Debug.Log("Touching " + other.name);
-        ////Used for attaching to a player 
-        //if (other.tag == "Player" && other.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
-        //{
-        //    wispNextCall = Time.time + wispCallTime;
-        //    Debug.Log("Telling Wisp to attach to " + other.name);
-        //    //CatchOrRelease(other.gameObject);
-        //}
     }
 
     void MoveToTarget()
     {
         //Moves to the target transform over time.
-        //if (gameObject.transform.parent != null)
-        //{
-        //    gameObject.transform.parent = null;
-        //}
         attachedPlayer = null;
         RemoveWispPlayerBuff();
         transform.position = Vector2.MoveTowards(transform.position, targetLocation.position, speed * Time.deltaTime);
@@ -156,11 +136,12 @@ public class Wisp : MonoBehaviour {
                 ps.startColor = Constants.airColor;
                 break;
         }
-            
+
         shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
         emission.rateOverTime = 0f;
         emission.rateOverDistance = 50f;
         emission.SetBursts(new ParticleSystem.Burst[] { new ParticleSystem.Burst(0, 100, 100, 0, manaRegenRate) });
+        Invoke("GainMana", manaRegenRate);
     }
     void RemoveWispPlayerBuff()
     {
@@ -174,25 +155,8 @@ public class Wisp : MonoBehaviour {
         emission.SetBursts(new ParticleSystem.Burst[] { });
     }
 
-    //Currently not being used
-    //void CatchOrRelease(GameObject other)
-    //{
-    //    // Wisp becomes child of player who picked it up until it receives a new command.
-    //    //New Remove parent
-    //    //gameObject.transform.parent = gameObject.transform.parent == null ? other.transform : null;
-    //    //New
-    //    if(attachedPlayer == null)
-    //    {
-    //        attachedToPlayer = true;
-    //        attachedPlayer = other;
-    //        Debug.Log("Attaching to player: " + other.name);
-    //    }
-    //    else
-    //    {
-    //        attachedPlayer = null;
-    //        attachedToPlayer = false;
-    //        Debug.Log("No Longer Attached to player: " + other.name);
-    //    }
-    //}
-
+    void GainMana()
+    {
+        attachedPlayer.GetComponent<PlayerHealth>().mana = attachedPlayer.GetComponent<PlayerHealth>().mana + manaRegenAmount;
+    }
 }

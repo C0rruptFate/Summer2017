@@ -10,10 +10,10 @@ public enum CameraEdges { Left, Right, Top, Bottom};
 public class Constants : MonoBehaviour
 {
     //Colors for each element
-    public static Color32 fireColor = new Color32(255,69,00,255);
-    public static Color32 waterColor = new Color32(165, 242, 243, 255);
-    public static Color32 airColor = new Color32(156, 49, 241, 255);
-    public static Color32 earthColor = new Color32(109, 93, 73, 255);
+    public static Color32 fireColor = new Color32(255,69,00,128);
+    public static Color32 waterColor = new Color32(165, 242, 243, 128);
+    public static Color32 airColor = new Color32(156, 49, 241, 128);
+    public static Color32 earthColor = new Color32(109, 93, 73, 128);
 
     [Tooltip("How far below the player do we check to count them as 'Grounded'")]
     public static float whatsBelowMeChecker = -0.7f; //make this private after feel check maybe this should be .6
