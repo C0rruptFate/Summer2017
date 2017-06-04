@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BulkSpawner : Spawner {
 
-    [Tooltip("how many unit's to spawn, set this then times by playercount and plus difficulty (if it is greater than 1).")]
+    [Tooltip("how many unit's to spawn, set this then add the playercount and plus difficulty (if it is greater than 1).")]
     public int spawnCount;
+
+    private int playerCounted = 0;
 
     int newDifficulty = 0;
 
@@ -19,16 +21,23 @@ public class BulkSpawner : Spawner {
 
         if (Constants.playerCount > 1)
         {
-            newDifficulty = Constants.playerCount;
+            playerCounted = Constants.playerCount;
+            
         }
 
-        spawnCount = spawnCount + Constants.playerCount;
+        spawnCount = spawnCount + playerCounted + newDifficulty;
 
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
+        if(active)
+        {
+            Spawn();
+            active = false;
+        }
+        
 	}
 
     public override bool isTimeToSpawn(GameObject enemyGameObject)
@@ -36,15 +45,15 @@ public class BulkSpawner : Spawner {
         return false;
     }
 
-    public override void Spawn(GameObject myGameObject)
+    public void Spawn()
     {
         int spawnSelection = 0;//The position pulled from the array
         for (int i = 0; i < spawnCount; i++)
         {
-            spawnSelection++;
             Instantiate(enemyPrefabArray[spawnSelection], transform.position, transform.rotation);
+            spawnSelection++;
 
-            if (spawnSelection >= spawnSelection + Constants.playerCount + newDifficulty)
+            if (spawnSelection >= (enemyPrefabArray.Length - 1))
             {
                 spawnSelection = 0;
             }

@@ -1,23 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class WispSwitchChecker : MonoBehaviour
 {
-
-    public GameObject[] mySwitches;
-    public List<Transform> mySpawners;
+    public int[] actionArray;
 
     [HideInInspector]
+    public GameObject[] mySwitches;
+    [HideInInspector]
+    public List<Transform> mySpawners;
+    [HideInInspector]
     public int switchTotal;
-
     [HideInInspector]
     public int switchesActive;
 
     // Use this for initialization
     void Start()
     {
-
         foreach (Transform child in transform)
         {
             if (child.GetComponent<WispSwitch>() != null)
@@ -30,7 +31,6 @@ public class WispSwitchChecker : MonoBehaviour
                 mySpawners.Add(child);
             }
         }
-
     }
 
     // Update is called once per frame
@@ -42,16 +42,20 @@ public class WispSwitchChecker : MonoBehaviour
     public void CheckSwitches()
     {
         switchesActive++;
+        if (mySpawners != null && actionArray != null && actionArray.Contains(switchesActive))
+        {
+            foreach (Transform spawner in mySpawners)
+            {
+                spawner.GetComponent<Spawner>().active = true;
+            }
+        }
 
         if (switchesActive == switchTotal)
         {
             //[TODO] open door, end level, whatever
-            if (mySpawners != null)
+            foreach (Transform spawner in mySpawners)
             {
-                foreach (Transform spawner in mySpawners)
-                {
-                    spawner.GetComponent<Spawner>().active = spawner.GetComponent<Spawner>().active ? false : true;
-                }
+                spawner.GetComponent<Spawner>().active = spawner.GetComponent<Spawner>().active ? false : true;
             }
         }
     }

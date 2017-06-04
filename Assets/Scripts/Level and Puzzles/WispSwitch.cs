@@ -25,10 +25,10 @@ public class WispSwitch : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Should Wisp switch hit");
+        //Debug.Log("Should Wisp switch hit");
         if (other.tag == "Wisp" && !activated)
         {
-            Debug.Log("Wisp switch hit");
+            //Debug.Log("Wisp switch hit");
             activated = true;
             Instantiate(switchActiveEffect, torchLightSport.position, switchActiveEffect.transform.rotation);
             parentObject.GetComponent<WispSwitchChecker>().CheckSwitches();

@@ -14,7 +14,7 @@ public class OverTimeSpawner : Spawner {
     {
         foreach (GameObject thisEnemy in enemyPrefabArray)
         {
-            if (isTimeToSpawn(thisEnemy) && wakeUp && active)
+            if (wakeUp && active)
             {
                 Spawn(thisEnemy);
             }
@@ -35,7 +35,7 @@ public class OverTimeSpawner : Spawner {
 
         float threshold = spawnsPerSecond * Time.deltaTime;
 
-        return (Random.value < threshold / slowDownSpawner * (Constants.playerCount / 2) * Constants.difficulty);
+        return (Random.value < threshold / slowDownSpawner * Constants.difficulty);
     }
 
     public override void Spawn(GameObject myGameObject)

@@ -284,14 +284,16 @@ public class AttacksFire : PlayerAttacks {
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
         if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
         {
-            if (!callingWisp)
+            if (callingWispTime < 20)
             {
-                CallWisp();
-                callingWisp = true;
+                callingWispTime++; 
             }
+            CallWisp();
+            callingWisp = true;
         }
         else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
         {
+            callingWispTime = 0;
             callingWisp = false;
         }
 

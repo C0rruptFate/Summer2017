@@ -101,8 +101,10 @@ public class PlayerAttacks : MonoBehaviour {
     public Transform myWispTargetLocation;
     [HideInInspector]
     public GameObject wisp;
-    //[HideInInspector]
+    [HideInInspector]
     public bool callingWisp = false;
+    [HideInInspector]
+    public int callingWispTime = 0;
     #endregion
 
     //Private Attack extras

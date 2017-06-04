@@ -7,8 +7,6 @@ public class Wisp : MonoBehaviour {
     [HideInInspector] //The transform location that the wisp will be flying to.
     public Transform targetLocation;
     private ParticleSystem ps;
-    //private ParticleSystemShapeMultiModeValue arcMode = ParticleSystemShapeMultiModeValue.Loop;
-    private float wispNextCall = 0.0f;
 
     //[HideInInspector]
     public bool moving = false;
@@ -50,14 +48,13 @@ public class Wisp : MonoBehaviour {
             shape.arcMode = ParticleSystemShapeMultiModeValue.Loop;
         }
 
-        if (playerICouldAttachTo != null && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
+        if (playerICouldAttachTo != null && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWisp && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWispTime >= 20)
         {
-            wispNextCall = Time.time + wispCallTime;
             attachedPlayer = playerICouldAttachTo;
             WispPlayerBuff();
         }
 
-        if(attachedPlayer != null && attachedPlayer.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
+        if(attachedPlayer != null && attachedPlayer.GetComponent<PlayerAttacks>().callingWisp && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWispTime < 20)
         {
             //Debug.Log("Remove Wisp from player");
             attachedPlayer = null;
@@ -74,11 +71,17 @@ public class Wisp : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             playerICouldAttachTo = other.gameObject;
         }
-        
+
+        //if (other.tag == "Player" && other.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
+        //{
+        //    attachedPlayer = other.gameObject;
+        //    //playerICouldAttachTo = other.gameObject;
+        //}
+
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -92,8 +95,7 @@ public class Wisp : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
-
-        if (other.tag == "Player" && attachedPlayer == null && other.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
+        if (other.tag == "Player" && attachedPlayer == null && other.GetComponent<PlayerAttacks>().callingWisp)
         {
             attachedPlayer = other.gameObject;
             WispPlayerBuff();
