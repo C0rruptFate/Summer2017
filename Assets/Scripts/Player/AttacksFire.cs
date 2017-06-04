@@ -18,6 +18,11 @@ public class AttacksFire : PlayerAttacks {
         //Find the wisp object
         wisp = GameObject.Find("Wisp");
 
+        if(wisp == null)
+        {
+            Debug.Log("Can't find the Wisp");
+        }
+
         //Set's up the player's weapon parent object
         playerWeaponParent = GameObject.Find("Player Attacks");
 
@@ -276,8 +281,8 @@ public class AttacksFire : PlayerAttacks {
     void Update () {
 
         //Call Wisp
-
-        if (Input.GetAxisRaw("CallWisp" + playerNumber) >= .25f)
+        //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
+        if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
         {
             if (!callingWisp)
             {
@@ -285,7 +290,7 @@ public class AttacksFire : PlayerAttacks {
                 callingWisp = true;
             }
         }
-        if (Input.GetAxisRaw("CallWisp" + playerNumber) < 0.25f)
+        else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
         {
             callingWisp = false;
         }

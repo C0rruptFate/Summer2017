@@ -6,11 +6,16 @@ public class WispSwitch : MonoBehaviour {
 
     public GameObject switchActiveEffect;
 
-    private bool activated;
+    [HideInInspector]
+    public bool activated;
+
+    private Transform torchLightSport;
+    private Transform parentObject;
 
 	// Use this for initialization
 	void Start () {
-		
+        torchLightSport = transform.Find("Trigger Location");
+        parentObject = transform.parent;
 	}
 	
 	// Update is called once per frame
@@ -20,10 +25,13 @@ public class WispSwitch : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Should Wisp switch hit");
         if (other.tag == "Wisp" && !activated)
         {
+            Debug.Log("Wisp switch hit");
             activated = true;
-            Instantiate(switchActiveEffect, transform.position, switchActiveEffect.transform.rotation);
+            Instantiate(switchActiveEffect, torchLightSport.position, switchActiveEffect.transform.rotation);
+            parentObject.GetComponent<WispSwitchChecker>().CheckSwitches();
         }
     }
 }

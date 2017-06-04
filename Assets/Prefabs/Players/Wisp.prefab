@@ -182,6 +182,11 @@ MonoBehaviour:
   moving: 0
   speed: 6
   attachedSpeed: 50
+  wispCallTime: 1
+  attachedPlayer: {fileID: 0}
+  playerICouldAttachTo: {fileID: 0}
+  manaRegenAmount: 10
+  manaRegenRate: 5
 --- !u!198 &198244256355781594
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -215,7 +220,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1624239248
+  randomSeed: 63270355
   InitialModule:
     serializedVersion: 3
     enabled: 1

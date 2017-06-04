@@ -7,48 +7,26 @@ public class Spawner : MonoBehaviour {
     [Tooltip("List of all things that this spawner can spawn.")]
     public GameObject[] enemyPrefabArray;
     [Tooltip("divides the spawn rate of each enemy by this number.")]
-    public int numOfSpawners = 5;
+    public int slowDownSpawner = 5;
+    [Tooltip("Set to true to have a spawner enabled when the level loads, false if the spawner is enabled by a trigger in game.")]
+    public bool active = true;
 
-    private GameObject parent;
-    private bool wakeUp = false;
+    [HideInInspector]
+    public GameObject parent;
+    [HideInInspector]
+    public bool wakeUp = false;
 
-    // Update is called once per frame
-    void Update()
+    public virtual bool isTimeToSpawn(GameObject enemyGameObject)
     {
-        foreach (GameObject thisEnemy in enemyPrefabArray)
-        {
-            if (isTimeToSpawn(thisEnemy) && wakeUp)
-            {
-                Spawn(thisEnemy);
-            }
-        }
+        return false;
     }
 
-    bool isTimeToSpawn(GameObject enemyGameObject)
+    public virtual void Spawn(GameObject myGameObject)
     {
-        EnemyHealth enemy = enemyGameObject.GetComponent<EnemyHealth>();
 
-        float meanSpawnDelay = enemy.seenEverySeconds;
-        float spawnsPerSecond = 1 / meanSpawnDelay;
-
-        if (Time.deltaTime > meanSpawnDelay)
-        {
-            Debug.LogWarning("Spawn capped by frame rate");
-        }
-
-        float threshold = spawnsPerSecond * Time.deltaTime;
-
-        return (Random.value < threshold / numOfSpawners);
     }
 
-    void Spawn(GameObject myGameObject)
-    {
-        GameObject myEnemy = Instantiate(myGameObject) as GameObject;
-        myEnemy.transform.parent = transform;
-        myEnemy.transform.position = transform.position;
-    }
-
-    void OnTriggerStay2D(Collider2D other)
+    public virtual void OnTriggerStay2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
         {
@@ -59,7 +37,7 @@ public class Spawner : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    public virtual void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {

@@ -7,7 +7,7 @@ public class Wisp : MonoBehaviour {
     [HideInInspector] //The transform location that the wisp will be flying to.
     public Transform targetLocation;
     private ParticleSystem ps;
-    private ParticleSystemShapeMultiModeValue arcMode = ParticleSystemShapeMultiModeValue.Loop;
+    //private ParticleSystemShapeMultiModeValue arcMode = ParticleSystemShapeMultiModeValue.Loop;
     private float wispNextCall = 0.0f;
 
     //[HideInInspector]
@@ -93,7 +93,7 @@ public class Wisp : MonoBehaviour {
     void OnTriggerStay2D(Collider2D other)
     {
 
-        if (attachedPlayer == null && other.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
+        if (other.tag == "Player" && attachedPlayer == null && other.GetComponent<PlayerAttacks>().callingWisp && Time.time > wispNextCall)
         {
             attachedPlayer = other.gameObject;
             WispPlayerBuff();
@@ -118,22 +118,24 @@ public class Wisp : MonoBehaviour {
 
     void WispPlayerBuff()
     {
+        InvokeRepeating("GainMana", 2, manaRegenRate);
         var emission = ps.emission;
         var shape = ps.shape;
+        var main = ps.main;
 
         switch (attachedPlayer.GetComponent<PlayerHealth>().element)
         {
             case Element.Fire:
-                ps.startColor = Constants.fireColor;
+                main.startColor = Constants.fireColor;
                 break;
             case Element.Ice:
-                ps.startColor = Constants.waterColor;
+                main.startColor = Constants.waterColor;
                 break;
             case Element.Earth:
-                ps.startColor = Constants.earthColor;
+                main.startColor = Constants.earthColor;
                 break;
             case Element.Wind:
-                ps.startColor = Constants.airColor;
+                main.startColor = Constants.airColor;
                 break;
         }
 
@@ -141,14 +143,14 @@ public class Wisp : MonoBehaviour {
         emission.rateOverTime = 0f;
         emission.rateOverDistance = 50f;
         emission.SetBursts(new ParticleSystem.Burst[] { new ParticleSystem.Burst(0, 100, 100, 0, manaRegenRate) });
-        Invoke("GainMana", manaRegenRate);
     }
     void RemoveWispPlayerBuff()
     {
         var emission = ps.emission;
         var shape = ps.shape;
+        var main = ps.main;
 
-        ps.startColor = Color.white;
+        main.startColor = Color.white;
         shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
         emission.rateOverTime = 50f;
         emission.rateOverDistance = 0f;
@@ -157,6 +159,9 @@ public class Wisp : MonoBehaviour {
 
     void GainMana()
     {
-        attachedPlayer.GetComponent<PlayerHealth>().mana = attachedPlayer.GetComponent<PlayerHealth>().mana + manaRegenAmount;
+        if(attachedPlayer != null)
+        {
+            attachedPlayer.GetComponent<PlayerHealth>().GainMana(manaRegenAmount);
+        }
     }
 }

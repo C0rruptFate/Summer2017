@@ -22,14 +22,14 @@ GameObject:
   - component: {fileID: 33090193874897248}
   - component: {fileID: 58635237711191788}
   - component: {fileID: 23596867407589766}
-  - component: {fileID: 114934480466686598}
+  - component: {fileID: 114546517013323608}
   m_Layer: 0
   m_Name: Spawner Air
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4867418564463992
 Transform:
   m_ObjectHideFlags: 1
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1944658246381042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.8, y: 11, z: 0}
+  m_LocalPosition: {x: -5.2, y: 19.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,8 +96,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.000000059604645, y: 0}
   serializedVersion: 2
-  m_Radius: 15
---- !u!114 &114934480466686598
+  m_Radius: 40
+--- !u!114 &114546517013323608
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,9 +105,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1944658246381042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0acb1b26844ab46b54aecdcc7ad843, type: 3}
+  m_Script: {fileID: 11500000, guid: cdc0e9e7e4b2dc14daa0738967363fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabArray:
   - {fileID: 1568747872933268, guid: 890c70c4b0bf7fb4bba00c69e5077259, type: 2}
-  numOfSpawners: 4
+  numOfSpawners: 5
+  active: 1
+  parent: {fileID: 0}
+  wakeUp: 0

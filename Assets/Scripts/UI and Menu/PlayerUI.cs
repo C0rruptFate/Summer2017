@@ -35,7 +35,7 @@ public class PlayerUI : MonoBehaviour
     private Transform manaUI;
     private Slider manaSlider;
     private float currentMana;
-    private float startingMana;
+    //private float startingMana;
     private float maxMana;
 
     //Other
@@ -85,7 +85,7 @@ public class PlayerUI : MonoBehaviour
         
 
         //Find player Special
-        startingMana = playerResources.startingMana;
+        //startingMana = playerResources.startingMana;
         maxMana = playerResources.maxMana;
         manaSlider.maxValue = maxMana;
 
