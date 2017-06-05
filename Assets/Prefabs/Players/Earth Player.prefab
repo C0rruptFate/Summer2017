@@ -385,7 +385,7 @@ MonoBehaviour:
   airProjectileType: 4
   airProjectileTwoType: 0
   lobbedForce: {x: 15, y: 15}
-  throwWaitTime: 0
+  throwWaitTime: 1
   projectileSpeed: 25
   projectileDamage: 5
   projectileHitStun: 0.25
@@ -401,6 +401,8 @@ MonoBehaviour:
   specialActive: 0
   myWispTargetLocation: {fileID: 0}
   wisp: {fileID: 0}
+  callingWisp: 0
+  callingWispTime: 0
   element: 0
   playerParent: {fileID: 0}
   groundGun: {fileID: 0}

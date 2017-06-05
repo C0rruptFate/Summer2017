@@ -31,36 +31,39 @@ public class Enemy : MonoBehaviour {
 
     //private GameObject currentTarget;
     //private Animator animator;
-    [HideInInspector]
+    [HideInInspector]//My rigidbody
     public Rigidbody2D rb;
-    [HideInInspector]
+    [HideInInspector]//list of players that I can target.
     public GameObject[] targets;
-    [HideInInspector]public GameObject target;
-    [HideInInspector]
+    [HideInInspector]//What player I choose to target.
+    public GameObject target;
+    [HideInInspector]//Finds a new target when the player dies or relentless is not checked.
     public float newNextTarget;
-    [HideInInspector]
+    [HideInInspector]//decides what direction the enemy will move when roaming is set up.
     public Vector2 direction;
-    [HideInInspector]
+    [HideInInspector]//How long it has been sense the enemy last attacked, use so that the enemy can't attack every frame.
     public float newSwingTimer = 0f;
-    [HideInInspector]
+    [HideInInspector]//Enemy HP script.
     EnemyHealth enemyHealth;
 
     // Use this for initialization
     public virtual void Start()
     {
+        //Sets up the components 
         //animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         element = gameObject.GetComponent<EnemyHealth>().element;
 
-        TargetSelection();
+        TargetSelection();//Finds the target.
     }
 
     // Update is called once per frame
     public virtual void FixedUpdate () {
 
+        //Moves the enemy
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxMoveSpeed, maxMoveSpeed), rb.velocity.y);
 
-
+        //Finds a new target if my target dies or something happens.
         if (target == null)
         {
             if (enemyTargetType != EnemyTargetType.Roam)
@@ -69,7 +72,7 @@ public class Enemy : MonoBehaviour {
             }
             else
             {
-                // Roaming Enemy [TODO] figure out what the goal is of the relentless flag here.
+                // Roaming Enemy
                 if (relentless == false && Time.time > newNextTarget)
                 {
                     TargetSelection();
@@ -83,7 +86,7 @@ public class Enemy : MonoBehaviour {
             } 
         }
         else
-        {
+        {//Moves towards my target.
             if (enemyTargetType != EnemyTargetType.Roam)
             {
                 transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (speed * Time.deltaTime));
@@ -100,7 +103,7 @@ public class Enemy : MonoBehaviour {
         // Evaluate Targeting Type
         switch (enemyTargetType)
         {
-            case EnemyTargetType.Element:
+            case EnemyTargetType.Element: //Finds the target depending on what element I counter
                 targets = GameObject.FindGameObjectsWithTag("Player");
                 foreach (var possibleTarget in targets)
                 {
@@ -109,25 +112,25 @@ public class Enemy : MonoBehaviour {
                         target = possibleTarget;
                     }
                 }
-                if (target == null)
+                if (target == null)// if target dies or element doesn't exist change to proximity targeting.
                 {
                     enemyTargetType = EnemyTargetType.Proximity;
                     TargetSelection();
                 }
                 break;
-            case EnemyTargetType.Random:
+            case EnemyTargetType.Random://Finds a random target
                 //Random Target selection
                 targets = GameObject.FindGameObjectsWithTag("Player");
                 target = targets[Random.Range(0, targets.Length)];
                 break;
-            case EnemyTargetType.Roam:
+            case EnemyTargetType.Roam://Moves around randomly
                 direction = new Vector2(Random.Range(-1, 2), 0);
                 break;
-            case EnemyTargetType.Proximity:
+            case EnemyTargetType.Proximity://Finds the target closest to me.
             default:
-                targets = GameObject.FindGameObjectsWithTag("Player");
+                targets = GameObject.FindGameObjectsWithTag("Player");//Finds all players tagged as "player".
                 float closestTargetDist = 0.0f;
-                foreach (var possibleTarget in targets)
+                foreach (var possibleTarget in targets)//Finds the closest target by looping though all players and seeing who is closest.
                 {
                     float dist = Vector2.Distance(possibleTarget.transform.position, gameObject.transform.position);
                     if (dist < closestTargetDist)
@@ -143,7 +146,7 @@ public class Enemy : MonoBehaviour {
                 }
                 break;
         }
-        if (relentless == false)
+        if (relentless == false)//If relentless is true they will stick on their target rather then updating to new ones.
         {
             newNextTarget = Time.time + newTargetAcquisition;
         }
@@ -151,9 +154,10 @@ public class Enemy : MonoBehaviour {
 
     public virtual void OnCollisionStay2D(Collision2D other)
     {
+        //Deals damage to the player as long as they are touching this enemy.
         if (other.transform.tag == ("Player") && Time.time > newSwingTimer)
         {
-            Debug.Log("Player should take damage");
+            //Debug.Log("Player should take damage");
             newSwingTimer = Time.time + swingTimer;
             PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();

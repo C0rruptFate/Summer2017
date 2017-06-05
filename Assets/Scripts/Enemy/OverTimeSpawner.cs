@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class OverTimeSpawner : Spawner {
 
-    void Start()
-    {
-
-    }
+    //Used to spawn enemies over time (so long as a player is inside the trigger space and this wakes up).
 
     // Update is called once per frame
     void Update()
     {
+        //Spawns each enemy in the enemy array list of this transform
         foreach (GameObject thisEnemy in enemyPrefabArray)
         {
             if (wakeUp && active)
@@ -38,6 +36,7 @@ public class OverTimeSpawner : Spawner {
         return (Random.value < threshold / slowDownSpawner * Constants.difficulty);
     }
 
+    //Used to spawn enemies and parent them to the spawner.
     public override void Spawn(GameObject myGameObject)
     {
         GameObject myEnemy = Instantiate(myGameObject) as GameObject;
@@ -46,7 +45,7 @@ public class OverTimeSpawner : Spawner {
     }
 
     public override void OnTriggerStay2D(Collider2D other)
-    {
+    {//Wakes up if a player is inside this trigger spawn area.
         if (other.CompareTag("Player"))
         {
             if (wakeUp == false)
@@ -57,7 +56,7 @@ public class OverTimeSpawner : Spawner {
     }
 
     public override void OnTriggerExit2D(Collider2D other)
-    {
+    {//Wake up becomes false when a player leaves the trigger area.
         if (other.CompareTag("Player"))
         {
             wakeUp = false;

@@ -14,8 +14,9 @@ public class EnemyHealth : MonoBehaviour
 
     [Tooltip("How much health does this enemy have?")]
     public float health = 100f;
-    [Tooltip("Fill with empty drops and pick ups that could be dropped.")]
+    [HideInInspector][Tooltip("Fill with empty drops and pick ups that could be dropped.")]
     public Slider enemyHPUI;
+    [HideInInspector][Tooltip("Attach the enemyHpSlider that is a child of the enemy.")]
     public GameObject enemyHPUIObject;
 
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
@@ -27,11 +28,11 @@ public class EnemyHealth : MonoBehaviour
     public GameObject[] drops;
 
 
-    [HideInInspector]
+    [HideInInspector]//Currently not being used.
     public GameObject[] enemiesList;
-    [HideInInspector]
+    [HideInInspector]//Set the Enemy controls script this holds the attack and movement for the enemy.
     public Enemy myEnemyScript;
-    [HideInInspector]
+    [HideInInspector]//
     public GameObject canvas;
     [HideInInspector]
     public GameObject whatCantHitMe;
@@ -50,20 +51,18 @@ public class EnemyHealth : MonoBehaviour
         {
             canvas = new GameObject("Canvas");
         }
-    }
-
-    // Update is called once per frame
-    public virtual void Update()
-    {
-        //if(beenHit == true)
-        //{
-        //    enemyHPUI.transform.position = new Vector3(transform.position.x, transform.position.y - offSetUI, transform.position.z);
-        //}
+        //Used to set up the enemy HP sliders for the enemy so that the designer doesn't need to. Remove these lines and remove the [HideinInspector] on these varables if this doesn't work.
+        if(enemyHPUIObject == null)
+        {
+            enemyHPUIObject = canvas.transform.Find("Enemy HP Slider").gameObject;
+            Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
+            enemyHPUI = enemyHPUIObject.GetComponent<Slider>();
+        }
     }
 
     public virtual void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
     {
-        //[TODO] Pull the element of what hit me, if it is what counters me it deals bonus damage if I counter it then deal less damage.
+        //Checks the element of what hit me and causes me to take extra damage or reduced damage.
         if (whatHitMe.CompareTag("Projectile"))
         {
             if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatCountersMe(element))
@@ -86,51 +85,52 @@ public class EnemyHealth : MonoBehaviour
                 damage = damage * counterResistanceModifier;
             }
         }
-        if (whatHitMe != whatCantHitMe)
+        if (whatHitMe != whatCantHitMe)//Makes it so that this enemy can't be hit by the same attack right away (largely for melee attacks that last long).
         {
-            health -= damage;
-            if (enemyHPUIObject.activeSelf == false)
+            health -= damage;//Takes damage.
+            if (enemyHPUIObject.activeSelf == false)//Enables the hp bar for this enemy when they get hit.
             {
                 enemyHPUIObject.SetActive(true);
             }
-            UpDateEnemyUI();
+            UpDateEnemyUI();//Caues the enemy hp to update when they get hit.
             //Hit stun
             myEnemyScript.enabled = false;
-            Invoke("HitStun", hitStun);
-            whatCantHitMe = whatHitMe;
-            if (health <= 0)
+            Invoke("HitStun", hitStun);//calls hit stun as long as the attack that hit me says it should last for.
+            whatCantHitMe = whatHitMe;//Makes it so that I can't be hit by the same object again.
+            if (health <= 0)//If I am out of HP destroy gameobject.
             {
                 //Spawns a random drop from drops
-                int whatToSpawn = Random.Range(0, drops.Length);
-                GameObject pickUp = Instantiate(drops[whatToSpawn], transform.position, Quaternion.identity);
+                int whatToSpawn = Random.Range(0, drops.Length); //Decides what to drop when the enemy is killed.
+                GameObject pickUp = Instantiate(drops[whatToSpawn], transform.position, Quaternion.identity);//drops the pick up that is choosen at random.
                 if (drops == null)
                 {
-                    Debug.LogError("Set up pickups");
+                    Debug.LogError("Set up pickups");//If the pick up isn't set up play this message for the designer.
                 }
 
-                if (drops[whatToSpawn].GetComponent<PickUpHealth>() != null)
+                if (drops[whatToSpawn].GetComponent<PickUpHealth>() != null)//Sets the pick up element to my element.
                 {
                     pickUp.GetComponent<PickUpHealth>().pickUpElement = element;
                 } 
-                //trigger death animation
 
+                //calls destroy enemy
                 DestroyObject();
             }
         }
     }
 
-    public virtual void DestroyObject()
+    public virtual void DestroyObject()//Paly death animation, wait then enemy dies.
     {
+        //[TODO]trigger death animation
         Destroy(gameObject);
     }
 
-    public virtual void HitStun()
+    public virtual void HitStun()//Resets what can hit me and removes stun effect.
     {
         myEnemyScript.enabled = true;
         whatCantHitMe = gameObject;
     }
 
-    public virtual void UpDateEnemyUI()
+    public virtual void UpDateEnemyUI()//Updates enemy hp slider when enemy is hit.
     {
         enemyHPUI.value = health;
     }
