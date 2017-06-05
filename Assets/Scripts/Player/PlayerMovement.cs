@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     //Player
-    [HideInInspector]
+    [HideInInspector]//Set by game manager, used to determine the player # and find the controller attached to them.
     public int playerNumber = 1;
-    [HideInInspector]
+    [HideInInspector]//Used to find what controller this is attached to.
     public string horizontalMovement;
-    [HideInInspector]
+    [HideInInspector]//Used to find what controller this is attached to.
     public string jumpMovement;
 
     //components
-    private Rigidbody2D rb;
-    [HideInInspector] public PlayerAttacks playerAttacks;
-    [HideInInspector] public PlayerHealth playerHealth;
+    private Rigidbody2D rb; //My Rigidbody
+    [HideInInspector] public PlayerAttacks playerAttacks; //My player Attacks and actions.
+    [HideInInspector] public PlayerHealth playerHealth; //My player HP script.
 
     //horizontal movement fields
-    [HideInInspector]
+    [HideInInspector]//Use to find what direction the player is trying to move
     public float horizontalDir;
-    [SerializeField]
+    [SerializeField] //How fast the player is moving.
     private float runForce;
-    [SerializeField]
+    [SerializeField] //What is this unit's max speed.
     private float maxSpeed;
-    [SerializeField]
+    [SerializeField] //how quickly the player stops.
     private float decelerationForce;
-    [SerializeField]
+    [SerializeField]//Used if the character isn't getting input but is still moving.
     private float minSpeed;
 
     //Jumping
@@ -45,22 +45,32 @@ public class PlayerMovement : MonoBehaviour {
     //double jump
     [Tooltip("Force applied to the air jump.")]
     public float arialJumpForce = 10f; //Force applied to the air jump.
-    private Vector3 groundJumpForce;
-    public GameObject jumpEffect;
-    private Transform whatsBelowMeChecker;
+    private Vector3 groundJumpForce; //what the jump force is applied to.
+    public GameObject jumpEffect; //Plays the jump particle effect.
+    private Transform whatsBelowMeChecker;//Checks what is below me, used to check for jumps and jump attacks.
 
 
-    private bool groundJumpInitiated = false;
-    private int currentJumpTimer = 0;
-    [HideInInspector]public int bounceJumpsUsed;
-    private int arialJumpsUsed;
-    [HideInInspector]public bool grounded = false;
-    [HideInInspector]public bool enemyBelow = false;
-    [HideInInspector]public bool playerBelow = false;
+    private bool groundJumpInitiated = false; //have I started to jump yet?
+    private int currentJumpTimer = 0; //How long I have been holding the jump button.
+    [HideInInspector]public int bounceJumpsUsed; //how many bounce jumps have I used.
+    private int arialJumpsUsed; //How many airal jumps have I used.
+    [HideInInspector]public bool grounded = false; //am I currently grounded?
+    [HideInInspector]public bool enemyBelow = false;//Is their an enemy below me?
+    [HideInInspector]public bool playerBelow = false;//is their a player below me?
 
     void Start () {
+        //Sets up the player's hp and actions scripts.
         GetComponent<PlayerHealth>().playerMovement = GetComponent<PlayerMovement>();
         GetComponent<PlayerAttacks>().playerMovement = GetComponent<PlayerMovement>();
+        //initialize components
+        rb = GetComponent<Rigidbody2D>();
+        whatsBelowMeChecker = transform.Find("Whats Below Me");
+        if (whatsBelowMeChecker == null)
+        {
+            Debug.LogError("Can't find: " + whatsBelowMeChecker);
+        }
+
+        //Set's the player's number.
         playerNumber = playerHealth.playerNumber;
 
         //Setup what player I control
@@ -68,23 +78,18 @@ public class PlayerMovement : MonoBehaviour {
         jumpMovement = "Jump" + playerNumber;
         //Debug.Log("horizontalMovement" + gameObject + horizontalMovement);
         //Debug.Log("jumpMovement" + gameObject + jumpMovement);
-
-        //initialize components
-        rb = GetComponent<Rigidbody2D>();
-        whatsBelowMeChecker = transform.Find("Whats Below Me");
-        if(whatsBelowMeChecker == null)
-        {
-            Debug.LogError("Can't find: " + whatsBelowMeChecker);
-        }
     }
 	
 	// Update is called once per frame
 	private void Update () {
 
+        //Determins what direction the player is facing
         PlayerFacing();
         //ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
+
+        //allows the player to move if they arn't holding the block button.
         if (!playerAttacks.blocking)
         {
             MovingPlayer();
@@ -132,6 +137,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void FixedUpdate()
     {
+        //Counts how long the jump button has been held down.
         if (currentJumpTimer > 0)
         {
             currentJumpTimer--;
@@ -140,7 +146,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.gameObject.tag)
+        switch (collision.gameObject.tag) //Checks what's below me.
         {
             
             case "Ground":
@@ -164,7 +170,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        switch (collision.gameObject.tag)
+        switch (collision.gameObject.tag) //removes what's below me when I leave.
         {
             case "Ground":
                 grounded = false;
@@ -185,6 +191,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void PlayerJump()
     {
+        //Does ground jump
         if (grounded)
         {
             currentJumpTimer = maxJumpTimer;
@@ -197,11 +204,12 @@ public class PlayerMovement : MonoBehaviour {
         //    playerAttacks.JumpAttack();
         //}
         else
-        {
+        {//uses air jump if I have any left.
             if (arialJumpsUsed < arialJumpsAllowed)
             {
-                // Reset our velocity
+                //play jump effect
                 Instantiate(jumpEffect, whatsBelowMeChecker.position, whatsBelowMeChecker.rotation);
+                // Reset our velocity
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);
                 // Arial Jump
                 //Debug.Log("Air Jump used" + rb.velocity.y);
@@ -214,7 +222,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void PlayerFacing()
-    {
+    {//what direction is the player facing/last moving
         if (Input.GetAxisRaw(horizontalMovement) != 0)
         {
             if (Input.GetAxisRaw(horizontalMovement) < 0)
@@ -229,15 +237,18 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void MovingPlayer()
-    {
+    {//moves the player by adjusting their velocity.
         if (horizontalDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
+        {
             rb.AddForce(new Vector2(horizontalDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
+        }   
         else if (horizontalDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
+        {
             rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
-
+        }
     }
 
-    //Used to make it so that the player can't go past the edge of the screen
+    //Used to make it so that the player can't go past the edge of the screen currently not being used as the camera zoom handles this.
     //private void ScreenCollisions()
     //{
     //    //prevent object from leaving screen boundaries

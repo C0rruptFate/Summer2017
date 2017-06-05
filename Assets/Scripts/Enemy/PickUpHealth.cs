@@ -14,7 +14,7 @@ public class PickUpHealth : MonoBehaviour {
     [Tooltip("How much is my my heal/mana multiplied by if my element matches the player?")]
     public float sameElementBonus = 2;
 
-    private PlayerHealth playerHealth;
+    private PlayerHealth playerHealth;//player health script for the player that picked me up
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +28,7 @@ public class PickUpHealth : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        //if touching a player grant them health/mana.
         if (other.gameObject.tag == "Player")
         {
             playerHealth = other.gameObject.GetComponent<PlayerHealth>();

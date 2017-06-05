@@ -4,46 +4,50 @@ using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour {
 
-    [HideInInspector]
+    //These are all set by the players attacks/actions script.
+    [HideInInspector]//How fast the projectile moves.
     public float projectileSpeed;
-    [HideInInspector]
+    [HideInInspector]//How much damage the projectile deals.
     public float projectileDamage;
-    [HideInInspector]
+    [HideInInspector]//How long the projectile stuns for.
     public float projectileHitStun;
 
-    [HideInInspector]
+    [HideInInspector]//the projectile will expire after X seconds.
     public float projectileMaxDuration;
-    [HideInInspector]
+    [HideInInspector]//The chance it will break when hitting an enemy.
     public float projectileBreakChance;
-    [HideInInspector]
+    [HideInInspector]//Does this fly strait or is is lobbed? True to fly strait.
     public bool usesConstantForceProjectile = true;
-    [HideInInspector]
+    [HideInInspector]//Does this expire when hitting a wall?
     public bool breaksHittingWall = true;
-    [HideInInspector]
+    [HideInInspector]//The force this is lobbed at when the player is using a lobbed projectile.
     public Vector2 lobbedForce;
-    [HideInInspector]
+    [HideInInspector]//How long this is held for before being thrown.
     public float throwWaitTime;
-    private Transform formerParent;
+    private Transform formerParent;//Used when holding a lobbed projectile.
 
-    private float currentLife;
-    private bool breaking = false;
+    private float currentLife;//How long this has been alive for.
+    private bool breaking = false;//used with the break change to decide if this will break.
 
-    [HideInInspector]public GameObject player;
-    [HideInInspector]
+    [HideInInspector]public GameObject player; //Who this belongs to.
+    [HideInInspector]//What element is this projectile.
     public Element myElement;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D rb; //My Rigidibody
 
     // Use this for initialization
     void Start () {
 
+        //Set's my element
         myElement = player.GetComponent<PlayerHealth>().element;
 
+        //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
         {
             gameObject.GetComponent<Collider2D>().enabled = true;
         }
 
+        //Used to set up lobbed projectiles.
         if(!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
         {
             formerParent = transform.parent;
@@ -51,8 +55,8 @@ public class PlayerProjectile : MonoBehaviour {
             Invoke("ThrowForce", throwWaitTime);
         }
 
-        currentLife = Time.time + projectileMaxDuration;
-        float breakNumber = Random.Range(0, 100);
+        currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
+        float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
         if (breakNumber <= projectileBreakChance)
         {
             breaking = true;
@@ -62,11 +66,13 @@ public class PlayerProjectile : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+        //Reduces the life of the object at 0 it is destroyed.
         if (Time.time >= currentLife)
         {
             Destroy(gameObject);
         }
 
+        //Causes the object to fly forward.
         if (usesConstantForceProjectile)
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
@@ -77,7 +83,7 @@ public class PlayerProjectile : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == ("Enemy"))
+        if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
@@ -90,13 +96,14 @@ public class PlayerProjectile : MonoBehaviour {
                 //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
                 //otherRB.AddForce(new Vector3(distX, distY, 0), ForceMode.Impulse);
                 health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
                 if (breaking)
                 {
                     Destroy(gameObject); 
                 }
             }   
         }
-        else if (other.tag == ("Ground") && breaksHittingWall)
+        else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
         {
             Destroy(gameObject);
         }
@@ -104,6 +111,7 @@ public class PlayerProjectile : MonoBehaviour {
 
     private void ThrowForce()
     {
+        //Throws the lobbed projectile.
         transform.parent = formerParent;
         gameObject.AddComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
