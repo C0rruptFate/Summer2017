@@ -115,8 +115,13 @@ public class PlayerProjectile : MonoBehaviour {
         transform.parent = formerParent;
         gameObject.AddComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
+        BoxCollider2D triggerCollider = gameObject.GetComponent<BoxCollider2D>();
+        triggerCollider.size = new Vector2(5f, 3f); //Change these numbers to make the hitbox larger or smaller if needed so that it matches what is below.
+        //Adds physical coollider so that he can stay on the ground.
         BoxCollider2D physicalCollider = gameObject.AddComponent<BoxCollider2D>();
-        physicalCollider.size = new Vector2(3f,3f);
+        physicalCollider.size = new Vector2(5f,3f);//Change these numbers to make the hitbox larger or smaller if needed so that it will collide with the ground.
+        
+
 
         //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         if (player.GetComponent<Transform>().rotation.y < 0)

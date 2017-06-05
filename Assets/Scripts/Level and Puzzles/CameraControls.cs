@@ -15,40 +15,41 @@ public class CameraControls : MonoBehaviour {
     private float m_ZoomSpeed; //Deals with the damping the function will use them.
     private Vector3 m_MoveVelocity; //Deals with the damping the function will use them.
     private Vector3 m_DesiredPosition; //The point we want the camera rig to be at (middle position of all players).
-    [HideInInspector]
+    [HideInInspector]//List of all the players it should be tracking.
     public Transform[] playersArray;
 
 
-    private void Awake()
+    private void Awake()//On Spawn finds the camera component under this rig.
     {
         m_Camera = GetComponentInChildren<Camera>();
     }
 
     private void Start()
     {
-        playersArray = players.ToArray();
+        playersArray = players.ToArray();//adds all players to its player array so he knows who to track.
     }
 
 
     private void Update() //Might want to change to update because that is what is used to move our players
     {
-        MoveCamera();
-        Zoom();
+        MoveCamera();//Moves the camera to be in the center of all players.
+        Zoom();//Zooms to keep all players inside of the camera with a little bit of padding.
     }
 
 
-    private void MoveCamera()
+    private void MoveCamera()//Moves the camera to track all active (alive) players.
     {
-        FindAveragePosition();
-
+        FindAveragePosition();//Finds the center position of all players.
+        //Moves to the center position of all players gradually
         transform.position = Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
     }
 
 
-    private void FindAveragePosition()
+    private void FindAveragePosition()//Finds the center position of all players.
     {
         Vector3 averagePos = new Vector3();
         int numTargets = 0;
+        //Counts all active (alive) players.
         for (int i = 0; i < playersArray.Length; i++)
         {
             if (!playersArray[i].gameObject.activeSelf)
@@ -69,14 +70,14 @@ public class CameraControls : MonoBehaviour {
     }
 
 
-    private void Zoom()
+    private void Zoom()//Used to keep all players inside of the camera space.
     {
-        float requiredSize = FindRequiredSize();
+        float requiredSize = FindRequiredSize();//sets how large/small the camera should be.
         m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
     }
 
 
-    private float FindRequiredSize()
+    private float FindRequiredSize()//Uses fancy math to find out how big the camera should be, see unity TANKS! tutorial to learn more.
     {
         Vector3 desiredLocalPos = transform.InverseTransformPoint(m_DesiredPosition);
 
@@ -104,7 +105,7 @@ public class CameraControls : MonoBehaviour {
     }
 
 
-    public void SetStartPositionAndSize()
+    public void SetStartPositionAndSize()//Sets the position and size based on the functions above.
     {
         FindAveragePosition();
 

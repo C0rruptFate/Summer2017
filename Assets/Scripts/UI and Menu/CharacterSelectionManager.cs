@@ -7,23 +7,26 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     //[HideInInspector]
     //public int playerCount;
-    [HideInInspector]
+    [HideInInspector]//counts how many players are ready.
     public int playersReady;
-    [HideInInspector]
+    [HideInInspector]//Starts the countdown to begin the level.
     public bool readyToStart = false;
-    [HideInInspector]
+    [HideInInspector]//How many seconds it takes to start the game.
     public int countDown;
 
-
+    [Tooltip("The countdown text when all players are locked in.")]
     public Text readyText;
+    [Tooltip("The name of the level to load, this might end up as a level selection screen.")]
     public string levelToLoad;
+    [Tooltip("How long until the level is loaded. This will be the countdown time.")]
     public int loadLevelWaitTime;
-    private GameObject levelManager;
-    private IEnumerator coroutine;
+    private GameObject levelManager;//The level manager so that the this can pass the characters through to them.
+    private IEnumerator coroutine;//The count down that resets when a player deselects or joins the lobby.
 
 
     // Use this for initialization
     void Start () {
+        //Sets everything up so that the players can select their characters.
         Constants.playerCount = 0;
         levelManager = GameObject.Find("Level Manager");
         readyText.text = "";
@@ -33,7 +36,7 @@ public class CharacterSelectionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		//if all active players have selected their character then start the count down.
         if(Constants.playerCount >= 1 && Constants.playerCount == playersReady)
         {
             if (!readyToStart)
@@ -52,7 +55,7 @@ public class CharacterSelectionManager : MonoBehaviour {
         }
 	}
 
-    void CharactersSelect()
+    void CharactersSelect()//Sends the selected player elements to the level manager so that it knows what to spawn.
     {
         if (Constants.playerCount >= 1 && Constants.playerCount == playersReady)
         {
@@ -65,7 +68,7 @@ public class CharacterSelectionManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator CountDown()
+    private IEnumerator CountDown()//The Count down used when all active players have locked in their characters.
     {
         while(countDown > 0)
         {

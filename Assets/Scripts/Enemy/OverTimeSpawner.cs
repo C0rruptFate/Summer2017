@@ -12,7 +12,7 @@ public class OverTimeSpawner : Spawner {
         //Spawns each enemy in the enemy array list of this transform
         foreach (GameObject thisEnemy in enemyPrefabArray)
         {
-            if (wakeUp && active)
+            if (wakeUp && active && isTimeToSpawn(thisEnemy))
             {
                 Spawn(thisEnemy);
             }

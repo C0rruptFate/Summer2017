@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    //Dealing with the UI panel
+    //Dealing with the UI panel and background color.
     public Image playerUIPanel;
     public Color fireColor;
     public Color iceColor;
@@ -35,13 +35,12 @@ public class PlayerUI : MonoBehaviour
     private Transform manaUI;
     private Slider manaSlider;
     private float currentMana;
-    //private float startingMana;
     private float maxMana;
 
     //Other
-    private PlayerHealth playerHealth;
-    private GameObject player;
-    private PlayerHealth playerResources;
+    private PlayerHealth playerHealth; //player HP script
+    private GameObject player; //the player themself
+    private PlayerHealth playerResources; //the player's mana
 
     // Use this for initialization
     void Start()
@@ -49,17 +48,19 @@ public class PlayerUI : MonoBehaviour
         //Find our UI elements
         healthUI = gameObject.transform.GetChild(1);
         manaUI = gameObject.transform.GetChild(2);
-
+        //finds the sliders of those elements.
         hpSlider = healthUI.GetComponent<Slider>();
         manaSlider = manaUI.GetComponent<Slider>();
 
         if (hpSlider == null || manaSlider == null)
         {
+            //Lets the designer know if those can't be found, this shouldn't ever show.
             Debug.Log("Missing a Slider");
         }
 
         //Find our player
         players = GameObject.FindGameObjectsWithTag("Player");
+        //Finds the player with the player # we are looking for.
         foreach (var possiblePlayer in players)
         {
             if(possiblePlayer.GetComponent<PlayerHealth>().playerNumber == playerNumber)
@@ -67,15 +68,15 @@ public class PlayerUI : MonoBehaviour
                 player = possiblePlayer;
             }
         }
-            //////////
-            //player = GameObject.Find(playerNumber);
+
+        //disables/destroys the UI component if the player doesn't exist.
         if (player == null)
         {
             Destroy(gameObject);
             return;
         }
 
-        //Find player HP
+        //Find player HP and it's max/current values.
         playerResources = player.GetComponent<PlayerHealth>();
         startingHealth = playerResources.health;
         playerResources.playerUI = gameObject;
@@ -84,8 +85,7 @@ public class PlayerUI : MonoBehaviour
         hpFillImage.color = fullHealthColor;
         
 
-        //Find player Special
-        //startingMana = playerResources.startingMana;
+        //Find player mana
         maxMana = playerResources.maxMana;
         manaSlider.maxValue = maxMana;
 
@@ -116,7 +116,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     //Call this everytime the player takes damage or is healed. Using 'uiHealth.GetComponent<UIHealth>().SetHealthUI();' on the player
-    public void SetHealthUI()
+    public void SetHealthUI()//Updates the HP UI when the player gains/loses HP.
     {
         currentHealth = playerResources.health;
         hpSlider.value = currentHealth;
@@ -139,14 +139,13 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void SetManaUI()
+    public void SetManaUI() //Sets the mana UI when the player spends/gains mana.
     {
         currentMana = playerResources.mana;
         manaSlider.value = currentMana;
         //Debug.Log("Current mana: " + currentMana);
         if (currentMana == 0)
         {
-            //[TODO]bug is here! current mana is = to 0 when it should be 100.
             manaFillImage.enabled = false;
         }
         else

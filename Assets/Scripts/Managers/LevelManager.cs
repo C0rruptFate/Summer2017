@@ -31,12 +31,12 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-            DontDestroyOnLoad(transform.gameObject);
+            DontDestroyOnLoad(transform.gameObject);//Makes sure this object stays each time a new level is loaded. 
     }
 
     void Start()
     {
-        if (autoLoadNextLevelAfter <= 0)
+        if (autoLoadNextLevelAfter <= 0)//Loads the next level after X seconds, X must be greater than 0. Mainly used for a splash screen.
         {
             Debug.Log("Auto Load Disabled, or use a positive number.");
         }
@@ -46,25 +46,26 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void LoadLevel(string name)
+    public void LoadLevel(string name)//Loads the level that is put into the string.
     {
         SceneManager.LoadScene(name);
         //SpawnPlayers();
         //Invoke("SpawnPlayers", .5f);
     }
 
-    public void QuitRequest()
+    public void QuitRequest()//Closes the game when this is called. [TODO] put in a confermation option.
     {
         Debug.Log("Quit Requested.");
         Application.Quit();
     }
 
-    public void LoadNextLevel(string name)
+    public void LoadNextLevel(string name)//Not being used ATM. [TODO] set this up to load the next level.
     {
         SceneManager.LoadScene(name);
         //SceneManager.LoadScene(SceneManager.loadedlevel + 1);
     }
 
+    //Spawns all playrs and sets up their controls.
     public void SpawnPlayers()
     {
         //Finds the camera to track with.
@@ -76,7 +77,8 @@ public class LevelManager : MonoBehaviour
         spawnPoint3 = GameObject.Find("Spawn Point 3");
         spawnPoint4 = GameObject.Find("Spawn Point 4");
         GameObject newPlayer;
-        //Spawn Player 1
+
+        //Spawn Player 1, set their element, controls and tells the camera to follow them.
         switch (player1Element)
         {
             case Element.Fire:
@@ -112,7 +114,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
 
-        //Spawn Player 2
+        //Spawn Player 2, set their element, controls and tells the camera to follow them.
         switch (player2Element)
         {
             case Element.Fire:
@@ -147,7 +149,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
 
-        //Spawn Player 3
+        //Spawn Player 3, set their element, controls and tells the camera to follow them.
         switch (player3Element)
         {
             case Element.Fire:
@@ -182,7 +184,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
 
-        //Spawn Player 4
+        //Spawn Player 4, set their element, controls and tells the camera to follow them.
         switch (player4Element)
         {
             case Element.Fire:
