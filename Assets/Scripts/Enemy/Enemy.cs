@@ -107,7 +107,7 @@ public class Enemy : MonoBehaviour {
                 targets = GameObject.FindGameObjectsWithTag("Player");
                 foreach (var possibleTarget in targets)
                 {
-                    if (possibleTarget.GetComponent<PlayerHealth>().element == Constants.whatICounter(element))
+                    if (possibleTarget.GetComponent<PlayerHealth>().element == Constants.whatICounter(element) && possibleTarget.gameObject.activeSelf)
                     {
                         target = possibleTarget;
                     }

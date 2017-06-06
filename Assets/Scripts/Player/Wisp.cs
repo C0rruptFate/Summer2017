@@ -26,9 +26,20 @@ public class Wisp : MonoBehaviour {
 
     //Buffs to the player holding the wisp
     [Tooltip("How much mana I grant the attached player each tick.")]
-    public float manaRegenAmount = 10f;
+    public int manaRegenAmount = 10;
     [Tooltip("how quickly do I tick, in seconds.")]
     public float manaRegenRate = 5f;
+    [Tooltip("Attach Mana gain Fire wisp effect.")]
+    public GameObject wispManaGrantObjectFire;
+    [Tooltip("Attach Mana gain Water wisp effect.")]
+    public GameObject wispManaGrantObjectWater;
+    [Tooltip("Attach Mana gain Air wisp effect.")]
+    public GameObject wispManaGrantObjectAir;
+    [Tooltip("Attach Mana gain Earth wisp effect.")]
+    public GameObject wispManaGrantObjectEarth;
+    private GameObject currentWispManaGrantObject;//The currently active version of the wisp mana grant object
+
+    public bool attachedPlayerFlipper;
 
     // Use this for initialization
     void Start () {
@@ -61,7 +72,11 @@ public class Wisp : MonoBehaviour {
         if (playerICouldAttachTo != null && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWisp && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWispTime >= 20)
         {
             attachedPlayer = playerICouldAttachTo;
-            WispPlayerBuff();
+            Debug.Log("Testing here");
+            if (currentWispManaGrantObject == null)
+            {
+                WispPlayerBuff();
+            }
         }
 
         //Removes from the attached player
@@ -106,7 +121,11 @@ public class Wisp : MonoBehaviour {
         if (other.tag == "Player" && attachedPlayer == null && other.GetComponent<PlayerAttacks>().callingWisp)
         {
             attachedPlayer = other.gameObject;
-            WispPlayerBuff();
+            Debug.Log("Testing here");
+            if (currentWispManaGrantObject == null)
+            {
+                WispPlayerBuff(); 
+            }
         }
         //Debug.Log("Touching " + other.name);
     }
@@ -130,32 +149,36 @@ public class Wisp : MonoBehaviour {
     void WispPlayerBuff()
     {
         //Causes me to grant the player mana when attached to them.
-        InvokeRepeating("GainMana", 2, manaRegenRate);
+        //InvokeRepeating("GainMana", 2, manaRegenRate);
         //used to show I am giving a player mana when attached to them. Will change with wisp system changes
         var emission = ps.emission;
         var shape = ps.shape;
-        var main = ps.main;
+        shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
 
         switch (attachedPlayer.GetComponent<PlayerHealth>().element)
         {
             case Element.Fire:
-                main.startColor = Constants.fireColor;
+                currentWispManaGrantObject = Instantiate(wispManaGrantObjectFire, transform.position, transform.rotation);
                 break;
             case Element.Ice:
-                main.startColor = Constants.waterColor;
+                currentWispManaGrantObject = Instantiate(wispManaGrantObjectWater, transform.position, transform.rotation);
                 break;
             case Element.Earth:
-                main.startColor = Constants.earthColor;
+                currentWispManaGrantObject = Instantiate(wispManaGrantObjectEarth, transform.position, transform.rotation);
                 break;
             case Element.Wind:
-                main.startColor = Constants.airColor;
+                currentWispManaGrantObject = Instantiate(wispManaGrantObjectAir, transform.position, transform.rotation);
                 break;
         }
 
-        shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
-        emission.rateOverTime = 0f;
-        emission.rateOverDistance = 50f;
-        emission.SetBursts(new ParticleSystem.Burst[] { new ParticleSystem.Burst(0, 100, 100, 0, manaRegenRate) });
+        currentWispManaGrantObject.GetComponent<WispManaGrantEffect>().targetTransform = transform;
+        currentWispManaGrantObject.GetComponent<WispManaGrantEffect>().attachedPlayer = attachedPlayer;
+        currentWispManaGrantObject.GetComponent<WispManaGrantEffect>().manaRegenAmount = manaRegenAmount;
+        currentWispManaGrantObject.GetComponent<WispManaGrantEffect>().manaRegenRate = manaRegenRate;
+
+        //emission.rateOverTime = 0f;
+        //emission.rateOverDistance = 50f;
+        //emission.SetBursts(new ParticleSystem.Burst[] { new ParticleSystem.Burst(0, 100, 100, 0, manaRegenRate) });
     }
     void RemoveWispPlayerBuff()
     {
@@ -166,9 +189,10 @@ public class Wisp : MonoBehaviour {
 
         main.startColor = Color.white;
         shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
-        emission.rateOverTime = 50f;
-        emission.rateOverDistance = 0f;
-        emission.SetBursts(new ParticleSystem.Burst[] { });
+        //emission.rateOverTime = 50f;
+        //emission.rateOverDistance = 0f;
+        //emission.SetBursts(new ParticleSystem.Burst[] { });
+        Destroy(currentWispManaGrantObject);
     }
 
     void GainMana()

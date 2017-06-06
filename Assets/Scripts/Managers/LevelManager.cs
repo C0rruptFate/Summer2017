@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    //Handling level management
     [Tooltip("How long does it take to load the next level, leave at 0 to avoid loading the next level.")]
     public float autoLoadNextLevelAfter;
+    [HideInInspector]
+    public string previousLevel;
 
     //Spawn points 
     private GameObject spawnPoint1;
@@ -48,12 +51,13 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(string name)//Loads the level that is put into the string.
     {
+        previousLevel = SceneManager.GetActiveScene().name;//Saves the last level I was in so that I can go back.
         SceneManager.LoadScene(name);
         //SpawnPlayers();
         //Invoke("SpawnPlayers", .5f);
     }
 
-    public void QuitRequest()//Closes the game when this is called. [TODO] put in a confermation option.
+    public void QuitRequest()//Closes the game when this is called. [TODO] put in a confirmation option.
     {
         Debug.Log("Quit Requested.");
         Application.Quit();
@@ -61,6 +65,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel(string name)//Not being used ATM. [TODO] set this up to load the next level.
     {
+        previousLevel = SceneManager.GetActiveScene().name; //Saves the last level I was in so that I can go back.
         SceneManager.LoadScene(name);
         //SceneManager.LoadScene(SceneManager.loadedlevel + 1);
     }

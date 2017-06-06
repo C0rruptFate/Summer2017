@@ -10,8 +10,8 @@ public enum PuzzleType {None, Door, EndLevel}//What does each switch controller 
 public class Constants : MonoBehaviour
 {
     //Colors for each element
-    public static Color fireColor = new Color(255,69,00,128);
-    public static Color waterColor = new Color(165, 242, 243, 128);
+    public static Color fireColor = new Color(255,69,00,128); //hex FF450080
+    public static Color waterColor = new Color(35, 137, 218, 128);
     public static Color airColor = new Color(156, 49, 241, 128);
     public static Color earthColor = new Color(109, 93, 73, 128);
 

@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    [Tooltip("Attach the pause text located on the UI!")]
+    [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     public Text pauseText;//Text displayed when a player pauses the game.
 
-    [HideInInspector]//list of all player objects.
+    [HideInInspector]//list of all players that joined the level.
     public GameObject[] players;
 
-    [HideInInspector]//Total count of all players that joined the level.
-    public int totalPlayers;
+    //[HideInInspector]//Total count of all players that joined the level.
+    public int totalPlayerCount;
+
+    //[HideInInspector]//Total count of all living players.
+    public int alivePlayerCount;
 
     private GameObject levelManager;//Object of the level manager so that we can load levels.
 
@@ -22,6 +25,14 @@ public class GameController : MonoBehaviour {
         levelManager = GameObject.Find("Level Manager");
         levelManager.GetComponent<LevelManager>().SpawnPlayers();
         players = GameObject.FindGameObjectsWithTag("Player");
+        totalPlayerCount = players.Length;
+        //Counts how many players joined the game.
+        alivePlayerCount = totalPlayerCount;
+        //for (int i = 0; i < totalPlayerCount; i++)
+        //{
+        //    RaisePlayerCount();
+        //    //Debug.Log("Total Player Count " + totalPlayers);
+        //}
 
         //Makes sure the pause text isn't enabled.
         pauseText.enabled = false;
@@ -30,13 +41,6 @@ public class GameController : MonoBehaviour {
         if (pauseText == null)
         {
             Debug.Log("Attach 'Pause Text' from the UI");
-        }
-
-        //Counts how many players joined the game.
-        for (int i = 0; i < players.Length; i++)
-        {
-            RaisePlayerCount();
-            //Debug.Log("Total Player Count " + totalPlayers);
         }
     }
 	
@@ -73,17 +77,17 @@ public class GameController : MonoBehaviour {
     }
     public void LowerPlayerCount() //Called when a player dies
     {
-        totalPlayers--;
-        if (totalPlayers == 0)
+        alivePlayerCount--;
+        if (alivePlayerCount <= 0)
         {
-            //Debug.Log("All Players dead");
+            Debug.Log("All Players dead");
             Invoke("GameOver", 3);//[TODO] Set up game over time and effect then change this # to match that length.
         }
     }
 
-    public void RaisePlayerCount() //Called when a player is revived at when the level starts.
+    public void RaisePlayerCount() //Called when a player is revived.
     {
-        totalPlayers++;
+        alivePlayerCount++;
     }
 
     void GameOver() //Called when all players are dead at the same time

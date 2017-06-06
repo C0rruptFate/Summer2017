@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoLoadNextLevelAfter: 0
+  previousLevel: 
   fireCharacter: {fileID: 1773708515788726, guid: e89d59040c6eb864ab1074b1a912fcb8,
     type: 2}
   waterCharacter: {fileID: 1209170301946456, guid: a3f0d48c704c47845ab164c5bf945f29,
@@ -76,15 +77,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ba64105e71cbc489c6f76b670a3ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireColor:
-    serializedVersion: 2
-    rgba: 4278207999
-  waterColor:
-    serializedVersion: 2
-    rgba: 4294177445
-  airColor:
-    serializedVersion: 2
-    rgba: 4293996956
-  earthColor:
-    serializedVersion: 2
-    rgba: 4282998125
