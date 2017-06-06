@@ -6,33 +6,36 @@ public class AttacksFire : PlayerAttacks {
 
     // Use this for initialization
     void Start () {
+
+        //Plugs myself into my PlayerHealth and Player movement scripts.
         // [TODO] CHANGE THESE GETCOMPONENTS FOR EACH ELEMENTAL ATTACK SCRIPT.
         GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksFire>();
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksFire>();
+        //Sets my player # so I know what controller to look at.
         playerNumber = playerHealth.playerNumber;
+        //Sets up my rigid body.
         rb = GetComponent<Rigidbody2D>();
-        //Finds the wisp target location object and changes it's name
+        //Finds the wisp target location object, changes it's name, and removes it as a child.
         myWispTargetLocation = transform.Find("Wisp Target Location");
         myWispTargetLocation.name = gameObject.name + "Wisp Target Location";
         myWispTargetLocation.parent = null;
         //Find the wisp object
         wisp = GameObject.Find("Wisp");
-
         if(wisp == null)
-        {
-            Debug.Log("Can't find the Wisp");
+        {//If the wisp can't be found it will inform the designer.
+            Debug.LogError("Can't find the Wisp, it might not be added to the scene.");
         }
 
         //Set's up the player's weapon parent object
         playerWeaponParent = GameObject.Find("Player Attacks");
-
-        if (!playerWeaponParent)
+        if (!playerWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
         {
             playerWeaponParent = new GameObject("Player Attacks");
         }
 
         //Melee attack Setup
         #region
+        //Sets up the grounded melee attack for your first weapon
         switch (groundMeleeType)
         {
             case AttackFromLocation.Overhead:
@@ -60,9 +63,11 @@ public class AttacksFire : PlayerAttacks {
         }
         if (groundMeleeGun == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.LogError("Can't find the PRIMARY GROUND MELEE gun for " + gameObject);
         }
 
+        //Sets up the grounded melee attack for your second weapon if you have one.
         switch (groundMeleeTwoType)
         {
             case AttackFromLocation.Overhead:
@@ -83,16 +88,17 @@ public class AttacksFire : PlayerAttacks {
             case AttackFromLocation.Horizontal:
                 groundMeleeGunTwo = transform.Find("Horizontal Gun");
                 break;
-            case AttackFromLocation.Empty:
+            case AttackFromLocation.Empty://Second could be left empty.
             default:
                 groundMeleeGunTwo = null;
                 break;
         }
         if (groundMeleeGunTwo == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.Log("Can't find the SECONDARY GROUND MELEE gun for " + gameObject);
         }
-
+        //Sets up the aerial melee attack for your first weapon.
         switch (airMeleeType)
         {
             case AttackFromLocation.Overhead:
@@ -120,9 +126,10 @@ public class AttacksFire : PlayerAttacks {
         }
         if (airMeleeGun == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.LogError("Can't find the PRIMARY AIR MELEE gun for " + gameObject);
         }
-
+        //Sets up the aerial melee attack for your secondary weapon.
         switch (airMeleeTwoType)
         {
             case AttackFromLocation.Overhead:
@@ -143,21 +150,23 @@ public class AttacksFire : PlayerAttacks {
             case AttackFromLocation.Horizontal:
                 airMeleeGunTwo = transform.Find("Horizontal Gun");
                 break;
-            case AttackFromLocation.Empty:
+            case AttackFromLocation.Empty://Second could be left empty.
             default:
                 airMeleeGunTwo = null;
                 break;
         }
         if (airMeleeGunTwo == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.Log("Can't find the SECONDARY AIR MELEE gun for player " + gameObject);
         }
-        //Jump attack Setup
+        //Jump attack Setup this will always be the gun below you.
         jumpMeleeGun = transform.Find("Below Gun");
         #endregion
 
         //Ranged attack Setup
         #region 
+        //Sets up the grounded projectile for your first weapon
         switch (groundProjectileType)
         {
             case AttackFromLocation.Overhead:
@@ -185,9 +194,10 @@ public class AttacksFire : PlayerAttacks {
         }
         if (groundGun == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.LogError("No GROUND PROJECTILE selected on PRIMARY gun for " + gameObject);
         }
-        //Secondary gun slot
+        //Sets up the grounded projectile for your secondary weapon.
         switch (groundProjectileTwoType)
         {
             case AttackFromLocation.Overhead:
@@ -215,9 +225,11 @@ public class AttacksFire : PlayerAttacks {
         }
         if (groundGunTwo == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.Log("No GROUND PROJECTILE selected on SECONDARY gun for " + gameObject);
         }
 
+        //Sets up the aerial projectile for your primary weapon.
         switch (airProjectileType)
         {
             case AttackFromLocation.Overhead:
@@ -242,9 +254,10 @@ public class AttacksFire : PlayerAttacks {
         }
         if (airGun == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.LogError("No air projectile selected on PRIMARY gun for " + gameObject);
         }
-        //Secondary projectile Type
+        //Sets up the aerial projectile for your secondary weapon.
         switch (airProjectileTwoType)
         {
             case AttackFromLocation.Overhead:
@@ -272,6 +285,7 @@ public class AttacksFire : PlayerAttacks {
         }
         if (airGunTwo == null)
         {
+            //If the this object is missing it will inform the designer.
             Debug.Log("No air projectile selected on SECONDARY gun for " + gameObject);
         }
         #endregion
@@ -280,7 +294,7 @@ public class AttacksFire : PlayerAttacks {
     // Update is called once per frame
     void Update () {
 
-        //Call Wisp
+        //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
         if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
         {
@@ -290,7 +304,7 @@ public class AttacksFire : PlayerAttacks {
             }
             CallWisp();
             callingWisp = true;
-        }
+        }//Stops calling the Wisp when the button isn't held down.
         else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
         {
             callingWispTime = 0;
@@ -298,42 +312,66 @@ public class AttacksFire : PlayerAttacks {
         }
 
         //Special Atack
-        if (Input.GetAxisRaw("Special" + playerNumber) == 1)
+        if (Input.GetAxisRaw("Special" + playerNumber) == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
         {
             //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
 
             //[TODO]Play special particle effect
             //turn special is active to true
+            //Debug.Log("Special is active.");
             specialActive = true;
         }
-        if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)
+        if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)//Turns off the special when the button/trigger is released.
         {
             //Turn off special
+            //Debug.Log("SpeciaL has been DEACTIVATED");
             specialActive = false;
         }
 
-        //Melee Attack
-            if (Input.GetButtonDown("Melee"+ playerNumber) && Time.time > meleeNextFire)
+        //Melee attacks
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire)//Special Melee Attack
+        {
+            //Debug.Log("Melee Special is active.");
+            SpecialMeleeAttack();
+        }
+        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire)//Melee Attack
         {
             MeleeAttack();
         }
 
-        //Ranged Attack
-        if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)
+        //Ranged Attacks
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Special Ranged Attack
+        {
+            //Debug.Log("Ranged Special is active.");
+            SpecialRangedAttack();
+        }
+        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Ranged Attack
         {
             RangedAttack();
         }
 
         //Defend
-        if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Special Block
         {
-            if(!blocking)
+            Debug.Log("Defend Special is active.");
+            if (!blocking)
             {
                 blocking = true;
-                PlayerDefend();
+                SpecialPlayerDefend();
             }
         }
-        else if(blocking)
+        else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Block
+        {
+            if(!blocking)//If I am not already blocking start blocking
+            {
+                blocking = true;
+                PlayerDefend();//Creates the block effect and all that goes with that.
+            }
+        }
+        else if(blocking)//Causes me to release the block.
         {
             blocking = false;
             blockNextFire = Time.time + blockFireRate;
@@ -341,9 +379,11 @@ public class AttacksFire : PlayerAttacks {
         }
     }
 
+    //Player Melee attacks
     public override void MeleeAttack()
     {
-        meleeNextFire = Time.time + meleeFireRate;
+        meleeNextFire = Time.time + meleeFireRate; //Decides when preform another melee attack.
+        //Checks if I am grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
         switch (gameObject.GetComponent<PlayerMovement>().grounded)
         {
             case true:
@@ -353,7 +393,7 @@ public class AttacksFire : PlayerAttacks {
                 newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
                 newGroundMelee.GetComponent<PlayerMelee>().myGun = groundMeleeGun;
                 SetBasicMeleeAttackStats(newGroundMelee);
-                if (groundMeleeGunTwo != null)
+                if (groundMeleeGunTwo != null)//Does the same for the 2nd grounded melee attack, if I have one.
                 {
                     newGroundMelee = Instantiate(meleeObject, groundMeleeGunTwo.position, groundMeleeGunTwo.rotation);
                     newGroundMelee.transform.parent = playerWeaponParent.transform;
@@ -362,14 +402,14 @@ public class AttacksFire : PlayerAttacks {
                     SetBasicMeleeAttackStats(newGroundMelee);
                 }
                 break;
-            default:
+            default://If I am not grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
                 //Do Air melee attack stuff here. 
                 newAirMelee = Instantiate(meleeObject, airMeleeGun.position, airMeleeGun.rotation);
                 newAirMelee.transform.parent = playerWeaponParent.transform;
                 newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
                 newAirMelee.GetComponent<PlayerMelee>().myGun = airMeleeGun;
                 SetBasicMeleeAttackStats(newAirMelee);
-                if (airMeleeGunTwo != null)
+                if (airMeleeGunTwo != null) //Does the same for the 2nd aerial, if I have one.
                 {
                     newAirMelee = Instantiate(meleeObject, airMeleeGunTwo.position, airMeleeGunTwo.rotation);
                     newAirMelee.transform.parent = playerWeaponParent.transform;
@@ -380,6 +420,7 @@ public class AttacksFire : PlayerAttacks {
                 break;
         }
 
+        //If I am blocking attacking will pull me out of it.
         if (blocking == true)
         {
             blocking = false;
@@ -389,13 +430,17 @@ public class AttacksFire : PlayerAttacks {
 
     public override void RangedAttack()
     {
-        projectileNextFire = Time.time + projectileFireRate;
+        projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
         //Shoots the projectile, put the projectile movement code on that object.
+        //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
         switch (gameObject.GetComponent<PlayerMovement>().grounded)
-        {
-            case true:
+        {//Put melee attacks on the ground here.
+            case true://Checks if the projectile is lobbed or not
+
+                //[CHECK] I DON'T THINK THIS IS BEING USED. AS PROJECTILES ARN'T EVER NAMED THIS.
+
                 if (groundProjectile.name == "Player Projectile Lobbed")
-                {
+                {//If it is lobbed then check what direction I am facing and create the object, then apply impulse force and toss it at the angle set in the inspector.
                     GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
                     newGroundProjectile.transform.parent = playerWeaponParent.transform;
                     if (transform.rotation.y > 0 && (lobbedForce.x > 0))
@@ -417,6 +462,7 @@ public class AttacksFire : PlayerAttacks {
                     SetBasicRangedAttackStats(newGroundProjectile);
                     if (groundGunTwo != null)
                     {
+                        //Does the same thing for the secondary grounded projectile if one is set.
                         newGroundProjectile = Instantiate(groundProjectile, groundGunTwo.position, groundGunTwo.rotation);
                         newGroundProjectile.transform.parent = playerWeaponParent.transform;
                         newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
@@ -424,7 +470,7 @@ public class AttacksFire : PlayerAttacks {
                     }
 
                 }
-                //Set up a gun position object on each player.
+                //Set up a aerial gun position object on each player.
                 break;
             default:
                 GameObject newAirProjectile = Instantiate(airProjectile, airGun.position, airGun.rotation);
@@ -432,7 +478,7 @@ public class AttacksFire : PlayerAttacks {
                 newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                 SetBasicRangedAttackStats(newAirProjectile);
                 if (airGunTwo != null)
-                {
+                {//Does the same thing for the secondary if one is set.
                     newAirProjectile = Instantiate(airProjectile, airGunTwo.position, airGunTwo.rotation);
                     newAirProjectile.transform.parent = playerWeaponParent.transform;
                     newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
@@ -441,7 +487,7 @@ public class AttacksFire : PlayerAttacks {
                 break;
         }
 
-        if (blocking == true)
+        if (blocking == true)//Pulls me out of blocking when I shot if I was blocking.
         {
             blocking = false;
             blockNextFire = Time.time + blockFireRate;
@@ -450,6 +496,7 @@ public class AttacksFire : PlayerAttacks {
 
     public override void PlayerDefend()
     {
+        //creates a empty blocking game object so that I can destroy it when not blocking anymore.
         GameObject newBlockEffect = null;
         //Puts the player into a defensive stance that reduces incoming damage by X amount. (Do we apply that before or after the elemental resist?)
         if(blocking)
@@ -479,14 +526,14 @@ public class AttacksFire : PlayerAttacks {
         //Debug.Log("jump attack: "+ newJumpMelee);
     }
 
-    public override void SpecialMelee()
+    public override void SpecialMeleeAttack()
     {
-
+        //[TODO] Set up special melee attack for each character.
     }
 
-    public override void SpecialRanged()
+    public override void SpecialRangedAttack()
     {
-
+        //[TODO] Set up the special ranged attack for each character.
     }
 
     public override void CallWisp()
@@ -500,7 +547,7 @@ public class AttacksFire : PlayerAttacks {
         //callingWisp = false;
     }
 
-    private void SetBasicMeleeAttackStats(GameObject melee)
+    private void SetBasicMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
     {
         melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
         melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
@@ -508,7 +555,7 @@ public class AttacksFire : PlayerAttacks {
         melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
     }
 
-    private void SetBasicRangedAttackStats(GameObject projectile)
+    private void SetBasicRangedAttackStats(GameObject projectile)//Sets the stats for the projectile object when it is created.
     {
         projectile.GetComponent<PlayerProjectile>().projectileSpeed = projectileSpeed;
         projectile.GetComponent<PlayerProjectile>().projectileDamage = projectileDamage;

@@ -29,14 +29,14 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4073316139050950
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552533566396902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 75, y: -20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabArray:
   - {fileID: 1515735787251208, guid: 1505521e1d3829d40b592e74170e3a12, type: 2}
-  numOfSpawners: 5
+  slowDownSpawner: 5
   active: 1
   parent: {fileID: 0}
   wakeUp: 0

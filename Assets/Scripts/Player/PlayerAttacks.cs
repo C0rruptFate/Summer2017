@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour {
 
+    //Look at https://docs.unity3d.com/ScriptReference/EditorGUILayout.Foldout.html to see about collapsable menues for the inspector
+
     [Header("Melee Attack Settings")]
     #region
     [Tooltip("Drag in this character's melee prefab")]
@@ -29,15 +31,15 @@ public class PlayerAttacks : MonoBehaviour {
     public float meleeHitStun = 0.5f;
     [Tooltip("How long it will stop the enemy from moving or attacking.")]
     public float meleeKnockBack = 500f;
-    [HideInInspector]
+    [HideInInspector]//The ground Melee attack that is created when the player does a melee attack on the ground.
     public GameObject newGroundMelee;
-    [HideInInspector]
+    [HideInInspector]//The air melee attack that is created when the player does a melee attack in the air.
     public GameObject newAirMelee;
 
     //Jump Attack
-    [HideInInspector]
+    [HideInInspector]//My rigidbody
     public Rigidbody2D rb;
-    [HideInInspector]
+    [HideInInspector]//The jump force of my jump attack, this is pulled from my playermovement script and maches the airal jump.
     public float arialJumpForce;
     #endregion
 
@@ -81,70 +83,84 @@ public class PlayerAttacks : MonoBehaviour {
 
     [Header("Block Settings")]
     #region
+    [Tooltip("How often I need to wait between blocks.")]
     public float blockFireRate = 0.5f;
+    [Tooltip("What percentage of damage does blocking prevent.")]
     public float blockingResistanceModifier = 15f;
     [HideInInspector]
-    public bool blocking = false;
+    public bool blocking = false;//Am I currently blocking.
     [Tooltip("Attach a gameObject that will be spawned when you are blocking.")]
-    public GameObject blockEffect; //attach a game object that will be spawned when you ar blocking.
+    public GameObject blockEffect; //attach a game object/effect that will be spawned when I am blocking.
     #endregion
 
-    //[Header("Special Settings")]
+    [Header("Special Settings")]
     #region
-    [HideInInspector]
+    [Tooltip("Attach a gameObject/effect that will play when my special is active.")]
+    public GameObject specialActiveEffect;
+    [HideInInspector]//Do I currently have my special button held down?
     public bool specialActive = false;
+    [Tooltip("Attach a gameObject of what my melee attack will be.")]
+    public GameObject specialMeleeAttackObject;
+    [Tooltip("How much mana it costs to use my Special Melee Attack.")]
+    public int specialMeleeManaCost;
+
+    [Tooltip("Attach a gameObject of what my melee attack will be.")]
+    public GameObject specialRangedAttackObject;
+    [Tooltip("How much mana it costs to use my Special Ranged Attack.")]
+    public int specialRangedManaCost;
     #endregion
 
     //[Header("Wisp Settings")]
     #region
-    [HideInInspector]
+    [HideInInspector]//The transform that I will be calling the wisp to.
     public Transform myWispTargetLocation;
-    [HideInInspector]
+    [HideInInspector]//The Wisp that I will be telling where to go.
     public GameObject wisp;
-    [HideInInspector]
+    [HideInInspector]//Am I currently calling the Wisp?
     public bool callingWisp = false;
-    [HideInInspector]
+    [HideInInspector]//How long I have been holding down the button to attach the wisp to me.
     public int callingWispTime = 0;
     #endregion
 
     //Private Attack extras
     #region
-    [HideInInspector]
-    public Element element; //element of this player
-    [HideInInspector]
+    [HideInInspector]//element of this player
+    public Element element; 
+    [HideInInspector]//Who I am parented to, normally empty.
     public GameObject playerParent;
-    [HideInInspector]
+    [HideInInspector]//Where my ground projectiles will be shot from.
     public Transform groundGun;
-    [HideInInspector]
+    [HideInInspector]//Where my second ground projectile will be shot from if I shot a second.
     public Transform groundGunTwo;
-    [HideInInspector]
+    [HideInInspector]//Where my air projectiles will be shot from.
     public Transform airGun;
-    [HideInInspector]
+    [HideInInspector]//Where my second air projectile will be shot from if I shot a second.
     public Transform airGunTwo;
-    [HideInInspector]
+    [HideInInspector]//Where my ground melee attack will be when I melee attack on the ground.
     public Transform groundMeleeGun;
-    [HideInInspector]
+    [HideInInspector]//Where my second ground melee attack will be when I melee attack on the ground.
     public Transform groundMeleeGunTwo;
-    [HideInInspector]
+    [HideInInspector]//Where my air melee attacks wil be when I melee in the air.
     public Transform airMeleeGun;
-    [HideInInspector]
+    [HideInInspector]//Where my second air melee attacks wil be when I melee in the air.
     public Transform airMeleeGunTwo;
-    [HideInInspector]
+    [HideInInspector]//Empty object that holds all of my attacks.
     public GameObject playerWeaponParent;
-    [HideInInspector]
+    [HideInInspector]//Sets up when I can next shoot a projectile.
     public float projectileNextFire = 0.0f;
-    [HideInInspector]
+    [HideInInspector]//Sets up when I can next melee attack.
     public float meleeNextFire = 0.0f;
-    [HideInInspector]
+    [HideInInspector]//Sets up when I can next block.
     public float blockNextFire = 0.0f;
-    [HideInInspector]
+    [HideInInspector]//Will always be below me.
     public Transform jumpMeleeGun;
+
     //Scripts and player setup
-    [HideInInspector]
+    [HideInInspector]//What player # is controlling me.
     public int playerNumber = 1;
-    [HideInInspector]
+    [HideInInspector]//My HP script
     public PlayerHealth playerHealth;
-    [HideInInspector]
+    [HideInInspector]//My Movement script
     public PlayerMovement playerMovement;
 
 
@@ -180,12 +196,17 @@ public class PlayerAttacks : MonoBehaviour {
 
     }
 
-    public virtual void SpecialMelee()
+    public virtual void SpecialMeleeAttack()
     {
 
     }
 
-    public virtual void SpecialRanged()
+    public virtual void SpecialRangedAttack()
+    {
+
+    }
+
+    public virtual void SpecialPlayerDefend()
     {
 
     }
