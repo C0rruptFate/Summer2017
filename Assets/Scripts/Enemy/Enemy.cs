@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour {
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxMoveSpeed, maxMoveSpeed), rb.velocity.y);
 
         //Finds a new target if my target dies or something happens.
-        if (target == null)
+        if (target == null || !target.gameObject.activeSelf)
         {
             if (enemyTargetType != EnemyTargetType.Roam)
             {
@@ -81,7 +81,6 @@ public class Enemy : MonoBehaviour {
                         direction = new Vector2(Random.Range(-1, 2), 0);
                     }
                 }
-                
                 rb.AddForce(direction * speed,ForceMode2D.Force);
             } 
         }
@@ -112,7 +111,7 @@ public class Enemy : MonoBehaviour {
                         target = possibleTarget;
                     }
                 }
-                if (target == null)// if target dies or element doesn't exist change to proximity targeting.
+                if (target == null || !target.gameObject.activeSelf)// if target dies or element doesn't exist change to proximity targeting.
                 {
                     enemyTargetType = EnemyTargetType.Proximity;
                     TargetSelection();
@@ -121,6 +120,15 @@ public class Enemy : MonoBehaviour {
             case EnemyTargetType.Random://Finds a random target
                 //Random Target selection
                 targets = GameObject.FindGameObjectsWithTag("Player");
+                var temp = new List<GameObject>(targets);
+                foreach (var possibleTarget in targets)
+                {
+                    if (!possibleTarget.gameObject.activeSelf)
+                    {
+                        temp.RemoveAt(temp.IndexOf(possibleTarget));
+                        targets = temp.ToArray();
+                    }
+                }
                 target = targets[Random.Range(0, targets.Length)];
                 break;
             case EnemyTargetType.Roam://Moves around randomly
@@ -132,16 +140,19 @@ public class Enemy : MonoBehaviour {
                 float closestTargetDist = 0.0f;
                 foreach (var possibleTarget in targets)//Finds the closest target by looping though all players and seeing who is closest.
                 {
-                    float dist = Vector2.Distance(possibleTarget.transform.position, gameObject.transform.position);
-                    if (dist < closestTargetDist)
+                    if (possibleTarget.gameObject.activeSelf)
                     {
-                        closestTargetDist = dist;
-                        target = possibleTarget;
-                    }
-                    else if (closestTargetDist == 0.0f)
-                    {
-                        closestTargetDist = dist;
-                        target = possibleTarget;
+                        float dist = Vector2.Distance(possibleTarget.transform.position, gameObject.transform.position);
+                        if (dist < closestTargetDist)
+                        {
+                            closestTargetDist = dist;
+                            target = possibleTarget;
+                        }
+                        else if (closestTargetDist == 0.0f)
+                        {
+                            closestTargetDist = dist;
+                            target = possibleTarget;
+                        } 
                     }
                 }
                 break;

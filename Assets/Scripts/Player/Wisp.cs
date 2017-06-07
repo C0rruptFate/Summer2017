@@ -54,7 +54,7 @@ public class Wisp : MonoBehaviour {
         var shape = ps.shape;
 
         //if Moving will move to the target wisp location.
-        if(moving)
+        if(moving && (attachedPlayer == null || (attachedPlayer != null && !attachedPlayer.GetComponent<PlayerAttacks>().callingWisp)))
         {
             shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
             MoveToTarget();
@@ -69,10 +69,10 @@ public class Wisp : MonoBehaviour {
         }
 
         //attaches to the player I am touching and starts to grant them mana regen
-        if (playerICouldAttachTo != null && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWisp && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWispTime >= 20)
+        if (attachedPlayer == null && playerICouldAttachTo != null && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWisp && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWispTime >= 20)
         {
             attachedPlayer = playerICouldAttachTo;
-            Debug.Log("Testing here");
+            Debug.Log("Testing attach to player.");
             if (currentWispManaGrantObject == null)
             {
                 WispPlayerBuff();
@@ -80,9 +80,9 @@ public class Wisp : MonoBehaviour {
         }
 
         //Removes from the attached player
-        if(attachedPlayer != null && attachedPlayer.GetComponent<PlayerAttacks>().callingWisp && playerICouldAttachTo.GetComponent<PlayerAttacks>().callingWispTime < 20)
+        if(attachedPlayer != null && attachedPlayer.GetComponent<PlayerAttacks>().callingWisp && attachedPlayer.GetComponent<PlayerAttacks>().callingWispTime < 20)
         {
-            //Debug.Log("Remove Wisp from player");
+            Debug.Log("Remove Wisp from player");
             attachedPlayer = null;
             RemoveWispPlayerBuff();
         }
@@ -121,7 +121,7 @@ public class Wisp : MonoBehaviour {
         if (other.tag == "Player" && attachedPlayer == null && other.GetComponent<PlayerAttacks>().callingWisp)
         {
             attachedPlayer = other.gameObject;
-            Debug.Log("Testing here");
+            Debug.Log("Testing here trigger stay.");
             if (currentWispManaGrantObject == null)
             {
                 WispPlayerBuff(); 
@@ -133,8 +133,11 @@ public class Wisp : MonoBehaviour {
     void MoveToTarget()
     {
         //Moves to the target transform over time.
-        attachedPlayer = null;
-        RemoveWispPlayerBuff();
+        if (attachedPlayer != null)
+        {
+            attachedPlayer = null;
+            RemoveWispPlayerBuff(); 
+        }
         transform.position = Vector2.MoveTowards(transform.position, targetLocation.position, speed * Time.deltaTime);
         //Debug.Log("Moving To " + targetLocation.name);
     }
@@ -148,6 +151,7 @@ public class Wisp : MonoBehaviour {
 
     void WispPlayerBuff()
     {
+        Debug.Log("Wisp Buff Granted.");
         //Causes me to grant the player mana when attached to them.
         //InvokeRepeating("GainMana", 2, manaRegenRate);
         //used to show I am giving a player mana when attached to them. Will change with wisp system changes
@@ -182,6 +186,7 @@ public class Wisp : MonoBehaviour {
     }
     void RemoveWispPlayerBuff()
     {
+        Debug.Log("Wisp Buff Destroyed.");
         //Moves my particles back to idle or moving when no longer attached to the player.
         var emission = ps.emission;
         var shape = ps.shape;

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198723128431497300}
   - component: {fileID: 199989217186312032}
   - component: {fileID: 114588814772999838}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wisp Mana Grant Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,6 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
+  attachedPlayer: {fileID: 0}
+  manaRegenAmount: 0
+  manaRegenRate: 0
 --- !u!198 &198723128431497300
 ParticleSystem:
   m_ObjectHideFlags: 1
