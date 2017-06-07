@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23436284897742436}
   - component: {fileID: 114458056527956212}
   m_Layer: 0
-  m_Name: Spawner Ice
+  m_Name: Spawner Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabArray:
   - {fileID: 1310213564182836, guid: 788827180e9216d49849568943319a0f, type: 2}
-  numOfSpawners: 5
+  slowDownSpawner: 5
   active: 1
   parent: {fileID: 0}
   wakeUp: 0

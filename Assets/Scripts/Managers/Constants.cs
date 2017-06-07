@@ -12,7 +12,7 @@ public class Constants : MonoBehaviour
     //Colors for each element
     public static Color fireColor = new Color(255,69,00,128); //hex FF450080
     public static Color waterColor = new Color(35, 137, 218, 128);
-    public static Color airColor = new Color(156, 49, 241, 128);
+    public static Color airColor = new Color(253, 208, 35, 128); //hex FDD023
     public static Color earthColor = new Color(109, 93, 73, 128);
 
     [Tooltip("How far below the player do we check to count them as 'Grounded'")]

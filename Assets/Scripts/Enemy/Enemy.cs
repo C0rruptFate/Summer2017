@@ -95,6 +95,7 @@ public class Enemy : MonoBehaviour {
                 TargetSelection();
             }
         }
+        DirectionFacing();
     }
 
     public virtual void TargetSelection()
@@ -160,6 +161,18 @@ public class Enemy : MonoBehaviour {
         if (relentless == false)//If relentless is true they will stick on their target rather then updating to new ones.
         {
             newNextTarget = Time.time + newTargetAcquisition;
+        }
+    }
+
+    public virtual void DirectionFacing()
+    {
+        if(target.transform.position.x < transform.position.x)
+        {
+            transform.eulerAngles = new Vector2(transform.eulerAngles.x, 180);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector2(transform.eulerAngles.x, 0);
         }
     }
 
