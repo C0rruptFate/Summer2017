@@ -39,6 +39,7 @@ public class Wisp : MonoBehaviour {
     public GameObject wispManaGrantObjectEarth;
     private GameObject currentWispManaGrantObject;//The currently active version of the wisp mana grant object
 
+    [HideInInspector]//Am I currently attached to a player.
     public bool attachedPlayerFlipper;
 
     // Use this for initialization
