@@ -81,7 +81,7 @@ public class PlayerAttacks : MonoBehaviour {
     public bool breaksHittingWall = true;
     #endregion
 
-    [Header("Block Settings")]
+    [Header("Defend Settings")]
     #region
     [Tooltip("How often I need to wait between blocks.")]
     public float blockFireRate = 0.5f;
@@ -108,6 +108,11 @@ public class PlayerAttacks : MonoBehaviour {
     public GameObject specialRangedAttackObject;
     [Tooltip("How much mana it costs to use my Special Ranged Attack.")]
     public int specialRangedManaCost;
+
+    [Tooltip("Attach a gameObject of what my Special Defend will be.")]
+    public GameObject specialDefendObject;
+    [Tooltip("How much mana it costs to use my Special Defend.")]
+    public int specialDefendManaCost;
     #endregion
 
     //[Header("Wisp Settings")]
@@ -166,53 +171,214 @@ public class PlayerAttacks : MonoBehaviour {
 
     #endregion
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public virtual void MeleeAttack()
-    {
-
-    }
-
-    public virtual void RangedAttack()
-    {
-
-    }
-
-    public virtual void PlayerDefend()
-    {
-
-    }
-
-    public virtual void JumpAttack()
-    {
-
-    }
-
-    public virtual void SpecialMeleeAttack()
-    {
-
-    }
-
-    public virtual void SpecialRangedAttack()
-    {
-
-    }
-
-    public virtual void SpecialPlayerDefend()
-    {
-
-    }
-
     public virtual void CallWisp()
     {
+        //Moves target location to the player
+        myWispTargetLocation.position = gameObject.transform.position;
 
+        //Tells the Wisp to move to the targeted location
+        wisp.GetComponent<Wisp>().targetLocation = myWispTargetLocation;
+        wisp.GetComponent<Wisp>().moving = true;
+        //callingWisp = false;
+    }
+
+    //Player Basic Melee attacks
+    public virtual void MeleeAttack()
+    {
+        meleeNextFire = Time.time + meleeFireRate; //Decides when preform another melee attack.
+        //Checks if I am grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+        switch (gameObject.GetComponent<PlayerMovement>().grounded)
+        {
+            case true:
+                //Put melee attacks on the ground here.
+                newGroundMelee = Instantiate(meleeObject, groundMeleeGun.position, groundMeleeGun.rotation);
+                newGroundMelee.transform.parent = playerWeaponParent.transform;
+                newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
+                newGroundMelee.GetComponent<PlayerMelee>().myGun = groundMeleeGun;
+                SetBasicMeleeAttackStats(newGroundMelee);
+                if (groundMeleeGunTwo != null)//Does the same for the 2nd grounded melee attack, if I have one.
+                {
+                    newGroundMelee = Instantiate(meleeObject, groundMeleeGunTwo.position, groundMeleeGunTwo.rotation);
+                    newGroundMelee.transform.parent = playerWeaponParent.transform;
+                    newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
+                    newGroundMelee.GetComponent<PlayerMelee>().myGun = groundMeleeGunTwo;
+                    SetBasicMeleeAttackStats(newGroundMelee);
+                }
+                break;
+            default://If I am not grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+                //Do Air melee attack stuff here. 
+                newAirMelee = Instantiate(meleeObject, airMeleeGun.position, airMeleeGun.rotation);
+                newAirMelee.transform.parent = playerWeaponParent.transform;
+                newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
+                newAirMelee.GetComponent<PlayerMelee>().myGun = airMeleeGun;
+                SetBasicMeleeAttackStats(newAirMelee);
+                if (airMeleeGunTwo != null) //Does the same for the 2nd aerial, if I have one.
+                {
+                    newAirMelee = Instantiate(meleeObject, airMeleeGunTwo.position, airMeleeGunTwo.rotation);
+                    newAirMelee.transform.parent = playerWeaponParent.transform;
+                    newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
+                    newAirMelee.GetComponent<PlayerMelee>().myGun = airMeleeGunTwo;
+                    SetBasicMeleeAttackStats(newAirMelee);
+                }
+                break;
+        }
+
+        //If I am blocking attacking will pull me out of it.
+        if (blocking == true)
+        {
+            blocking = false;
+            blockNextFire = Time.time + blockFireRate;
+        }
+    }
+
+    //Player Basic Ranged Attacks
+    public virtual void RangedAttack()
+    {
+        projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
+        //Shoots the projectile, put the projectile movement code on that object.
+        //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+        switch (gameObject.GetComponent<PlayerMovement>().grounded)
+        {//Put melee attacks on the ground here.
+            case true://Checks if the projectile is lobbed or not
+
+                //[CHECK] I DON'T THINK THIS IS BEING USED. AS PROJECTILES ARN'T EVER NAMED THIS.
+
+                if (groundProjectile.name == "Player Projectile Lobbed")
+                {//If it is lobbed then check what direction I am facing and create the object, then apply impulse force and toss it at the angle set in the inspector.
+                    GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
+                    newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                    if (transform.rotation.y > 0 && (lobbedForce.x > 0))
+                    {
+                        lobbedForce.x = lobbedForce.x * -1;
+                    }
+                    else if (transform.rotation.y <= 0 && (lobbedForce.x < 0))
+                    {
+                        lobbedForce.x = lobbedForce.x * -1;
+                    }
+                    newGroundProjectile.GetComponent<Rigidbody>().AddForce(lobbedForce, ForceMode.Impulse);
+                }
+                else
+                {
+                    //Set up a gun position object on each player.
+                    GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
+                    newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                    newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    SetBasicRangedAttackStats(newGroundProjectile);
+                    if (groundGunTwo != null)
+                    {
+                        //Does the same thing for the secondary grounded projectile if one is set.
+                        newGroundProjectile = Instantiate(groundProjectile, groundGunTwo.position, groundGunTwo.rotation);
+                        newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                        newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                        SetBasicRangedAttackStats(newGroundProjectile);
+                    }
+
+                }
+                //Set up a aerial gun position object on each player.
+                break;
+            default:
+                GameObject newAirProjectile = Instantiate(airProjectile, airGun.position, airGun.rotation);
+                newAirProjectile.transform.parent = playerWeaponParent.transform;
+                newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetBasicRangedAttackStats(newAirProjectile);
+                if (airGunTwo != null)
+                {//Does the same thing for the secondary if one is set.
+                    newAirProjectile = Instantiate(airProjectile, airGunTwo.position, airGunTwo.rotation);
+                    newAirProjectile.transform.parent = playerWeaponParent.transform;
+                    newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    SetBasicRangedAttackStats(newAirProjectile);
+                }
+                break;
+        }
+
+        if (blocking == true)//Pulls me out of blocking when I shot if I was blocking.
+        {
+            blocking = false;
+            blockNextFire = Time.time + blockFireRate;
+        }
+    }
+
+    //The Player Basic Defense
+    public virtual void PlayerDefend()
+    {
+        //creates a empty blocking game object so that I can destroy it when not blocking anymore.
+        GameObject newBlockEffect = null;
+        //Puts the player into a defensive stance that reduces incoming damage by X amount. (Do we apply that before or after the elemental resist?)
+        if (blocking)
+        {
+            newBlockEffect = Instantiate(blockEffect, transform.position, transform.rotation);
+            newBlockEffect.transform.parent = gameObject.transform;
+        }
+    }
+
+    //When the Player jumps off an enemy
+    public virtual void JumpAttack()
+    {
+        //Set Jump attack force at the moment of jump
+        rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+        // Arial Jump
+        Vector2 arialJump = new Vector2();
+        arialJump.y = gameObject.GetComponent<PlayerMovement>().arialJumpForce;
+        rb.AddForce(arialJump, ForceMode2D.Impulse);
+        gameObject.GetComponent<PlayerMovement>().bounceJumpsUsed++;
+        //Debug.Log("Bounce Jumps Used: " + gameObject.GetComponent<PlayerMovement>().bounceJumpsUsed);
+
+        //Attacking below as you jump.
+        GameObject newJumpMelee = Instantiate(meleeObject, jumpMeleeGun.position, jumpMeleeGun.rotation);
+        newJumpMelee.transform.parent = playerWeaponParent.transform;
+        newJumpMelee.GetComponent<PlayerMelee>().player = gameObject;
+        newJumpMelee.GetComponent<PlayerMelee>().myGun = jumpMeleeGun;
+        SetBasicMeleeAttackStats(newJumpMelee);
+        //Debug.Log("jump attack: "+ newJumpMelee);
+    }
+
+    //Special Melee Attacks, these will be different for each character.
+    public virtual void SpecialMeleeAttack()
+    {
+        //Spends the mana to use your special melee attack.
+        playerHealth.SpendMana(specialMeleeManaCost);
+
+        //[TODO] Set up special melee attack for each character.
+    }
+
+    //Special Ranged Attacks, these will be different for each character.
+    public virtual void SpecialRangedAttack()
+    {
+        //Spends the mana to use your special ranged attack.
+        playerHealth.SpendMana(specialRangedManaCost);
+
+        //[TODO] Set up the special ranged attack for each character.
+
+    }
+
+    //Special Defend, these will be different for each character.
+    public virtual void SpecialPlayerDefend()
+    {
+        //Spends the mana to use your special ranged attack.
+        playerHealth.SpendMana(specialDefendManaCost);
+
+        //[TODO] Set up the special Defend for each character.
+
+    }
+
+    public virtual void SetBasicMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
+    {
+        melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
+        melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
+        melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
+        melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+    }
+
+    public virtual void SetBasicRangedAttackStats(GameObject projectile)//Sets the stats for the projectile object when it is created.
+    {
+        projectile.GetComponent<PlayerProjectile>().projectileSpeed = projectileSpeed;
+        projectile.GetComponent<PlayerProjectile>().projectileDamage = projectileDamage;
+        projectile.GetComponent<PlayerProjectile>().projectileHitStun = projectileHitStun;
+        projectile.GetComponent<PlayerProjectile>().projectileMaxDuration = projectileMaxDuration;
+        projectile.GetComponent<PlayerProjectile>().projectileBreakChance = projectileBreakChance;
+        projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
+        projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
+        projectile.GetComponent<PlayerProjectile>().breaksHittingWall = breaksHittingWall;
+        projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
     }
 }

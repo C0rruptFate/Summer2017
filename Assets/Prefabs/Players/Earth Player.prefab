@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 50606933980385372}
   - component: {fileID: 114504812778659294}
   - component: {fileID: 114641857494945524}
-  - component: {fileID: 114171708264470772}
+  - component: {fileID: 114896131346414726}
   m_Layer: 8
   m_Name: Earth Player
   m_TagString: Player
@@ -349,78 +349,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.25}
   m_EdgeRadius: 0
---- !u!114 &114171708264470772
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1500945717475356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba385b8b7c7df1f438da6679f44e4925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeObject: {fileID: 1058402032370298, guid: cc0cd1ecdf7a8c64e98a816bec20e125,
-    type: 2}
-  meleeFireRate: 0.5
-  groundMeleeType: 4
-  groundMeleeTwoType: 5
-  airMeleeType: 4
-  airMeleeTwoType: 3
-  meleeHitBoxLife: 0.3
-  meleeDamage: 10
-  meleeHitStun: 0.5
-  meleeKnockBack: 500
-  newGroundMelee: {fileID: 0}
-  newAirMelee: {fileID: 0}
-  rb: {fileID: 0}
-  arialJumpForce: 0
-  groundProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
-    type: 2}
-  airProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
-    type: 2}
-  projectileFireRate: 0.5
-  groundProjectileType: 2
-  groundProjectileTwoType: 0
-  airProjectileType: 4
-  airProjectileTwoType: 0
-  lobbedForce: {x: 15, y: 15}
-  throwWaitTime: 1
-  projectileSpeed: 25
-  projectileDamage: 5
-  projectileHitStun: 0.25
-  projectileMaxDuration: 5
-  projectileBreakChance: 0
-  usesConstantForceProjectile: 0
-  breaksHittingWall: 0
-  blockFireRate: 2
-  blockingResistanceModifier: 30
-  blocking: 0
-  blockEffect: {fileID: 1391775472913824, guid: 996b877da488dcb48afcb64b0105c24a,
-    type: 2}
-  specialActive: 0
-  myWispTargetLocation: {fileID: 0}
-  wisp: {fileID: 0}
-  callingWisp: 0
-  callingWispTime: 0
-  element: 0
-  playerParent: {fileID: 0}
-  groundGun: {fileID: 0}
-  groundGunTwo: {fileID: 0}
-  airGun: {fileID: 0}
-  airGunTwo: {fileID: 0}
-  groundMeleeGun: {fileID: 0}
-  groundMeleeGunTwo: {fileID: 0}
-  airMeleeGun: {fileID: 0}
-  airMeleeGunTwo: {fileID: 0}
-  playerWeaponParent: {fileID: 0}
-  projectileNextFire: 0
-  meleeNextFire: 0
-  blockNextFire: 0
-  jumpMeleeGun: {fileID: 0}
-  playerNumber: 1
-  playerHealth: {fileID: 0}
-  playerMovement: {fileID: 0}
 --- !u!114 &114504812778659294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -477,6 +405,85 @@ MonoBehaviour:
   grounded: 0
   enemyBelow: 0
   playerBelow: 0
+--- !u!114 &114896131346414726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1500945717475356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43daffa271a5a294ca03f634bee934f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeObject: {fileID: 1058402032370298, guid: cc0cd1ecdf7a8c64e98a816bec20e125,
+    type: 2}
+  meleeFireRate: 0.5
+  groundMeleeType: 4
+  groundMeleeTwoType: 5
+  airMeleeType: 4
+  airMeleeTwoType: 3
+  meleeHitBoxLife: 0.3
+  meleeDamage: 10
+  meleeHitStun: 0.5
+  meleeKnockBack: 500
+  newGroundMelee: {fileID: 0}
+  newAirMelee: {fileID: 0}
+  rb: {fileID: 0}
+  arialJumpForce: 0
+  groundProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
+    type: 2}
+  airProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
+    type: 2}
+  projectileFireRate: 0.5
+  groundProjectileType: 2
+  groundProjectileTwoType: 0
+  airProjectileType: 2
+  airProjectileTwoType: 0
+  lobbedForce: {x: 15, y: 15}
+  throwWaitTime: 5
+  projectileSpeed: 25
+  projectileDamage: 5
+  projectileHitStun: 0.25
+  projectileMaxDuration: 10
+  projectileBreakChance: 0
+  usesConstantForceProjectile: 0
+  breaksHittingWall: 0
+  blockFireRate: 2
+  blockingResistanceModifier: 30
+  blocking: 0
+  blockEffect: {fileID: 1391775472913824, guid: 996b877da488dcb48afcb64b0105c24a,
+    type: 2}
+  specialActiveEffect: {fileID: 0}
+  specialActive: 0
+  specialMeleeAttackObject: {fileID: 0}
+  specialMeleeManaCost: 0
+  specialRangedAttackObject: {fileID: 0}
+  specialRangedManaCost: 0
+  specialDefendObject: {fileID: 0}
+  specialDefendManaCost: 0
+  myWispTargetLocation: {fileID: 0}
+  wisp: {fileID: 0}
+  callingWisp: 0
+  callingWispTime: 0
+  element: 0
+  playerParent: {fileID: 0}
+  groundGun: {fileID: 0}
+  groundGunTwo: {fileID: 0}
+  airGun: {fileID: 0}
+  airGunTwo: {fileID: 0}
+  groundMeleeGun: {fileID: 0}
+  groundMeleeGunTwo: {fileID: 0}
+  airMeleeGun: {fileID: 0}
+  airMeleeGunTwo: {fileID: 0}
+  playerWeaponParent: {fileID: 0}
+  projectileNextFire: 0
+  meleeNextFire: 0
+  blockNextFire: 0
+  jumpMeleeGun: {fileID: 0}
+  playerNumber: 1
+  playerHealth: {fileID: 0}
+  playerMovement: {fileID: 0}
 --- !u!212 &212222052574371494
 SpriteRenderer:
   m_ObjectHideFlags: 1

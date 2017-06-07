@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttacksFire : PlayerAttacks {
+public class AttacksEarth : PlayerAttacks {
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         //Plugs myself into my PlayerHealth and Player movement scripts.
         // [TODO] CHANGE THESE GETCOMPONENTS FOR EACH ELEMENTAL ATTACK SCRIPT.
-        GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksFire>();
-        GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksFire>();
+        GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksEarth>();
+        GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksEarth>();
         //Sets my player # so I know what controller to look at.
         playerNumber = playerHealth.playerNumber;
         //Sets up my rigid body.
@@ -21,7 +22,7 @@ public class AttacksFire : PlayerAttacks {
         myWispTargetLocation.parent = null;
         //Find the wisp object
         wisp = GameObject.Find("Wisp");
-        if(wisp == null)
+        if (wisp == null)
         {//If the wisp can't be found it will inform the designer.
             Debug.LogError("Can't find the Wisp, it might not be added to the scene.");
         }
@@ -292,7 +293,8 @@ public class AttacksFire : PlayerAttacks {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
         //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
@@ -300,7 +302,7 @@ public class AttacksFire : PlayerAttacks {
         {
             if (callingWispTime < 20)
             {
-                callingWispTime++; 
+                callingWispTime++;
             }
             CallWisp();
             callingWisp = true;
@@ -365,13 +367,13 @@ public class AttacksFire : PlayerAttacks {
         }
         else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Block
         {
-            if(!blocking)//If I am not already blocking start blocking
+            if (!blocking)//If I am not already blocking start blocking
             {
                 blocking = true;
                 PlayerDefend();//Creates the block effect and all that goes with that.
             }
         }
-        else if(blocking)//Causes me to release the block.
+        else if (blocking)//Causes me to release the block.
         {
             blocking = false;
             blockNextFire = Time.time + blockFireRate;
