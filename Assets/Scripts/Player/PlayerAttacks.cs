@@ -238,45 +238,24 @@ public class PlayerAttacks : MonoBehaviour {
         //Shoots the projectile, put the projectile movement code on that object.
         //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
         switch (gameObject.GetComponent<PlayerMovement>().grounded)
-        {//Put melee attacks on the ground here.
-            case true://Checks if the projectile is lobbed or not
+        {//Put ranged attacks on the ground here.
+            case true://Checks if grounded or not/
 
-                //[CHECK] I DON'T THINK THIS IS BEING USED. AS PROJECTILES ARN'T EVER NAMED THIS.
-
-                if (groundProjectile.name == "Player Projectile Lobbed")
-                {//If it is lobbed then check what direction I am facing and create the object, then apply impulse force and toss it at the angle set in the inspector.
-                    GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
-                    newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                    if (transform.rotation.y > 0 && (lobbedForce.x > 0))
-                    {
-                        lobbedForce.x = lobbedForce.x * -1;
-                    }
-                    else if (transform.rotation.y <= 0 && (lobbedForce.x < 0))
-                    {
-                        lobbedForce.x = lobbedForce.x * -1;
-                    }
-                    newGroundProjectile.GetComponent<Rigidbody>().AddForce(lobbedForce, ForceMode.Impulse);
-                }
-                else
+                //Set up a gun position object on each player.
+                GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
+                newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetBasicRangedAttackStats(newGroundProjectile);
+                if (groundGunTwo != null)
                 {
-                    //Set up a gun position object on each player.
-                    GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
+                    //Does the same thing for the secondary grounded projectile if one is set.
+                    newGroundProjectile = Instantiate(groundProjectile, groundGunTwo.position, groundGunTwo.rotation);
                     newGroundProjectile.transform.parent = playerWeaponParent.transform;
                     newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                     SetBasicRangedAttackStats(newGroundProjectile);
-                    if (groundGunTwo != null)
-                    {
-                        //Does the same thing for the secondary grounded projectile if one is set.
-                        newGroundProjectile = Instantiate(groundProjectile, groundGunTwo.position, groundGunTwo.rotation);
-                        newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                        newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
-                        SetBasicRangedAttackStats(newGroundProjectile);
-                    }
-
                 }
-                //Set up a aerial gun position object on each player.
                 break;
-            default:
+            default://Set up a aerial gun position object on each player.
                 GameObject newAirProjectile = Instantiate(airProjectile, airGun.position, airGun.rotation);
                 newAirProjectile.transform.parent = playerWeaponParent.transform;
                 newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;

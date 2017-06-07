@@ -112,9 +112,17 @@ public class PlayerProjectile : MonoBehaviour {
     private void ThrowForce()
     {
         //Throws the lobbed projectile.
-        transform.parent = formerParent;
         gameObject.AddComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
+        if (player.GetComponent<Transform>().rotation.y != 0)//If the player is facing left throw to the left.
+        {
+            rb.AddForce(new Vector2(-lobbedForce.x, lobbedForce.y), ForceMode2D.Impulse);
+        }
+        else//if facing right throw to the right.
+        {
+            rb.AddForce(lobbedForce, ForceMode2D.Impulse);
+        }
+        transform.parent = formerParent;
         BoxCollider2D triggerCollider = gameObject.GetComponent<BoxCollider2D>();
         triggerCollider.size = new Vector2(5f, 3f); //Change these numbers to make the hitbox larger or smaller if needed so that it matches what is below.
         //Adds physical coollider so that he can stay on the ground.
@@ -124,14 +132,7 @@ public class PlayerProjectile : MonoBehaviour {
 
 
         //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-        if (player.GetComponent<Transform>().rotation.y < 0)
-        {
-            rb.AddForce(new Vector2(-lobbedForce.x, lobbedForce.y), ForceMode2D.Impulse);
-        }
-        else
-        {
-            rb.AddForce(lobbedForce, ForceMode2D.Impulse);
-        }
+
     }
 
 }
