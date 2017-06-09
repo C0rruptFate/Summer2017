@@ -381,18 +381,16 @@ public class AttacksAir : PlayerAttacks {
         }
     }
 
-    public override void SpecialMeleeAttack()
+    protected override void SpecialMeleeAttack()
     {
-        //Spends the mana to use your special melee attack.
-        playerHealth.SpendMana(specialMeleeManaCost);
+        base.SpecialMeleeAttack();
 
         //[TODO] Set up special melee attack for each character.
     }
 
-    public override void SpecialRangedAttack()
+    protected override void SpecialRangedAttack()
     {
-        //Spends the mana to use your special ranged attack.
-        playerHealth.SpendMana(specialRangedManaCost);
+        base.SpecialRangedAttack();
 
         //[TODO] Set up the special ranged attack for each character.
 

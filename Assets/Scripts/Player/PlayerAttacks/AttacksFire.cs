@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttacksEarth : PlayerAttacks {
+public class AttacksFire : PlayerAttacks {
 
     // Use this for initialization
-    void Start()
-    {
+    void Start () {
 
         //Plugs myself into my PlayerHealth and Player movement scripts.
         // [TODO] CHANGE THESE GETCOMPONENTS FOR EACH ELEMENTAL ATTACK SCRIPT.
-        GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksEarth>();
-        GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksEarth>();
+        GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksFire>();
+        GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksFire>();
         //Sets my player # so I know what controller to look at.
         playerNumber = playerHealth.playerNumber;
         //Sets up my rigid body.
@@ -22,7 +21,7 @@ public class AttacksEarth : PlayerAttacks {
         myWispTargetLocation.parent = null;
         //Find the wisp object
         wisp = GameObject.Find("Wisp");
-        if (wisp == null)
+        if(wisp == null)
         {//If the wisp can't be found it will inform the designer.
             Debug.LogError("Can't find the Wisp, it might not be added to the scene.");
         }
@@ -293,8 +292,7 @@ public class AttacksEarth : PlayerAttacks {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update () {
 
         //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
@@ -302,7 +300,7 @@ public class AttacksEarth : PlayerAttacks {
         {
             if (callingWispTime < 20)
             {
-                callingWispTime++;
+                callingWispTime++; 
             }
             CallWisp();
             callingWisp = true;
@@ -367,13 +365,13 @@ public class AttacksEarth : PlayerAttacks {
         }
         else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Block
         {
-            if (!blocking)//If I am not already blocking start blocking
+            if(!blocking)//If I am not already blocking start blocking
             {
                 blocking = true;
                 PlayerDefend();//Creates the block effect and all that goes with that.
             }
         }
-        else if (blocking)//Causes me to release the block.
+        else if(blocking)//Causes me to release the block.
         {
             blocking = false;
             blockNextFire = Time.time + blockFireRate;
@@ -381,18 +379,16 @@ public class AttacksEarth : PlayerAttacks {
         }
     }
 
-    public override void SpecialMeleeAttack()
+    protected override void SpecialMeleeAttack()
     {
-        //Spends the mana to use your special melee attack.
-        playerHealth.SpendMana(specialMeleeManaCost);
+        base.SpecialMeleeAttack();
 
         //[TODO] Set up special melee attack for each character.
     }
 
-    public override void SpecialRangedAttack()
+    protected override void SpecialRangedAttack()
     {
-        //Spends the mana to use your special ranged attack.
-        playerHealth.SpendMana(specialRangedManaCost);
+        base.SpecialRangedAttack();
 
         //[TODO] Set up the special ranged attack for each character.
 

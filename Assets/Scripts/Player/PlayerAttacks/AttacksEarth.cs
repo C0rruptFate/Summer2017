@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttacksWater : PlayerAttacks {
+public class AttacksEarth : PlayerAttacks {
+
+    [Header("Earth Special Settings")]
+    [Tooltip("What force is applied if I use a lobbed projectile. 'This is only applied if a lobbed projectile is used'.")]
+    public Vector2 specialLobbedForce = new Vector2(15, 15);
+    [Tooltip("How much damage does my projectile do?")]
+    public float specialProjectileDamage = 5;
+    [Tooltip("How long does my projectile last before vanishing?")]
+    public float specialProjectileMaxDuration = 10f;
+    public float forceMagnitude = 150;
 
     // Use this for initialization
     void Start()
@@ -10,8 +19,8 @@ public class AttacksWater : PlayerAttacks {
 
         //Plugs myself into my PlayerHealth and Player movement scripts.
         // [TODO] CHANGE THESE GETCOMPONENTS FOR EACH ELEMENTAL ATTACK SCRIPT.
-        GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksWater>();
-        GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksWater>();
+        GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksEarth>();
+        GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksEarth>();
         //Sets my player # so I know what controller to look at.
         playerNumber = playerHealth.playerNumber;
         //Sets up my rigid body.
@@ -381,20 +390,60 @@ public class AttacksWater : PlayerAttacks {
         }
     }
 
-    public override void SpecialMeleeAttack()
+    protected override void SpecialMeleeAttack()
     {
-        //Spends the mana to use your special melee attack.
-        playerHealth.SpendMana(specialMeleeManaCost);
+        base.SpecialRangedAttack();
 
         //[TODO] Set up special melee attack for each character.
     }
 
-    public override void SpecialRangedAttack()
+    protected override void SpecialRangedAttack()
     {
-        //Spends the mana to use your special ranged attack.
-        playerHealth.SpendMana(specialRangedManaCost);
-
+        base.SpecialRangedAttack();
         //[TODO] Set up the special ranged attack for each character.
+        projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
+        //Shoots the projectile, put the projectile movement code on that object.
+        //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+        switch (gameObject.GetComponent<PlayerMovement>().grounded)
+        {//Put ranged attacks on the ground here.
+            case true://Checks if grounded or not/
+
+                //Set up a gun position object on each player.
+                GameObject newGroundSpecialProjectile = Instantiate(specialRangedAttackObject, groundGun.position, groundGun.rotation);
+                newGroundSpecialProjectile.transform.parent = playerWeaponParent.transform;
+                newGroundSpecialProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetSpecialRangedAttackStats(newGroundSpecialProjectile);
+                //ONLY USES 1 GUN ATM WE CAN SET UP 2 IF NEEDED.
+                //if (groundGunTwo != null)
+                //{
+                //    //Does the same thing for the secondary grounded projectile if one is set.
+                //    newGroundProjectile = Instantiate(groundProjectile, groundGunTwo.position, groundGunTwo.rotation);
+                //    newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                //    newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                //    SetBasicRangedAttackStats(newGroundProjectile);
+                //}
+                break;
+            default://Set up a aerial gun position object on each player.
+                GameObject newAirSpecialProjectile = Instantiate(specialRangedAttackObject, airGun.position, airGun.rotation);
+                newAirSpecialProjectile.transform.parent = playerWeaponParent.transform;
+                newAirSpecialProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetSpecialRangedAttackStats(newAirSpecialProjectile);
+                //ONLY USES 1 GUN ATM WE CAN SET UP 2 IF NEEDED.
+                //if (airGunTwo != null)
+                //{//Does the same thing for the secondary if one is set.
+                //    newAirProjectile = Instantiate(airProjectile, airGunTwo.position, airGunTwo.rotation);
+                //    newAirProjectile.transform.parent = playerWeaponParent.transform;
+                //    newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                //    SetBasicRangedAttackStats(newAirProjectile);
+                //}
+                break;
+        }
+
+        if (blocking == true)//Pulls me out of blocking when I shot if I was blocking.
+        {
+            blocking = false;
+            blockNextFire = Time.time + blockFireRate;
+        }
 
     }
 
@@ -405,5 +454,20 @@ public class AttacksWater : PlayerAttacks {
 
         //[TODO] Set up the special Defend for each character.
 
+    }
+
+    public void SetSpecialMeleeAttackStats()
+    {
+
+    }
+
+    public void SetSpecialRangedAttackStats(GameObject specialProjectile)
+    {
+        //specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().enablePullWaitTime = throwWaitTime;
+        specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().forceMagnitude = forceMagnitude;
+        specialProjectile.GetComponent<PlayerProjectile>().projectileDamage = specialProjectileDamage;
+        specialProjectile.GetComponent<PlayerProjectile>().projectileMaxDuration = specialProjectileMaxDuration;
+        specialProjectile.GetComponent<PlayerProjectile>().lobbedForce = specialLobbedForce;
+        specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().throwWaitTime = throwWaitTime;
     }
 }

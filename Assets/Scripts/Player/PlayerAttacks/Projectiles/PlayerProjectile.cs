@@ -24,64 +24,62 @@ public class PlayerProjectile : MonoBehaviour {
     public Vector2 lobbedForce;
     [HideInInspector]//How long this is held for before being thrown.
     public float throwWaitTime;
-    private Transform formerParent;//Used when holding a lobbed projectile.
+    protected Transform formerParent;//Used when holding a lobbed projectile.
 
-    private float currentLife;//How long this has been alive for.
-    private bool breaking = false;//used with the break change to decide if this will break.
+    protected float currentLife;//How long this has been alive for.
+    protected bool breaking = false;//used with the break change to decide if this will break.
 
     [HideInInspector]public GameObject player; //Who this belongs to.
     [HideInInspector]//What element is this projectile.
     public Element myElement;
 
-    private Rigidbody2D rb; //My Rigidibody
+    protected Rigidbody2D rb; //My Rigidibody
 
-    // Use this for initialization
-    void Start () {
+    // Start and fixed update are blocked out atm
+    //public void Start () {
 
-        //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+    //    //Set's my element
+    //    myElement = player.GetComponent<PlayerHealth>().element;
 
-        //enables my collider as they start disabled.
-        if (gameObject.GetComponent<Collider2D>().enabled == false)
-        {
-            gameObject.GetComponent<Collider2D>().enabled = true;
-        }
+    //    //enables my collider as they start disabled.
+    //    if (gameObject.GetComponent<Collider2D>().enabled == false)
+    //    {
+    //        gameObject.GetComponent<Collider2D>().enabled = true;
+    //    }
 
-        //Used to set up lobbed projectiles.
-        if(!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
-        {
-            formerParent = transform.parent;
-            transform.parent = player.transform;
-            Invoke("ThrowForce", throwWaitTime);
-        }
+    //    //Used to set up lobbed projectiles.
+    //    if(!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
+    //    {
+    //        formerParent = transform.parent;
+    //        transform.parent = player.transform;
+    //        Invoke("ThrowForce", throwWaitTime);
+    //    }
 
-        currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
-        float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
-        if (breakNumber <= projectileBreakChance)
-        {
-            breaking = true;
-        }
-    }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    //    currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
+    //    float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
+    //    if (breakNumber <= projectileBreakChance)
+    //    {
+    //        breaking = true;
+    //    }
+    //}
 
-        //Reduces the life of the object at 0 it is destroyed.
-        if (Time.time >= currentLife)
-        {
-            Destroy(gameObject);
-        }
+    //// Update is called once per frame
+    //public virtual void FixedUpdate () {
 
-        //Causes the object to fly forward.
-        if (usesConstantForceProjectile)
-        {
-            transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
-        }
+    //    //Reduces the life of the object at 0 it is destroyed.
+    //    if (Time.time >= currentLife)
+    //    {
+    //        Destroy(gameObject);
+    //    }
 
+    //    //Causes the object to fly forward.
+    //    if (usesConstantForceProjectile)
+    //    {
+    //        transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
+    //    }
+    //}
 
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
         {
@@ -109,8 +107,9 @@ public class PlayerProjectile : MonoBehaviour {
         }
     }
 
-    private void ThrowForce()
+    protected virtual void ThrowForce()
     {
+        Debug.Log("Threw object");
         //Throws the lobbed projectile.
         gameObject.AddComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -123,11 +122,11 @@ public class PlayerProjectile : MonoBehaviour {
             rb.AddForce(lobbedForce, ForceMode2D.Impulse);
         }
         transform.parent = formerParent;
-        BoxCollider2D triggerCollider = gameObject.GetComponent<BoxCollider2D>();
-        triggerCollider.size = new Vector2(5f, 3f); //Change these numbers to make the hitbox larger or smaller if needed so that it matches what is below.
-        //Adds physical coollider so that he can stay on the ground.
-        BoxCollider2D physicalCollider = gameObject.AddComponent<BoxCollider2D>();
-        physicalCollider.size = new Vector2(5f,3f);//Change these numbers to make the hitbox larger or smaller if needed so that it will collide with the ground.
+        //BoxCollider2D triggerCollider = gameObject.GetComponent<BoxCollider2D>();
+        //triggerCollider.size = new Vector2(5f, 3f); //Change these numbers to make the hitbox larger or smaller if needed so that it matches what is below.
+        ////Adds physical coollider so that he can stay on the ground.
+        //BoxCollider2D physicalCollider = gameObject.AddComponent<BoxCollider2D>();
+        //physicalCollider.size = new Vector2(5f,3f);//Change these numbers to make the hitbox larger or smaller if needed so that it will collide with the ground.
         
 
 

@@ -580,9 +580,9 @@ MonoBehaviour:
   newAirMelee: {fileID: 0}
   rb: {fileID: 0}
   arialJumpForce: 0
-  groundProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
+  groundProjectile: {fileID: 1915595482087786, guid: 6ad29e4aa1179324da4c1461cfa9c4f7,
     type: 2}
-  airProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
+  airProjectile: {fileID: 1915595482087786, guid: 6ad29e4aa1179324da4c1461cfa9c4f7,
     type: 2}
   projectileFireRate: 2
   groundProjectileType: 2
@@ -607,32 +607,23 @@ MonoBehaviour:
   specialActive: 0
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
-  specialRangedAttackObject: {fileID: 0}
-  specialRangedManaCost: 0
+  specialRangedAttackObject: {fileID: 1515720796713822, guid: e1f1ef94d8d868c46b9d0aa70d82ee06,
+    type: 2}
+  specialRangedManaCost: 10
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
   myWispTargetLocation: {fileID: 0}
   wisp: {fileID: 0}
   callingWisp: 0
   callingWispTime: 0
-  element: 0
-  playerParent: {fileID: 0}
-  groundGun: {fileID: 0}
-  groundGunTwo: {fileID: 0}
-  airGun: {fileID: 0}
-  airGunTwo: {fileID: 0}
-  groundMeleeGun: {fileID: 0}
-  groundMeleeGunTwo: {fileID: 0}
-  airMeleeGun: {fileID: 0}
-  airMeleeGunTwo: {fileID: 0}
-  playerWeaponParent: {fileID: 0}
-  projectileNextFire: 0
-  meleeNextFire: 0
   blockNextFire: 0
-  jumpMeleeGun: {fileID: 0}
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
+  specialLobbedForce: {x: 15, y: 15}
+  specialProjectileDamage: 5
+  specialProjectileMaxDuration: 10
+  forceMagnitude: 150
 --- !u!212 &212044679190248080
 SpriteRenderer:
   m_ObjectHideFlags: 1

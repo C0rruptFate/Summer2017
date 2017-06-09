@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour {
 
-    //Look at https://docs.unity3d.com/ScriptReference/EditorGUILayout.Foldout.html to see about collapsable menues for the inspector
+    //Look at https://docs.unity3d.com/ScriptReference/EditorGUILayout.Foldout.html to see about collapsable menues for the inspector also the player inspector script 
 
     [Header("Melee Attack Settings")]
     #region
+
     [Tooltip("Drag in this character's melee prefab")]
     public GameObject meleeObject;
     [Tooltip("How much time must take place between melee attacks")]
@@ -93,17 +94,20 @@ public class PlayerAttacks : MonoBehaviour {
     public GameObject blockEffect; //attach a game object/effect that will be spawned when I am blocking.
     #endregion
 
-    [Header("Special Settings")]
+    [Header("Special Attack Settings")]
     #region
     [Tooltip("Attach a gameObject/effect that will play when my special is active.")]
     public GameObject specialActiveEffect;
     [HideInInspector]//Do I currently have my special button held down?
     public bool specialActive = false;
+
+    [Header("Special Melee Attack Settings")]
     [Tooltip("Attach a gameObject of what my melee attack will be.")]
     public GameObject specialMeleeAttackObject;
     [Tooltip("How much mana it costs to use my Special Melee Attack.")]
     public int specialMeleeManaCost;
 
+    [Header("Special Ranged Attack Settings")]
     [Tooltip("Attach a gameObject of what my melee attack will be.")]
     public GameObject specialRangedAttackObject;
     [Tooltip("How much mana it costs to use my Special Ranged Attack.")]
@@ -115,7 +119,7 @@ public class PlayerAttacks : MonoBehaviour {
     public int specialDefendManaCost;
     #endregion
 
-    //[Header("Wisp Settings")]
+    //Wisp Settings
     #region
     [HideInInspector]//The transform that I will be calling the wisp to.
     public Transform myWispTargetLocation;
@@ -130,35 +134,35 @@ public class PlayerAttacks : MonoBehaviour {
     //Private Attack extras
     #region
     [HideInInspector]//element of this player
-    public Element element; 
+    protected Element element; 
     [HideInInspector]//Who I am parented to, normally empty.
-    public GameObject playerParent;
+    protected GameObject playerParent;
     [HideInInspector]//Where my ground projectiles will be shot from.
-    public Transform groundGun;
+    protected Transform groundGun;
     [HideInInspector]//Where my second ground projectile will be shot from if I shot a second.
-    public Transform groundGunTwo;
+    protected Transform groundGunTwo;
     [HideInInspector]//Where my air projectiles will be shot from.
-    public Transform airGun;
+    protected Transform airGun;
     [HideInInspector]//Where my second air projectile will be shot from if I shot a second.
-    public Transform airGunTwo;
+    protected Transform airGunTwo;
     [HideInInspector]//Where my ground melee attack will be when I melee attack on the ground.
-    public Transform groundMeleeGun;
+    protected Transform groundMeleeGun;
     [HideInInspector]//Where my second ground melee attack will be when I melee attack on the ground.
-    public Transform groundMeleeGunTwo;
+    protected Transform groundMeleeGunTwo;
     [HideInInspector]//Where my air melee attacks wil be when I melee in the air.
-    public Transform airMeleeGun;
+    protected Transform airMeleeGun;
     [HideInInspector]//Where my second air melee attacks wil be when I melee in the air.
-    public Transform airMeleeGunTwo;
+    protected Transform airMeleeGunTwo;
     [HideInInspector]//Empty object that holds all of my attacks.
-    public GameObject playerWeaponParent;
+    protected GameObject playerWeaponParent;
     [HideInInspector]//Sets up when I can next shoot a projectile.
-    public float projectileNextFire = 0.0f;
+    protected float projectileNextFire = 0.0f;
     [HideInInspector]//Sets up when I can next melee attack.
-    public float meleeNextFire = 0.0f;
+    protected float meleeNextFire = 0.0f;
     [HideInInspector]//Sets up when I can next block.
     public float blockNextFire = 0.0f;
     [HideInInspector]//Will always be below me.
-    public Transform jumpMeleeGun;
+    protected Transform jumpMeleeGun;
 
     //Scripts and player setup
     [HideInInspector]//What player # is controlling me.
@@ -167,8 +171,6 @@ public class PlayerAttacks : MonoBehaviour {
     public PlayerHealth playerHealth;
     [HideInInspector]//My Movement script
     public PlayerMovement playerMovement;
-
-
     #endregion
 
     public virtual void CallWisp()
@@ -312,7 +314,7 @@ public class PlayerAttacks : MonoBehaviour {
     }
 
     //Special Melee Attacks, these will be different for each character.
-    public virtual void SpecialMeleeAttack()
+    protected virtual void SpecialMeleeAttack()
     {
         //Spends the mana to use your special melee attack.
         playerHealth.SpendMana(specialMeleeManaCost);
@@ -321,7 +323,7 @@ public class PlayerAttacks : MonoBehaviour {
     }
 
     //Special Ranged Attacks, these will be different for each character.
-    public virtual void SpecialRangedAttack()
+    protected virtual void SpecialRangedAttack()
     {
         //Spends the mana to use your special ranged attack.
         playerHealth.SpendMana(specialRangedManaCost);
@@ -360,4 +362,25 @@ public class PlayerAttacks : MonoBehaviour {
         projectile.GetComponent<PlayerProjectile>().breaksHittingWall = breaksHittingWall;
         projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
     }
+
+    //public virtual void SetSpecialMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
+    //{
+    //    melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
+    //    melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
+    //    melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
+    //    melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+    //}
+
+    //public virtual void SetSpecialRangedAttackStats(GameObject projectile)//Sets the stats for the projectile object when it is created.
+    //{
+    //    projectile.GetComponent<PlayerProjectile>().projectileSpeed = projectileSpeed;
+    //    projectile.GetComponent<PlayerProjectile>().projectileDamage = projectileDamage;
+    //    projectile.GetComponent<PlayerProjectile>().projectileHitStun = projectileHitStun;
+    //    projectile.GetComponent<PlayerProjectile>().projectileMaxDuration = projectileMaxDuration;
+    //    projectile.GetComponent<PlayerProjectile>().projectileBreakChance = projectileBreakChance;
+    //    projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
+    //    projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
+    //    projectile.GetComponent<PlayerProjectile>().breaksHittingWall = breaksHittingWall;
+    //    projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
+    //}
 }
