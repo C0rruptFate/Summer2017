@@ -15,7 +15,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
     // Use this for initialization
     public void Start()
     {
-        Debug.Log("Look here");
+        //Debug.Log("Look here");
         //Set's my element
         myElement = player.GetComponent<PlayerHealth>().element;
 
@@ -34,7 +34,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
         //    Invoke("ThrowForce", throwWaitTime);
         //}
 
-        Debug.Log("Look here");
+        //Debug.Log("Look here");
         formerParent = transform.parent;
         transform.parent = player.transform;
         Invoke("ThrowForce", throwWaitTime);
@@ -67,14 +67,11 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
     protected override void ThrowForce()
     {
         base.ThrowForce();
-        Debug.Log("Threw object 2");
+        //Debug.Log("Threw object 2");
         rb.mass = rbMass;
         rb.drag = rbLDrag;
-        Invoke("EnabledPull", throwWaitTime);
-    }
 
-    public void EnablePull()
-    {
+        //Enable pull of the object
         pointEffector = gameObject.GetComponent<PointEffector2D>();
         pointEffector.enabled = true;
         pointEffector.forceMagnitude = forceMagnitude;
