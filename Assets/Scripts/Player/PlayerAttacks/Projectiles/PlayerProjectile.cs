@@ -109,7 +109,7 @@ public class PlayerProjectile : MonoBehaviour {
 
     protected virtual void ThrowForce()
     {
-        Debug.Log("Threw object");
+        //Debug.Log("Threw object");
         //Throws the lobbed projectile.
         gameObject.AddComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();

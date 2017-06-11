@@ -165,13 +165,15 @@ public class PlayerHealth : MonoBehaviour
     public void SpendMana(float manaCost)
     {
         
-        if(manaCost >= mana)
+        if(mana >= manaCost)
         {
+            Debug.Log("Spend mana");
             mana -= manaCost;
             playerUI.GetComponent<PlayerUI>().SetManaUI();
         }
         else
         {
+            Debug.Log("Spend mana but didn't have enough");
             //[TODO] Set up feedback for when you don't have enough mana to use an ability
         }
 
