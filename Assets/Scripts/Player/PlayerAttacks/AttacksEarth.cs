@@ -9,8 +9,6 @@ public class AttacksEarth : PlayerAttacks {
     public Vector2 specialLobbedForce = new Vector2(15, 15);
     [Tooltip("How much damage does my projectile do?")]
     public float specialProjectileDamage = 5;
-    [Tooltip("How long does my projectile last before vanishing?")]
-    public float specialProjectileMaxDuration = 10f;
     public float forceMagnitude = 150;
 
     // Use this for initialization
@@ -399,8 +397,7 @@ public class AttacksEarth : PlayerAttacks {
 
     protected override void SpecialRangedAttack()
     {
-        base.SpecialRangedAttack();
-        //[TODO] Set up the special ranged attack for each character.
+        playerHealth.SpendMana(specialRangedManaCost);
         projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
         //Shoots the projectile, put the projectile movement code on that object.
         //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
@@ -461,7 +458,7 @@ public class AttacksEarth : PlayerAttacks {
 
     }
 
-    public void SetSpecialRangedAttackStats(GameObject specialProjectile)
+    public override void SetSpecialRangedAttackStats(GameObject specialProjectile)
     {
         //specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().enablePullWaitTime = throwWaitTime;
         specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().forceMagnitude = forceMagnitude;

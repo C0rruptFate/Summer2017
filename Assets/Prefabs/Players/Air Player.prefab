@@ -520,9 +520,9 @@ MonoBehaviour:
   newAirMelee: {fileID: 0}
   rb: {fileID: 0}
   arialJumpForce: 0
-  groundProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
+  groundProjectile: {fileID: 1915595482087786, guid: f35df0c866c31ae40997432b7bc39775,
     type: 2}
-  airProjectile: {fileID: 1915595482087786, guid: a4d56e7edcc04a34abc18af233623e7a,
+  airProjectile: {fileID: 1915595482087786, guid: f35df0c866c31ae40997432b7bc39775,
     type: 2}
   projectileFireRate: 0.5
   groundProjectileType: 4
@@ -532,10 +532,10 @@ MonoBehaviour:
   lobbedForce: {x: 15, y: 15}
   throwWaitTime: 0
   projectileSpeed: 25
-  projectileDamage: 5
-  projectileHitStun: 0.25
-  projectileMaxDuration: 2
-  projectileBreakChance: 100
+  projectileDamage: 2
+  projectileHitStun: 0.1
+  projectileMaxDuration: 1
+  projectileBreakChance: 0
   usesConstantForceProjectile: 1
   breaksHittingWall: 1
   blockFireRate: 2
@@ -547,32 +547,27 @@ MonoBehaviour:
   specialActive: 0
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
-  specialRangedAttackObject: {fileID: 0}
-  specialRangedManaCost: 0
+  specialMeleeDamage: 0
+  specialRangedAttackObject: {fileID: 1915595482087786, guid: 34bf9628435e3c34a9ecac417512ffa7,
+    type: 2}
+  specialRangedManaCost: 10
+  specialRangedDamage: 10
+  specialRangedHitStun: 5
+  specialProjectileSpeed: 25
+  specialProjectileMaxDuration: 2
+  specialProjectileBreakChance: 0
+  specialBreaksHittingWall: 1
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
   myWispTargetLocation: {fileID: 0}
   wisp: {fileID: 0}
   callingWisp: 0
   callingWispTime: 0
-  element: 0
-  playerParent: {fileID: 0}
-  groundGun: {fileID: 0}
-  groundGunTwo: {fileID: 0}
-  airGun: {fileID: 0}
-  airGunTwo: {fileID: 0}
-  groundMeleeGun: {fileID: 0}
-  groundMeleeGunTwo: {fileID: 0}
-  airMeleeGun: {fileID: 0}
-  airMeleeGunTwo: {fileID: 0}
-  playerWeaponParent: {fileID: 0}
-  projectileNextFire: 0
-  meleeNextFire: 0
   blockNextFire: 0
-  jumpMeleeGun: {fileID: 0}
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
+  shockOrbRadius: 0
 --- !u!212 &212291651958801622
 SpriteRenderer:
   m_ObjectHideFlags: 1

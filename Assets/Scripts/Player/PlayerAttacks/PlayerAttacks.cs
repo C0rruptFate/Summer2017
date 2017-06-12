@@ -106,12 +106,27 @@ public class PlayerAttacks : MonoBehaviour {
     public GameObject specialMeleeAttackObject;
     [Tooltip("How much mana it costs to use my Special Melee Attack.")]
     public int specialMeleeManaCost;
+    [Tooltip("Damage done by my special Melee attack.")]
+    public float specialMeleeDamage;
 
     [Header("Special Ranged Attack Settings")]
     [Tooltip("Attach a gameObject of what my melee attack will be.")]
     public GameObject specialRangedAttackObject;
     [Tooltip("How much mana it costs to use my Special Ranged Attack.")]
     public int specialRangedManaCost;
+    [Tooltip("Damage done by my special ranged attack.")]
+    public float specialRangedDamage;
+    [Tooltip("Hitstun duration of my special ranged attack.")]
+    public float specialRangedHitStun;
+    [Tooltip("Speed of my special projectile.")]
+    public float specialProjectileSpeed;
+    [Tooltip("Max Duration of my special projectile.")]
+    public float specialProjectileMaxDuration;
+    [Tooltip("Break chance of my special projectile.")]
+    public float specialProjectileBreakChance;
+    [Tooltip("Does this break right as it hits a wall? 'Use for standard projectiles, lobbed that roll want this off.'")]
+    public bool specialBreaksHittingWall = true;
+
 
     [Tooltip("Attach a gameObject of what my Special Defend will be.")]
     public GameObject specialDefendObject;
@@ -327,9 +342,41 @@ public class PlayerAttacks : MonoBehaviour {
     {
         //Spends the mana to use your special ranged attack.
         playerHealth.SpendMana(specialRangedManaCost);
+        projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
+        //Shoots the projectile, put the projectile movement code on that object.
+        //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+        switch (gameObject.GetComponent<PlayerMovement>().grounded)
+        {//Put ranged attacks on the ground here.
+            case true://Checks if grounded or not/
 
-        //[TODO] Set up the special ranged attack for each character.
-
+                //Set up a gun position object on each player.
+                GameObject newGroundProjectile = Instantiate(specialRangedAttackObject, groundGun.position, groundGun.rotation);
+                newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetSpecialRangedAttackStats(newGroundProjectile);
+                if (groundGunTwo != null)
+                {
+                    //Does the same thing for the secondary grounded projectile if one is set.
+                    newGroundProjectile = Instantiate(specialRangedAttackObject, groundGunTwo.position, groundGunTwo.rotation);
+                    newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                    newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    SetSpecialRangedAttackStats(newGroundProjectile);
+                }
+                break;
+            default://Set up a aerial gun position object on each player.
+                GameObject newAirProjectile = Instantiate(specialRangedAttackObject, airGun.position, airGun.rotation);
+                newAirProjectile.transform.parent = playerWeaponParent.transform;
+                newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetSpecialRangedAttackStats(newAirProjectile);
+                if (airGunTwo != null)
+                {//Does the same thing for the secondary if one is set.
+                    newAirProjectile = Instantiate(specialRangedAttackObject, airGunTwo.position, airGunTwo.rotation);
+                    newAirProjectile.transform.parent = playerWeaponParent.transform;
+                    newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    SetSpecialRangedAttackStats(newAirProjectile);
+                }
+                break;
+        }
     }
 
     //Special Defend, these will be different for each character.
@@ -363,24 +410,24 @@ public class PlayerAttacks : MonoBehaviour {
         projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
     }
 
-    //public virtual void SetSpecialMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
-    //{
-    //    melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
-    //    melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
-    //    melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
-    //    melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
-    //}
+    public virtual void SetSpecialMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
+    {
+        melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
+        melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
+        melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
+        melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+    }
 
-    //public virtual void SetSpecialRangedAttackStats(GameObject projectile)//Sets the stats for the projectile object when it is created.
-    //{
-    //    projectile.GetComponent<PlayerProjectile>().projectileSpeed = projectileSpeed;
-    //    projectile.GetComponent<PlayerProjectile>().projectileDamage = projectileDamage;
-    //    projectile.GetComponent<PlayerProjectile>().projectileHitStun = projectileHitStun;
-    //    projectile.GetComponent<PlayerProjectile>().projectileMaxDuration = projectileMaxDuration;
-    //    projectile.GetComponent<PlayerProjectile>().projectileBreakChance = projectileBreakChance;
-    //    projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
-    //    projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
-    //    projectile.GetComponent<PlayerProjectile>().breaksHittingWall = breaksHittingWall;
-    //    projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
-    //}
+    public virtual void SetSpecialRangedAttackStats(GameObject projectile)//Sets the stats for the projectile object when it is created.
+    {
+        projectile.GetComponent<PlayerProjectile>().projectileSpeed = specialProjectileSpeed;
+        projectile.GetComponent<PlayerProjectile>().projectileDamage = specialRangedDamage;
+        projectile.GetComponent<PlayerProjectile>().projectileHitStun = specialRangedHitStun;
+        projectile.GetComponent<PlayerProjectile>().projectileMaxDuration = specialProjectileMaxDuration;
+        projectile.GetComponent<PlayerProjectile>().projectileBreakChance = specialProjectileBreakChance;
+        projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
+        projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
+        projectile.GetComponent<PlayerProjectile>().breaksHittingWall = specialBreaksHittingWall;
+        projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
+    }
 }

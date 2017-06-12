@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61289104327834542}
   m_Layer: 15
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,9 +38,9 @@ GameObject:
   - component: {fileID: 4543181467802454}
   - component: {fileID: 212608184359845614}
   - component: {fileID: 61685863065321354}
-  - component: {fileID: 114599446924608382}
+  - component: {fileID: 114253067087221662}
   m_Layer: 15
-  m_Name: Water Player Basic Projectile
+  m_Name: Air Player Special Projectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1915595482087786}
   m_LocalRotation: {x: -0, y: -0, z: -0.21643952, w: 0.97629607}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.5, z: 0.2}
+  m_LocalScale: {x: 0.15, y: 1, z: 0.2}
   m_Children:
   - {fileID: 4822834649684768}
   m_Father: {fileID: 0}
@@ -123,7 +123,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114599446924608382
+--- !u!114 &114253067087221662
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1915595482087786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e658d5e97fe29e46ac8ff7e83e1c9af, type: 3}
+  m_Script: {fileID: 11500000, guid: 9230301ca6544bf4ea7a3c162cb52a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 0
@@ -145,6 +145,8 @@ MonoBehaviour:
   throwWaitTime: 0
   player: {fileID: 0}
   myElement: 0
+  shockOrb: {fileID: 1195707266675794, guid: 31eecf7c1021fde4087c3ab17a130a50, type: 2}
+  shockOrbRadius: 0
 --- !u!212 &212608184359845614
 SpriteRenderer:
   m_ObjectHideFlags: 1

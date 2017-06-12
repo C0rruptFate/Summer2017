@@ -29,7 +29,8 @@ public class PlayerProjectile : MonoBehaviour {
     protected float currentLife;//How long this has been alive for.
     protected bool breaking = false;//used with the break change to decide if this will break.
 
-    [HideInInspector]public GameObject player; //Who this belongs to.
+    [HideInInspector]
+    public GameObject player; //Who this belongs to.
     [HideInInspector]//What element is this projectile.
     public Element myElement;
 
@@ -97,9 +98,9 @@ public class PlayerProjectile : MonoBehaviour {
                 //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
                 if (breaking)
                 {
-                    Destroy(gameObject); 
+                    Destroy(gameObject);
                 }
-            }   
+            }
         }
         else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
         {

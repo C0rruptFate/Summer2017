@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AttacksAir : PlayerAttacks {
 
+    [Tooltip("The radius of the shock orb trigger checker.")]
+    public float shockOrbRadius;
+
     // Use this for initialization
     void Start()
     {
@@ -346,7 +349,7 @@ public class AttacksAir : PlayerAttacks {
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
         if (specialActive && playerHealth.mana >= specialRangedManaCost && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Special Ranged Attack
         {
-            //Debug.Log("Ranged Special is active.");
+            Debug.Log("Ranged Special is active.");
             SpecialRangedAttack();
         }
         else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Ranged Attack
@@ -388,13 +391,12 @@ public class AttacksAir : PlayerAttacks {
         //[TODO] Set up special melee attack for each character.
     }
 
-    protected override void SpecialRangedAttack()
-    {
-        base.SpecialRangedAttack();
+    //protected override void SpecialRangedAttack()
+    //{
+    //    base.SpecialRangedAttack();
 
-        //[TODO] Set up the special ranged attack for each character.
-
-    }
+    //    //[TODO] Set up the special ranged attack for each character.
+    //}
 
     public override void SpecialPlayerDefend()
     {
@@ -403,5 +405,22 @@ public class AttacksAir : PlayerAttacks {
 
         //[TODO] Set up the special Defend for each character.
 
+    }
+
+    public override void SetSpecialMeleeAttackStats(GameObject melee)
+    {
+        base.SetSpecialMeleeAttackStats(melee);
+    }
+
+    public override void SetSpecialRangedAttackStats(GameObject projectile)
+    {
+        projectile.GetComponent<PlayerProjectile>().projectileSpeed = specialProjectileSpeed;
+        projectile.GetComponent<PlayerProjectile>().projectileDamage = specialRangedDamage;
+        projectile.GetComponent<PlayerProjectile>().projectileHitStun = specialRangedHitStun;
+        projectile.GetComponent<PlayerProjectile>().projectileMaxDuration = specialProjectileMaxDuration;
+        projectile.GetComponent<PlayerProjectile>().projectileBreakChance = specialProjectileBreakChance;
+        projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
+        projectile.GetComponent<PlayerProjectile>().breaksHittingWall = specialBreaksHittingWall;
+        projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
     }
 }
