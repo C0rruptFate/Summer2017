@@ -89,7 +89,7 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
         }
         else if(returnToPlayer && other.gameObject == player)
         {
-            Debug.Log("Touched player");
+            //Debug.Log("Touched player");
             Destroy(gameObject);
         }
     }

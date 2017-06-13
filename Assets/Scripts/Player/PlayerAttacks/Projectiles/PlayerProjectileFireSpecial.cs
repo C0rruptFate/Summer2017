@@ -48,7 +48,8 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
     public override void OnTriggerEnter2D(Collider2D other)
     {
         //Creates the explosion then distroys itself.
-        Instantiate(explosionObject, transform.position, transform.rotation);
+        GameObject explosion = Instantiate(explosionObject, transform.position, transform.rotation);
+        explosion.GetComponent<FireProjectileExplosion>().player = player;
         Destroy(gameObject);
 
         //Should be removed.
