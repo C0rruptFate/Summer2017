@@ -7,8 +7,6 @@ public class AttacksEarth : PlayerAttacks {
     [Header("Earth Special Settings")]
     [Tooltip("What force is applied if I use a lobbed projectile. 'This is only applied if a lobbed projectile is used'.")]
     public Vector2 specialLobbedForce = new Vector2(15, 15);
-    [Tooltip("How much damage does my projectile do?")]
-    public float specialProjectileDamage = 5;
     public float forceMagnitude = 150;
 
     // Use this for initialization
@@ -462,7 +460,7 @@ public class AttacksEarth : PlayerAttacks {
     {
         //specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().enablePullWaitTime = throwWaitTime;
         specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().forceMagnitude = forceMagnitude;
-        specialProjectile.GetComponent<PlayerProjectile>().projectileDamage = specialProjectileDamage;
+        specialProjectile.GetComponent<PlayerProjectile>().projectileDamage = specialRangedDamage;
         specialProjectile.GetComponent<PlayerProjectile>().projectileMaxDuration = specialProjectileMaxDuration;
         specialProjectile.GetComponent<PlayerProjectile>().lobbedForce = specialLobbedForce;
         specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().throwWaitTime = throwWaitTime;

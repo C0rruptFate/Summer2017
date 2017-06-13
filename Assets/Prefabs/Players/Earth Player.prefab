@@ -607,9 +607,16 @@ MonoBehaviour:
   specialActive: 0
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
+  specialMeleeDamage: 0
   specialRangedAttackObject: {fileID: 1515720796713822, guid: e1f1ef94d8d868c46b9d0aa70d82ee06,
     type: 2}
   specialRangedManaCost: 10
+  specialRangedDamage: 0
+  specialRangedHitStun: 0
+  specialProjectileSpeed: 0
+  specialProjectileMaxDuration: 10
+  specialProjectileBreakChance: 0
+  specialBreaksHittingWall: 1
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
   myWispTargetLocation: {fileID: 0}
@@ -620,10 +627,8 @@ MonoBehaviour:
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
-  specialLobbedForce: {x: 15, y: 15}
-  specialProjectileDamage: 5
-  specialProjectileMaxDuration: 10
-  forceMagnitude: -150
+  specialLobbedForce: {x: 100, y: 0}
+  forceMagnitude: -200
 --- !u!212 &212044679190248080
 SpriteRenderer:
   m_ObjectHideFlags: 1

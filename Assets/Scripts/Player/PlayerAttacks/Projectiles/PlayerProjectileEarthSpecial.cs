@@ -8,7 +8,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
     public float forceMagnitude;
 
     private float rbMass = 5;
-    private float rbLDrag = 2;
+    private float rbLDrag = 10;
 
     private PointEffector2D pointEffector;
 

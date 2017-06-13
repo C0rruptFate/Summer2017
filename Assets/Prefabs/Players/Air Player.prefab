@@ -552,7 +552,7 @@ MonoBehaviour:
     type: 2}
   specialRangedManaCost: 10
   specialRangedDamage: 10
-  specialRangedHitStun: 5
+  specialRangedHitStun: 0.1
   specialProjectileSpeed: 25
   specialProjectileMaxDuration: 2
   specialProjectileBreakChance: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
-  shockOrbRadius: 0
+  shockOrbRadius: 5
 --- !u!212 &212291651958801622
 SpriteRenderer:
   m_ObjectHideFlags: 1
