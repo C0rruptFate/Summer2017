@@ -551,29 +551,22 @@ MonoBehaviour:
   specialActive: 0
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
+  specialMeleeDamage: 0
   specialRangedAttackObject: {fileID: 0}
   specialRangedManaCost: 0
+  specialRangedDamage: 0
+  specialRangedHitStun: 0
+  specialProjectileSpeed: 0
+  specialProjectileMaxDuration: 0
+  specialProjectileBreakChance: 0
+  specialBreaksHittingWall: 1
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
   myWispTargetLocation: {fileID: 0}
   wisp: {fileID: 0}
   callingWisp: 0
   callingWispTime: 0
-  element: 0
-  playerParent: {fileID: 0}
-  groundGun: {fileID: 0}
-  groundGunTwo: {fileID: 0}
-  airGun: {fileID: 0}
-  airGunTwo: {fileID: 0}
-  groundMeleeGun: {fileID: 0}
-  groundMeleeGunTwo: {fileID: 0}
-  airMeleeGun: {fileID: 0}
-  airMeleeGunTwo: {fileID: 0}
-  playerWeaponParent: {fileID: 0}
-  projectileNextFire: 0
-  meleeNextFire: 0
   blockNextFire: 0
-  jumpMeleeGun: {fileID: 0}
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
@@ -626,7 +619,7 @@ MonoBehaviour:
   startingHealth: 100
   health: 100
   maxMana: 100
-  startingMana: 100
+  startingMana: 50
   mana: 0
   counterDamageModifier: 1.5
   counterResistanceModifier: 0.75

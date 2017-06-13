@@ -5,7 +5,7 @@ using UnityEngine;
 public enum Element { None, Fire, Ice, Earth, Wind, }; //Possible player elements
 public enum AttackFromLocation { Empty, Self, Overhead, DownAngled, Horizontal, Behind, Below }; //where each player's attack can come from
 public enum EnemyTargetType { Element, Proximity, Random, Roam }; //How enemies find their targets
-public enum PuzzleType {None, Door, EndLevel}//What does each switch controller do when all switches are hit (open a door, end the level spawn enemies, other)
+public enum PuzzleType {None, Door, EndLevel, Bridge}//What does each switch controller do when all switches are hit (open a door, end the level spawn enemies, other)
 
 public class Constants : MonoBehaviour
 {

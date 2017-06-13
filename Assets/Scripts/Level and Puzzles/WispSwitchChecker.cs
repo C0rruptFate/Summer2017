@@ -8,6 +8,13 @@ public class WispSwitchChecker : MonoBehaviour
     [Tooltip("Leave this alone if you don't want action to happen until all switches are flipped. If you want enemies to spawn when X triggers are flipped put X in here. This can happen several times if you want.")]
     public int[] actionArray;//Used cause spawners toggle their active state when switches are hit.
 
+    [Tooltip("What happens when all switches are flipped?")]
+    public PuzzleType puzzleType;
+
+    public GameObject door;
+
+    private GameObject gameManager;
+
     [HideInInspector]//All switches that are children of mine.
     public GameObject[] mySwitches;
     [HideInInspector]//All spawners that are children of mine.
@@ -32,6 +39,11 @@ public class WispSwitchChecker : MonoBehaviour
                 mySpawners.Add(child);
             }
         }
+
+        if (puzzleType == PuzzleType.EndLevel)
+        {
+            gameManager = GameObject.Find("Game Manager");
+        }
     }
 
     public void CheckSwitches()
@@ -54,16 +66,29 @@ public class WispSwitchChecker : MonoBehaviour
             {
                 spawner.GetComponent<Spawner>().active = spawner.GetComponent<Spawner>().active ? false : true;
             }
+
+            switch (puzzleType)
+            {
+                case PuzzleType.Door:
+                    OpenDoor();
+                    break;
+                case PuzzleType.EndLevel:
+                    BeatLevel();
+                    break;
+            }
         }
     }
 
-    void OpenDoor()
+    public void OpenDoor()
     {
         //[TODO] Set open more function.
+        //[TODO] play music animate door opening or fading.
+        Destroy(door);
     }
 
-    void BeatLevel()
+    public void BeatLevel()
     {
         //[TODO] Set end level function.
+        gameManager.GetComponent<GameController>().BeatLevel();
     }
 }

@@ -39,6 +39,8 @@ public class Wisp : MonoBehaviour {
     public GameObject wispManaGrantObjectEarth;
     private GameObject currentWispManaGrantObject;//The currently active version of the wisp mana grant object
 
+    public Collider2D circleCollider;
+
     [HideInInspector]//Am I currently attached to a player.
     public bool attachedPlayerFlipper;
 
@@ -46,6 +48,8 @@ public class Wisp : MonoBehaviour {
     void Start () {
         targetLocation = gameObject.transform;
         ps = gameObject.GetComponent<ParticleSystem>();
+
+        circleCollider = GetComponent<CircleCollider2D>();
 
 	}
 	
@@ -104,6 +108,16 @@ public class Wisp : MonoBehaviour {
         {
             playerICouldAttachTo = other.gameObject;
         }
+
+        if(other.tag == "Wisp Stopper")
+        {
+            circleCollider.enabled = true;
+            if(attachedPlayer != null)
+            {
+                attachedPlayer = null;
+                RemoveWispPlayerBuff();
+            }
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -112,6 +126,11 @@ public class Wisp : MonoBehaviour {
         if (other.tag == "Player" && other.gameObject == playerICouldAttachTo)
         {
             playerICouldAttachTo = null;
+        }
+
+        if (other.tag == "Wisp Stopper")
+        {
+            circleCollider.enabled = false;
         }
 
     }

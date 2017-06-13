@@ -514,7 +514,7 @@ MonoBehaviour:
   startingHealth: 175
   health: 100
   maxMana: 100
-  startingMana: 100
+  startingMana: 50
   mana: 0
   counterDamageModifier: 1.5
   counterResistanceModifier: 0.75
@@ -589,7 +589,7 @@ MonoBehaviour:
   groundProjectileTwoType: 0
   airProjectileType: 2
   airProjectileTwoType: 0
-  lobbedForce: {x: 50, y: 15}
+  lobbedForce: {x: 50, y: 0}
   throwWaitTime: 1
   projectileSpeed: 25
   projectileDamage: 5
@@ -627,7 +627,7 @@ MonoBehaviour:
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
-  specialLobbedForce: {x: 100, y: 0}
+  specialLobbedForce: {x: 30, y: 0}
   forceMagnitude: -200
 --- !u!212 &212044679190248080
 SpriteRenderer:

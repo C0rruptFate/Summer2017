@@ -14,12 +14,6 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
         //Set's my element
         myElement = player.GetComponent<PlayerHealth>().element;
 
-        //enables my collider as they start disabled.
-        if (gameObject.GetComponent<Collider2D>().enabled == false)
-        {
-            gameObject.GetComponent<Collider2D>().enabled = true;
-        }
-
         currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
         float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
         if (breakNumber <= projectileBreakChance)

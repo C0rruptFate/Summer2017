@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114931075863053742}
   m_Layer: 0
   m_Name: Fire Projectile Explosion
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,6 +68,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ac7c52ff2f68846b81ed56f2f57b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileSpeed: 0
+  projectileDamage: 0
+  projectileHitStun: 0
+  projectileMaxDuration: 0
+  projectileBreakChance: 0
+  usesConstantForceProjectile: 1
+  breaksHittingWall: 1
+  lobbedForce: {x: 0, y: 0}
+  throwWaitTime: 0
+  player: {fileID: 0}
+  myElement: 0
 --- !u!250 &250328109446802770
 PointEffector2D:
   m_ObjectHideFlags: 1

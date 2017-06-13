@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxMana = 100f;
     [Tooltip("How much mana do I start with?")]
     public float startingMana =100f;
-    //[HideInInspector]//The players current Mana
+    [HideInInspector]//The players current Mana
     public float mana;
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
     public float counterDamageModifier = 1.5f;

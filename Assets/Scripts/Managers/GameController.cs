@@ -90,8 +90,14 @@ public class GameController : MonoBehaviour {
         alivePlayerCount++;
     }
 
-    void GameOver() //Called when all players are dead at the same time
+    public void GameOver() //Called when all players are dead at the same time
     {
+        levelManager.GetComponent<LevelManager>().LoadLevel("GameOver");
+    }
+
+    public void BeatLevel()
+    {
+        //[TODO] change to a beat level screen or the next level.
         levelManager.GetComponent<LevelManager>().LoadLevel("GameOver");
     }
 }

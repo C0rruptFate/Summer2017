@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireProjectileExplosion : MonoBehaviour {
-
-    [HideInInspector]
-    public GameObject player;
+public class FireProjectileExplosion : PlayerProjectile {
 
 	// Use this for initialization
 	void Start () {
+
+        //Set's my element
+        myElement = player.GetComponent<PlayerHealth>().element;
+
+        //enables my collider as they start disabled.
+        if (gameObject.GetComponent<Collider2D>().enabled == false)
+        {
+            gameObject.GetComponent<Collider2D>().enabled = true;
+        }
+
         Invoke("DestroySelf", 0.1f);
 	}
 	
@@ -17,7 +24,7 @@ public class FireProjectileExplosion : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")
         {
