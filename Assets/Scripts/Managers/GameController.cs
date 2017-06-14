@@ -11,10 +11,10 @@ public class GameController : MonoBehaviour {
     [HideInInspector]//list of all players that joined the level.
     public GameObject[] players;
 
-    //[HideInInspector]//Total count of all players that joined the level.
+    [HideInInspector]//Total count of all players that joined the level.
     public int totalPlayerCount;
 
-    //[HideInInspector]//Total count of all living players.
+    [HideInInspector]//Total count of all living players.
     public int alivePlayerCount;
 
     private GameObject levelManager;//Object of the level manager so that we can load levels.
