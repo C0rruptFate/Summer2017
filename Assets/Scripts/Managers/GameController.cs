@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour {
         //}
 
         //Makes sure the pause text isn't enabled.
-        pauseText.enabled = false;
+        //pauseText.enabled = false;
 
         //if pause text isn't set up lets the designers know.
         if (pauseText == null)

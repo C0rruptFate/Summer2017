@@ -136,7 +136,7 @@ public class PlayerAttacks : MonoBehaviour {
 
     //Wisp Settings
     #region
-    [HideInInspector]//The transform that I will be calling the wisp to.
+    //[HideInInspector]//The transform that I will be calling the wisp to.
     public Transform myWispTargetLocation;
     [HideInInspector]//The Wisp that I will be telling where to go.
     public GameObject wisp;

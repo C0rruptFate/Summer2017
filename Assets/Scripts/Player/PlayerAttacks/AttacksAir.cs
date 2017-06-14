@@ -1,15 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Remove this
-using UnityEngine.UI;
 
 public class AttacksAir : PlayerAttacks {
 
     [Tooltip("The radius of the shock orb trigger checker.")]
     public float shockOrbRadius;
-
-    public Text testText;
 
     // Use this for initialization
     void Start()
@@ -313,13 +309,11 @@ public class AttacksAir : PlayerAttacks {
             }
             CallWisp();
             callingWisp = true;
-            testText.text = ("calling Wisp is down " + Input.GetAxis("CallWisp" + playerNumber));
         }//Stops calling the Wisp when the button isn't held down.
         else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
         {
             callingWispTime = 0;
             callingWisp = false;
-            testText.text = ("calling Wisp is UP " + Input.GetAxis("CallWisp" + playerNumber));
         }
 
         //Activate Special
