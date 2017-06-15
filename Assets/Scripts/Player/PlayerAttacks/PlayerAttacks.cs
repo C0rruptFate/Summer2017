@@ -108,6 +108,8 @@ public class PlayerAttacks : MonoBehaviour {
     public int specialMeleeManaCost;
     [Tooltip("Damage done by my special Melee attack.")]
     public float specialMeleeDamage;
+    [Tooltip("Cooldown for Special Melee Attacks.")]
+    public float specialMeleeCooldown;
 
     [Header("Special Ranged Attack Settings")]
     [Tooltip("Attach a gameObject of what my melee attack will be.")]
@@ -126,12 +128,16 @@ public class PlayerAttacks : MonoBehaviour {
     public float specialProjectileBreakChance;
     [Tooltip("Does this break right as it hits a wall? 'Use for standard projectiles, lobbed that roll want this off.'")]
     public bool specialBreaksHittingWall = true;
+    [Tooltip("Cooldown for Special Ranged Attacks.")]
+    public float specialRangedCooldown;
 
 
     [Tooltip("Attach a gameObject of what my Special Defend will be.")]
     public GameObject specialDefendObject;
     [Tooltip("How much mana it costs to use my Special Defend.")]
     public int specialDefendManaCost;
+    [Tooltip("Cooldown for Special Defend Attacks.")]
+    public float specialDefendCooldown;
     #endregion
 
     //Wisp Settings
@@ -149,7 +155,7 @@ public class PlayerAttacks : MonoBehaviour {
     //Private Attack extras
     #region
     [HideInInspector]//element of this player
-    protected Element element; 
+    public Element element; 
     [HideInInspector]//Who I am parented to, normally empty.
     protected GameObject playerParent;
     [HideInInspector]//Where my ground projectiles will be shot from.

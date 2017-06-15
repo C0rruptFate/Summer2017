@@ -344,7 +344,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1209170301946456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.69, y: -2.524, z: 0}
+  m_LocalPosition: {x: 5.69, y: -2.07, z: 0}
   m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_Children:
   - {fileID: 4762200552190172}
@@ -538,7 +538,7 @@ MonoBehaviour:
   projectileSpeed: 25
   projectileDamage: 5
   projectileHitStun: 0.25
-  projectileMaxDuration: 2
+  projectileMaxDuration: 0.5
   projectileBreakChance: 100
   usesConstantForceProjectile: 1
   breaksHittingWall: 1
@@ -552,24 +552,29 @@ MonoBehaviour:
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
   specialMeleeDamage: 0
-  specialRangedAttackObject: {fileID: 0}
-  specialRangedManaCost: 0
-  specialRangedDamage: 0
-  specialRangedHitStun: 0
-  specialProjectileSpeed: 0
-  specialProjectileMaxDuration: 0
+  specialRangedAttackObject: {fileID: 1915595482087786, guid: 6e339b31c9d0f9244ad1de73c9262c79,
+    type: 2}
+  specialRangedManaCost: 10
+  specialRangedDamage: 10
+  specialRangedHitStun: 0.25
+  specialProjectileSpeed: 20
+  specialProjectileMaxDuration: 0.75
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
-  myWispTargetLocation: {fileID: 0}
+  myWispTargetLocation: {fileID: 4373579779057864}
   wisp: {fileID: 0}
   callingWisp: 0
   callingWispTime: 0
+  element: 0
   blockNextFire: 0
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
+  baseHealReduction: 0.5
+  healMultiplierThreshold: 0.25
+  healMultiplier: 1.5
 --- !u!114 &114134236459591642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -614,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d422fb378e78e6242b29a7ffc72fbe2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
+  playerNumber: 0
   element: 2
   startingHealth: 100
   health: 100

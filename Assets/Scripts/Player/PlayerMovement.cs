@@ -52,11 +52,15 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool groundJumpInitiated = false; //have I started to jump yet?
     private int currentJumpTimer = 0; //How long I have been holding the jump button.
-    [HideInInspector]public int bounceJumpsUsed; //how many bounce jumps have I used.
+    [HideInInspector]
+    public int bounceJumpsUsed; //how many bounce jumps have I used.
     private int arialJumpsUsed; //How many airal jumps have I used.
-    [HideInInspector]public bool grounded = false; //am I currently grounded?
-    [HideInInspector]public bool enemyBelow = false;//Is their an enemy below me?
-    [HideInInspector]public bool playerBelow = false;//is their a player below me?
+    [HideInInspector]
+    public bool grounded = false; //am I currently grounded?
+    [HideInInspector]
+    public bool enemyBelow = false;//Is their an enemy below me?
+    [HideInInspector]
+    public bool playerBelow = false;//is their a player below me?
 
     void Start () {
         //Sets up the player's hp and actions scripts.
@@ -81,7 +85,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	private void Update () {
+	public void Update () {
 
         //Determins what direction the player is facing
         PlayerFacing();
@@ -135,7 +139,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         //Counts how long the jump button has been held down.
         if (currentJumpTimer > 0)
@@ -144,7 +148,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.gameObject.tag) //Checks what's below me.
         {
@@ -168,7 +172,7 @@ public class PlayerMovement : MonoBehaviour {
         }   
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D collision)
     {
         switch (collision.gameObject.tag) //removes what's below me when I leave.
         {
@@ -189,7 +193,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    private void PlayerJump()
+    public void PlayerJump()
     {
         //Does ground jump
         if (grounded)

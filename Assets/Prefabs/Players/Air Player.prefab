@@ -503,16 +503,16 @@ MonoBehaviour:
   specialBreaksHittingWall: 1
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
-  myWispTargetLocation: {fileID: 0}
+  myWispTargetLocation: {fileID: 4694570794780800}
   wisp: {fileID: 0}
   callingWisp: 0
   callingWispTime: 0
+  element: 0
   blockNextFire: 0
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
   shockOrbRadius: 5
-  testText: {fileID: 0}
 --- !u!114 &114706816189215140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d422fb378e78e6242b29a7ffc72fbe2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
+  playerNumber: 0
   element: 4
   startingHealth: 100
   health: 100

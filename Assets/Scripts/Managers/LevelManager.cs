@@ -24,9 +24,13 @@ public class LevelManager : MonoBehaviour
     public GameObject earthCharacter;
 
     //What each player chose
+    [HideInInspector]
     public Element player1Element;
+    [HideInInspector]
     public Element player2Element;
+    [HideInInspector]
     public Element player3Element;
+    [HideInInspector]
     public Element player4Element;
 
     //Tells the camera to track these players

@@ -29,33 +29,57 @@ public class PlayerUI : MonoBehaviour
     private float currentHealth;
     private float startingHealth;
 
+    //Dealing with Cooldowns
+    public Image meleeFillImage;
+    public Text meleeCooldownText;
+    private Transform meleeSpecialUI;
+    private Slider meleeSlider;
+
+    public Image rangedFillImage;
+    public Text rangedCooldownText;
+    private Transform rangedSpecialUI;
+    private Slider rangedSlider;
+
+    public Image defendFillImage;
+    public Text defendCooldownText;
+    private Transform defendSpecialUI;
+    private Slider defendSlider;
+
     //Dealing with mana
-    public Image manaFillImage;
-    
-    private Transform manaUI;
-    private Slider manaSlider;
-    private float currentMana;
-    private float maxMana;
+    //public Image manaFillImage;
+
+    //private Transform manaUI;
+    //private Slider manaSlider;
+    //private float currentMana;
+    //private float maxMana;
 
     //Other
     private PlayerHealth playerHealth; //player HP script
+    private PlayerAttacks playerAttacks;
     private GameObject player; //the player themself
-    private PlayerHealth playerResources; //the player's mana
 
     // Use this for initialization
     void Start()
     {
         //Find our UI elements
-        healthUI = gameObject.transform.GetChild(1);
-        manaUI = gameObject.transform.GetChild(2);
+        healthUI = gameObject.transform.Find("Health Slider");
+        //manaUI = gameObject.transform.GetChild(2);
         //finds the sliders of those elements.
         hpSlider = healthUI.GetComponent<Slider>();
-        manaSlider = manaUI.GetComponent<Slider>();
+        //manaSlider = manaUI.GetComponent<Slider>();
 
-        if (hpSlider == null || manaSlider == null)
+        //Sets up the Sliders for player cooldowns
+        meleeSpecialUI = gameObject.transform.Find("Melee Cooldown Slider");
+        meleeSlider = healthUI.GetComponent<Slider>();
+        rangedSpecialUI = gameObject.transform.Find("Ranged Cooldown Slider");
+        rangedSlider = healthUI.GetComponent<Slider>();
+        defendSpecialUI = gameObject.transform.Find("Defend Cooldown Slider");
+        defendSlider = healthUI.GetComponent<Slider>();
+
+        if (hpSlider == null || meleeSlider == null || rangedSlider == null || defendSlider == null)
         {
             //Lets the designer know if those can't be found, this shouldn't ever show.
-            Debug.Log("Missing a Slider");
+            Debug.Log(gameObject.name + " Missing a Slider");
         }
 
         //Find our player
@@ -77,25 +101,31 @@ public class PlayerUI : MonoBehaviour
         }
 
         //Find player HP and it's max/current values.
-        playerResources = player.GetComponent<PlayerHealth>();
-        startingHealth = playerResources.health;
-        playerResources.playerUI = gameObject;
+        playerHealth = player.GetComponent<PlayerHealth>();
+        startingHealth = playerHealth.health;
+        playerHealth.playerUI = gameObject;
         maxHealth = startingHealth;
         hpSlider.maxValue = maxHealth;
         hpFillImage.color = fullHealthColor;
-        
+
+        //Setting up Cooldown caps.
+        playerAttacks = player.GetComponent<PlayerAttacks>();
+        meleeSlider.maxValue = playerAttacks.specialMeleeCooldown;
+        rangedSlider.maxValue = playerAttacks.specialRangedCooldown;
+        defendSlider.maxValue = playerAttacks.specialDefendCooldown;
+
 
         //Find player mana
-        maxMana = playerResources.maxMana;
-        manaSlider.maxValue = maxMana;
+        //maxMana = playerResources.maxMana;
+        //manaSlider.maxValue = maxMana;
 
 
         //Set the UI
         SetHealthUI();
-        SetManaUI();
+        //SetManaUI();
 
         //Make the player's panal match their color
-        playerHealth = player.GetComponent<PlayerHealth>();
+        
         switch (playerHealth.element)
         {
             case Element.Wind:
@@ -118,7 +148,7 @@ public class PlayerUI : MonoBehaviour
     //Call this everytime the player takes damage or is healed. Using 'uiHealth.GetComponent<UIHealth>().SetHealthUI();' on the player
     public void SetHealthUI()//Updates the HP UI when the player gains/loses HP.
     {
-        currentHealth = playerResources.health;
+        currentHealth = playerHealth.health;
         hpSlider.value = currentHealth;
         
         //Changes HP bar colors
@@ -141,17 +171,18 @@ public class PlayerUI : MonoBehaviour
 
     public void SetManaUI() //Sets the mana UI when the player spends/gains mana.
     {
-        currentMana = playerResources.mana;
-        manaSlider.value = currentMana;
-        //Debug.Log("Current mana: " + currentMana);
-        if (currentMana == 0)
-        {
-            manaFillImage.enabled = false;
-        }
-        else
-        {
-            manaFillImage.enabled = true;
-        }
+        //currentMana = playerResources.mana;
+        //manaSlider.value = currentMana;
+        ////Debug.Log("Current mana: " + currentMana);
+        //if (currentMana == 0)
+        //{
+        //    manaFillImage.enabled = false;
+        //}
+        //else
+        //{
+        //    manaFillImage.enabled = true;
+        //}
 
+        //[TODO] remove this and set up cooldowns
     }
 }

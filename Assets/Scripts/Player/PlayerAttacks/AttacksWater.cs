@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class AttacksWater : PlayerAttacks {
 
+    [Tooltip("How much does this heal for when your hp is ABOVE the threshold. (multiply by damage done.)")]
+    public float baseHealReduction = 0.5f;
+
+    [Tooltip("What percentage of HP do you need to be below to get the bonus healing.")]
+    public float healMultiplierThreshold = 0.25f;
+    [Tooltip("How much does this heal for when your hp is Below the threshold. (multiply by damage done.)")]
+    public float healMultiplier = 1.5f;
+
+    private bool rangedMultiShot = false;
+
     // Use this for initialization
     void Start()
     {
@@ -14,6 +24,7 @@ public class AttacksWater : PlayerAttacks {
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksWater>();
         //Sets my player # so I know what controller to look at.
         playerNumber = playerHealth.playerNumber;
+        //Debug.Log("element " + element + "player Number " + playerNumber);
         //Sets up my rigid body.
         rb = GetComponent<Rigidbody2D>();
         //Finds the wisp target location object, changes it's name, and removes it as a child.
@@ -300,6 +311,7 @@ public class AttacksWater : PlayerAttacks {
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
         if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
         {
+            Debug.Log("element " + element + "player Number " + playerNumber);
             if (callingWispTime < 20)
             {
                 callingWispTime++;
@@ -352,6 +364,7 @@ public class AttacksWater : PlayerAttacks {
         else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Ranged Attack
         {
             RangedAttack();
+            rangedMultiShot = false;
         }
 
         //Defend
@@ -381,6 +394,19 @@ public class AttacksWater : PlayerAttacks {
         }
     }
 
+    public override void RangedAttack()
+    {
+        base.RangedAttack();
+
+        if(!rangedMultiShot)
+        {
+            rangedMultiShot = true;
+            Invoke("RangedAttack", 0.25f);
+        }
+
+        //[TODO] Set up special melee attack for each character.
+    }
+
     protected override void SpecialMeleeAttack()
     {
         base.SpecialMeleeAttack();
@@ -390,7 +416,29 @@ public class AttacksWater : PlayerAttacks {
 
     protected override void SpecialRangedAttack()
     {
-        base.SpecialRangedAttack();
+        Debug.Log("Should throw special attack.");
+        //Spends the mana to use your special ranged attack.
+        playerHealth.SpendMana(specialRangedManaCost);
+        projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
+        //Shoots the projectile, put the projectile movement code on that object.
+        //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+        switch (gameObject.GetComponent<PlayerMovement>().grounded)
+        {//Put ranged attacks on the ground here.
+            case true://Checks if grounded or not/
+
+                //Set up a gun position object on each player.
+                GameObject newGroundProjectile = Instantiate(specialRangedAttackObject, groundGun.position, groundGun.rotation);
+                newGroundProjectile.transform.parent = playerWeaponParent.transform;
+                newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetSpecialRangedAttackStats(newGroundProjectile);
+                break;
+            default://Set up a aerial gun position object on each player.
+                GameObject newAirProjectile = Instantiate(specialRangedAttackObject, airGun.position, airGun.rotation);
+                newAirProjectile.transform.parent = playerWeaponParent.transform;
+                newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                SetSpecialRangedAttackStats(newAirProjectile);
+                break;
+        }
 
         //[TODO] Set up the special ranged attack for each character.
 
@@ -402,6 +450,15 @@ public class AttacksWater : PlayerAttacks {
         playerHealth.SpendMana(specialDefendManaCost);
 
         //[TODO] Set up the special Defend for each character.
+
+    }
+
+    public override void SetSpecialRangedAttackStats(GameObject projectile)
+    {
+        base.SetSpecialRangedAttackStats(projectile);
+        projectile.GetComponent<PlayerProjectileWaterSpecial>().baseHealReduction = baseHealReduction;
+        projectile.GetComponent<PlayerProjectileWaterSpecial>().healMultiplierThreshold = healMultiplierThreshold;
+        projectile.GetComponent<PlayerProjectileWaterSpecial>().healMultiplier = healMultiplier;
 
     }
 }

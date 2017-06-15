@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [Tooltip("Sets the element, player number, and her attacks.")]
-    public int playerNumber = 1;
+    public int playerNumber = 0;
     public Element element; //element of this player
     [Tooltip("How much Health do I start with? 'This is also max health.'")]
     public float startingHealth = 100f;
@@ -45,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         //Setting up the player's movement and actions scripts
         GetComponent<PlayerMovement>().playerHealth = GetComponent<PlayerHealth>();
         GetComponent<PlayerAttacks>().playerHealth = GetComponent<PlayerHealth>();
+        GetComponent<PlayerAttacks>().element = element;
         //playerAttacks.playerNumber = playerNumber;
         //playerMovement.playerNumber = playerNumber;
 
@@ -62,12 +63,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         gameManager = GameObject.Find("Game Manager");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     //Reenables the players ability to attack after hitstun

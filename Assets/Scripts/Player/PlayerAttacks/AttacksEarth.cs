@@ -19,6 +19,7 @@ public class AttacksEarth : PlayerAttacks {
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksEarth>();
         //Sets my player # so I know what controller to look at.
         playerNumber = playerHealth.playerNumber;
+        Debug.Log("element " + element + "player Number " + playerNumber);
         //Sets up my rigid body.
         rb = GetComponent<Rigidbody2D>();
         //Finds the wisp target location object, changes it's name, and removes it as a child.
@@ -305,6 +306,7 @@ public class AttacksEarth : PlayerAttacks {
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
         if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
         {
+            //Debug.Log("element " + element + "player Number " + playerNumber);
             if (callingWispTime < 20)
             {
                 callingWispTime++;
