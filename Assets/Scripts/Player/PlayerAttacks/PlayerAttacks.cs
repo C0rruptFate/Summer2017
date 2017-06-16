@@ -110,6 +110,8 @@ public class PlayerAttacks : MonoBehaviour {
     public float specialMeleeDamage;
     [Tooltip("Cooldown for Special Melee Attacks.")]
     public float specialMeleeCooldown;
+    [HideInInspector]//Current cool down of this ability.
+    public float currentSpecialMeleeCooldown;
 
     [Header("Special Ranged Attack Settings")]
     [Tooltip("Attach a gameObject of what my melee attack will be.")]
@@ -128,8 +130,12 @@ public class PlayerAttacks : MonoBehaviour {
     public float specialProjectileBreakChance;
     [Tooltip("Does this break right as it hits a wall? 'Use for standard projectiles, lobbed that roll want this off.'")]
     public bool specialBreaksHittingWall = true;
+    [Tooltip("Check if you want the special range to fire from both the primary and secondary guns.")]
+    public bool specialRangedHasSecondGun = false;
     [Tooltip("Cooldown for Special Ranged Attacks.")]
     public float specialRangedCooldown;
+    //[HideInInspector]//Current cool down of this ability.
+    public float currentSpecialRangedCooldown;
 
 
     [Tooltip("Attach a gameObject of what my Special Defend will be.")]
@@ -138,6 +144,8 @@ public class PlayerAttacks : MonoBehaviour {
     public int specialDefendManaCost;
     [Tooltip("Cooldown for Special Defend Attacks.")]
     public float specialDefendCooldown;
+    [HideInInspector]//Current cool down of this ability.
+    public float currentSpecialDefendCooldown;
     #endregion
 
     //Wisp Settings
@@ -192,7 +200,414 @@ public class PlayerAttacks : MonoBehaviour {
     public PlayerHealth playerHealth;
     [HideInInspector]//My Movement script
     public PlayerMovement playerMovement;
+
+    protected IEnumerator meleeCooldownCoroutine;
+    protected IEnumerator rangedCooldownCoroutine;
+    protected IEnumerator defendCooldownCoroutine;
     #endregion
+
+    public virtual void Start()
+    {
+        meleeCooldownCoroutine = MeleeCooldown();
+        rangedCooldownCoroutine = RangedCooldown();
+        defendCooldownCoroutine = DefendCooldown();
+
+        //Sets my player # so I know what controller to look at.
+        playerNumber = playerHealth.playerNumber;
+        Debug.Log("element " + element + "player Number " + playerNumber);
+        //Sets up my rigid body.
+        rb = GetComponent<Rigidbody2D>();
+        //Finds the wisp target location object, changes it's name, and removes it as a child.
+        myWispTargetLocation = transform.Find("Wisp Target Location");
+        myWispTargetLocation.name = gameObject.name + "Wisp Target Location";
+        myWispTargetLocation.parent = null;
+        //Find the wisp object
+        wisp = GameObject.Find("Wisp");
+        if (wisp == null)
+        {//If the wisp can't be found it will inform the designer.
+            Debug.LogError("Can't find the Wisp, it might not be added to the scene.");
+        }
+
+        //Set's up the player's weapon parent object
+        playerWeaponParent = GameObject.Find("Player Attacks");
+        if (!playerWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
+        {
+            playerWeaponParent = new GameObject("Player Attacks");
+        }
+
+        //Melee attack Setup
+        #region
+        //Sets up the grounded melee attack for your first weapon
+        switch (groundMeleeType)
+        {
+            case AttackFromLocation.Overhead:
+                groundMeleeGun = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                groundMeleeGun = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                groundMeleeGun = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                groundMeleeGun = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                groundMeleeGun = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Empty: //Shouldn't happen
+                groundMeleeGun = null;
+                break;
+            case AttackFromLocation.Horizontal:
+            default:
+                groundMeleeGun = transform.Find("Horizontal Gun");
+                break;
+        }
+        if (groundMeleeGun == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.LogError("Can't find the PRIMARY GROUND MELEE gun for " + gameObject);
+        }
+
+        //Sets up the grounded melee attack for your second weapon if you have one.
+        switch (groundMeleeTwoType)
+        {
+            case AttackFromLocation.Overhead:
+                groundMeleeGunTwo = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                groundMeleeGunTwo = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                groundMeleeGunTwo = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                groundMeleeGunTwo = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                groundMeleeGunTwo = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Horizontal:
+                groundMeleeGunTwo = transform.Find("Horizontal Gun");
+                break;
+            case AttackFromLocation.Empty://Second could be left empty.
+            default:
+                groundMeleeGunTwo = null;
+                break;
+        }
+        if (groundMeleeGunTwo == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.Log("Can't find the SECONDARY GROUND MELEE gun for " + gameObject);
+        }
+        //Sets up the aerial melee attack for your first weapon.
+        switch (airMeleeType)
+        {
+            case AttackFromLocation.Overhead:
+                airMeleeGun = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                airMeleeGun = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                airMeleeGun = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                airMeleeGun = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                airMeleeGun = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Empty:
+                airMeleeGun = null;
+                break;
+            case AttackFromLocation.Horizontal:
+            default:
+                airMeleeGun = transform.Find("Horizontal Gun");
+                break;
+        }
+        if (airMeleeGun == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.LogError("Can't find the PRIMARY AIR MELEE gun for " + gameObject);
+        }
+        //Sets up the aerial melee attack for your secondary weapon.
+        switch (airMeleeTwoType)
+        {
+            case AttackFromLocation.Overhead:
+                airMeleeGunTwo = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                airMeleeGunTwo = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                airMeleeGunTwo = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                airMeleeGunTwo = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                airMeleeGunTwo = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Horizontal:
+                airMeleeGunTwo = transform.Find("Horizontal Gun");
+                break;
+            case AttackFromLocation.Empty://Second could be left empty.
+            default:
+                airMeleeGunTwo = null;
+                break;
+        }
+        if (airMeleeGunTwo == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.Log("Can't find the SECONDARY AIR MELEE gun for player " + gameObject);
+        }
+        //Jump attack Setup this will always be the gun below you.
+        jumpMeleeGun = transform.Find("Below Gun");
+        #endregion
+
+        //Ranged attack Setup
+        #region 
+        //Sets up the grounded projectile for your first weapon
+        switch (groundProjectileType)
+        {
+            case AttackFromLocation.Overhead:
+                groundGun = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                groundGun = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                groundGun = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                groundGun = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                groundGun = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Empty: //No ground projectile selected on main gun.
+                groundGun = null;
+                break;
+            case AttackFromLocation.Horizontal:
+            default:
+                groundGun = transform.Find("Horizontal Gun");
+                break;
+        }
+        if (groundGun == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.LogError("No GROUND PROJECTILE selected on PRIMARY gun for " + gameObject);
+        }
+        //Sets up the grounded projectile for your secondary weapon.
+        switch (groundProjectileTwoType)
+        {
+            case AttackFromLocation.Overhead:
+                groundGunTwo = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                groundGunTwo = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                groundGunTwo = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                groundGunTwo = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                groundGunTwo = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Horizontal: //No ground projectile selected on main gun.
+                groundGunTwo = transform.Find("Horizontal Gun");
+                break;
+            case AttackFromLocation.Empty:
+            default:
+                groundGunTwo = null;
+                break;
+        }
+        if (groundGunTwo == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.Log("No GROUND PROJECTILE selected on SECONDARY gun for " + gameObject);
+        }
+
+        //Sets up the aerial projectile for your primary weapon.
+        switch (airProjectileType)
+        {
+            case AttackFromLocation.Overhead:
+                airGun = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                airGun = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                airGun = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                airGun = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                airGun = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Horizontal:
+            default:
+                airGun = transform.Find("Horizontal Gun");
+                break;
+        }
+        if (airGun == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.LogError("No air projectile selected on PRIMARY gun for " + gameObject);
+        }
+        //Sets up the aerial projectile for your secondary weapon.
+        switch (airProjectileTwoType)
+        {
+            case AttackFromLocation.Overhead:
+                airGunTwo = transform.Find("Overhead Gun");
+                break;
+            case AttackFromLocation.DownAngled:
+                airGunTwo = transform.Find("Down Angled Gun");
+                break;
+            case AttackFromLocation.Below:
+                airGunTwo = transform.Find("Below Gun");
+                break;
+            case AttackFromLocation.Behind:
+                airGunTwo = transform.Find("Behind Gun");
+                break;
+            case AttackFromLocation.Self:
+                airGunTwo = transform;//Targets self rather than a gun set up.
+                break;
+            case AttackFromLocation.Horizontal:
+                airGunTwo = transform.Find("Horizontal Gun");
+                break;
+            case AttackFromLocation.Empty:
+            default:
+                airGunTwo = null;
+                break;
+        }
+        if (airGunTwo == null)
+        {
+            //If the this object is missing it will inform the designer.
+            Debug.Log("No air projectile selected on SECONDARY gun for " + gameObject);
+        }
+        #endregion
+    }
+
+    public virtual void Update()
+    {
+        //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
+        //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
+        if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
+        {
+            //Debug.Log("element " + element + "player Number " + playerNumber);
+            if (callingWispTime < 20)
+            {
+                callingWispTime++;
+            }
+            CallWisp();
+            callingWisp = true;
+        }//Stops calling the Wisp when the button isn't held down.
+        else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
+        {
+            callingWispTime = 0;
+            callingWisp = false;
+        }
+
+        //Activate Special
+        if (Input.GetAxisRaw("Special" + playerNumber) == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
+        {
+            //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
+
+            //[TODO]Play special particle effect
+            //turn special is active to true
+            //Debug.Log("Special is active.");
+            specialActive = true;
+        }
+        if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)//Turns off the special when the button/trigger is released.
+        {
+            //Turn off special
+            //Debug.Log("SpeciaL has been DEACTIVATED");
+            specialActive = false;
+        }
+
+        //Melee attacks
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire)//Special Melee Attack
+        {
+            //Debug.Log("Melee Special is active.");
+            SpecialMeleeAttack();
+        }
+        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire)//Melee Attack
+        {
+            MeleeAttack();
+        }
+
+        //Ranged Attacks
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Special Ranged Attack
+        {
+            //Debug.Log("Ranged Special is active.");
+            SpecialRangedAttack();
+        }
+        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Ranged Attack
+        {
+            RangedAttack();
+        }
+
+        //Defend
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Special Block
+        {
+            Debug.Log("Defend Special is active.");
+            if (!blocking)
+            {
+                blocking = true;
+                SpecialPlayerDefend();
+            }
+        }
+        else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Block
+        {
+            if (!blocking)//If I am not already blocking start blocking
+            {
+                blocking = true;
+                PlayerDefend();//Creates the block effect and all that goes with that.
+            }
+        }
+        else if (blocking)//Causes me to release the block.
+        {
+            blocking = false;
+            blockNextFire = Time.time + blockFireRate;
+            PlayerDefend();
+        }
+
+        //Cooldowns
+        //Melee Cooldown
+        if (currentSpecialMeleeCooldown == specialMeleeCooldown)
+        {
+            StartCoroutine(meleeCooldownCoroutine);
+        }
+        else if (currentSpecialMeleeCooldown <= 0)
+        {
+            StopCoroutine(meleeCooldownCoroutine);
+        }
+        //Ranged Cooldown
+        if (currentSpecialRangedCooldown == specialRangedCooldown)
+        {
+            StartCoroutine(rangedCooldownCoroutine);
+        }else if (currentSpecialRangedCooldown <= 0)
+        {
+            StopCoroutine(rangedCooldownCoroutine);
+        }
+        //Defend Cooldown
+        if (currentSpecialDefendCooldown == specialDefendCooldown)
+        {
+            StartCoroutine(defendCooldownCoroutine);
+        }
+        else if (currentSpecialDefendCooldown <= 0)
+        {
+            StopCoroutine(defendCooldownCoroutine);
+        }
+    }
 
     public virtual void CallWisp()
     {
@@ -338,16 +753,20 @@ public class PlayerAttacks : MonoBehaviour {
     protected virtual void SpecialMeleeAttack()
     {
         //Spends the mana to use your special melee attack.
-        playerHealth.SpendMana(specialMeleeManaCost);
+        //playerHealth.SpendMana(specialMeleeManaCost);
 
         //[TODO] Set up special melee attack for each character.
+        currentSpecialMeleeCooldown = 0;
     }
 
     //Special Ranged Attacks, these will be different for each character.
     protected virtual void SpecialRangedAttack()
     {
         //Spends the mana to use your special ranged attack.
-        playerHealth.SpendMana(specialRangedManaCost);
+        //playerHealth.SpendMana(specialRangedManaCost);
+
+        currentSpecialRangedCooldown = specialRangedCooldown; //Sets the cooldown to 0
+        //StartCoroutine(rangedCooldownCoroutine);
         projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
         //Shoots the projectile, put the projectile movement code on that object.
         //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
@@ -360,7 +779,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newGroundProjectile.transform.parent = playerWeaponParent.transform;
                 newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                 SetSpecialRangedAttackStats(newGroundProjectile);
-                if (groundGunTwo != null)
+                if (groundGunTwo != null && specialRangedHasSecondGun)
                 {
                     //Does the same thing for the secondary grounded projectile if one is set.
                     newGroundProjectile = Instantiate(specialRangedAttackObject, groundGunTwo.position, groundGunTwo.rotation);
@@ -374,7 +793,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newAirProjectile.transform.parent = playerWeaponParent.transform;
                 newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                 SetSpecialRangedAttackStats(newAirProjectile);
-                if (airGunTwo != null)
+                if (airGunTwo != null && specialRangedHasSecondGun)
                 {//Does the same thing for the secondary if one is set.
                     newAirProjectile = Instantiate(specialRangedAttackObject, airGunTwo.position, airGunTwo.rotation);
                     newAirProjectile.transform.parent = playerWeaponParent.transform;
@@ -383,13 +802,19 @@ public class PlayerAttacks : MonoBehaviour {
                 }
                 break;
         }
+
+        if (blocking == true)//Pulls me out of blocking when I shot if I was blocking.
+        {
+            blocking = false;
+            blockNextFire = Time.time + blockFireRate;
+        }
     }
 
     //Special Defend, these will be different for each character.
     public virtual void SpecialPlayerDefend()
     {
         //Spends the mana to use your special ranged attack.
-        playerHealth.SpendMana(specialDefendManaCost);
+        //playerHealth.SpendMana(specialDefendManaCost);
 
         //[TODO] Set up the special Defend for each character.
 
@@ -435,5 +860,44 @@ public class PlayerAttacks : MonoBehaviour {
         projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
         projectile.GetComponent<PlayerProjectile>().breaksHittingWall = specialBreaksHittingWall;
         projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
+    }
+
+    public virtual IEnumerator MeleeCooldown()
+    {
+        while (currentSpecialMeleeCooldown > 0)
+        {
+            currentSpecialMeleeCooldown--;
+            yield return new WaitForSeconds(1.0f);
+            if (currentSpecialMeleeCooldown == 0)
+            {
+                StopCoroutine(meleeCooldownCoroutine);
+            }
+        }
+    }
+
+    public virtual IEnumerator RangedCooldown()
+    {
+        while (currentSpecialRangedCooldown > 0)
+        {
+            currentSpecialRangedCooldown--;
+            yield return new WaitForSeconds(1.0f);
+            if (currentSpecialRangedCooldown == 0)
+            {
+                StopCoroutine(rangedCooldownCoroutine);
+            }
+        }
+    }
+
+    public virtual IEnumerator DefendCooldown()
+    {
+        while (currentSpecialDefendCooldown > 0)
+        {
+            currentSpecialDefendCooldown--;
+            yield return new WaitForSeconds(1.0f);
+            if (currentSpecialDefendCooldown == 0)
+            {
+                StopCoroutine(defendCooldownCoroutine);
+            }
+        }
     }
 }

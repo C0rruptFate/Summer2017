@@ -608,6 +608,8 @@ MonoBehaviour:
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
   specialMeleeDamage: 0
+  specialMeleeCooldown: 0
+  currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1515720796713822, guid: e1f1ef94d8d868c46b9d0aa70d82ee06,
     type: 2}
   specialRangedManaCost: 10
@@ -617,8 +619,13 @@ MonoBehaviour:
   specialProjectileMaxDuration: 10
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
+  specialRangedHasSecondGun: 0
+  specialRangedCooldown: 5
+  currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
+  specialDefendCooldown: 5
+  currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4917517063950208}
   wisp: {fileID: 0}
   callingWisp: 0

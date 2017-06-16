@@ -70,11 +70,12 @@ public class PlayerUI : MonoBehaviour
 
         //Sets up the Sliders for player cooldowns
         meleeSpecialUI = gameObject.transform.Find("Melee Cooldown Slider");
-        meleeSlider = healthUI.GetComponent<Slider>();
+        meleeSlider = meleeSpecialUI.GetComponent<Slider>();
+        //meleeCooldownText = gameObject.transform.Find("Melee Ready Text");
         rangedSpecialUI = gameObject.transform.Find("Ranged Cooldown Slider");
-        rangedSlider = healthUI.GetComponent<Slider>();
+        rangedSlider = rangedSpecialUI.GetComponent<Slider>();
         defendSpecialUI = gameObject.transform.Find("Defend Cooldown Slider");
-        defendSlider = healthUI.GetComponent<Slider>();
+        defendSlider = defendSpecialUI.GetComponent<Slider>();
 
         if (hpSlider == null || meleeSlider == null || rangedSlider == null || defendSlider == null)
         {
@@ -143,6 +144,16 @@ public class PlayerUI : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void Update()
+    {
+        meleeSlider.value = playerAttacks.specialMeleeCooldown - playerAttacks.currentSpecialMeleeCooldown;
+        meleeCooldownText.text = meleeSlider.value.ToString();
+        rangedSlider.value = playerAttacks.specialRangedCooldown - playerAttacks.currentSpecialRangedCooldown;
+        rangedCooldownText.text = rangedSlider.value.ToString();
+        defendSlider.value = playerAttacks.specialDefendCooldown - playerAttacks.currentSpecialDefendCooldown;
+        defendCooldownText.text = defendSlider.value.ToString();
     }
 
     //Call this everytime the player takes damage or is healed. Using 'uiHealth.GetComponent<UIHealth>().SetHealthUI();' on the player

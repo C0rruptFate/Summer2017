@@ -157,22 +157,20 @@ public class PlayerHealth : MonoBehaviour
     }
 
     //Used to spend mana on specials
-    public void SpendMana(float manaCost)
-    {
-        
-        if(mana >= manaCost)
-        {
-            Debug.Log("Spend mana");
-            mana -= manaCost;
-            playerUI.GetComponent<PlayerUI>().SetManaUI();
-        }
-        else
-        {
-            Debug.Log("Spend mana but didn't have enough");
-            //[TODO] Set up feedback for when you don't have enough mana to use an ability
-        }
-
-    }
+    //public void SpendMana(float manaCost)
+    //{
+    //    if(mana >= manaCost)
+    //    {
+    //        Debug.Log("Spend mana");
+    //        mana -= manaCost;
+    //        playerUI.GetComponent<PlayerUI>().SetManaUI();
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Spend mana but didn't have enough");
+    //        //[TODO] Set up feedback for when you don't have enough mana to use an ability
+    //    }
+    //}
 
     //kills the player by disabling them
     public void PlayerDied()
