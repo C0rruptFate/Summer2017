@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FireProjectileExplosion : PlayerProjectile {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
         //Set's my element
         myElement = player.GetComponent<PlayerHealth>().element;
@@ -15,13 +15,8 @@ public class FireProjectileExplosion : PlayerProjectile {
         {
             gameObject.GetComponent<Collider2D>().enabled = true;
         }
-
+        //Debug.Log("Radius!!!: " + gameObject.GetComponent<CircleCollider2D>().radius);
         Invoke("DestroySelf", 0.1f);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
     public override void OnTriggerEnter2D(Collider2D other)

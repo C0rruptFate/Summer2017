@@ -30,28 +30,26 @@ public class PlayerUI : MonoBehaviour
     private float startingHealth;
 
     //Dealing with Cooldowns
-    public Image meleeFillImage;
+    //public Image meleeFillImage;
     public Text meleeCooldownText;
     private Transform meleeSpecialUI;
     private Slider meleeSlider;
 
-    public Image rangedFillImage;
+    //public Image rangedFillImage;
     public Text rangedCooldownText;
     private Transform rangedSpecialUI;
     private Slider rangedSlider;
 
-    public Image defendFillImage;
+    //public Image defendFillImage;
     public Text defendCooldownText;
     private Transform defendSpecialUI;
     private Slider defendSlider;
 
-    //Dealing with mana
-    //public Image manaFillImage;
-
-    //private Transform manaUI;
-    //private Slider manaSlider;
-    //private float currentMana;
-    //private float maxMana;
+    //Fire Combo point system
+    private Transform fireComboSystem;
+    private Slider fireComboSlider;
+    private AttacksFire fireAttacks;
+    public Text fireComboCountText;
 
     //Other
     private PlayerHealth playerHealth; //player HP script
@@ -123,27 +121,37 @@ public class PlayerUI : MonoBehaviour
 
         //Set the UI
         SetHealthUI();
-        //SetManaUI();
+
+        //Fire Combo meter
+        fireComboSystem = gameObject.transform.Find("Fire Combo Counter");
+        fireComboSlider = fireComboSystem.GetComponent<Slider>();
 
         //Make the player's panal match their color
-        
+
         switch (playerHealth.element)
         {
             case Element.Wind:
                 playerUIPanel.color = airColor;
+                fireComboSystem.gameObject.SetActive(false);
                 break;
             case Element.Earth:
                 playerUIPanel.color = earthColor;
+                fireComboSystem.gameObject.SetActive(false);
                 break;
             case Element.Fire:
                 playerUIPanel.color = fireColor;
+                fireAttacks = player.GetComponent<AttacksFire>();
+                fireComboSlider.maxValue = fireAttacks.maxComboPoints;
+                UpdateComboPointUI();
                 break;
             case Element.Ice:
                 playerUIPanel.color = iceColor;
+                fireComboSystem.gameObject.SetActive(false);
                 break;
             default:
                 break;
         }
+
     }
 
     public void Update()
@@ -167,11 +175,11 @@ public class PlayerUI : MonoBehaviour
         {
             hpFillImage.enabled = false;
         }
-        else if (currentHealth <= (startingHealth / 3))
+        else if (currentHealth <= (startingHealth / 4))//HP turns red when you are below 25% hp
         {
             hpFillImage.color = lowHealthColor;
         }
-        else if (currentHealth <= (startingHealth / 2))
+        else if (currentHealth <= (startingHealth / 2))//HP turns yellow when you are below 25% hp
         {
             hpFillImage.color = halfHealthColor;
         }else if(currentHealth == startingHealth)
@@ -180,20 +188,12 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void SetManaUI() //Sets the mana UI when the player spends/gains mana.
+    public void UpdateComboPointUI()
     {
-        //currentMana = playerResources.mana;
-        //manaSlider.value = currentMana;
-        ////Debug.Log("Current mana: " + currentMana);
-        //if (currentMana == 0)
-        //{
-        //    manaFillImage.enabled = false;
-        //}
-        //else
-        //{
-        //    manaFillImage.enabled = true;
-        //}
-
-        //[TODO] remove this and set up cooldowns
+        if (playerHealth.element == Element.Fire)
+        {
+            fireComboSlider.value = fireAttacks.currentComboPoints;
+            fireComboCountText.text = fireComboSlider.value.ToString();
+        }
     }
 }

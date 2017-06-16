@@ -144,18 +144,6 @@ public class PlayerHealth : MonoBehaviour
         playerUI.GetComponent<PlayerUI>().SetHealthUI();
     }
 
-    //Gives the player mana 
-    public void GainMana(float manaGain)
-    {
-        mana += manaGain;
-        if (mana >= maxMana)
-        {
-            mana = maxMana;
-        }
-        //Updates the player's mana slider
-        playerUI.GetComponent<PlayerUI>().SetManaUI();
-    }
-
     //Used to spend mana on specials
     //public void SpendMana(float manaCost)
     //{

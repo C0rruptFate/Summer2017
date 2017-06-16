@@ -221,7 +221,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608674901165658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.85, y: 0, z: 0}
+  m_LocalPosition: {x: 1.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4234154238495866}
@@ -449,11 +449,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577901a06bd421e40a44cd2200465855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeObject: {fileID: 1058402032370298, guid: cc0cd1ecdf7a8c64e98a816bec20e125,
+  meleeObject: {fileID: 1058402032370298, guid: 868d12182d591e84c98989e68b4b9d93,
     type: 2}
   meleeFireRate: 0.5
   groundMeleeType: 4
-  groundMeleeTwoType: 2
+  groundMeleeTwoType: 0
   airMeleeType: 4
   airMeleeTwoType: 2
   meleeHitBoxLife: 0.3
@@ -492,6 +492,8 @@ MonoBehaviour:
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
   specialMeleeDamage: 0
+  specialMeleeCooldown: 0
+  currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1915595482087786, guid: 34bf9628435e3c34a9ecac417512ffa7,
     type: 2}
   specialRangedManaCost: 10
@@ -501,8 +503,13 @@ MonoBehaviour:
   specialProjectileMaxDuration: 2
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
+  specialRangedHasSecondGun: 0
+  specialRangedCooldown: 0
+  currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
+  specialDefendCooldown: 0
+  currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4694570794780800}
   wisp: {fileID: 0}
   callingWisp: 0

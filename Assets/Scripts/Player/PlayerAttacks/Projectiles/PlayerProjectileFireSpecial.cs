@@ -31,7 +31,7 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
         {
             Destroy(gameObject);
         }
-
+        
         //Causes the object to fly forward.
         if (usesConstantForceProjectile)
         {
@@ -42,30 +42,15 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
     public override void OnTriggerEnter2D(Collider2D other)
     {
         //Creates the explosion then distroys itself.
-        GameObject explosion = Instantiate(explosionObject, transform.position, transform.rotation);
-        explosion.GetComponent<FireProjectileExplosion>().player = player;
-        Destroy(gameObject);
+
 
         //Should be removed.
-        if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
+        if (other.tag == ("Enemy") || other.tag == ("Ground"))//If this hits an enemy deals damage to them.
         {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
-            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+            GameObject explosion = Instantiate(explosionObject, transform.position, transform.rotation);
+            explosion.GetComponent<FireProjectileExplosion>().player = player;
+            Destroy(gameObject);
 
-            if (enemy && health)
-            {
-                //float distX = (other.transform.position.x - transform.position.x) * knockback;
-                //float distY = (other.transform.position.y - transform.position.y) * knockback;
-                //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
-                //otherRB.AddForce(new Vector3(distX, distY, 0), ForceMode.Impulse);
-                health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
-                //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
-                if (breaking)
-                {
-                    Destroy(gameObject);
-                }
-            }
         }
     }
 }

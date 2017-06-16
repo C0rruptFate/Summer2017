@@ -509,7 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f458a562f58fdd847b2ae303b83bfdd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeObject: {fileID: 1058402032370298, guid: cc0cd1ecdf7a8c64e98a816bec20e125,
+  meleeObject: {fileID: 1058402032370298, guid: 510ce85ae4108724eab5b857decbd12c,
     type: 2}
   meleeFireRate: 0.5
   groundMeleeType: 4
@@ -552,6 +552,8 @@ MonoBehaviour:
   specialMeleeAttackObject: {fileID: 0}
   specialMeleeManaCost: 0
   specialMeleeDamage: 0
+  specialMeleeCooldown: 0
+  currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1915595482087786, guid: 6e339b31c9d0f9244ad1de73c9262c79,
     type: 2}
   specialRangedManaCost: 10
@@ -561,8 +563,13 @@ MonoBehaviour:
   specialProjectileMaxDuration: 0.75
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
+  specialRangedHasSecondGun: 0
+  specialRangedCooldown: 0
+  currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 0}
   specialDefendManaCost: 0
+  specialDefendCooldown: 0
+  currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4373579779057864}
   wisp: {fileID: 0}
   callingWisp: 0
@@ -575,6 +582,8 @@ MonoBehaviour:
   baseHealReduction: 0.5
   healMultiplierThreshold: 0.25
   healMultiplier: 1.5
+  wetEffect: {fileID: 1547940163177460, guid: 404044dc5cd04f940ab20665e2a393b6, type: 2}
+  wetEffectDuration: 3
 --- !u!114 &114134236459591642
 MonoBehaviour:
   m_ObjectHideFlags: 1

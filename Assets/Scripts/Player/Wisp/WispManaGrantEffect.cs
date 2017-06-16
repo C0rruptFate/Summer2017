@@ -25,13 +25,4 @@ public class WispManaGrantEffect : MonoBehaviour {
         transform.position = new Vector2(targetTransform.position.x, targetTransform.position.y);
 
     }
-
-    void GainMana()
-    {
-        //Grants the players mana when I am attached to them.
-        if (attachedPlayer != null)
-        {
-            attachedPlayer.GetComponent<PlayerHealth>().GainMana(manaRegenAmount);
-        }
-    }
 }

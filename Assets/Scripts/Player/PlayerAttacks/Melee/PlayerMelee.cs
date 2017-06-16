@@ -27,7 +27,7 @@ public class PlayerMelee : MonoBehaviour {
     public Element myElement;
 
     // Use this for initialization
-    void Start () {
+    public virtual void Start () {
         //Debug.Log("Jump Attack exists");
         //These should not be used but are left over from 3D.
         if(player.GetComponent<PlayerController>() != null)
@@ -42,9 +42,9 @@ public class PlayerMelee : MonoBehaviour {
         GetComponent<PointEffector2D>().forceMagnitude = knockBack;
         currentLife = Time.time + meleeHitBoxLife;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    public virtual void Update () {
 
         //where should I attack from?
         transform.position = myGun.transform.position;
@@ -63,7 +63,7 @@ public class PlayerMelee : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    public virtual void OnCollisionEnter2D(Collision2D other)
     {
         //lets me do damage to enemies when touching them.
         if (other.transform.tag == ("Enemy"))

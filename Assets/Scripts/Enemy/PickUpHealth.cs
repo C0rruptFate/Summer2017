@@ -38,7 +38,6 @@ public class PickUpHealth : MonoBehaviour {
                 mana = mana * sameElementBonus;
             }
             playerHealth.GetComponent<PlayerHealth>().Heal(heal);
-            playerHealth.GetComponent<PlayerHealth>().GainMana(mana);
             Destroy(gameObject);
         }
     }

@@ -672,6 +672,7 @@ public class PlayerAttacks : MonoBehaviour {
     //Player Basic Ranged Attacks
     public virtual void RangedAttack()
     {
+        Debug.Log("Counting");
         projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
         //Shoots the projectile, put the projectile movement code on that object.
         //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
