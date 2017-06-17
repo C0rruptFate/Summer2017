@@ -549,25 +549,23 @@ MonoBehaviour:
     type: 2}
   specialActiveEffect: {fileID: 0}
   specialActive: 0
-  specialMeleeAttackObject: {fileID: 0}
-  specialMeleeManaCost: 0
-  specialMeleeDamage: 0
-  specialMeleeCooldown: 0
+  specialMeleeAttackObject: {fileID: 1058402032370298, guid: 49aadc61515bab243ae199608875b1d4,
+    type: 2}
+  specialMeleeDamage: 20
+  specialMeleeCooldown: 10
   currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1915595482087786, guid: 6e339b31c9d0f9244ad1de73c9262c79,
     type: 2}
-  specialRangedManaCost: 10
   specialRangedDamage: 10
   specialRangedHitStun: 0.25
   specialProjectileSpeed: 20
   specialProjectileMaxDuration: 0.75
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
-  specialRangedHasSecondGun: 0
+  useSecondaryGunSpecial: 0
   specialRangedCooldown: 0
   currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 0}
-  specialDefendManaCost: 0
   specialDefendCooldown: 0
   currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4373579779057864}
@@ -583,7 +581,7 @@ MonoBehaviour:
   healMultiplierThreshold: 0.25
   healMultiplier: 1.5
   wetEffect: {fileID: 1547940163177460, guid: 404044dc5cd04f940ab20665e2a393b6, type: 2}
-  wetEffectDuration: 3
+  wetEffectDuration: 4
 --- !u!114 &114134236459591642
 MonoBehaviour:
   m_ObjectHideFlags: 1

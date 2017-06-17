@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttacksEarth : PlayerAttacks {
-
-    [Header("Earth Special Settings")]
+    [Header("Character Specific Settings")]
     [Tooltip("What force is applied if I use a lobbed projectile. 'This is only applied if a lobbed projectile is used'.")]
     public Vector2 specialLobbedForce = new Vector2(15, 15);
     public float forceMagnitude = 150;

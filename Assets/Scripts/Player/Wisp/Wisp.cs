@@ -13,8 +13,6 @@ public class Wisp : MonoBehaviour {
     [Tooltip("Speed of the Wisp.")]
     public float speed; //How fast the wisp moves
     //public float attachedSpeed; 
-    [Tooltip("How much time must take place between picking up and releasing the wisp")]
-    public float wispCallTime = 1f;
 
     [HideInInspector]
     public Collider2D circleCollider;

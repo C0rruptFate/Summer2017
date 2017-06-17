@@ -104,8 +104,6 @@ public class PlayerAttacks : MonoBehaviour {
     [Header("Special Melee Attack Settings")]
     [Tooltip("Attach a gameObject of what my melee attack will be.")]
     public GameObject specialMeleeAttackObject;
-    [Tooltip("How much mana it costs to use my Special Melee Attack.")]
-    public int specialMeleeManaCost;
     [Tooltip("Damage done by my special Melee attack.")]
     public float specialMeleeDamage;
     [Tooltip("Cooldown for Special Melee Attacks.")]
@@ -116,8 +114,6 @@ public class PlayerAttacks : MonoBehaviour {
     [Header("Special Ranged Attack Settings")]
     [Tooltip("Attach a gameObject of what my melee attack will be.")]
     public GameObject specialRangedAttackObject;
-    [Tooltip("How much mana it costs to use my Special Ranged Attack.")]
-    public int specialRangedManaCost;
     [Tooltip("Damage done by my special ranged attack.")]
     public float specialRangedDamage;
     [Tooltip("Hitstun duration of my special ranged attack.")]
@@ -131,33 +127,29 @@ public class PlayerAttacks : MonoBehaviour {
     [Tooltip("Does this break right as it hits a wall? 'Use for standard projectiles, lobbed that roll want this off.'")]
     public bool specialBreaksHittingWall = true;
     [Tooltip("Check if you want the special range to fire from both the primary and secondary guns.")]
-    public bool specialRangedHasSecondGun = false;
+    public bool useSecondaryGunSpecial = false;
     [Tooltip("Cooldown for Special Ranged Attacks.")]
     public float specialRangedCooldown;
     //[HideInInspector]//Current cool down of this ability.
     public float currentSpecialRangedCooldown;
 
-
+    [Header("Special Defend Settings")]
     [Tooltip("Attach a gameObject of what my Special Defend will be.")]
     public GameObject specialDefendObject;
-    [Tooltip("How much mana it costs to use my Special Defend.")]
-    public int specialDefendManaCost;
     [Tooltip("Cooldown for Special Defend Attacks.")]
     public float specialDefendCooldown;
     [HideInInspector]//Current cool down of this ability.
     public float currentSpecialDefendCooldown;
     #endregion
-
-    //Wisp Settings
+    
+    //Wisp Settings 
     #region
-    //[HideInInspector]//The transform that I will be calling the wisp to.
+    [HideInInspector]//The transform that I will be calling the wisp to.
     public Transform myWispTargetLocation;
     [HideInInspector]//The Wisp that I will be telling where to go.
     public GameObject wisp;
     [HideInInspector]//Am I currently calling the Wisp?
     public bool callingWisp = false;
-    [HideInInspector]//How long I have been holding down the button to attach the wisp to me.
-    public int callingWispTime = 0;
     #endregion
 
     //Private Attack extras
@@ -499,17 +491,11 @@ public class PlayerAttacks : MonoBehaviour {
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
         if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
         {
-            //Debug.Log("element " + element + "player Number " + playerNumber);
-            if (callingWispTime < 20)
-            {
-                callingWispTime++;
-            }
             CallWisp();
             callingWisp = true;
         }//Stops calling the Wisp when the button isn't held down.
         else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
         {
-            callingWispTime = 0;
             callingWisp = false;
         }
 
@@ -672,7 +658,6 @@ public class PlayerAttacks : MonoBehaviour {
     //Player Basic Ranged Attacks
     public virtual void RangedAttack()
     {
-        Debug.Log("Counting");
         projectileNextFire = Time.time + projectileFireRate; //Decides when preform another ranged attack.
         //Shoots the projectile, put the projectile movement code on that object.
         //Checks if I am grounded. Creates the ranged object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
@@ -753,11 +738,44 @@ public class PlayerAttacks : MonoBehaviour {
     //Special Melee Attacks, these will be different for each character.
     protected virtual void SpecialMeleeAttack()
     {
-        //Spends the mana to use your special melee attack.
-        //playerHealth.SpendMana(specialMeleeManaCost);
-
-        //[TODO] Set up special melee attack for each character.
-        currentSpecialMeleeCooldown = 0;
+        currentSpecialMeleeCooldown = specialMeleeCooldown;
+        meleeNextFire = Time.time + meleeFireRate; //Decides when preform another melee attack.
+        //Checks if I am grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+        switch (gameObject.GetComponent<PlayerMovement>().grounded)
+        {
+            case true:
+                //Put melee attacks on the ground here.
+                newGroundMelee = Instantiate(specialMeleeAttackObject, groundMeleeGun.position, groundMeleeGun.rotation);
+                newGroundMelee.transform.parent = playerWeaponParent.transform;
+                newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
+                newGroundMelee.GetComponent<PlayerMelee>().myGun = groundMeleeGun;
+                SetSpecialMeleeAttackStats(newGroundMelee);
+                if (groundMeleeGunTwo != null)//Does the same for the 2nd grounded melee attack, if I have one.
+                {
+                    newGroundMelee = Instantiate(specialMeleeAttackObject, groundMeleeGunTwo.position, groundMeleeGunTwo.rotation);
+                    newGroundMelee.transform.parent = playerWeaponParent.transform;
+                    newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
+                    newGroundMelee.GetComponent<PlayerMelee>().myGun = groundMeleeGunTwo;
+                    SetSpecialMeleeAttackStats(newGroundMelee);
+                }
+                break;
+            default://If I am not grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+                //Do Air melee attack stuff here. 
+                newAirMelee = Instantiate(specialMeleeAttackObject, airMeleeGun.position, airMeleeGun.rotation);
+                newAirMelee.transform.parent = playerWeaponParent.transform;
+                newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
+                newAirMelee.GetComponent<PlayerMelee>().myGun = airMeleeGun;
+                SetSpecialMeleeAttackStats(newAirMelee);
+                if (airMeleeGunTwo != null) //Does the same for the 2nd aerial, if I have one.
+                {
+                    newAirMelee = Instantiate(specialMeleeAttackObject, airMeleeGunTwo.position, airMeleeGunTwo.rotation);
+                    newAirMelee.transform.parent = playerWeaponParent.transform;
+                    newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
+                    newAirMelee.GetComponent<PlayerMelee>().myGun = airMeleeGunTwo;
+                    SetSpecialMeleeAttackStats(newAirMelee);
+                }
+                break;
+        }
     }
 
     //Special Ranged Attacks, these will be different for each character.
@@ -780,7 +798,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newGroundProjectile.transform.parent = playerWeaponParent.transform;
                 newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                 SetSpecialRangedAttackStats(newGroundProjectile);
-                if (groundGunTwo != null && specialRangedHasSecondGun)
+                if (groundGunTwo != null && useSecondaryGunSpecial)
                 {
                     //Does the same thing for the secondary grounded projectile if one is set.
                     newGroundProjectile = Instantiate(specialRangedAttackObject, groundGunTwo.position, groundGunTwo.rotation);
@@ -794,7 +812,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newAirProjectile.transform.parent = playerWeaponParent.transform;
                 newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                 SetSpecialRangedAttackStats(newAirProjectile);
-                if (airGunTwo != null && specialRangedHasSecondGun)
+                if (airGunTwo != null && useSecondaryGunSpecial)
                 {//Does the same thing for the secondary if one is set.
                     newAirProjectile = Instantiate(specialRangedAttackObject, airGunTwo.position, airGunTwo.rotation);
                     newAirProjectile.transform.parent = playerWeaponParent.transform;

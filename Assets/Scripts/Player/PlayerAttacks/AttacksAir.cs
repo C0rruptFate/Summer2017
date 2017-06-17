@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttacksAir : PlayerAttacks {
-
+    [Header("Character Specific Settings")]
     [Tooltip("The radius of the shock orb trigger checker.")]
     public float shockOrbRadius;
 

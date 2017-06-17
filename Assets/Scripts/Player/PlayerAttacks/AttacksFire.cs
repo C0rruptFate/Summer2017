@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttacksFire : PlayerAttacks {
+    [Header("Character Specific Settings")]
     [Tooltip("Max combo points for this character")]
     public int maxComboPoints;
 

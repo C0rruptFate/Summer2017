@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttacksWater : PlayerAttacks {
-
+    [Header("Character Specific Settings")]
     [Tooltip("How much does this heal for when your hp is ABOVE the threshold. (multiply by damage done.)")]
     public float baseHealReduction = 0.5f;
 
