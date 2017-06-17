@@ -77,7 +77,6 @@ public class PlayerMelee : MonoBehaviour {
                 //Uncomment if you only want it to hit a single guy, we can add a bool for hitting multipule guys if we want.
                 //Destroy(gameObject);
             }
-
         }
     }
 }

@@ -8,6 +8,11 @@ public class AttacksEarth : PlayerAttacks {
     public Vector2 specialLobbedForce = new Vector2(15, 15);
     public float forceMagnitude = 150;
 
+    [Tooltip("Speed objects will be pulled in at.")]
+    public float pullSpeed = 10;
+    [Tooltip("How Long does this last.")]
+    public float effectDuration = 5;
+
     // Use this for initialization
     public override void Start()
     {

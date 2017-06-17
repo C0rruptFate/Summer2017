@@ -12,6 +12,15 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
 
     private PointEffector2D pointEffector;
 
+    [HideInInspector]
+    public bool beingPulledIn = false;
+
+    [HideInInspector]
+    public GameObject pulledInTarget;
+
+    [HideInInspector]
+    public float pullSpeed;
+
     // Use this for initialization
     public void Start()
     {

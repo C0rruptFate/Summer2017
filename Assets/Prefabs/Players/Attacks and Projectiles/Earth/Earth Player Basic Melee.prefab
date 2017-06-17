@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4147671888093552}
   - component: {fileID: 212060985596379562}
   - component: {fileID: 61466173199970854}
-  - component: {fileID: 114976221975115212}
   - component: {fileID: 250659241902185778}
+  - component: {fileID: 114758793450151356}
   m_Layer: 9
   m_Name: Earth Player Basic Melee
   m_TagString: Untagged
@@ -68,7 +68,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114976221975115212
+--- !u!114 &114758793450151356
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1058402032370298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00e2a5a531b81034e9bbc3f9e9f252e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3075c745ccaf51042996bc74e0497532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myGun: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
   stunLockOut: 0
   knockBack: 0
   player: {fileID: 0}
-  myElement: 1
+  myElement: 0
 --- !u!212 &212060985596379562
 SpriteRenderer:
   m_ObjectHideFlags: 1

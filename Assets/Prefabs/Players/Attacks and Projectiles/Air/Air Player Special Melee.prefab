@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212060985596379562}
   - component: {fileID: 61466173199970854}
   - component: {fileID: 250659241902185778}
-  - component: {fileID: 114916449536557808}
+  - component: {fileID: 114060267814351284}
   m_Layer: 9
-  m_Name: Air Player Basic Melee
+  m_Name: Air Player Special Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114916449536557808
+--- !u!114 &114060267814351284
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1058402032370298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e284d7b37bdf9247a62ecc656851a87, type: 3}
+  m_Script: {fileID: 11500000, guid: e296826b26015094295ef202ba5a6c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myGun: {fileID: 0}

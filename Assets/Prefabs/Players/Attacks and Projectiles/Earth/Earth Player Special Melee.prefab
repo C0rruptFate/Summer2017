@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4147671888093552}
   - component: {fileID: 212060985596379562}
   - component: {fileID: 61466173199970854}
-  - component: {fileID: 114976221975115212}
   - component: {fileID: 250659241902185778}
+  - component: {fileID: 114766922892813490}
   m_Layer: 9
   m_Name: Earth Player Special Melee
   m_TagString: Untagged
@@ -68,7 +68,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114976221975115212
+--- !u!114 &114766922892813490
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1058402032370298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00e2a5a531b81034e9bbc3f9e9f252e4, type: 3}
+  m_Script: {fileID: 11500000, guid: f1cda4290e51c0a47be7c38f8adc6e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myGun: {fileID: 0}
@@ -86,7 +86,11 @@ MonoBehaviour:
   stunLockOut: 0
   knockBack: 0
   player: {fileID: 0}
-  myElement: 1
+  myElement: 0
+  earthSpecialPullInEffect: {fileID: 1213548125853158, guid: 842bf74844da567408cd2318b10cab8c,
+    type: 2}
+  pullSpeed: 0
+  effectDuration: 0
 --- !u!212 &212060985596379562
 SpriteRenderer:
   m_ObjectHideFlags: 1

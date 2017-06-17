@@ -489,31 +489,28 @@ MonoBehaviour:
     type: 2}
   specialActiveEffect: {fileID: 0}
   specialActive: 0
-  specialMeleeAttackObject: {fileID: 0}
-  specialMeleeManaCost: 0
+  specialMeleeAttackObject: {fileID: 1058402032370298, guid: f703b28382f61d94fb17f698608d9d25,
+    type: 2}
   specialMeleeDamage: 0
   specialMeleeCooldown: 0
   currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1915595482087786, guid: 34bf9628435e3c34a9ecac417512ffa7,
     type: 2}
-  specialRangedManaCost: 10
   specialRangedDamage: 10
   specialRangedHitStun: 0.1
   specialProjectileSpeed: 25
   specialProjectileMaxDuration: 2
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
-  specialRangedHasSecondGun: 0
+  useSecondaryGunSpecial: 0
   specialRangedCooldown: 0
   currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 0}
-  specialDefendManaCost: 0
   specialDefendCooldown: 0
   currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4694570794780800}
   wisp: {fileID: 0}
   callingWisp: 0
-  callingWispTime: 0
   element: 0
   blockNextFire: 0
   playerNumber: 1

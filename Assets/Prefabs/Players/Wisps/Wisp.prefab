@@ -196,22 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLocation: {fileID: 0}
   moving: 0
-  speed: 6
-  wispCallTime: 1
-  attachedPlayer: {fileID: 0}
-  playerICouldAttachTo: {fileID: 0}
-  manaRegenAmount: 10
-  manaRegenRate: 5
-  wispManaGrantObjectFire: {fileID: 1985416236070060, guid: c6495bca390bac646ab1d09562cdcf30,
-    type: 2}
-  wispManaGrantObjectWater: {fileID: 1190050126091784, guid: 11e56762f566fe34a93f1696550c9876,
-    type: 2}
-  wispManaGrantObjectAir: {fileID: 1237526707421524, guid: e9b3ac25455f9924a956ed2867b73bb5,
-    type: 2}
-  wispManaGrantObjectEarth: {fileID: 1472450014781390, guid: bd042bc55ff3121498a8e4718c9c08cc,
-    type: 2}
+  speed: 8
   circleCollider: {fileID: 0}
-  attachedPlayerFlipper: 0
 --- !u!198 &198244256355781594
 ParticleSystem:
   m_ObjectHideFlags: 1

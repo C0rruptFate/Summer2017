@@ -108,6 +108,8 @@ public class PlayerAttacks : MonoBehaviour {
     public float specialMeleeDamage;
     [Tooltip("Cooldown for Special Melee Attacks.")]
     public float specialMeleeCooldown;
+    [Tooltip("Check if you want the special melee to fire from both the primary and secondary guns.")]
+    public bool useMeleeSecondaryGunSpecial = false;
     [HideInInspector]//Current cool down of this ability.
     public float currentSpecialMeleeCooldown;
 
@@ -127,10 +129,10 @@ public class PlayerAttacks : MonoBehaviour {
     [Tooltip("Does this break right as it hits a wall? 'Use for standard projectiles, lobbed that roll want this off.'")]
     public bool specialBreaksHittingWall = true;
     [Tooltip("Check if you want the special range to fire from both the primary and secondary guns.")]
-    public bool useSecondaryGunSpecial = false;
+    public bool useRangedSecondaryGunSpecial = false;
     [Tooltip("Cooldown for Special Ranged Attacks.")]
     public float specialRangedCooldown;
-    //[HideInInspector]//Current cool down of this ability.
+    [HideInInspector]//Current cool down of this ability.
     public float currentSpecialRangedCooldown;
 
     [Header("Special Defend Settings")]
@@ -750,7 +752,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
                 newGroundMelee.GetComponent<PlayerMelee>().myGun = groundMeleeGun;
                 SetSpecialMeleeAttackStats(newGroundMelee);
-                if (groundMeleeGunTwo != null)//Does the same for the 2nd grounded melee attack, if I have one.
+                if (groundMeleeGunTwo != null && useMeleeSecondaryGunSpecial)//Does the same for the 2nd grounded melee attack, if I have one.
                 {
                     newGroundMelee = Instantiate(specialMeleeAttackObject, groundMeleeGunTwo.position, groundMeleeGunTwo.rotation);
                     newGroundMelee.transform.parent = playerWeaponParent.transform;
@@ -766,7 +768,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
                 newAirMelee.GetComponent<PlayerMelee>().myGun = airMeleeGun;
                 SetSpecialMeleeAttackStats(newAirMelee);
-                if (airMeleeGunTwo != null) //Does the same for the 2nd aerial, if I have one.
+                if (airMeleeGunTwo != null && useMeleeSecondaryGunSpecial) //Does the same for the 2nd aerial, if I have one.
                 {
                     newAirMelee = Instantiate(specialMeleeAttackObject, airMeleeGunTwo.position, airMeleeGunTwo.rotation);
                     newAirMelee.transform.parent = playerWeaponParent.transform;
@@ -798,7 +800,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newGroundProjectile.transform.parent = playerWeaponParent.transform;
                 newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                 SetSpecialRangedAttackStats(newGroundProjectile);
-                if (groundGunTwo != null && useSecondaryGunSpecial)
+                if (groundGunTwo != null && useRangedSecondaryGunSpecial)
                 {
                     //Does the same thing for the secondary grounded projectile if one is set.
                     newGroundProjectile = Instantiate(specialRangedAttackObject, groundGunTwo.position, groundGunTwo.rotation);
@@ -812,7 +814,7 @@ public class PlayerAttacks : MonoBehaviour {
                 newAirProjectile.transform.parent = playerWeaponParent.transform;
                 newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
                 SetSpecialRangedAttackStats(newAirProjectile);
-                if (airGunTwo != null && useSecondaryGunSpecial)
+                if (airGunTwo != null && useRangedSecondaryGunSpecial)
                 {//Does the same thing for the secondary if one is set.
                     newAirProjectile = Instantiate(specialRangedAttackObject, airGunTwo.position, airGunTwo.rotation);
                     newAirProjectile.transform.parent = playerWeaponParent.transform;

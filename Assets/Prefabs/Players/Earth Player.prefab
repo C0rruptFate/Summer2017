@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43daffa271a5a294ca03f634bee934f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeObject: {fileID: 1058402032370298, guid: cc0cd1ecdf7a8c64e98a816bec20e125,
+  meleeObject: {fileID: 1058402032370298, guid: fda8bb12cafeeeb48a9f3c07fe0f6c05,
     type: 2}
   meleeFireRate: 0.5
   groundMeleeType: 4
@@ -605,31 +605,29 @@ MonoBehaviour:
     type: 2}
   specialActiveEffect: {fileID: 0}
   specialActive: 0
-  specialMeleeAttackObject: {fileID: 0}
-  specialMeleeManaCost: 0
-  specialMeleeDamage: 0
-  specialMeleeCooldown: 0
+  specialMeleeAttackObject: {fileID: 1058402032370298, guid: e2f4b6741c26d7845b0365220e0f2428,
+    type: 2}
+  specialMeleeDamage: 10
+  specialMeleeCooldown: 2
+  useMeleeSecondaryGunSpecial: 0
   currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1515720796713822, guid: e1f1ef94d8d868c46b9d0aa70d82ee06,
     type: 2}
-  specialRangedManaCost: 10
   specialRangedDamage: 0
   specialRangedHitStun: 0
   specialProjectileSpeed: 0
   specialProjectileMaxDuration: 10
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
-  specialRangedHasSecondGun: 0
+  useRangedSecondaryGunSpecial: 0
   specialRangedCooldown: 5
   currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 0}
-  specialDefendManaCost: 0
   specialDefendCooldown: 5
   currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4917517063950208}
   wisp: {fileID: 0}
   callingWisp: 0
-  callingWispTime: 0
   element: 0
   blockNextFire: 0
   playerNumber: 1
@@ -637,6 +635,8 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   specialLobbedForce: {x: 30, y: 0}
   forceMagnitude: -200
+  pullSpeed: 10
+  effectDuration: 5
 --- !u!212 &212044679190248080
 SpriteRenderer:
   m_ObjectHideFlags: 1

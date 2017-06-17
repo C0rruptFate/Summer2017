@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerProjectileEarthBasic : PlayerProjectile {
 
+    [HideInInspector]
+    public bool beingPulledIn = false;
+
+    [HideInInspector]
+    public GameObject pulledInTarget;
+    [HideInInspector]
+    public float pullSpeed;
+
     // Use this for initialization
     public void Start()
     {
@@ -47,6 +55,11 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
         if (usesConstantForceProjectile)
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
+        }
+
+        if(beingPulledIn)
+        {
+            transform.position = (Vector2.MoveTowards(transform.position, pulledInTarget.transform.position, pullSpeed));
         }
     }
 
