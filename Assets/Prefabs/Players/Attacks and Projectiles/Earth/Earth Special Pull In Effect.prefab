@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4142930474768550}
   - component: {fileID: 114259094344603212}
   - component: {fileID: 58790256347170750}
-  - component: {fileID: 114573722836197916}
   m_Layer: 0
   m_Name: Earth Special Pull In Effect
   m_TagString: Untagged
@@ -69,15 +68,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pullSpeed: 0
---- !u!114 &114573722836197916
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1213548125853158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db8656e5ea0e54478aff68d366d6de0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitToDestroyTime: 0
+  effectDuration: 0
+  projectilesIAttract: []

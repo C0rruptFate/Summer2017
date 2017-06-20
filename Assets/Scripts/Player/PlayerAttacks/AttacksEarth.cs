@@ -39,8 +39,11 @@ public class AttacksEarth : PlayerAttacks {
 
     }
 
-    public void SetSpecialMeleeAttackStats()
+    public override void SetSpecialMeleeAttackStats(GameObject melee)
     {
+        base.SetSpecialMeleeAttackStats(melee);
+        melee.GetComponent<PlayerMeleeEarthSpecial>().effectDuration = effectDuration;
+        melee.GetComponent<PlayerMeleeEarthSpecial>().pullSpeed = pullSpeed;
 
     }
 

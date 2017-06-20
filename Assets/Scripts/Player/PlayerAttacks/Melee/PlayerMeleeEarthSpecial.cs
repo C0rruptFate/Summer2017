@@ -28,7 +28,7 @@ public class PlayerMeleeEarthSpecial : PlayerMelee
             {
                 GameObject newearthSpecialPullInEffect = Instantiate(earthSpecialPullInEffect, transform.position, transform.rotation);
                 newearthSpecialPullInEffect.GetComponent<EarthPullInEffect>().pullSpeed = pullSpeed;
-                newearthSpecialPullInEffect.GetComponent<DestroySelfRightAway>().waitToDestroyTime = effectDuration;
+                newearthSpecialPullInEffect.GetComponent<EarthPullInEffect>().effectDuration = effectDuration;
                 Debug.Log("Pull in Effect" + newearthSpecialPullInEffect.name);
                 health.TakeDamage(gameObject, meleeDamage, stunLockOut);
                 //Uncomment if you only want it to hit a single guy, we can add a bool for hitting multipule guys if we want.

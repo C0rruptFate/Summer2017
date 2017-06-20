@@ -59,7 +59,16 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
 
         if(beingPulledIn)
         {
-            transform.position = (Vector2.MoveTowards(transform.position, pulledInTarget.transform.position, pullSpeed));
+            //Debug.Log("Being Pulled in");
+            if (pulledInTarget == null)
+            {
+                rb.gravityScale = 1;
+                beingPulledIn = false;
+            }
+            else
+            {
+                transform.position = (Vector2.MoveTowards(transform.position, pulledInTarget.transform.position, pullSpeed * Time.deltaTime));
+            }
         }
     }
 
