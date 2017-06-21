@@ -13,7 +13,7 @@ public class PlayerMeleeEarthSpecial : PlayerMelee
     public override void Start()
     {
         base.Start();
-        Debug.Log("Special Melee Attack Used");
+        //Debug.Log("Special Melee Attack Used");
     }
 
     public override void OnCollisionEnter2D(Collision2D other)
@@ -26,10 +26,11 @@ public class PlayerMeleeEarthSpecial : PlayerMelee
 
             if (enemy && health)
             {
-                GameObject newearthSpecialPullInEffect = Instantiate(earthSpecialPullInEffect, transform.position, transform.rotation);
+                GameObject newearthSpecialPullInEffect = Instantiate(earthSpecialPullInEffect, other.transform.position, other.transform.rotation);
                 newearthSpecialPullInEffect.GetComponent<EarthPullInEffect>().pullSpeed = pullSpeed;
                 newearthSpecialPullInEffect.GetComponent<EarthPullInEffect>().effectDuration = effectDuration;
-                Debug.Log("Pull in Effect" + newearthSpecialPullInEffect.name);
+                newearthSpecialPullInEffect.transform.parent = other.transform;
+                //Debug.Log("Pull in Effect" + newearthSpecialPullInEffect.name);
                 health.TakeDamage(gameObject, meleeDamage, stunLockOut);
                 //Uncomment if you only want it to hit a single guy, we can add a bool for hitting multipule guys if we want.
                 //Destroy(gameObject);

@@ -90,6 +90,7 @@ public class PlayerProjectile : MonoBehaviour {
 
             if (enemy && health)
             {
+                Debug.Log("Hit enemy");
                 //float distX = (other.transform.position.x - transform.position.x) * knockback;
                 //float distY = (other.transform.position.y - transform.position.y) * knockback;
                 //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);

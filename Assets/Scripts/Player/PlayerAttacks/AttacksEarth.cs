@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AttacksEarth : PlayerAttacks {
     [Header("Character Specific Settings")]
+    [Tooltip("How many times can this hit something.")]
+    public int maxHitCount = 2;
     [Tooltip("What force is applied if I use a lobbed projectile. 'This is only applied if a lobbed projectile is used'.")]
     public Vector2 specialLobbedForce = new Vector2(15, 15);
     public float forceMagnitude = 150;
@@ -22,6 +24,7 @@ public class AttacksEarth : PlayerAttacks {
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksEarth>();
         base.Start();
     }
+   
 
     protected override void SpecialMeleeAttack()
     {
@@ -45,6 +48,12 @@ public class AttacksEarth : PlayerAttacks {
         melee.GetComponent<PlayerMeleeEarthSpecial>().effectDuration = effectDuration;
         melee.GetComponent<PlayerMeleeEarthSpecial>().pullSpeed = pullSpeed;
 
+    }
+
+    public override void SetBasicRangedAttackStats(GameObject projectile)
+    {
+        base.SetBasicRangedAttackStats(projectile);
+        projectile.GetComponent<PlayerProjectileEarthBasic>().maxHitCount = maxHitCount;
     }
 
     public override void SetSpecialRangedAttackStats(GameObject specialProjectile)

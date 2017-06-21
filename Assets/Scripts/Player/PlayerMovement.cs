@@ -28,8 +28,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]//Used if the character isn't getting input but is still moving.
     private float minSpeed;
 
-    //Jumping
-    [Tooltip("Force applied to the short jump.")]
+
+//Jumping
+[Tooltip("Force applied to the short jump.")]
     public int shortJumpForce = 5; //Force applied to the short jump.
     [Tooltip("Used to set how long a jump needs to be held down.")]
     public int maxJumpTimer = 10;
@@ -48,6 +49,18 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 groundJumpForce; //what the jump force is applied to.
     public GameObject jumpEffect; //Plays the jump particle effect.
     private Transform whatsBelowMeChecker;//Checks what is below me, used to check for jumps and jump attacks.
+
+    //Water
+    [HideInInspector]//Used to find what controller this is attached to.
+    public string verticalMovement;
+    [HideInInspector]//Use to find what direction the player is trying to move
+    public float verticalDir; 
+    [HideInInspector]
+    public bool floatingOnWater = false;
+    [HideInInspector]
+    public bool inWater = false;
+    public float inWaterMass = 5;
+    public float outofWaterMass = 1;
 
 
     private bool groundJumpInitiated = false; //have I started to jump yet?
@@ -79,6 +92,7 @@ public class PlayerMovement : MonoBehaviour {
 
         //Setup what player I control
         horizontalMovement = "Horizontal" + playerNumber;
+        verticalMovement = "Vertical" + playerNumber;
         jumpMovement = "Jump" + playerNumber;
         //Debug.Log("horizontalMovement" + gameObject + horizontalMovement);
         //Debug.Log("jumpMovement" + gameObject + jumpMovement);
@@ -92,6 +106,7 @@ public class PlayerMovement : MonoBehaviour {
         //ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
+        verticalDir = Input.GetAxis(verticalMovement);
 
         //allows the player to move if they arn't holding the block button.
         if (!playerAttacks.blocking)
@@ -99,9 +114,20 @@ public class PlayerMovement : MonoBehaviour {
             MovingPlayer();
         }
 
+        //Start Swimming
+        if(verticalDir < 0 && floatingOnWater)
+        {
+            //in water
+            //Increase mass
+            rb.mass = inWaterMass;
+            //Flip in water to true
+            inWater = true;
+        }
+
         //Player jump
 
         //DISABLE this if we want to player to need to push jump to bounce off of enemies/players.
+
         if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed && !grounded)
         {
             playerAttacks.JumpAttack();
@@ -122,6 +148,10 @@ public class PlayerMovement : MonoBehaviour {
                 }
                 //Debug.Log("player Attacks.blocking: " + playerAttacks.blocking);
                 PlayerJump();
+            }
+            else if (inWater)
+            {
+                //Jump code for when in water
             }
             else
             {

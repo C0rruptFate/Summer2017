@@ -38,9 +38,13 @@ public class EarthPullInEffect : MonoBehaviour {
 
     void EffectDurationFunction()
     {
-        foreach(GameObject myProjectiles in projectilesIAttract)
+        foreach(GameObject myProjectile in projectilesIAttract)
         {
-            myProjectiles.GetComponent<Rigidbody2D>().gravityScale = 0;
+            if (myProjectile !=null)
+            {
+                myProjectile.GetComponent<Rigidbody2D>().gravityScale = 0;
+            }
+            
             //myProjectiles.GetComponent<PlayerProjectileEarthSpecial>().pulledInTarget = null;
         }
         Destroy(gameObject);

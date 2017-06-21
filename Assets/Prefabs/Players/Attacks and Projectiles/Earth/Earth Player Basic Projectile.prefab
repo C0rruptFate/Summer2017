@@ -145,6 +145,12 @@ MonoBehaviour:
   throwWaitTime: 0
   player: {fileID: 0}
   myElement: 0
+  beingPulledIn: 0
+  pulledInTarget: {fileID: 0}
+  pullSpeed: 0
+  iveHitSomething: 0
+  currentHitCount: 0
+  maxHitCount: 5
 --- !u!212 &212608184359845614
 SpriteRenderer:
   m_ObjectHideFlags: 1

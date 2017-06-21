@@ -589,7 +589,7 @@ MonoBehaviour:
   groundProjectileTwoType: 0
   airProjectileType: 4
   airProjectileTwoType: 0
-  lobbedForce: {x: 50, y: 0}
+  lobbedForce: {x: 20, y: 0}
   throwWaitTime: 1
   projectileSpeed: 25
   projectileDamage: 5
@@ -629,10 +629,12 @@ MonoBehaviour:
   wisp: {fileID: 0}
   callingWisp: 0
   element: 0
+  playerWeaponParent: {fileID: 0}
   blockNextFire: 0
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
+  maxHitCount: 5
   specialLobbedForce: {x: 30, y: 0}
   forceMagnitude: -200
   pullSpeed: 50

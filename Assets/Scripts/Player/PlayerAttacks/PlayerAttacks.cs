@@ -177,7 +177,7 @@ public class PlayerAttacks : MonoBehaviour {
     [HideInInspector]//Where my second air melee attacks wil be when I melee in the air.
     protected Transform airMeleeGunTwo;
     [HideInInspector]//Empty object that holds all of my attacks.
-    protected GameObject playerWeaponParent;
+    public GameObject playerWeaponParent;
     [HideInInspector]//Sets up when I can next shoot a projectile.
     protected float projectileNextFire = 0.0f;
     [HideInInspector]//Sets up when I can next melee attack.
