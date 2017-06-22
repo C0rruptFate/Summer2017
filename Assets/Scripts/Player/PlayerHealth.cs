@@ -38,6 +38,14 @@ public class PlayerHealth : MonoBehaviour
     private float blockingResistanceModifier; //how much reduced damage do I take when blocking.
 
     //Special
+    [HideInInspector]
+    public Vector3 playerDefaultSize;
+
+    [HideInInspector]
+    public bool allowedToInputAttacks = true;
+
+    [HideInInspector]
+    public bool invulnerable = false;
 
     // Use this for initialization
     void Start()
@@ -46,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<PlayerMovement>().playerHealth = GetComponent<PlayerHealth>();
         GetComponent<PlayerAttacks>().playerHealth = GetComponent<PlayerHealth>();
         GetComponent<PlayerAttacks>().element = element;
+        playerDefaultSize = transform.localScale;
         //playerAttacks.playerNumber = playerNumber;
         //playerMovement.playerNumber = playerNumber;
 
@@ -105,6 +114,12 @@ public class PlayerHealth : MonoBehaviour
             totalDamageModifier = totalDamageModifier + blockingResistanceModifier;
             hitStun = 0;
         }
+        //if invulnerable don't take damage
+        if(invulnerable)
+        {
+            damage = 0;
+        }
+
         damage = damage * (1 - totalDamageModifier); //calculates total damage taken.
         health -= damage;//take damage
         

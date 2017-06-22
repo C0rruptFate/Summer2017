@@ -595,7 +595,14 @@ MonoBehaviour:
   arialJumpsAllowed: 1
   arialJumpForce: 40
   jumpEffect: {fileID: 1822333789701966, guid: 620f221cc6823234383469f5c5cb893b, type: 2}
+  verticalMovement: 
+  verticalDir: 0
+  floatingOnWater: 0
+  inWater: 0
+  inWaterMass: 10
+  outofWaterMass: 1
   bounceJumpsUsed: 0
+  arialJumpsUsed: 0
   grounded: 0
   enemyBelow: 0
   playerBelow: 0
@@ -651,31 +658,29 @@ MonoBehaviour:
   specialActiveEffect: {fileID: 0}
   specialActive: 0
   specialMeleeAttackObject: {fileID: 0}
-  specialMeleeManaCost: 0
   specialMeleeDamage: 0
   specialMeleeCooldown: 0
+  useMeleeSecondaryGunSpecial: 0
   currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1915595482087786, guid: a8eed7bda818bf24ebac983dc9b99255,
     type: 2}
-  specialRangedManaCost: 10
   specialRangedDamage: 10
   specialRangedHitStun: 0.2
   specialProjectileSpeed: 45
   specialProjectileMaxDuration: 10
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
-  specialRangedHasSecondGun: 0
+  useRangedSecondaryGunSpecial: 0
   specialRangedCooldown: 0
   currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 0}
-  specialDefendManaCost: 0
   specialDefendCooldown: 0
   currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4721080899948106}
   wisp: {fileID: 0}
   callingWisp: 0
-  callingWispTime: 0
   element: 0
+  playerWeaponParent: {fileID: 0}
   blockNextFire: 0
   playerNumber: 1
   playerHealth: {fileID: 0}
@@ -683,6 +688,12 @@ MonoBehaviour:
   maxComboPoints: 5
   rangedExplosionStartingRadius: 3
   currentComboPoints: 0
+  shrinkSpeed: 50
+  shrinking: 0
+  growing: 0
+  specialMeleeMovement: 0
+  specialMeleeMovementSpeed: 50
+  speicalMeleeMovementDuration: 0.25
 --- !u!114 &114928894484328716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -706,6 +717,8 @@ MonoBehaviour:
   playerUI: {fileID: 0}
   playerAttacks: {fileID: 0}
   playerMovement: {fileID: 0}
+  playerDefaultSize: {x: 0, y: 0, z: 0}
+  invulnerable: 0
 --- !u!198 &198356832841281082
 ParticleSystem:
   m_ObjectHideFlags: 1

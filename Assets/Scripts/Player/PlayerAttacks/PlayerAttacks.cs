@@ -520,31 +520,31 @@ public class PlayerAttacks : MonoBehaviour {
 
         //Melee attacks
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire)//Special Melee Attack
+        if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Special Melee Attack
         {
             //Debug.Log("Melee Special is active.");
             SpecialMeleeAttack();
         }
-        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire)//Melee Attack
+        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Melee Attack
         {
             MeleeAttack();
         }
 
         //Ranged Attacks
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Special Ranged Attack
+        if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Special Ranged Attack
         {
             //Debug.Log("Ranged Special is active.");
             SpecialRangedAttack();
         }
-        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire)//Ranged Attack
+        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Ranged Attack
         {
             RangedAttack();
         }
 
         //Defend
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Special Block
+        if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Special Block
         {
             Debug.Log("Defend Special is active.");
             if (!blocking)
@@ -553,7 +553,7 @@ public class PlayerAttacks : MonoBehaviour {
                 SpecialPlayerDefend();
             }
         }
-        else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire)//Block
+        else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
         {
             if (!blocking)//If I am not already blocking start blocking
             {

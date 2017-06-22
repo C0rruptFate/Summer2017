@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
     public string jumpMovement;
 
     //components
-    private Rigidbody2D rb; //My Rigidbody
+    protected Rigidbody2D rb; //My Rigidbody
     [HideInInspector] public PlayerAttacks playerAttacks; //My player Attacks and actions.
     [HideInInspector] public PlayerHealth playerHealth; //My player HP script.
 
@@ -24,9 +24,9 @@ public class PlayerMovement : MonoBehaviour {
     //[SerializeField] //What is this unit's max speed.
     public float maxSpeed;
     [SerializeField] //how quickly the player stops.
-    private float decelerationForce;
+    protected float decelerationForce;
     [SerializeField]//Used if the character isn't getting input but is still moving.
-    private float minSpeed;
+    protected float minSpeed;
 
 
 //Jumping
@@ -46,9 +46,9 @@ public class PlayerMovement : MonoBehaviour {
     //double jump
     [Tooltip("Force applied to the air jump.")]
     public float arialJumpForce = 10f; //Force applied to the air jump.
-    private Vector3 groundJumpForce; //what the jump force is applied to.
+    protected Vector3 groundJumpForce; //what the jump force is applied to.
     public GameObject jumpEffect; //Plays the jump particle effect.
-    private Transform whatsBelowMeChecker;//Checks what is below me, used to check for jumps and jump attacks.
+    protected Transform whatsBelowMeChecker;//Checks what is below me, used to check for jumps and jump attacks.
 
     //Water
     [HideInInspector]//Used to find what controller this is attached to.
@@ -63,8 +63,8 @@ public class PlayerMovement : MonoBehaviour {
     public float outofWaterMass = 1;
 
 
-    private bool groundJumpInitiated = false; //have I started to jump yet?
-    private int currentJumpTimer = 0; //How long I have been holding the jump button.
+    protected bool groundJumpInitiated = false; //have I started to jump yet?
+    protected int currentJumpTimer = 0; //How long I have been holding the jump button.
     [HideInInspector]
     public int bounceJumpsUsed; //how many bounce jumps have I used.
     [HideInInspector]
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]
     public bool playerBelow = false;//is their a player below me?
 
-    void Start () {
+    protected virtual void Start () {
         //Sets up the player's hp and actions scripts.
         GetComponent<PlayerHealth>().playerMovement = GetComponent<PlayerMovement>();
         GetComponent<PlayerAttacks>().playerMovement = GetComponent<PlayerMovement>();
@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	public void Update () {
+	public virtual void Update () {
 
         //Determins what direction the player is facing
         PlayerFacing();
@@ -180,7 +180,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         //Counts how long the jump button has been held down.
         if (currentJumpTimer > 0)
@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.gameObject.tag) //Checks what's below me.
         {
@@ -213,7 +213,7 @@ public class PlayerMovement : MonoBehaviour {
         }   
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public virtual void OnTriggerExit2D(Collider2D collision)
     {
         switch (collision.gameObject.tag) //removes what's below me when I leave.
         {
@@ -234,7 +234,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    public void PlayerJump()
+    public virtual void PlayerJump()
     {
         //Does ground jump
         if (grounded)
@@ -266,7 +266,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    public void PlayerFacing()
+    public virtual void PlayerFacing()
     {//what direction is the player facing/last moving
         if (Input.GetAxisRaw(horizontalMovement) != 0)
         {
@@ -281,7 +281,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    public void MovingPlayer()
+    public virtual void MovingPlayer()
     {//moves the player by adjusting their velocity.
         if (horizontalDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
         {
@@ -292,32 +292,4 @@ public class PlayerMovement : MonoBehaviour {
             rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
         }
     }
-
-    //Used to make it so that the player can't go past the edge of the screen currently not being used as the camera zoom handles this.
-    //private void ScreenCollisions()
-    //{
-    //    //prevent object from leaving screen boundaries
-    //    //Vector3 screen_bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
-    //    //if (transform.position.x > (screen_bounds.x - (player_width / 2)))
-    //    //{
-    //    //    transform.position = new Vector3(screen_bounds.x - (player_width / 2), transform.position.y, 0);
-    //    //    Debug.Log(gameObject + "Hit Right Bounds");
-    //    //}
-
-    //    //else if (transform.position.x < (-screen_bounds.x + (player_width / 2)))//Remove the -10 and extra () 
-    //    //{
-    //    //    transform.position = new Vector3(-screen_bounds.x + (player_width / 2), transform.position.y, 0);
-    //    //    Debug.Log(gameObject + "Hit Left Bounds");
-    //    //}
-    //    //else if (transform.position.y < (-screen_bounds.y + (player_height / 2)))
-    //    //{
-    //    //    transform.position = new Vector3(transform.position.x, -screen_bounds.y + (player_height / 2), 0);
-    //    //    Debug.Log(gameObject + "Hit Bottom Bounds");
-    //    //}
-    //    //else if (transform.position.y > (screen_bounds.y - (player_height / 2)))
-    //    //{
-    //    //    transform.position = new Vector3(transform.position.x, screen_bounds.y - (player_height / 2), 0);
-    //    //    Debug.Log(gameObject + "Hit Top Bounds");
-    //    //}
-    //}
 }
