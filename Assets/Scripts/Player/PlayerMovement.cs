@@ -19,10 +19,10 @@ public class PlayerMovement : MonoBehaviour {
     //horizontal movement fields
     [HideInInspector]//Use to find what direction the player is trying to move
     public float horizontalDir;
-    [SerializeField] //How fast the player is moving.
-    private float runForce;
-    [SerializeField] //What is this unit's max speed.
-    private float maxSpeed;
+    //[SerializeField] //How fast the player is moving.
+    public float runForce;
+    //[SerializeField] //What is this unit's max speed.
+    public float maxSpeed;
     [SerializeField] //how quickly the player stops.
     private float decelerationForce;
     [SerializeField]//Used if the character isn't getting input but is still moving.
@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour {
     public bool floatingOnWater = false;
     [HideInInspector]
     public bool inWater = false;
-    public float inWaterMass = 5;
+    public float inWaterMass = 10;
     public float outofWaterMass = 1;
 
 
@@ -67,7 +67,8 @@ public class PlayerMovement : MonoBehaviour {
     private int currentJumpTimer = 0; //How long I have been holding the jump button.
     [HideInInspector]
     public int bounceJumpsUsed; //how many bounce jumps have I used.
-    private int arialJumpsUsed; //How many airal jumps have I used.
+    [HideInInspector]
+    public int arialJumpsUsed; //How many airal jumps have I used.
     [HideInInspector]
     public bool grounded = false; //am I currently grounded?
     [HideInInspector]
@@ -117,11 +118,13 @@ public class PlayerMovement : MonoBehaviour {
         //Start Swimming
         if(verticalDir < 0 && floatingOnWater)
         {
+            Debug.Log("player hit down to go into the water");
             //in water
             //Increase mass
             rb.mass = inWaterMass;
             //Flip in water to true
             inWater = true;
+            floatingOnWater = false;
         }
 
         //Player jump
@@ -151,7 +154,15 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if (inWater)
             {
+                Debug.Log("Water Jump");
                 //Jump code for when in water
+                // Reset our velocity
+                rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+                // Arial Jump
+                //Debug.Log("Air Jump used" + rb.velocity.y);
+                Vector2 waterJump = new Vector2();
+                waterJump.y = arialJumpForce * 5;
+                rb.AddForce(waterJump, ForceMode2D.Impulse);
             }
             else
             {
@@ -230,7 +241,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             currentJumpTimer = maxJumpTimer;
             groundJumpInitiated = true;
-            //Debug.Log("Ground Jump");
+            Debug.Log("Ground Jump");
         }
         //ENABLE this if we want to player to need to push jump to bounce off of enemies/players.
         //else if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)
