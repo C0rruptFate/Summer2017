@@ -40,113 +40,6 @@ public class AttacksFire : PlayerAttacks {
     public override void Update()
     {
         base.Update();
-    //    //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
-    //    //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
-    //    if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
-    //    {
-    //        CallWisp();
-    //        callingWisp = true;
-    //    }//Stops calling the Wisp when the button isn't held down.
-    //    else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
-    //    {
-    //        callingWisp = false;
-    //    }
-
-    //    //Activate Special
-    //    if (Input.GetAxisRaw("Special" + playerNumber) == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
-    //    {
-    //        //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
-
-    //        //[TODO]Play special particle effect
-    //        //turn special is active to true
-    //        //Debug.Log("Special is active.");
-    //        specialActive = true;
-    //    }
-    //    if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)//Turns off the special when the button/trigger is released.
-    //    {
-    //        //Turn off special
-    //        //Debug.Log("SpeciaL has been DEACTIVATED");
-    //        specialActive = false;
-    //    }
-
-    //    //Melee attacks
-    //    //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-    //    if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Special Melee Attack
-    //    {
-    //        //Debug.Log("Melee Special is active.");
-    //        SpecialMeleeAttack();
-    //    }
-    //    else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Melee Attack
-    //    {
-    //        MeleeAttack();
-    //    }
-
-    //    //Ranged Attacks
-    //    //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-    //    if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Special Ranged Attack
-    //    {
-    //        //Debug.Log("Ranged Special is active.");
-    //        SpecialRangedAttack();
-    //    }
-    //    else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Ranged Attack
-    //    {
-    //        RangedAttack();
-    //    }
-
-    //    //Defend
-    //    //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-    //    if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Special Block
-    //    {
-    //        Debug.Log("Defend Special is active.");
-    //        if (!blocking)
-    //        {
-    //            blocking = true;
-    //            SpecialPlayerDefend();
-    //        }
-    //    }
-    //    else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
-    //    {
-    //        if (!blocking)//If I am not already blocking start blocking
-    //        {
-    //            blocking = true;
-    //            PlayerDefend();//Creates the block effect and all that goes with that.
-    //        }
-    //    }
-    //    else if (blocking)//Causes me to release the block.
-    //    {
-    //        blocking = false;
-    //        blockNextFire = Time.time + blockFireRate;
-    //        PlayerDefend();
-    //    }
-
-    //    //Cooldowns
-    //    //Melee Cooldown
-    //    if (currentSpecialMeleeCooldown == specialMeleeCooldown)
-    //    {
-    //        StartCoroutine(meleeCooldownCoroutine);
-    //    }
-    //    else if (currentSpecialMeleeCooldown <= 0)
-    //    {
-    //        StopCoroutine(meleeCooldownCoroutine);
-    //    }
-    //    //Ranged Cooldown
-    //    if (currentSpecialRangedCooldown == specialRangedCooldown)
-    //    {
-    //        StartCoroutine(rangedCooldownCoroutine);
-    //    }
-    //    else if (currentSpecialRangedCooldown <= 0)
-    //    {
-    //        StopCoroutine(rangedCooldownCoroutine);
-    //    }
-    //    //Defend Cooldown
-    //    if (currentSpecialDefendCooldown == specialDefendCooldown)
-    //    {
-    //        StartCoroutine(defendCooldownCoroutine);
-    //    }
-    //    else if (currentSpecialDefendCooldown <= 0)
-    //    {
-    //        StopCoroutine(defendCooldownCoroutine);
-    //    }
 
         //Start Fire stuff
         if (shrinking)
@@ -230,8 +123,46 @@ public class AttacksFire : PlayerAttacks {
 
     protected override void SpecialMeleeAttack()
     {
-        //Vector2 targetShrinkSize = new Vector2(1, 1);
-        //base.SpecialMeleeAttack();
+        currentSpecialMeleeCooldown = specialMeleeCooldown - currentComboPoints;
+        StartCoroutine(meleeCooldownCoroutine);
+        SpendComboPoints();
+        meleeNextFire = Time.time + meleeFireRate; //Decides when preform another melee attack.
+        //Checks if I am grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+        switch (gameObject.GetComponent<PlayerMovement>().grounded)
+        {
+            case true:
+                //Put melee attacks on the ground here.
+                newGroundMelee = Instantiate(specialMeleeAttackObject, transform.position, transform.rotation);
+                newGroundMelee.transform.parent = playerWeaponParent.transform;
+                newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
+                newGroundMelee.GetComponent<PlayerMelee>().myGun = transform;
+                SetSpecialMeleeAttackStats(newGroundMelee);
+                if (groundMeleeGunTwo != null && useMeleeSecondaryGunSpecial)//Does the same for the 2nd grounded melee attack, if I have one.
+                {
+                    newGroundMelee = Instantiate(specialMeleeAttackObject, transform.position, transform.rotation);
+                    newGroundMelee.transform.parent = playerWeaponParent.transform;
+                    newGroundMelee.GetComponent<PlayerMelee>().player = gameObject;
+                    newGroundMelee.GetComponent<PlayerMelee>().myGun = transform;
+                    SetSpecialMeleeAttackStats(newGroundMelee);
+                }
+                break;
+            default://If I am not grounded. Creates the melee object at my gun location, parents it to the weapons gameobject, and sets the weapon's location to the player's gun.
+                //Do Air melee attack stuff here. 
+                newAirMelee = Instantiate(specialMeleeAttackObject, transform.position, transform.rotation);
+                newAirMelee.transform.parent = playerWeaponParent.transform;
+                newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
+                newAirMelee.GetComponent<PlayerMelee>().myGun = transform;
+                SetSpecialMeleeAttackStats(newAirMelee);
+                if (airMeleeGunTwo != null && useMeleeSecondaryGunSpecial) //Does the same for the 2nd aerial, if I have one.
+                {
+                    newAirMelee = Instantiate(specialMeleeAttackObject, transform.position, transform.rotation);
+                    newAirMelee.transform.parent = playerWeaponParent.transform;
+                    newAirMelee.GetComponent<PlayerMelee>().player = gameObject;
+                    newAirMelee.GetComponent<PlayerMelee>().myGun = transform;
+                    SetSpecialMeleeAttackStats(newAirMelee);
+                }
+                break;
+        }
 
         rb.gravityScale = 0;
 
@@ -253,9 +184,7 @@ public class AttacksFire : PlayerAttacks {
         
         //Grow when reaching target
         Invoke("SpecialMeleeAttackPart2", speicalMeleeMovementDuration);
-
-        currentComboPoints = 0;
-
+        
         //[TODO] Set up special melee attack for each character.
     }
 
@@ -277,9 +206,7 @@ public class AttacksFire : PlayerAttacks {
         specialRangedAttackObject.GetComponent<PlayerProjectileFireSpecial>().explosionObject.GetComponent<CircleCollider2D>().radius = rangedExplosionStartingRadius + currentComboPoints;
         //Debug.Log("Dump all combo points " + currentComboPoints + " Radius: " + specialRangedAttackObject.GetComponent<PlayerProjectileFireSpecial>().explosionObject.GetComponent<CircleCollider2D>().radius);
         //Resets combo point count.
-        currentComboPoints = 0;
-        //Informs the UI and tells it to update.
-        GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().UpdateComboPointUI();
+        SpendComboPoints();
     }
 
     public override void SpecialPlayerDefend()
@@ -290,8 +217,18 @@ public class AttacksFire : PlayerAttacks {
 
     }
 
+    public override void SetSpecialMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
+    {
+        melee.GetComponent<PlayerMelee>().meleeHitBoxLife = speicalMeleeMovementDuration;
+        melee.GetComponent<PlayerMelee>().meleeDamage = specialMeleeDamage;
+        melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
+        melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+    }
+
     void SpendComboPoints()
     {
-
+        currentComboPoints = 0;
+        //Informs the UI and tells it to update.
+        GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().UpdateComboPointUI();
     }
 }

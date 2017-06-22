@@ -865,7 +865,7 @@ public class PlayerAttacks : MonoBehaviour {
     public virtual void SetSpecialMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
     {
         melee.GetComponent<PlayerMelee>().meleeHitBoxLife = meleeHitBoxLife;
-        melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
+        melee.GetComponent<PlayerMelee>().meleeDamage = specialMeleeDamage;
         melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
         melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
     }

@@ -29,13 +29,6 @@ public class PlayerMelee : MonoBehaviour {
     // Use this for initialization
     public virtual void Start () {
         //Debug.Log("Jump Attack exists");
-        //These should not be used but are left over from 3D.
-        if(player.GetComponent<PlayerController>() != null)
-        {
-            meleeHitBoxLife = player.GetComponent<PlayerController>().meleeHitBoxLife;
-            meleeDamage = player.GetComponent<PlayerController>().meleeDamage;
-            stunLockOut = player.GetComponent<PlayerController>().meleeHitStun;
-        }
 
         //Sets my values from the player that called me
         myElement = player.GetComponent<PlayerHealth>().element;

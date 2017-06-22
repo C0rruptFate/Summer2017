@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 61980057382183550}
   - component: {fileID: 50791753381218572}
   - component: {fileID: 114928894484328716}
-  - component: {fileID: 114186092849528082}
+  - component: {fileID: 114675474055556550}
   - component: {fileID: 114669519273895160}
   m_Layer: 8
   m_Name: Fire Player
@@ -406,7 +406,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773708515788726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.12, y: -2.41, z: 0}
+  m_LocalPosition: {x: -2.12, y: 2.97, z: 0}
   m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_Children:
   - {fileID: 4052550253040280}
@@ -566,46 +566,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114186092849528082
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1773708515788726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90929f90d838dbc42a02e33db7070330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNumber: 1
-  horizontalMovement: 
-  jumpMovement: 
-  playerAttacks: {fileID: 0}
-  playerHealth: {fileID: 0}
-  horizontalDir: 0
-  runForce: 5000
-  maxSpeed: 15
-  decelerationForce: 1500
-  minSpeed: 0
-  shortJumpForce: 25
-  maxJumpTimer: 10
-  fullJumpLimit: 5
-  fullJumpForce: 20
-  bounceJumpsAllowed: 2
-  arialJumpsAllowed: 1
-  arialJumpForce: 40
-  jumpEffect: {fileID: 1822333789701966, guid: 620f221cc6823234383469f5c5cb893b, type: 2}
-  verticalMovement: 
-  verticalDir: 0
-  floatingOnWater: 0
-  inWater: 0
-  inWaterMass: 10
-  outofWaterMass: 1
-  bounceJumpsUsed: 0
-  arialJumpsUsed: 0
-  grounded: 0
-  enemyBelow: 0
-  playerBelow: 0
 --- !u!114 &114669519273895160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -657,9 +617,10 @@ MonoBehaviour:
     type: 2}
   specialActiveEffect: {fileID: 0}
   specialActive: 0
-  specialMeleeAttackObject: {fileID: 0}
-  specialMeleeDamage: 0
-  specialMeleeCooldown: 0
+  specialMeleeAttackObject: {fileID: 1058402032370298, guid: 3c2227e6eefbcba478856300235a756d,
+    type: 2}
+  specialMeleeDamage: 15
+  specialMeleeCooldown: 6
   useMeleeSecondaryGunSpecial: 0
   currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1915595482087786, guid: a8eed7bda818bf24ebac983dc9b99255,
@@ -688,12 +649,52 @@ MonoBehaviour:
   maxComboPoints: 5
   rangedExplosionStartingRadius: 3
   currentComboPoints: 0
-  shrinkSpeed: 50
+  shrinkSpeed: 10
   shrinking: 0
   growing: 0
   specialMeleeMovement: 0
   specialMeleeMovementSpeed: 50
   speicalMeleeMovementDuration: 0.25
+--- !u!114 &114675474055556550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1773708515788726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 793ffb109b3e8f7489551e37bfd3cbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 1
+  horizontalMovement: 
+  jumpMovement: 
+  playerAttacks: {fileID: 0}
+  playerHealth: {fileID: 0}
+  horizontalDir: 0
+  runForce: 5000
+  maxSpeed: 15
+  decelerationForce: 1500
+  minSpeed: 0
+  shortJumpForce: 25
+  maxJumpTimer: 10
+  fullJumpLimit: 5
+  fullJumpForce: 20
+  bounceJumpsAllowed: 2
+  arialJumpsAllowed: 1
+  arialJumpForce: 40
+  jumpEffect: {fileID: 1822333789701966, guid: 620f221cc6823234383469f5c5cb893b, type: 2}
+  verticalMovement: 
+  verticalDir: 0
+  floatingOnWater: 0
+  inWater: 0
+  inWaterMass: 10
+  outofWaterMass: 1
+  bounceJumpsUsed: 0
+  arialJumpsUsed: 0
+  grounded: 0
+  enemyBelow: 0
+  playerBelow: 0
 --- !u!114 &114928894484328716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -718,6 +719,7 @@ MonoBehaviour:
   playerAttacks: {fileID: 0}
   playerMovement: {fileID: 0}
   playerDefaultSize: {x: 0, y: 0, z: 0}
+  allowedToInputAttacks: 1
   invulnerable: 0
 --- !u!198 &198356832841281082
 ParticleSystem:
