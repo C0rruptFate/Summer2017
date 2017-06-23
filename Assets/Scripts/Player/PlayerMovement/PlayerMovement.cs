@@ -243,7 +243,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             currentJumpTimer = maxJumpTimer;
             groundJumpInitiated = true;
-            Debug.Log("Ground Jump");
+            //Debug.Log("Ground Jump");
         }
         //ENABLE this if we want to player to need to push jump to bounce off of enemies/players.
         //else if ((enemyBelow || playerBelow) && bounceJumpsUsed < bounceJumpsAllowed)

@@ -44,7 +44,7 @@ public class AttacksFire : PlayerAttacks {
         //Start Fire stuff
         if (shrinking)
         {
-            Debug.Log("Shrinking");
+            //Debug.Log("Shrinking");
             transform.localScale -= Vector3.one * Time.deltaTime * shrinkSpeed;
             if (transform.localScale.x < targetShrinkScale.x && transform.localScale.y < targetShrinkScale.y)
             {
@@ -55,7 +55,7 @@ public class AttacksFire : PlayerAttacks {
         }
         if(growing)
         {
-            Debug.Log("Growing");
+            //Debug.Log("Growing");
             transform.localScale += Vector3.one * Time.deltaTime * shrinkSpeed;
             if(transform.localScale.x > playerHealth.playerDefaultSize.x)
             {
@@ -72,12 +72,12 @@ public class AttacksFire : PlayerAttacks {
         {
             if (playerMovement.facingRight)
             {
-                Debug.Log("Go to the right");
+                //Debug.Log("Go to the right");
                 rb.MovePosition(transform.position + Vector3.right * specialMeleeMovementSpeed * Time.fixedDeltaTime); 
             }
             else
             {
-                Debug.Log("Go to the left");
+                //Debug.Log("Go to the left");
                 rb.MovePosition(transform.position + Vector3.left * specialMeleeMovementSpeed * Time.fixedDeltaTime);
             }
         }
