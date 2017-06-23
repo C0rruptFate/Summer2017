@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour {
     public bool enemyBelow = false;//Is their an enemy below me?
     [HideInInspector]
     public bool playerBelow = false;//is their a player below me?
+    [HideInInspector]
+    public bool facingRight;
 
     protected virtual void Start () {
         //Sets up the player's hp and actions scripts.
@@ -272,10 +274,14 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (Input.GetAxisRaw(horizontalMovement) < 0)
             {
+                //Facing left
+                facingRight = false;
                 transform.eulerAngles = new Vector2(transform.eulerAngles.x, 180);
             }
             else
             {
+                //Facing Right
+                facingRight = true;
                 transform.eulerAngles = new Vector2(transform.eulerAngles.x, 0);
             }
         }

@@ -70,8 +70,16 @@ public class AttacksFire : PlayerAttacks {
     {
         if (specialMeleeMovement)
         {
-            rb.MovePosition(transform.position + Vector3.right * specialMeleeMovementSpeed * Time.fixedDeltaTime);
-            //transform.Translate(Vector2.right * specialMeleeMovementSpeed * Time.deltaTime);
+            if (playerMovement.facingRight)
+            {
+                Debug.Log("Go to the right");
+                rb.MovePosition(transform.position + Vector3.right * specialMeleeMovementSpeed * Time.fixedDeltaTime); 
+            }
+            else
+            {
+                Debug.Log("Go to the left");
+                rb.MovePosition(transform.position + Vector3.left * specialMeleeMovementSpeed * Time.fixedDeltaTime);
+            }
         }
     }
 
@@ -164,8 +172,10 @@ public class AttacksFire : PlayerAttacks {
                 break;
         }
 
+        //Removes gravity so the player goes a single direction.
         rb.gravityScale = 0;
 
+        //Makes it so the player doesn't collide with enemies (his attack does) but can still be blocked
         gameObject.layer = 17;
 
         //Become invincible
@@ -176,9 +186,7 @@ public class AttacksFire : PlayerAttacks {
 
         //Start shrinking
         shrinking = true;
-
-        // Create Damage object at our location
-
+       
         //Start Moving
         specialMeleeMovement = true;
         
