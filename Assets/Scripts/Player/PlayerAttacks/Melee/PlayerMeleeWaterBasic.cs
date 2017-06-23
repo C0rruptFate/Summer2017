@@ -25,11 +25,11 @@ public class PlayerMeleeWaterBasic : PlayerMelee
                 if(other.transform.Find("Wet Effect") != null)
                 {
                     other.transform.Find("Wet Effect").GetComponent<DestroySelfRightAway>().waitToDestroyTime = wetEffectDuration;
-                    Debug.Log("Reset Wet Duration: " + wetEffectDuration);
+                    //Debug.Log("Reset Wet Duration: " + wetEffectDuration);
                 }
                 else
                 {
-                    Debug.Log("Granted new Wet");
+                    //Debug.Log("Granted new Wet");
                     GameObject newWetEffect = Instantiate(wetEffect, other.transform.position, other.transform.rotation);
                     newWetEffect.transform.parent = other.transform;
                     newWetEffect.gameObject.name = "Wet Effect";/*player.GetComponent<AttacksWater>().wetEffect.ToString()*/;

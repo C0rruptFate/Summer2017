@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212060985596379562}
   - component: {fileID: 61466173199970854}
   - component: {fileID: 250659241902185778}
-  - component: {fileID: 114928830419709626}
+  - component: {fileID: 114693031505186236}
   m_Layer: 9
   m_Name: Fire Player Special Melee
   m_TagString: Untagged
@@ -68,7 +68,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114928830419709626
+--- !u!114 &114693031505186236
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1058402032370298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f972c2d893926c848a422fb092b9befe, type: 3}
+  m_Script: {fileID: 11500000, guid: a6485c53e336e404795ff4818632adbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myGun: {fileID: 0}

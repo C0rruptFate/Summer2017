@@ -67,15 +67,17 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
-            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
-
+            
             if (enemy && health)
             {
-                //float distX = (other.transform.position.x - transform.position.x) * knockback;
-                //float distY = (other.transform.position.y - transform.position.y) * knockback;
-                //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
-                //otherRB.AddForce(new Vector3(distX, distY, 0), ForceMode.Impulse);
-                health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                float newProjectileDamage = projectileDamage;
+
+                if(other.transform.Find("Air Effect"))
+                {
+                    newProjectileDamage = projectileDamage * 2;
+                }
+                //Debug.Log("Damage: " + newProjectileDamage);
+                health.TakeDamage(gameObject, newProjectileDamage, projectileHitStun);
                 //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
                 if (breaking)
                 {

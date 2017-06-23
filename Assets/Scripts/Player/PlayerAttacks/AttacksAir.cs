@@ -7,6 +7,9 @@ public class AttacksAir : PlayerAttacks {
     [Tooltip("The radius of the shock orb trigger checker.")]
     public float shockOrbRadius;
 
+    [Tooltip("How long does this debuff last?")]
+    public float airEffectDuration = 3f;
+
     // Use this for initialization
     public override void Start()
     {
@@ -81,6 +84,7 @@ public class AttacksAir : PlayerAttacks {
     public override void SetSpecialMeleeAttackStats(GameObject melee)
     {
         base.SetSpecialMeleeAttackStats(melee);
+        melee.GetComponent<PlayerMeleeAirSpecial>().airEffectDuration = airEffectDuration;
     }
 
     public override void SetSpecialRangedAttackStats(GameObject projectile)

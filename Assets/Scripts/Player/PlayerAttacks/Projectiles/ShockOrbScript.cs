@@ -40,8 +40,15 @@ public class ShockOrbScript : PlayerProjectile {
         {
             GameObject miniShockOrb = Instantiate(shockOrbEffect, other.transform.position, other.transform.rotation);
             miniShockOrb.transform.parent = gameObject.transform;
-            Debug.Log("Player: " + player + "damage: " + player.GetComponent<PlayerAttacks>().specialRangedDamage + "HitStun: " + player.GetComponent<PlayerAttacks>().specialRangedHitStun);
-            other.GetComponent<EnemyHealth>().TakeDamage(gameObject, player.GetComponent<PlayerAttacks>().specialRangedDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+            //Debug.Log("Player: " + player + "damage: " + player.GetComponent<PlayerAttacks>().specialRangedDamage + "HitStun: " + player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+            float newProjectileDamage = player.GetComponent<PlayerAttacks>().specialRangedDamage;
+
+            if (other.transform.Find("Air Effect"))
+            {
+                newProjectileDamage = player.GetComponent<PlayerAttacks>().specialRangedDamage * 2;
+            }
+            //Debug.Log("Damage: " + newProjectileDamage);
+            other.GetComponent<EnemyHealth>().TakeDamage(gameObject, newProjectileDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
             
         }
     }
