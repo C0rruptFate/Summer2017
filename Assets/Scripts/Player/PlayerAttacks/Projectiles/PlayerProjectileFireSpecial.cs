@@ -7,6 +7,8 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
     [Tooltip("Drag in the explosion object.")]
     public GameObject explosionObject;
 
+    private Transform explosionLocation;
+
     // Use this for initialization
     public void Start()
     {
@@ -20,6 +22,10 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
         {
             breaking = true;
         }
+
+        explosionLocation = transform.Find("Explosion Location");
+        if (explosionLocation == null)
+            Debug.Log("Missing Explosion Location for Fire Special Projectiles.");
     }
 
     // Update is called once per frame
@@ -47,7 +53,8 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
         //Should be removed.
         if (other.tag == ("Enemy") || other.tag == ("Ground"))//If this hits an enemy deals damage to them.
         {
-            GameObject explosion = Instantiate(explosionObject, transform.position, transform.rotation);
+            //GameObject explosion = Instantiate(explosionObject, transform.position, transform.rotation);
+            GameObject explosion = Instantiate(explosionObject, explosionLocation.position, explosionLocation.rotation);
             explosion.GetComponent<FireProjectileExplosion>().player = player;
             Destroy(gameObject);
 

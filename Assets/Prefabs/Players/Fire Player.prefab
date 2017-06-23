@@ -406,7 +406,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773708515788726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.12, y: 2.97, z: 0}
+  m_LocalPosition: {x: -2.12, y: -2.24, z: 0}
   m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_Children:
   - {fileID: 4052550253040280}
@@ -632,10 +632,11 @@ MonoBehaviour:
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
   useRangedSecondaryGunSpecial: 0
-  specialRangedCooldown: 0
+  specialRangedCooldown: 15
   currentSpecialRangedCooldown: 0
-  specialDefendObject: {fileID: 0}
-  specialDefendCooldown: 0
+  specialDefendObject: {fileID: 1481811004536028, guid: 53ad10eb8c0ac4947b980192e7ac1c2f,
+    type: 2}
+  specialDefendCooldown: 10
   currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4721080899948106}
   wisp: {fileID: 0}
@@ -650,9 +651,6 @@ MonoBehaviour:
   rangedExplosionStartingRadius: 3
   currentComboPoints: 0
   shrinkSpeed: 10
-  shrinking: 0
-  growing: 0
-  specialMeleeMovement: 0
   specialMeleeMovementSpeed: 50
   speicalMeleeMovementDuration: 0.25
 --- !u!114 &114675474055556550
@@ -695,6 +693,7 @@ MonoBehaviour:
   grounded: 0
   enemyBelow: 0
   playerBelow: 0
+  facingRight: 0
 --- !u!114 &114928894484328716
 MonoBehaviour:
   m_ObjectHideFlags: 1

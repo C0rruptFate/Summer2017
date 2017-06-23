@@ -30,7 +30,6 @@ public class PlayerUI : MonoBehaviour
     private float startingHealth;
 
     //Dealing with Cooldowns
-    //public Image meleeFillImage;
     public Text meleeCooldownText;
     private Transform meleeSpecialUI;
     private Slider meleeSlider;
@@ -156,12 +155,35 @@ public class PlayerUI : MonoBehaviour
 
     public void Update()
     {
-        meleeSlider.value = playerAttacks.specialMeleeCooldown - playerAttacks.currentSpecialMeleeCooldown;
-        meleeCooldownText.text = meleeSlider.value.ToString();
-        rangedSlider.value = playerAttacks.specialRangedCooldown - playerAttacks.currentSpecialRangedCooldown;
-        rangedCooldownText.text = rangedSlider.value.ToString();
-        defendSlider.value = playerAttacks.specialDefendCooldown - playerAttacks.currentSpecialDefendCooldown;
-        defendCooldownText.text = defendSlider.value.ToString();
+        meleeSlider.value = playerAttacks.currentSpecialMeleeCooldown;
+        if (meleeSlider.value != 0)
+        {
+            meleeCooldownText.text = meleeSlider.value.ToString();
+        } 
+        else
+        {
+            meleeCooldownText.text = "R";
+        }
+
+        rangedSlider.value = playerAttacks.currentSpecialRangedCooldown;
+        if (rangedSlider.value != 0)
+        {
+            rangedCooldownText.text = rangedSlider.value.ToString();
+        }
+        else
+        {
+            rangedCooldownText.text = "R";
+        }
+
+        defendSlider.value = playerAttacks.currentSpecialDefendCooldown;
+        if (defendSlider.value != 0)
+        {
+            defendCooldownText.text = defendSlider.value.ToString();
+        }
+        else
+        {
+            defendCooldownText.text = "R";
+        }
     }
 
     //Call this everytime the player takes damage or is healed. Using 'uiHealth.GetComponent<UIHealth>().SetHealthUI();' on the player

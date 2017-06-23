@@ -6,6 +6,7 @@ public class DestroyBlocking : MonoBehaviour {
 
     [HideInInspector]public bool blocking;//Am I blocking
 
+    [HideInInspector]
     public PlayerAttacks playerAttacks;
 	// Use this for initialization
 	void Start () {

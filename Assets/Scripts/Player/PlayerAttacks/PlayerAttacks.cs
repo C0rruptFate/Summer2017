@@ -834,11 +834,7 @@ public class PlayerAttacks : MonoBehaviour {
     //Special Defend, these will be different for each character.
     public virtual void SpecialPlayerDefend()
     {
-        //Spends the mana to use your special ranged attack.
-        //playerHealth.SpendMana(specialDefendManaCost);
-
-        //[TODO] Set up the special Defend for each character.
-
+        currentSpecialDefendCooldown = specialDefendCooldown;
     }
 
     public virtual void SetBasicMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
@@ -881,6 +877,11 @@ public class PlayerAttacks : MonoBehaviour {
         projectile.GetComponent<PlayerProjectile>().lobbedForce = lobbedForce;
         projectile.GetComponent<PlayerProjectile>().breaksHittingWall = specialBreaksHittingWall;
         projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
+    }
+
+    public virtual void SetSpecialDefendStats(GameObject defend)
+    {
+
     }
 
     public virtual IEnumerator MeleeCooldown()

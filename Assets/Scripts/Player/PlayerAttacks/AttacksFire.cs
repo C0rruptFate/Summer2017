@@ -13,11 +13,8 @@ public class AttacksFire : PlayerAttacks {
     [HideInInspector]
     public int currentComboPoints;
     public float shrinkSpeed = 50;
-    [SerializeField]
     private bool shrinking;
-    [SerializeField]
     private bool growing;
-    [SerializeField]
     private bool specialMeleeMovement;
     public float specialMeleeMovementSpeed = 20f;
     public float speicalMeleeMovementDuration = 2f;
@@ -210,8 +207,6 @@ public class AttacksFire : PlayerAttacks {
     {
         base.SpecialRangedAttack();
         //Causes the radius of the explosion to scale with the # of combo points you have.
-
-        specialRangedAttackObject.GetComponent<PlayerProjectileFireSpecial>().explosionObject.GetComponent<CircleCollider2D>().radius = rangedExplosionStartingRadius + currentComboPoints;
         //Debug.Log("Dump all combo points " + currentComboPoints + " Radius: " + specialRangedAttackObject.GetComponent<PlayerProjectileFireSpecial>().explosionObject.GetComponent<CircleCollider2D>().radius);
         //Resets combo point count.
         SpendComboPoints();
@@ -220,7 +215,9 @@ public class AttacksFire : PlayerAttacks {
     public override void SpecialPlayerDefend()
     {
         base.SpecialPlayerDefend();
-        //currentComboPoints = 0;
+        GameObject specialdefendExplosion = Instantiate(specialDefendObject, transform.position, transform.rotation);
+        SetSpecialDefendStats(specialdefendExplosion);
+        SpendComboPoints();
         //[TODO] Set up the special Defend for each character.
 
     }
@@ -231,6 +228,19 @@ public class AttacksFire : PlayerAttacks {
         melee.GetComponent<PlayerMelee>().meleeDamage = specialMeleeDamage;
         melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
         melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+    }
+
+    public override void SetSpecialRangedAttackStats(GameObject projectile)
+    {
+        base.SetSpecialRangedAttackStats(projectile);
+        specialRangedAttackObject.GetComponent<PlayerProjectileFireSpecial>().explosionObject.GetComponent<CircleCollider2D>().radius = rangedExplosionStartingRadius + currentComboPoints;
+    }
+
+    public override void SetSpecialDefendStats(GameObject defend)
+    {
+        base.SetSpecialDefendStats(defend);
+        defend.GetComponent<CircleCollider2D>().radius = rangedExplosionStartingRadius + currentComboPoints;
+        defend.GetComponent<FireProjectileExplosion>().player = gameObject;
     }
 
     void SpendComboPoints()
