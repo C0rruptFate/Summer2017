@@ -12,12 +12,12 @@ public class PlayerHealth : MonoBehaviour
     [HideInInspector]//The player's current HP
     public float health = 100f;
 
-    [Tooltip("What is my max mana?")]
-    public float maxMana = 100f;
-    [Tooltip("How much mana do I start with?")]
-    public float startingMana =100f;
-    [HideInInspector]//The players current Mana
-    public float mana;
+    //[Tooltip("What is my max mana?")]
+    //public float maxMana = 100f;
+    //[Tooltip("How much mana do I start with?")]
+    //public float startingMana =100f;
+    //[HideInInspector]//The players current Mana
+    //public float mana;
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
     public float counterDamageModifier = 1.5f;
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this below 1.0f'")]
@@ -34,8 +34,6 @@ public class PlayerHealth : MonoBehaviour
 
     private GameObject[] enemiesList; //[TODO] Used to reset enemy targets when a player dies
     private GameObject gameManager; //Used to tell the game when a player dies at 0 level ends.
-    private bool blocking; //if I am currently blocking take reduced damage.
-    private float blockingResistanceModifier; //how much reduced damage do I take when blocking.
 
     //Special
     [HideInInspector]
@@ -48,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
     public bool invulnerable = false;
 
     // Use this for initialization
-    void Start()
+    protected virtual void Start()
     {
         //Setting up the player's movement and actions scripts
         GetComponent<PlayerMovement>().playerHealth = GetComponent<PlayerHealth>();
@@ -59,29 +57,19 @@ public class PlayerHealth : MonoBehaviour
         //playerMovement.playerNumber = playerNumber;
 
         health = startingHealth;
-        mana = startingMana;
-        //Debug.Log("Mana: " + mana);
 
-        //Currently not used
-        if (gameObject.GetComponent<PlayerController>() != null)
-        {
-            //playerScript = gameObject.GetComponent<PlayerController>();
-            //element = gameObject.GetComponent<PlayerController>().element;
-            blocking = gameObject.GetComponent<PlayerController>().blocking;
-            blockingResistanceModifier = gameObject.GetComponent<PlayerController>().blockingResistanceModifier;
-        }
 
         gameManager = GameObject.Find("Game Manager");
     }
 
     //Reenables the players ability to attack after hitstun
-    private void HitStun()
+    protected virtual void HitStun()
     {
         playerAttacks.enabled = true;
     }
 
     //reduces the player hp, finds out what hit the player so it can't hit them again for a short amount of time, and how long I am stunned for.
-    public void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
+    public virtual void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
     {
         //damage reduction.
         float totalDamageModifier = 0;
@@ -109,9 +97,9 @@ public class PlayerHealth : MonoBehaviour
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }
         }
-        if (blocking)//If I am blocking take reduced damage and no hitstun.
+        if (gameObject.GetComponent<PlayerAttacks>().blocking)//If I am blocking take reduced damage and no hitstun.
         {
-            totalDamageModifier = totalDamageModifier + blockingResistanceModifier;
+            totalDamageModifier = totalDamageModifier + gameObject.GetComponent<PlayerAttacks>().blockingResistanceModifier;
             hitStun = 0;
         }
         //if invulnerable don't take damage
@@ -148,7 +136,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     //Heals the player by the amount given.
-    public void Heal(float healGain)
+    public virtual void Heal(float healGain)
     {
         health += healGain;
         if(health >= startingHealth)
@@ -176,7 +164,7 @@ public class PlayerHealth : MonoBehaviour
     //}
 
     //kills the player by disabling them
-    public void PlayerDied()
+    public virtual void PlayerDied()
     {
         //Destroy(playerScript.GetComponent<PlayerController>().newGroundMelee);
         //Destroy(playerScript.GetComponent<PlayerController>().newAirMelee);

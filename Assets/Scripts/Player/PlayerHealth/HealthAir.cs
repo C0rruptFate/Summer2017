@@ -2,15 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthAir : MonoBehaviour {
+public class HealthAir : PlayerHealth {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

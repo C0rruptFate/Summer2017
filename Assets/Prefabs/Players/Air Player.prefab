@@ -160,8 +160,8 @@ GameObject:
   - component: {fileID: 4234154238495866}
   - component: {fileID: 61030243354797942}
   - component: {fileID: 50987459145796692}
-  - component: {fileID: 114726830000588522}
-  - component: {fileID: 114706816189215140}
+  - component: {fileID: 114195776101537892}
+  - component: {fileID: 114556917326647958}
   - component: {fileID: 114437842847543146}
   m_Layer: 8
   m_Name: Air Player
@@ -438,6 +438,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.25}
   m_EdgeRadius: 0
+--- !u!114 &114195776101537892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740151737074810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116777a962f2aba4a8a5fc17c49af528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 0
+  element: 4
+  startingHealth: 100
+  health: 100
+  counterDamageModifier: 1.5
+  counterResistanceModifier: 0.75
+  playerUI: {fileID: 0}
+  playerAttacks: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerDefaultSize: {x: 0, y: 0, z: 0}
+  allowedToInputAttacks: 1
+  invulnerable: 0
 --- !u!114 &114437842847543146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -510,6 +533,7 @@ MonoBehaviour:
     type: 2}
   specialDefendCooldown: 0
   currentSpecialDefendCooldown: 0
+  specialBlocking: 0
   myWispTargetLocation: {fileID: 4694570794780800}
   wisp: {fileID: 0}
   callingWisp: 0
@@ -521,7 +545,7 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   shockOrbRadius: 5
   airEffectDuration: 3
---- !u!114 &114706816189215140
+--- !u!114 &114556917326647958
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -529,7 +553,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1740151737074810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90929f90d838dbc42a02e33db7070330, type: 3}
+  m_Script: {fileID: 11500000, guid: 54e468c1c1190704aaf14164161f7079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
@@ -562,32 +586,6 @@ MonoBehaviour:
   enemyBelow: 0
   playerBelow: 0
   facingRight: 0
---- !u!114 &114726830000588522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1740151737074810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d422fb378e78e6242b29a7ffc72fbe2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNumber: 0
-  element: 4
-  startingHealth: 100
-  health: 100
-  maxMana: 100
-  startingMana: 50
-  mana: 0
-  counterDamageModifier: 1.5
-  counterResistanceModifier: 0.75
-  playerUI: {fileID: 0}
-  playerAttacks: {fileID: 0}
-  playerMovement: {fileID: 0}
-  playerDefaultSize: {x: 0, y: 0, z: 0}
-  allowedToInputAttacks: 1
-  invulnerable: 0
 --- !u!212 &212089161715279456
 SpriteRenderer:
   m_ObjectHideFlags: 1

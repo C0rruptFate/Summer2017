@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 4605740510316092}
   - component: {fileID: 61980057382183550}
   - component: {fileID: 50791753381218572}
-  - component: {fileID: 114928894484328716}
+  - component: {fileID: 114182828634645700}
   - component: {fileID: 114675474055556550}
   - component: {fileID: 114669519273895160}
   m_Layer: 8
@@ -566,6 +566,29 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114182828634645700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1773708515788726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5c68648e15b234b94c8f08a0ba1e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 0
+  element: 1
+  startingHealth: 100
+  health: 100
+  counterDamageModifier: 1.5
+  counterResistanceModifier: 0.75
+  playerUI: {fileID: 0}
+  playerAttacks: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerDefaultSize: {x: 0, y: 0, z: 0}
+  allowedToInputAttacks: 1
+  invulnerable: 0
 --- !u!114 &114669519273895160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -638,6 +661,7 @@ MonoBehaviour:
     type: 2}
   specialDefendCooldown: 10
   currentSpecialDefendCooldown: 0
+  specialBlocking: 0
   myWispTargetLocation: {fileID: 4721080899948106}
   wisp: {fileID: 0}
   callingWisp: 0
@@ -694,32 +718,6 @@ MonoBehaviour:
   enemyBelow: 0
   playerBelow: 0
   facingRight: 0
---- !u!114 &114928894484328716
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1773708515788726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d422fb378e78e6242b29a7ffc72fbe2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNumber: 0
-  element: 1
-  startingHealth: 100
-  health: 100
-  maxMana: 100
-  startingMana: 50
-  mana: 0
-  counterDamageModifier: 1.5
-  counterResistanceModifier: 0.75
-  playerUI: {fileID: 0}
-  playerAttacks: {fileID: 0}
-  playerMovement: {fileID: 0}
-  playerDefaultSize: {x: 0, y: 0, z: 0}
-  allowedToInputAttacks: 1
-  invulnerable: 0
 --- !u!198 &198356832841281082
 ParticleSystem:
   m_ObjectHideFlags: 1

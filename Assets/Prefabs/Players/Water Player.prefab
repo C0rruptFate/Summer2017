@@ -37,8 +37,8 @@ GameObject:
   - component: {fileID: 4672008744325866}
   - component: {fileID: 61218632766335822}
   - component: {fileID: 50989829243102730}
-  - component: {fileID: 114161061920114872}
-  - component: {fileID: 114134236459591642}
+  - component: {fileID: 114252773714982106}
+  - component: {fileID: 114704780062204756}
   - component: {fileID: 114099198047141050}
   m_Layer: 8
   m_Name: Water Player
@@ -570,6 +570,7 @@ MonoBehaviour:
     type: 2}
   specialDefendCooldown: 0
   currentSpecialDefendCooldown: 0
+  specialBlocking: 0
   myWispTargetLocation: {fileID: 4373579779057864}
   wisp: {fileID: 0}
   callingWisp: 0
@@ -584,7 +585,9 @@ MonoBehaviour:
   healMultiplier: 1.5
   wetEffect: {fileID: 1547940163177460, guid: 404044dc5cd04f940ab20665e2a393b6, type: 2}
   wetEffectDuration: 4
---- !u!114 &114134236459591642
+  specialDefendMaxRange: 0
+  specialDefendHealAmount: 0
+--- !u!114 &114252773714982106
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -592,7 +595,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1209170301946456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90929f90d838dbc42a02e33db7070330, type: 3}
+  m_Script: {fileID: 11500000, guid: 92c175ce65574f141b29b9b705d1e5dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 0
+  element: 2
+  startingHealth: 100
+  health: 100
+  counterDamageModifier: 1.5
+  counterResistanceModifier: 0.75
+  playerUI: {fileID: 0}
+  playerAttacks: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerDefaultSize: {x: 0, y: 0, z: 0}
+  allowedToInputAttacks: 1
+  invulnerable: 0
+--- !u!114 &114704780062204756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209170301946456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5b66e34e957074890fe2cd8f594693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
@@ -625,32 +651,6 @@ MonoBehaviour:
   enemyBelow: 0
   playerBelow: 0
   facingRight: 0
---- !u!114 &114161061920114872
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1209170301946456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d422fb378e78e6242b29a7ffc72fbe2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNumber: 0
-  element: 2
-  startingHealth: 100
-  health: 100
-  maxMana: 100
-  startingMana: 50
-  mana: 0
-  counterDamageModifier: 1.5
-  counterResistanceModifier: 0.75
-  playerUI: {fileID: 0}
-  playerAttacks: {fileID: 0}
-  playerMovement: {fileID: 0}
-  playerDefaultSize: {x: 0, y: 0, z: 0}
-  allowedToInputAttacks: 1
-  invulnerable: 0
 --- !u!212 &212026932584541492
 SpriteRenderer:
   m_ObjectHideFlags: 1
