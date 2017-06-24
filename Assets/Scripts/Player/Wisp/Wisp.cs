@@ -39,7 +39,7 @@ public class Wisp : MonoBehaviour {
         }
 
         //Turns off moving and plays the particle for idel.
-        if (transform.position == targetLocation.position && moving /*&& !attachedToPlayer*/)
+        if (transform.position == targetLocation.position && moving)
         {
             moving = false;
             //Causes the particles to move clockwise
