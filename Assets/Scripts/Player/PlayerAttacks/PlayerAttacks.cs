@@ -835,6 +835,8 @@ public class PlayerAttacks : MonoBehaviour {
     public virtual void SpecialPlayerDefend()
     {
         currentSpecialDefendCooldown = specialDefendCooldown;
+
+
     }
 
     public virtual void SetBasicMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.

@@ -13,6 +13,15 @@ public class InvisiblePlatform : MonoBehaviour {
     [SerializeField]
     private float wispCloseColor = 60f;
 
+    private bool wispClose;
+    private bool wispTouching;
+    private bool playerOrEnemyClose;
+    private bool playerOrEnemyTouching;
+    //WispClose
+    //WispTouching
+    //PlayerOrEnemyClose
+    //PlayerOrEnemyTouching
+
     // Use this for initialization
     void Start () {
         //Maybe change from flipping active/inactive to an opacity depending on how close the player is.
@@ -71,7 +80,7 @@ public class InvisiblePlatform : MonoBehaviour {
             if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
             {
                 //sR.enabled = true;
-                Debug.Log(other + " Is TOUCHING it, but not touching it");
+                Debug.Log(other + " Is TOUCHING it");
                 this.GetComponent<SpriteRenderer>().material.color = new Color(this.GetComponent<SpriteRenderer>().material.color.r, this.GetComponent<SpriteRenderer>().material.color.g, this.GetComponent<SpriteRenderer>().material.color.b, physicalTouchingColor);
             }
         }
@@ -80,7 +89,7 @@ public class InvisiblePlatform : MonoBehaviour {
             if (other.gameObject.CompareTag("Wisp"))
             {
                 //sR.enabled = true;
-                Debug.Log(other + " Is TOUCHING it, but not touching it");
+                Debug.Log(other + " Is TOUCHING it");
                 this.GetComponent<SpriteRenderer>().material.color = new Color(this.GetComponent<SpriteRenderer>().material.color.r, this.GetComponent<SpriteRenderer>().material.color.g, this.GetComponent<SpriteRenderer>().material.color.b, wispTouchingColor);
             }
         }
@@ -105,6 +114,19 @@ public class InvisiblePlatform : MonoBehaviour {
                 Debug.Log(other + " Is NO LONGER TOUCHING it, but not touching it");
                 this.GetComponent<SpriteRenderer>().material.color = new Color(this.GetComponent<SpriteRenderer>().material.color.r, this.GetComponent<SpriteRenderer>().material.color.g, this.GetComponent<SpriteRenderer>().material.color.b, 0f);
             }
+        }
+    }
+
+    void PlatformDisplay()
+    {
+        //WispClose
+        //WispTouching
+        //PlayerOrEnemyClose
+        //PlayerOrEnemyTouching
+
+        if (wispClose)
+        {
+            this.GetComponent<SpriteRenderer>().material.color = new Color(this.GetComponent<SpriteRenderer>().material.color.r, this.GetComponent<SpriteRenderer>().material.color.g, this.GetComponent<SpriteRenderer>().material.color.b, wispCloseColor);
         }
     }
 }
