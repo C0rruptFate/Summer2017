@@ -545,7 +545,7 @@ MonoBehaviour:
   blockFireRate: 2
   blockingResistanceModifier: 15
   blocking: 0
-  blockEffect: {fileID: 1391775472913824, guid: 996b877da488dcb48afcb64b0105c24a,
+  blockEffect: {fileID: 1391775472913824, guid: 096ef4dc525f931409119dcb0fcc5a33,
     type: 2}
   specialActiveEffect: {fileID: 0}
   specialActive: 0
@@ -553,6 +553,7 @@ MonoBehaviour:
     type: 2}
   specialMeleeDamage: 20
   specialMeleeCooldown: 10
+  useMeleeSecondaryGunSpecial: 0
   currentSpecialMeleeCooldown: 0
   specialRangedAttackObject: {fileID: 1915595482087786, guid: 6e339b31c9d0f9244ad1de73c9262c79,
     type: 2}
@@ -562,17 +563,18 @@ MonoBehaviour:
   specialProjectileMaxDuration: 0.75
   specialProjectileBreakChance: 0
   specialBreaksHittingWall: 1
-  useSecondaryGunSpecial: 0
+  useRangedSecondaryGunSpecial: 0
   specialRangedCooldown: 0
   currentSpecialRangedCooldown: 0
-  specialDefendObject: {fileID: 0}
+  specialDefendObject: {fileID: 1391775472913824, guid: a1b8416a592a88d4fa21d9fc9c8133be,
+    type: 2}
   specialDefendCooldown: 0
   currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4373579779057864}
   wisp: {fileID: 0}
   callingWisp: 0
-  callingWispTime: 0
   element: 0
+  playerWeaponParent: {fileID: 0}
   blockNextFire: 0
   playerNumber: 1
   playerHealth: {fileID: 0}
@@ -611,10 +613,18 @@ MonoBehaviour:
   arialJumpsAllowed: 1
   arialJumpForce: 40
   jumpEffect: {fileID: 1822333789701966, guid: 620f221cc6823234383469f5c5cb893b, type: 2}
+  verticalMovement: 
+  verticalDir: 0
+  floatingOnWater: 0
+  inWater: 0
+  inWaterMass: 10
+  outofWaterMass: 1
   bounceJumpsUsed: 0
+  arialJumpsUsed: 0
   grounded: 0
   enemyBelow: 0
   playerBelow: 0
+  facingRight: 0
 --- !u!114 &114161061920114872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -638,6 +648,9 @@ MonoBehaviour:
   playerUI: {fileID: 0}
   playerAttacks: {fileID: 0}
   playerMovement: {fileID: 0}
+  playerDefaultSize: {x: 0, y: 0, z: 0}
+  allowedToInputAttacks: 1
+  invulnerable: 0
 --- !u!212 &212026932584541492
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -485,7 +485,7 @@ MonoBehaviour:
   blockFireRate: 2
   blockingResistanceModifier: 15
   blocking: 0
-  blockEffect: {fileID: 1391775472913824, guid: 996b877da488dcb48afcb64b0105c24a,
+  blockEffect: {fileID: 1391775472913824, guid: 985114a4363cbe74bb668a0da16d969b,
     type: 2}
   specialActiveEffect: {fileID: 0}
   specialActive: 0
@@ -506,7 +506,8 @@ MonoBehaviour:
   useRangedSecondaryGunSpecial: 0
   specialRangedCooldown: 0
   currentSpecialRangedCooldown: 0
-  specialDefendObject: {fileID: 0}
+  specialDefendObject: {fileID: 1391775472913824, guid: dc48cae04e450d2438df54f6e8313578,
+    type: 2}
   specialDefendCooldown: 0
   currentSpecialDefendCooldown: 0
   myWispTargetLocation: {fileID: 4694570794780800}

@@ -19,6 +19,9 @@ public class AttacksWater : PlayerAttacks {
 
     private bool rangedMultiShot = false;
 
+    public float specialDefendMaxRange;
+    public float specialDefendHealAmount;
+
     // Use this for initialization
     public override void Start()
     {
@@ -102,10 +105,7 @@ public class AttacksWater : PlayerAttacks {
 
     public override void SpecialPlayerDefend()
     {
-        //Spends the mana to use your special ranged attack.
-        //playerHealth.SpendMana(specialDefendManaCost);
-
-        //[TODO] Set up the special Defend for each character.
+        base.SpecialPlayerDefend();
 
     }
 
@@ -122,6 +122,13 @@ public class AttacksWater : PlayerAttacks {
         projectile.GetComponent<PlayerProjectileWaterSpecial>().baseHealReduction = baseHealReduction;
         projectile.GetComponent<PlayerProjectileWaterSpecial>().healMultiplierThreshold = healMultiplierThreshold;
         projectile.GetComponent<PlayerProjectileWaterSpecial>().healMultiplier = healMultiplier;
+    }
 
+    public override void SetSpecialDefendStats(GameObject defend)
+    {
+        base.SetSpecialDefendStats(defend);
+        //defend.GetComponent
+        //Range to nearest player
+        //Healing amount.
     }
 }

@@ -142,8 +142,11 @@ public class PlayerAttacks : MonoBehaviour {
     public float specialDefendCooldown;
     [HideInInspector]//Current cool down of this ability.
     public float currentSpecialDefendCooldown;
+
+    [HideInInspector]
+    public bool specialBlocking;
     #endregion
-    
+
     //Wisp Settings 
     #region
     [HideInInspector]//The transform that I will be calling the wisp to.
@@ -543,15 +546,22 @@ public class PlayerAttacks : MonoBehaviour {
         }
 
         //Defend
-        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
         if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Special Block
         {
             Debug.Log("Defend Special is active.");
             if (!blocking)
             {
                 blocking = true;
+                specialBlocking = true;
                 SpecialPlayerDefend();
             }
+        }
+        else if (blocking && specialBlocking)//Causes me to release the block.
+        {
+            blocking = false;
+            specialBlocking = false;
+            blockNextFire = Time.time + blockFireRate;
+            PlayerDefend();
         }
         else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
         {
@@ -835,7 +845,8 @@ public class PlayerAttacks : MonoBehaviour {
     public virtual void SpecialPlayerDefend()
     {
         currentSpecialDefendCooldown = specialDefendCooldown;
-
+        GameObject specialDefender = Instantiate(specialDefendObject, transform.position, transform.rotation);
+        SetSpecialDefendStats(specialDefender);
 
     }
 
@@ -883,6 +894,8 @@ public class PlayerAttacks : MonoBehaviour {
 
     public virtual void SetSpecialDefendStats(GameObject defend)
     {
+        //Special Defend life time.
+        //Special Defend damage reduction.
 
     }
 

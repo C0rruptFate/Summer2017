@@ -215,8 +215,8 @@ public class AttacksFire : PlayerAttacks {
     public override void SpecialPlayerDefend()
     {
         base.SpecialPlayerDefend();
-        GameObject specialdefendExplosion = Instantiate(specialDefendObject, transform.position, transform.rotation);
-        SetSpecialDefendStats(specialdefendExplosion);
+        //GameObject specialdefendExplosion = Instantiate(specialDefendObject, transform.position, transform.rotation);
+        //SetSpecialDefendStats(specialdefendExplosion);
         SpendComboPoints();
         //[TODO] Set up the special Defend for each character.
 
