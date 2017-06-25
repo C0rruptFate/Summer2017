@@ -12,8 +12,17 @@ public class AttacksEarth : PlayerAttacks {
 
     [Tooltip("Speed objects will be pulled in at.")]
     public float pullSpeed = 10;
-    [Tooltip("How Long does this last.")]
+    [Tooltip("How Long does my Melee pull in last.")]
     public float effectDuration = 5;
+
+    [Tooltip("How Long does my Special Defend last.")]
+    public float specialDefendDestroyWait = 4f;
+
+    [Tooltip("How fast does my Special Defend Move.")]
+    public float specialDefendMoveSpeed = 50f;
+
+    [Tooltip("How many Hits can my Special Defend Take.")]
+    public int specialDefendMaxHits = 5;
 
     // Use this for initialization
     public override void Start()
@@ -66,21 +75,9 @@ public class AttacksEarth : PlayerAttacks {
 
     public override void SetSpecialDefendStats(GameObject defend)
     {
-        
-        if (defend.GetComponent<EarthSpecialDefend>() !=null)
-        {
-            defend.GetComponent<EarthSpecialDefend>().player = gameObject;
-        }
-        else
-        {
-            defend.GetComponent<EarthSDefendTestScript>().player = gameObject;
-        }
-        //Set start size
-
-        //Set Move speed
-        
-        //Set end size
-
-        //Destroy after lifetime
+        defend.GetComponent<EarthSpecialDefend>().player = gameObject;
+        defend.GetComponent<EarthSpecialDefend>().destroyWait = specialDefendDestroyWait;
+        defend.GetComponent<EarthSpecialDefend>().moveSpeed = specialDefendMoveSpeed;
+        defend.GetComponent<EarthSpecialDefend>().maxHits = specialDefendMaxHits;
     }
 }

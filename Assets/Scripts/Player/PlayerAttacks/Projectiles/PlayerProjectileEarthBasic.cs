@@ -21,7 +21,7 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
     // Use this for initialization
     public override void Start()
     {
-        Debug.Log("I am born!");
+        //Debug.Log("I am born!");
         //Set's my element
         element = player.GetComponent<PlayerHealth>().element;
 

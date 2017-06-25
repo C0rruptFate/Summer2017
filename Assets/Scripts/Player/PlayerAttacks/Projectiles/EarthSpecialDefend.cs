@@ -3,72 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EarthSpecialDefend : MonoBehaviour {
-
-    public float shrinkSpeed = 5;
-    private bool shrinking;
-    private bool growing = true;
-    public float speicalMeleeMovementDuration = 2f;
-    public Vector3 targetShrinkScale = new Vector3(0.25f, 0.25f, 1f);
-    public Vector3 targetFullScale = new Vector3(1f, 8f, 1f);
-    public float waitLifeTime;
+    [HideInInspector]
     public float moveSpeed;
 
     [HideInInspector]
     public GameObject player;
-    private float upSpeed;
-    private bool halfSize;
+
+    private Rigidbody2D rb;
+    [HideInInspector]
+    public float destroyWait = 3;
+
+    public Transform[] spawnPoints;
+    [HideInInspector]
+    public int maxHits;
+
+    private int currentHits = 0;
+
     void Start()
     {
-        upSpeed = moveSpeed / 1.5f;
-
+        rb = GetComponent<Rigidbody2D>();
+        Invoke("DestroySelf", destroyWait);
     }
 
     // Update is called once per frame
-    void Update () {
-        
-        transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
-        //transform.Translate(Vector2.up * (moveSpeed/5) * Time.deltaTime);
-        if (growing)
-        {
-            //Debug.Log("Growing");
-            //transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
-            if (transform.localScale.x < targetFullScale.x)
-            {
-                transform.localScale += Vector3.one * Time.deltaTime * shrinkSpeed;
-            }
-            
-            transform.Translate(Vector2.up * upSpeed * Time.deltaTime);
-            if (transform.localScale.x >= targetFullScale.x)
-            {
-                if (halfSize == false)
-                {
-                    transform.localScale = new Vector3(targetFullScale.x, targetFullScale.y / 4, targetFullScale.z);
-                    halfSize = true;
-                }
-                
-                transform.localScale += Vector3.up * Time.deltaTime * shrinkSpeed;
+    void FixedUpdate () {
 
-                if (transform.localScale.y > targetFullScale.y)
-                {
-                    transform.localScale = targetFullScale;
-                    growing = false;
-                    Invoke("DestroyBlocker", waitLifeTime);
-                }
-            }
-        }
+        rb.AddForce(Vector2.right * moveSpeed,ForceMode2D.Force);
+        player.transform.position = transform.position;
+        player.GetComponent<Rigidbody2D>().gravityScale = 0;
+        
     }
 
-    void DestroyBlocker()
+    void DestroySelf()
     {
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            GameObject shard = Instantiate(player.GetComponent<PlayerAttacks>().groundProjectile, spawnPoint.position, spawnPoint.rotation);
+            player.GetComponent<AttacksEarth>().SetBasicRangedAttackStats(shard);
+            shard.GetComponent<Projectiles>().player = player;
+            shard.GetComponent<PlayerProjectileEarthBasic>().throwWaitTime = 0;
+        }
+        player.GetComponent<Rigidbody2D>().gravityScale = 1;
+
         Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.CompareTag("Ground"))
+        if (other.gameObject.tag == ("Enemy"))//If this hits an enemy deals damage to them.
         {
-            Debug.Log("I hit something");
-            moveSpeed = 0;
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
+            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+
+            if (enemy && health)
+            {
+                //Debug.Log("Hit enemy");
+                health.TakeDamage(gameObject, player.GetComponent<AttacksEarth>().projectileDamage, player.GetComponent<AttacksEarth>().projectileHitStun);
+                currentHits++;
+                if (currentHits >= maxHits)
+                {
+                    DestroySelf();
+                }
+            }
         }
     }
 }
