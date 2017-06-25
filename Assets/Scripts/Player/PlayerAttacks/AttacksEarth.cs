@@ -43,7 +43,7 @@ public class AttacksEarth : PlayerAttacks {
 
     public override void SpecialPlayerDefend()
     {//Might need to change spawn from location.
-        GameObject specialDefender = Instantiate(specialDefendObject, new Vector3(groundGun.position.x, transform.position.y - 1f, transform.position.z), transform.rotation);
+        GameObject specialDefender = Instantiate(specialDefendObject, new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.rotation);
         //specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
         specialDefender.transform.parent = playerWeaponParent.transform;
         SetSpecialDefendStats(specialDefender);

@@ -16,17 +16,34 @@ public class EarthSpecialDefend : PlayerMelee {
 
     private int currentHits = 0;
 
+    private bool facingRight;
+    
+
     public override void Start()
     {
+        Debug.Log("I exist");
         rb = GetComponent<Rigidbody2D>();
         myElement = player.GetComponent<PlayerHealth>().element;
+        facingRight = player.GetComponent<PlayerMovement>().facingRight;
         Invoke("DestroySelf", destroyWait);
+    }
+
+    public override void Update()
+    {
     }
 
     // Update is called once per frame
     void FixedUpdate () {
 
-        rb.AddForce(Vector2.right * moveSpeed,ForceMode2D.Force);
+        if (facingRight)
+        {
+            rb.AddForce(Vector2.right * moveSpeed, ForceMode2D.Force);
+        }
+        else
+        {
+            rb.AddForce(Vector2.left * moveSpeed, ForceMode2D.Force);
+        }
+        //rb.AddForce(Vector2.right * moveSpeed, ForceMode2D.Force);
         player.transform.position = transform.position;
         player.GetComponent<Rigidbody2D>().gravityScale = 0;
         
@@ -34,6 +51,7 @@ public class EarthSpecialDefend : PlayerMelee {
 
     void DestroySelf()
     {
+        Debug.Log("I died");
         foreach (Transform spawnPoint in spawnPoints)
         {
             GameObject shard = Instantiate(player.GetComponent<PlayerAttacks>().groundProjectile, spawnPoint.position, spawnPoint.rotation);
