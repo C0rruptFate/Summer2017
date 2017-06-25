@@ -13,7 +13,7 @@ public class DestroyBlocking : MonoBehaviour {
     public GameObject player;
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Defend object came into existence.");
+        //Debug.Log("Defend object came into existence.");
         //Sets up the player actions script
         playerAttacks = player.GetComponent<PlayerAttacks>();
         if (playerAttacks == null)

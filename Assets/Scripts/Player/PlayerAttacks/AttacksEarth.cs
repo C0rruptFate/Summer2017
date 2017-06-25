@@ -24,7 +24,6 @@ public class AttacksEarth : PlayerAttacks {
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksEarth>();
         base.Start();
     }
-   
 
     protected override void SpecialMeleeAttack()
     {
@@ -34,12 +33,11 @@ public class AttacksEarth : PlayerAttacks {
     }
 
     public override void SpecialPlayerDefend()
-    {
-        //Spends the mana to use your special ranged attack.
-        //playerHealth.SpendMana(specialDefendManaCost);
-
-        //[TODO] Set up the special Defend for each character.
-
+    {//Might need to change spawn from location.
+        GameObject specialDefender = Instantiate(specialDefendObject, new Vector3(groundGun.position.x, transform.position.y - 1f, transform.position.z), transform.rotation);
+        //specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
+        specialDefender.transform.parent = playerWeaponParent.transform;
+        SetSpecialDefendStats(specialDefender);
     }
 
     public override void SetSpecialMeleeAttackStats(GameObject melee)
@@ -64,5 +62,25 @@ public class AttacksEarth : PlayerAttacks {
         specialProjectile.GetComponent<PlayerProjectile>().projectileMaxDuration = specialProjectileMaxDuration;
         specialProjectile.GetComponent<PlayerProjectile>().lobbedForce = specialLobbedForce;
         specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().throwWaitTime = throwWaitTime;
+    }
+
+    public override void SetSpecialDefendStats(GameObject defend)
+    {
+        
+        if (defend.GetComponent<EarthSpecialDefend>() !=null)
+        {
+            defend.GetComponent<EarthSpecialDefend>().player = gameObject;
+        }
+        else
+        {
+            defend.GetComponent<EarthSDefendTestScript>().player = gameObject;
+        }
+        //Set start size
+
+        //Set Move speed
+        
+        //Set end size
+
+        //Destroy after lifetime
     }
 }

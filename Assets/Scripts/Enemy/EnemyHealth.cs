@@ -65,11 +65,11 @@ public class EnemyHealth : MonoBehaviour
         //Checks the element of what hit me and causes me to take extra damage or reduced damage.
         if (whatHitMe.CompareTag("Projectile"))
         {
-            if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatCountersMe(element))
+            if (whatHitMe.GetComponent<PlayerProjectile>().element == Constants.whatCountersMe(element))
             {
                 damage = damage * counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatICounter(element))
+            else if (whatHitMe.GetComponent<PlayerProjectile>().element == Constants.whatICounter(element))
             {
                 damage = damage * counterResistanceModifier;
             }

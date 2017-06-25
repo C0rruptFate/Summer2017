@@ -15,8 +15,8 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
     public override void Start () {
         //Set's my element
 
-        Debug.Log("I'm the special ranged attack");
-        myElement = player.GetComponent<PlayerHealth>().element;
+        //Debug.Log("I'm the special ranged attack");
+        element = player.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)

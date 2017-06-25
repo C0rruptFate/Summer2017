@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class Water : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -22,7 +12,7 @@ public class Water : MonoBehaviour {
             other.GetComponent<PlayerMovement>().arialJumpsUsed = 0;
             other.GetComponent<PlayerMovement>().maxSpeed = other.GetComponent<PlayerMovement>().maxSpeed * 2;
             other.GetComponent<PlayerMovement>().runForce = other.GetComponent<PlayerMovement>().runForce * 2;
-            Debug.Log("player enters water");
+            //Debug.Log("player enters water");
             if (other.GetComponent<PlayerHealth>().element == Element.Ice)
             {
                 other.GetComponent<PlayerMovement>().maxSpeed = other.GetComponent<PlayerMovement>().maxSpeed * 2;
@@ -41,7 +31,7 @@ public class Water : MonoBehaviour {
             other.GetComponent<PlayerMovement>().arialJumpsUsed = 0;
             other.GetComponent<PlayerMovement>().maxSpeed = other.GetComponent<PlayerMovement>().maxSpeed / 2;
             other.GetComponent<PlayerMovement>().runForce = other.GetComponent<PlayerMovement>().runForce / 2;
-            Debug.Log("player left water");
+            //Debug.Log("player left water");
             if (other.GetComponent<PlayerHealth>().element == Element.Ice)
             {
                 other.GetComponent<PlayerMovement>().maxSpeed = other.GetComponent<PlayerMovement>().maxSpeed / 2;

@@ -11,7 +11,7 @@ public class Reflector : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         reflectPoint.transform.position = transform.position;
-        Debug.Log("reflector has spawned.");
+        //Debug.Log("reflector has spawned.");
     }
 	
 	// Update is called once per frame
@@ -30,8 +30,8 @@ public class Reflector : MonoBehaviour {
         }
         else if (other.GetComponent<Projectiles>() != null)
         {
-            Debug.Log(other.gameObject.name + " Hit me");
-            Debug.Log("other.transform.rotation after changes: " + other.transform.rotation);
+            //Debug.Log(other.gameObject.name + " Hit me");
+            //Debug.Log("other.transform.rotation after changes: " + other.transform.rotation);
             other.GetComponent<Projectiles>().usesConstantForceProjectile = false;
             other.GetComponent<Projectiles>().reflectedPoint = reflectPoint;
             other.GetComponent<Projectiles>().hurtsPlayers = hurtsPlayers;

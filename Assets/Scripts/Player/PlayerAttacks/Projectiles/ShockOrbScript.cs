@@ -17,7 +17,7 @@ public class ShockOrbScript : PlayerProjectile {
     public override void Start () {
 
         Debug.Log("shock orb Spawned");
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         if (GetComponent<CircleCollider2D>().enabled == false)
         {

@@ -77,11 +77,11 @@ public class PlayerHealth : MonoBehaviour
         //if I am hit by a projectile or melee enemy
         if (whatHitMe.CompareTag("Projectile"))
         {
-            if (whatHitMe.GetComponent<EnemyProjectile>().element == Constants.whatCountersMe(element))
+            if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatCountersMe(element) && whatHitMe.GetComponent<Projectiles>().hurtsPlayers)
             {
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<EnemyProjectile>().element == Constants.whatICounter(element))
+            else if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatICounter(element) && whatHitMe.GetComponent<Projectiles>().hurtsPlayers)
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }

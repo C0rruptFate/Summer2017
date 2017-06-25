@@ -14,7 +14,7 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
     {
 
         //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
         float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.

@@ -32,7 +32,7 @@ public class Projectiles : MonoBehaviour {
     [HideInInspector]
     public GameObject player; //Who this belongs to.
     [HideInInspector]//What element is this projectile.
-    public Element myElement;
+    public Element element;
 
     protected Rigidbody2D rb; //My Rigidibody
 
@@ -46,7 +46,7 @@ public class Projectiles : MonoBehaviour {
     {
 
         //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -103,11 +103,6 @@ public class Projectiles : MonoBehaviour {
 
                 if (enemy && health)
                 {
-                    //Debug.Log("Hit enemy");
-                    //float distX = (other.transform.position.x - transform.position.x) * knockback;
-                    //float distY = (other.transform.position.y - transform.position.y) * knockback;
-                    //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
-                    //otherRB.AddForce(new Vector3(distX, distY, 0), ForceMode.Impulse);
                     health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
                     //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
                     if (breaking)

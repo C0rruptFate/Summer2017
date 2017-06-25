@@ -550,7 +550,7 @@ public class PlayerAttacks : MonoBehaviour {
         {
             if (!blocking)
             {
-                Debug.Log("Defend Special is active.");
+                //Debug.Log("Defend Special is active.");
                 blocking = true;
                 specialBlocking = true;
                 SpecialPlayerDefend();
