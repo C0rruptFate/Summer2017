@@ -19,6 +19,11 @@ public class Water : MonoBehaviour {
                 other.GetComponent<PlayerMovement>().runForce = other.GetComponent<PlayerMovement>().runForce * 2;
             }
         }
+
+        if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Ice)//Water enemy is no longer swimming.
+        {
+            other.GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -37,6 +42,11 @@ public class Water : MonoBehaviour {
                 other.GetComponent<PlayerMovement>().maxSpeed = other.GetComponent<PlayerMovement>().maxSpeed / 2;
                 other.GetComponent<PlayerMovement>().runForce = other.GetComponent<PlayerMovement>().runForce / 2;
             }
+        }
+
+        if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Ice)//Water enemy is no longer swimming.
+        {
+            other.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
     }
 }
