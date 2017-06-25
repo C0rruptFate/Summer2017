@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EarthSpecialDefend : MonoBehaviour {
+public class EarthSpecialDefend : PlayerMelee {
     [HideInInspector]
     public float moveSpeed;
-
-    [HideInInspector]
-    public GameObject player;
 
     private Rigidbody2D rb;
     [HideInInspector]
@@ -19,9 +16,10 @@ public class EarthSpecialDefend : MonoBehaviour {
 
     private int currentHits = 0;
 
-    void Start()
+    public override void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        myElement = player.GetComponent<PlayerHealth>().element;
         Invoke("DestroySelf", destroyWait);
     }
 
@@ -48,7 +46,7 @@ public class EarthSpecialDefend : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    public override void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == ("Enemy"))//If this hits an enemy deals damage to them.
         {

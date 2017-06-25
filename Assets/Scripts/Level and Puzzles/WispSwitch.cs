@@ -12,11 +12,15 @@ public class WispSwitch : MonoBehaviour {
     private Transform torchLightSpot;//Where to spawn the effect when this has been activated
     private Transform parentObject;//What door/end level or other object I am a part of.
 
+    private GameObject unlitTorch;
+
 	// Use this for initialization
 	void Start () {
         torchLightSpot = transform.Find("Trigger Location");//Sets the position of where the effect should spawn when this is active.
         parentObject = transform.parent;//Sets what door or other object I am a part of, used to solve puzzles.
-	}
+        unlitTorch = transform.Find("Unlit Torch").gameObject;
+
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,6 +31,7 @@ public class WispSwitch : MonoBehaviour {
             //Debug.Log("Wisp switch hit");
             activated = true;
             Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
+            Destroy(unlitTorch);
             parentObject.GetComponent<WispSwitchChecker>().CheckSwitches();
         }
     }

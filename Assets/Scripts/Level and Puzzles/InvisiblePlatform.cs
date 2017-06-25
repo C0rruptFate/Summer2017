@@ -33,7 +33,7 @@ public class InvisiblePlatform : MonoBehaviour {
             if (fadeAlpha < fadeInCap)
             {
                 fadeAlpha = fadeAlpha + (fadeInSpeed) * Time.deltaTime;
-                Debug.Log("Fade Alpha: " + fadeAlpha);
+                //Debug.Log("Fade Alpha: " + fadeAlpha);
             }
 
             this.GetComponent<SpriteRenderer>().material.color = new Color(this.GetComponent<SpriteRenderer>().material.color.r, this.GetComponent<SpriteRenderer>().material.color.g, this.GetComponent<SpriteRenderer>().material.color.b, fadeAlpha);
@@ -83,7 +83,7 @@ public class InvisiblePlatform : MonoBehaviour {
             if (other.CompareTag("Player") || other.CompareTag("Enemy"))
             {
                 //sR.enabled = false;
-                Debug.Log(other + " Is NO LONGER CLOSE to it, but not touching it");
+                //Debug.Log(other + " Is NO LONGER CLOSE to it, but not touching it");
                 fadingIn = false;
             }
         }
@@ -92,7 +92,7 @@ public class InvisiblePlatform : MonoBehaviour {
             if (other.CompareTag("Wisp"))
             {
                 //sR.enabled = false;
-                Debug.Log(other + " Is NO LONGER CLOSE to it, but not touching it");
+                //Debug.Log(other + " Is NO LONGER CLOSE to it, but not touching it");
                 fadingIn = false;
             }
         }

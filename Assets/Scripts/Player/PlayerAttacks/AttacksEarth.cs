@@ -79,5 +79,6 @@ public class AttacksEarth : PlayerAttacks {
         defend.GetComponent<EarthSpecialDefend>().destroyWait = specialDefendDestroyWait;
         defend.GetComponent<EarthSpecialDefend>().moveSpeed = specialDefendMoveSpeed;
         defend.GetComponent<EarthSpecialDefend>().maxHits = specialDefendMaxHits;
+        defend.GetComponent<EarthSpecialDefend>().myGun = groundMeleeGun;
     }
 }
