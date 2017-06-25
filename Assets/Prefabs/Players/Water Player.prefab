@@ -568,7 +568,7 @@ MonoBehaviour:
   currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 1391775472913824, guid: a1b8416a592a88d4fa21d9fc9c8133be,
     type: 2}
-  specialDefendCooldown: 0
+  specialDefendCooldown: 5
   currentSpecialDefendCooldown: 0
   specialBlocking: 0
   myWispTargetLocation: {fileID: 4373579779057864}
@@ -610,6 +610,8 @@ MonoBehaviour:
   playerDefaultSize: {x: 0, y: 0, z: 0}
   allowedToInputAttacks: 1
   invulnerable: 0
+  targets: []
+  target: {fileID: 0}
 --- !u!114 &114704780062204756
 MonoBehaviour:
   m_ObjectHideFlags: 1

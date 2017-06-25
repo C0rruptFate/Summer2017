@@ -74,6 +74,7 @@ public class AttacksAir : PlayerAttacks {
 
     public override void SpecialPlayerDefend()
     {
+        base.SpecialPlayerDefend();
         //Spends the mana to use your special ranged attack.
         //playerHealth.SpendMana(specialDefendManaCost);
 

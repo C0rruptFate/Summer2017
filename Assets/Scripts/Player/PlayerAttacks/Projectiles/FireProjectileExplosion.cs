@@ -5,7 +5,7 @@ using UnityEngine;
 public class FireProjectileExplosion : PlayerProjectile {
 
     // Use this for initialization
-    void Start () {
+    public override void Start () {
 
         //Set's my element
         myElement = player.GetComponent<PlayerHealth>().element;

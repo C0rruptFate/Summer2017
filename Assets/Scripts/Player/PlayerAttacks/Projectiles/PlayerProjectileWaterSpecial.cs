@@ -11,8 +11,8 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
     [HideInInspector]
     public float healMultiplier = 1.5f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    public override void Start () {
         //Set's my element
 
         Debug.Log("I'm the special ranged attack");
@@ -40,7 +40,7 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
         }
     }
 
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
 
         //Reduces the life of the object at 0 it is destroyed.

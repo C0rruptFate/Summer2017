@@ -6,7 +6,7 @@ public class PlayerProjectileFireBasic : PlayerProjectile
 {
     private bool alreadyGeneratedComboPoint = false;
     // Use this for initialization
-    public void Start()
+    public override void Start()
     {
 
         //Set's my element
@@ -27,7 +27,7 @@ public class PlayerProjectileFireBasic : PlayerProjectile
     }
 
     // Update is called once per frame
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
 
         //Reduces the life of the object at 0 it is destroyed.

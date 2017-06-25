@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerProjectileAirBasic : PlayerProjectile {
 
-    [HideInInspector]//When true causes the object to return to the player.
+    //[HideInInspector]//When true causes the object to return to the player.
     public bool returnToPlayer = false;
 
     // Use this for initialization
-    public void Start()
+    public override void Start()
     {
 
         //Set's my element
@@ -37,17 +37,17 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
     }
 
     // Update is called once per frame
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
-
+        //Debug.Log("Current Life: " + currentLife);
         //Reduces the life of the object at 0 it is destroyed.
         if (Time.time >= currentLife)
         {
             //uncomment to distroy the projectile at it's max duration.
             //Destroy(gameObject);
             //returns to player
+            //Debug.Log("Returning to player Time: " + Time.time + "Current Life " + currentLife);
             returnToPlayer = true;
-
         }
 
         //Causes the object to fly forward.

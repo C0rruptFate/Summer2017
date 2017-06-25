@@ -548,9 +548,9 @@ public class PlayerAttacks : MonoBehaviour {
         //Defend
         if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Special Block
         {
-            Debug.Log("Defend Special is active.");
             if (!blocking)
             {
+                Debug.Log("Defend Special is active.");
                 blocking = true;
                 specialBlocking = true;
                 SpecialPlayerDefend();
@@ -561,7 +561,8 @@ public class PlayerAttacks : MonoBehaviour {
             blocking = false;
             specialBlocking = false;
             blockNextFire = Time.time + blockFireRate;
-            PlayerDefend();
+            currentSpecialDefendCooldown = specialDefendCooldown;
+            //PlayerDefend();
         }
         else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
         {
@@ -722,7 +723,9 @@ public class PlayerAttacks : MonoBehaviour {
         if (blocking)
         {
             newBlockEffect = Instantiate(blockEffect, transform.position, transform.rotation);
-            newBlockEffect.transform.parent = gameObject.transform;
+            newBlockEffect.GetComponent<DestroyBlocking>().player = gameObject;
+            newBlockEffect.transform.parent = playerWeaponParent.transform;
+            //newBlockEffect.transform.parent = gameObject.transform;
         }
     }
 
@@ -844,8 +847,9 @@ public class PlayerAttacks : MonoBehaviour {
     //Special Defend, these will be different for each character.
     public virtual void SpecialPlayerDefend()
     {
-        currentSpecialDefendCooldown = specialDefendCooldown;
         GameObject specialDefender = Instantiate(specialDefendObject, transform.position, transform.rotation);
+        specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
+        specialDefender.transform.parent = playerWeaponParent.transform;
         SetSpecialDefendStats(specialDefender);
 
     }

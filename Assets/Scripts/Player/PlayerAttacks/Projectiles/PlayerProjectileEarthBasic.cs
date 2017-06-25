@@ -19,7 +19,7 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
     public float maxHitCount = 2;
 
     // Use this for initialization
-    public void Start()
+    public override void Start()
     {
         Debug.Log("I am born!");
         //Set's my element
@@ -48,7 +48,7 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
     }
 
     // Update is called once per frame
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
 
         //Reduces the life of the object at 0 it is destroyed.

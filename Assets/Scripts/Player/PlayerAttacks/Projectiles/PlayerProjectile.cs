@@ -2,39 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProjectile : MonoBehaviour {
+public class PlayerProjectile : Projectiles {
 
-    //These are all set by the players attacks/actions script.
-    [HideInInspector]//How fast the projectile moves.
-    public float projectileSpeed;
-    [HideInInspector]//How much damage the projectile deals.
-    public float projectileDamage;
-    [HideInInspector]//How long the projectile stuns for.
-    public float projectileHitStun;
+    ////These are all set by the players attacks/actions script.
+    //[HideInInspector]//How fast the projectile moves.
+    //public float projectileSpeed;
+    //[HideInInspector]//How much damage the projectile deals.
+    //public float projectileDamage;
+    //[HideInInspector]//How long the projectile stuns for.
+    //public float projectileHitStun;
 
-    [HideInInspector]//the projectile will expire after X seconds.
-    public float projectileMaxDuration;
-    [HideInInspector]//The chance it will break when hitting an enemy.
-    public float projectileBreakChance;
-    [HideInInspector]//Does this fly strait or is is lobbed? True to fly strait.
-    public bool usesConstantForceProjectile = true;
-    [HideInInspector]//Does this expire when hitting a wall?
-    public bool breaksHittingWall = true;
-    [HideInInspector]//The force this is lobbed at when the player is using a lobbed projectile.
-    public Vector2 lobbedForce;
-    [HideInInspector]//How long this is held for before being thrown.
-    public float throwWaitTime;
-    protected Transform formerParent;//Used when holding a lobbed projectile.
+    //[HideInInspector]//the projectile will expire after X seconds.
+    //public float projectileMaxDuration;
+    //[HideInInspector]//The chance it will break when hitting an enemy.
+    //public float projectileBreakChance;
+    //[HideInInspector]//Does this fly strait or is is lobbed? True to fly strait.
+    //public bool usesConstantForceProjectile = true;
+    //[HideInInspector]//Does this expire when hitting a wall?
+    //public bool breaksHittingWall = true;
+    //[HideInInspector]//The force this is lobbed at when the player is using a lobbed projectile.
+    //public Vector2 lobbedForce;
+    //[HideInInspector]//How long this is held for before being thrown.
+    //public float throwWaitTime;
+    //protected Transform formerParent;//Used when holding a lobbed projectile.
 
-    protected float currentLife;//How long this has been alive for.
-    protected bool breaking = false;//used with the break change to decide if this will break.
+    //[HideInInspector]
+    //public float currentLife;//How long this has been alive for.
+    //protected bool breaking = false;//used with the break change to decide if this will break.
 
-    [HideInInspector]
-    public GameObject player; //Who this belongs to.
-    [HideInInspector]//What element is this projectile.
-    public Element myElement;
+    //[HideInInspector]
+    //public GameObject player; //Who this belongs to.
+    //[HideInInspector]//What element is this projectile.
+    //public Element myElement;
 
-    protected Rigidbody2D rb; //My Rigidibody
+    //protected Rigidbody2D rb; //My Rigidibody
 
     // Start and fixed update are blocked out atm
     //public void Start () {
@@ -80,7 +81,7 @@ public class PlayerProjectile : MonoBehaviour {
     //    }
     //}
 
-    public virtual void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
         {
@@ -109,7 +110,7 @@ public class PlayerProjectile : MonoBehaviour {
         }
     }
 
-    protected virtual void ThrowForce()
+    protected override void ThrowForce()
     {
         //Debug.Log("Threw object");
         //Throws the lobbed projectile.
@@ -124,16 +125,5 @@ public class PlayerProjectile : MonoBehaviour {
             rb.AddForce(lobbedForce, ForceMode2D.Impulse);
         }
         transform.parent = formerParent;
-        //BoxCollider2D triggerCollider = gameObject.GetComponent<BoxCollider2D>();
-        //triggerCollider.size = new Vector2(5f, 3f); //Change these numbers to make the hitbox larger or smaller if needed so that it matches what is below.
-        ////Adds physical coollider so that he can stay on the ground.
-        //BoxCollider2D physicalCollider = gameObject.AddComponent<BoxCollider2D>();
-        //physicalCollider.size = new Vector2(5f,3f);//Change these numbers to make the hitbox larger or smaller if needed so that it will collide with the ground.
-        
-
-
-        //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-
     }
-
 }

@@ -13,7 +13,7 @@ public class PlayerProjectileAirSpecial : PlayerProjectile
     //[HideInInspector]
     //public float specialProjectileSpeed;
 
-    public void Start()
+    public override void Start()
     {
         //shockOrbRadius = player.GetComponent<PlayerAttacks>().
         //Set's my element
@@ -34,7 +34,7 @@ public class PlayerProjectileAirSpecial : PlayerProjectile
     }
 
     // Update is called once per frame
-    public virtual void FixedUpdate()
+    public override void FixedUpdate()
     {
 
         //Reduces the life of the object at 0 it is destroyed.

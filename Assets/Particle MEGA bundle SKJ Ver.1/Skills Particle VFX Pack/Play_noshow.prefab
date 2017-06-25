@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000010298069688}
+  m_IsPrefabParent: 1
+--- !u!1 &1000010298069688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4000011856014620}
+  - component: {fileID: 114000012674103410}
+  m_Layer: 0
+  m_Name: Play_noshow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000011856014620
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010298069688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.27734375, y: 2.940918, z: 1.6943359}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114000012674103410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010298069688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8473f8859f01a5347acb53f3c7f9cb11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectPrefabList:
+  - {fileID: 101926, guid: 31b6b85daf4cf5c479a7c32d87ed442c, type: 2}
+  - {fileID: 142250, guid: 7397d7f1aa15703448fc5464d270873f, type: 2}
+  - {fileID: 103860, guid: 2a067dfa85af1124e81bd27778a6f555, type: 2}
+  - {fileID: 159112, guid: 3561df970b4f57440b95dbb1866742cd, type: 2}
+  - {fileID: 0}
+  - {fileID: 125882, guid: 330242136a76af74cbdea17c2a4f15f2, type: 2}
+  - {fileID: 155380, guid: 78de44b735b5f6d439e729aca07d57aa, type: 2}
+  - {fileID: 1000010813474594, guid: ff1d4f5e291f5f74fa282b084924afec, type: 2}
+  - {fileID: 1000011268882308, guid: 44f0e0925f0ceb74db98b44d0844454a, type: 2}
+  - {fileID: 1000010548949824, guid: a9e0d03e4e622d6439cd1a031b32eb58, type: 2}
+  - {fileID: 1000011514004422, guid: d48513fb1c339e24fa3ad41536d91d03, type: 2}
+  - {fileID: 1000013225503998, guid: 6501c21b1708cce4582574f8f4dc8fa6, type: 2}
+  - {fileID: 1000010614899996, guid: f45751daf18ddf84bbecb70e6b8698d0, type: 2}
+  - {fileID: 1000010168699924, guid: 9dcfc9cf4e2272f429382f575e4c1809, type: 2}
+  - {fileID: 142504, guid: 943ceb6c051e2c146ba39d76e399c568, type: 2}
+  - {fileID: 159312, guid: 1ffff1b3dabfbf64794e9c6faa84e462, type: 2}
+  - {fileID: 100700, guid: 0aa9dfb39006e9e4893bd77bd3307ab8, type: 2}
+  - {fileID: 139152, guid: 036d3c57c6104d84c8d1d18b0dca2ebd, type: 2}
+  - {fileID: 112088, guid: e3dc6cde172b2c444b03bdfdedf51ca1, type: 2}
+  - {fileID: 156744, guid: 28d8b20f80eda99468f0449028551147, type: 2}
+  - {fileID: 152518, guid: 7fb342f4ba4aea344a811b306fae295d, type: 2}
+  - {fileID: 1000010149807408, guid: 802d7b6e72c73614b91f3920ec1c73df, type: 2}
+  - {fileID: 1000013241729610, guid: 961f16024b0609340a65b14819f64f52, type: 2}
+  - {fileID: 1000013100282308, guid: 5d531f4964b3178428233b838f162041, type: 2}
+  - {fileID: 1000012207016010, guid: 8407cd8539c6b1747b3254a4aa47af30, type: 2}
+  - {fileID: 1000011532063600, guid: d0389ea3bbc470241b015827130fede0, type: 2}
+  - {fileID: 1000013905279406, guid: 88d46eb5e8d5bcf4a9ebb36e1df636f2, type: 2}
+  - {fileID: 1000013056981630, guid: 70a82a928a89d444abce09ac656e3ebe, type: 2}
+  - {fileID: 1000010389036644, guid: 89e04a7078a8e424d9cb7a65b305fa8f, type: 2}
+  - {fileID: 1000012187716068, guid: 76bbaf306d9eca34da6bab643462a6dc, type: 2}
+  - {fileID: 1000010627148016, guid: 8e77b70506d69984bbaa575c650b1c21, type: 2}
+  - {fileID: 1000012187795978, guid: 213b9bd25ee6bcb47adcbc9edab8558b, type: 2}
+  - {fileID: 1000010176856370, guid: 03e9b93507fba9043bf4be4855c26081, type: 2}
+  - {fileID: 1000011456773822, guid: 5fc9bfa5194472c4ab1ce41c0a5ae431, type: 2}
+  - {fileID: 1000011250487766, guid: f692a9b9598569f4e8b9a86d619725a5, type: 2}
+  m_LookAtEffect: 1

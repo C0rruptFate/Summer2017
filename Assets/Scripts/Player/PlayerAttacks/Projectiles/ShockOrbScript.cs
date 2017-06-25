@@ -14,7 +14,7 @@ public class ShockOrbScript : PlayerProjectile {
     public float shockOrbRadius;
 
     // Use this for initialization
-    void Start () {
+    public override void Start () {
 
         Debug.Log("shock orb Spawned");
         myElement = player.GetComponent<PlayerHealth>().element;

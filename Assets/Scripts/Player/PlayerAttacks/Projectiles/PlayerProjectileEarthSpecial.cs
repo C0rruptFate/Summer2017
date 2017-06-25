@@ -22,7 +22,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
     public float pullSpeed;
 
     // Use this for initialization
-    public void Start()
+    public override void Start()
     {
         //Debug.Log("Look here");
         //Set's my element
@@ -57,7 +57,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
     }
 
     // Update is called once per frame
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
 
         //Reduces the life of the object at 0 it is destroyed.

@@ -8,28 +8,27 @@ public class DestroyBlocking : MonoBehaviour {
 
     [HideInInspector]
     public PlayerAttacks playerAttacks;
+
+    public GameObject player;
 	// Use this for initialization
 	void Start () {
+        Debug.Log("Defend object came into existence.");
         //Sets up the player actions script
-        playerAttacks = GetComponentInParent<PlayerMovement>().playerAttacks;
+        playerAttacks = player.GetComponent<PlayerAttacks>();
+        if (playerAttacks == null)
+        {
+            Debug.Log("Can't find player attacks");
+        }
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //Used for 3D, we shouldn't worry about this.
-        if (gameObject.GetComponentInParent<PlayerController>() != null)
-        {
-            blocking = GetComponentInParent<PlayerController>().blocking;
-        }
-        else
-        {
-            //Looks at the 2D scripts.
-            blocking = playerAttacks.blocking;
-        }
-        
+
+        transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, player.transform.position.z);
+
         //When the player isn't blocking destroyes the object.
-        if (!blocking)
+        if (!playerAttacks.blocking)
         {
             Debug.Log("DESTROY block effect");
             Destroy(gameObject);
