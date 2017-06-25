@@ -143,8 +143,10 @@ MonoBehaviour:
   breaksHittingWall: 1
   lobbedForce: {x: 0, y: 0}
   throwWaitTime: 0
+  currentLife: 0
   player: {fileID: 0}
   myElement: 0
+  hurtsPlayers: 0
 --- !u!212 &212608184359845614
 SpriteRenderer:
   m_ObjectHideFlags: 1

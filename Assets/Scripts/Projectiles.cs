@@ -37,8 +37,11 @@ public class Projectiles : MonoBehaviour {
     protected Rigidbody2D rb; //My Rigidibody
 
     [HideInInspector]//Make this false to hurt enemies and true to hurt players.
-    public bool hurtsPlayers;
+    public bool hurtsPlayers = false;
+    [HideInInspector]
+    public Transform reflectedPoint;
     // Start and fixed update are blocked out atm
+
     public virtual void Start()
     {
 
@@ -82,6 +85,10 @@ public class Projectiles : MonoBehaviour {
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
         }
+        else
+        {//Reflects the projectile.
+            transform.position = Vector3.MoveTowards(transform.position, reflectedPoint.position, -projectileSpeed * Time.deltaTime);
+        }
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other)
@@ -108,11 +115,30 @@ public class Projectiles : MonoBehaviour {
                         Destroy(gameObject);
                     }
                 }
-            } 
+            }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
         }
-        else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+        else if (hurtsPlayers == true)
         {
-            Destroy(gameObject);
+            if (other.transform.tag == ("Player"))
+            {
+                //Debug.Log("Player should take damage");
+                PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+                PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
+
+                //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+                if (playerMovement && health)
+                {
+                    health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                }
+            }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

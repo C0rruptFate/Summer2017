@@ -9,6 +9,7 @@ public class DestroyBlocking : MonoBehaviour {
     [HideInInspector]
     public PlayerAttacks playerAttacks;
 
+    [HideInInspector]
     public GameObject player;
 	// Use this for initialization
 	void Start () {

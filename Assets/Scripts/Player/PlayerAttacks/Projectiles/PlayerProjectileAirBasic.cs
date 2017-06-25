@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerProjectileAirBasic : PlayerProjectile {
 
-    //[HideInInspector]//When true causes the object to return to the player.
+    [HideInInspector]//When true causes the object to return to the player.
     public bool returnToPlayer = false;
 
     // Use this for initialization
@@ -63,36 +63,69 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
 
     public override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
+        if (hurtsPlayers == false)
         {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
-            
-            if (enemy && health)
+            if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
             {
-                float newProjectileDamage = projectileDamage;
+                Enemy enemy = other.gameObject.GetComponent<Enemy>();
+                EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
 
-                if(other.transform.Find("Air Effect"))
+                if (enemy && health)
                 {
-                    newProjectileDamage = projectileDamage * 2;
-                }
-                //Debug.Log("Damage: " + newProjectileDamage);
-                health.TakeDamage(gameObject, newProjectileDamage, projectileHitStun);
-                //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
-                if (breaking)
-                {
-                    Destroy(gameObject);
+                    float newProjectileDamage = projectileDamage;
+
+                    if (other.transform.Find("Air Effect"))
+                    {
+                        newProjectileDamage = projectileDamage * 2;
+                    }
+                    //Debug.Log("Damage: " + newProjectileDamage);
+                    health.TakeDamage(gameObject, newProjectileDamage, projectileHitStun);
+                    //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
+                    if (breaking)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
+            else if (returnToPlayer && other.gameObject == player)
+            {
+                //Debug.Log("Touched player");
+                Destroy(gameObject);
+            }
         }
-        else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+        else if (hurtsPlayers == true)
         {
-            Destroy(gameObject);
+            if (other.transform.tag == ("Player"))
+            {
+                //Debug.Log("Player should take damage");
+                PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+                PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
+                //PlayerAttacks playerAttacks = health.playerAttacks;
+                //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+
+                //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+                if (playerMovement && health)
+                {
+                    //float distX = (other.transform.position.x - transform.position.x) * knockback;
+                    //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
+                    //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
+                    health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                }
+            }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
+            else if (returnToPlayer && other.gameObject == player)
+            {
+                //Debug.Log("Touched player");
+                Destroy(gameObject);
+            }
         }
-        else if(returnToPlayer && other.gameObject == player)
-        {
-            //Debug.Log("Touched player");
-            Destroy(gameObject);
-        }
+
     }
 }

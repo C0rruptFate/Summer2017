@@ -47,6 +47,10 @@ public class PlayerProjectileWaterBasic : PlayerProjectile
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
         }
+        else
+        {//Reflects the projectile.
+            transform.position = Vector3.MoveTowards(transform.position, reflectedPoint.position, -projectileSpeed * Time.deltaTime);
+        }
     }
 }
 
