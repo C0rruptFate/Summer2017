@@ -27,7 +27,7 @@ public class HealthWater : PlayerHealth {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }
         }
-        else
+        else if (whatHitMe.GetComponent<EnemyHealth>() != null)
         {//if I am hit by an enemy
             if (whatHitMe.GetComponent<EnemyHealth>().element == Constants.whatCountersMe(element))
             {
@@ -37,6 +37,21 @@ public class HealthWater : PlayerHealth {
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }
+        }
+        else if (whatHitMe.GetComponent<Hazard>() != null)
+        {//Damaged by a hazard
+            if (whatHitMe.GetComponent<Hazard>().element == Constants.whatCountersMe(element))
+            {
+                totalDamageModifier = totalDamageModifier - counterDamageModifier;
+            }
+            else if (whatHitMe.GetComponent<Hazard>().element == Constants.whatICounter(element))
+            {
+                totalDamageModifier = totalDamageModifier + counterResistanceModifier;
+            }
+        }
+        else
+        {
+            Debug.LogError("Something tried to damage me that I don't have listed!");
         }
         if (gameObject.GetComponent<PlayerAttacks>().blocking)//If I am blocking take reduced damage and no hitstun.
         {

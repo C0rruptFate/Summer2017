@@ -34,15 +34,6 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
             gameObject.GetComponent<Collider2D>().enabled = true;
         }
 
-        //Used to set up lobbed projectiles.
-        //if (!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
-        //{
-        //    Debug.Log("Look here");
-        //    formerParent = transform.parent;
-        //    transform.parent = player.transform;
-        //    Invoke("ThrowForce", throwWaitTime);
-        //}
-
         //Debug.Log("Look here");
         formerParent = transform.parent;
         transform.parent = player.transform;
@@ -65,7 +56,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
         {
             Destroy(gameObject);
         }
-
+       
         //Causes the object to fly forward.
         if (usesConstantForceProjectile)
         {
