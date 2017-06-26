@@ -8,17 +8,17 @@ public class Button : MonoBehaviour {
     public bool pushed = false;
 
     [HideInInspector]
-    private GameObject pressurePlateMaster;
+    public GameObject pressurePlateMaster;
 
     [HideInInspector]
     public bool iShouldBeActiveBool;
 
     // Use this for initialization
     void Start () {
-        pressurePlateMaster = transform.parent.gameObject;
+        //pressurePlateMaster = transform.parent.gameObject;
 
-        if (iShouldBeActiveBool)
-        gameObject.SetActive(true);
+        if (!iShouldBeActiveBool)
+        gameObject.SetActive(false);
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -48,5 +48,7 @@ public class Button : MonoBehaviour {
     {
         Debug.Log("Button is now active");
         gameObject.SetActive(true);
+        pressurePlateMaster.GetComponent<PressurePlate>().PressurePlateTotalIncrease();
+        Debug.Log("Presure plat total: " + pressurePlateMaster.GetComponent<PressurePlate>().pressurePlateTotal);
     }
 }
