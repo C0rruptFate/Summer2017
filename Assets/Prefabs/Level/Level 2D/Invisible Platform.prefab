@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61782026049968660}
   - component: {fileID: 50577236114368320}
   - component: {fileID: 114209719580595722}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Invisible Platform
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -125,10 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1471eb485f459154d86cb20c0905f778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physicalTouchingColor: 255
-  physicalCloseColor: 128
-  wispTouchingColor: 128
-  wispCloseColor: 60
+  fadingIn: 0
+  fadeInCap: 0
 --- !u!212 &212476838705240296
 SpriteRenderer:
   m_ObjectHideFlags: 1
