@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour {
 
+    [Tooltip("What kind of puzzle is this?")]
+    public PuzzleType puzzleType;
+
     public bool holdDownButtons = true;
 
     [HideInInspector]
@@ -67,15 +70,19 @@ public class PressurePlate : MonoBehaviour {
 
         if (pressurePlatePushedCount > pressurePlateTotal)
             pressurePlatePushedCount = pressurePlateTotal;
-        
+
 
         if (pressurePlatePushedCount == pressurePlateTotal)
         {
             foreach (Transform child in transform)
             {
-                if(child.name == "Door")
+                if (child.name == "Door")
                 {
                     child.gameObject.SetActive(false);
+                }
+                if (child.GetComponent<Hazard>() != null)
+                {//causes the hazards to rise up.
+                    child.GetComponent<Hazard>().lowerHazard = true;
                 }
             }
         }
@@ -87,13 +94,17 @@ public class PressurePlate : MonoBehaviour {
         if (pressurePlatePushedCount < 0)
             pressurePlatePushedCount = 0;
 
-            foreach (Transform child in transform)
+        foreach (Transform child in transform)
+        {
+            if (child.name == "Door")
             {
-                if (child.name == "Door")
-                {
-                    child.gameObject.SetActive(true);
-                }
+                child.gameObject.SetActive(true);
             }
+            if (child.GetComponent<Hazard>() != null)
+            {//causes the hazards to rise up.
+                child.GetComponent<Hazard>().raiseHazard = true;
+            }
+        }
     }
 
     public void PressurePlateTotalIncrease()

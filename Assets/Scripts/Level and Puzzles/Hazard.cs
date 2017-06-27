@@ -12,14 +12,43 @@ public class Hazard : MonoBehaviour {
     //[HideInInspector]//How long it has been sense the enemy last attacked, use so that the enemy can't attack every frame.
     private float newSwingTimer = 0f;
     private float hitStun = 0;
+
+    public bool lowerHazard;
+    public bool raiseHazard;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    [SerializeField]
+    private float moveSpeed;
     // Use this for initialization
     void Start () {
-		
-	}
+        startPosition = transform.position;
+        endPosition = new Vector3(startPosition.x, startPosition.y - 0.8f, startPosition.z);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
+        if(raiseHazard)
+        {
+            transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+            if (transform.position.y >= startPosition.y)
+            {
+                transform.position = startPosition;
+                raiseHazard = false;
+                lowerHazard = false;
+            }
+        }
+        else if (lowerHazard)
+        {
+            transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+            if (transform.position.y <= endPosition.y)
+            {
+                transform.position = endPosition;
+                lowerHazard = false;
+            }
+        }
+
 	}
 
     public virtual void OnCollisionStay2D(Collision2D other)
