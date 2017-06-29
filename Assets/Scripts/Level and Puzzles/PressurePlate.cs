@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PressurePlate : MonoBehaviour {
-
-    [Tooltip("What kind of puzzle is this?")]
-    public PuzzleType puzzleType;
-
+    
     public bool holdDownButtons = true;
 
     [HideInInspector]
@@ -39,10 +36,16 @@ public class PressurePlate : MonoBehaviour {
             {
                 pressurePlateTotal++;
             }
+
+            else if (child.GetComponent<NewMovingPlatform>() != null)
+            {
+                child.GetComponent<NewMovingPlatform>().allowedToMove = false;
+                Debug.Log("Found a child");
+            }
         }
 
         //if (pressurePlateTotal >= gm.GetComponent<GameController>().totalPlayerCount)
-        int targetButton = pressurePlateTotal - 1;
+        //int targetButton = pressurePlateTotal - 1;
         pressurePlateTotal = 0;
 
         for (int i = 0; i < gm.GetComponent<GameController>().totalPlayerCount; i++)
@@ -54,7 +57,7 @@ public class PressurePlate : MonoBehaviour {
                 myButtons[i].GetComponent<Button>().IShouldBeActive();
                 myButtons[i].GetComponent<Button>().iShouldBeActiveBool = true;
                 activeButtonCount++;
-                Debug.Log("I " + i + "Pressure Plat Total: " + pressurePlateTotal);
+                //Debug.Log("I " + i + "Pressure Plat Total: " + pressurePlateTotal);
             }
         }
     }
@@ -84,6 +87,10 @@ public class PressurePlate : MonoBehaviour {
                 {//causes the hazards to rise up.
                     child.GetComponent<Hazard>().lowerHazard = true;
                 }
+                if (child.GetComponent<NewMovingPlatform>() != null)
+                {
+                    child.GetComponent<NewMovingPlatform>().allowedToMove = true;
+                }
             }
         }
     }
@@ -104,6 +111,10 @@ public class PressurePlate : MonoBehaviour {
             {//causes the hazards to rise up.
                 child.GetComponent<Hazard>().raiseHazard = true;
             }
+            if (child.GetComponent<NewMovingPlatform>() != null)
+            {
+                child.GetComponent<NewMovingPlatform>().allowedToMove = false;
+            }
         }
     }
 
@@ -114,7 +125,7 @@ public class PressurePlate : MonoBehaviour {
         if ((pressurePlateTotal >= gm.GetComponent<GameController>().totalPlayerCount) && (pressurePlateTotal > 1))
         {
             pressurePlateTotal = gm.GetComponent<GameController>().totalPlayerCount - 1;
-            Debug.Log("Running this code: " + pressurePlateTotal);
+            //Debug.Log("Running this code: " + pressurePlateTotal);
         }
     }
 }

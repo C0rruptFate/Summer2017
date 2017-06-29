@@ -50,9 +50,9 @@ public class Button : MonoBehaviour {
 
     public void IShouldBeActive()
     {
-        Debug.Log("Button is now active");
+        //Debug.Log("Button is now active");
         gameObject.SetActive(true);
         pressurePlateMaster.GetComponent<PressurePlate>().PressurePlateTotalIncrease();
-        Debug.Log("Presure plat total: " + pressurePlateMaster.GetComponent<PressurePlate>().pressurePlateTotal);
+        //Debug.Log("Presure plat total: " + pressurePlateMaster.GetComponent<PressurePlate>().pressurePlateTotal);
     }
 }

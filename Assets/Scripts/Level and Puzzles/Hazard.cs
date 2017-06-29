@@ -19,10 +19,17 @@ public class Hazard : MonoBehaviour {
     private Vector3 endPosition;
     [SerializeField]
     private float moveSpeed;
+
+    private bool isFallingHazard = false;
     // Use this for initialization
     void Start () {
         startPosition = transform.position;
         endPosition = new Vector3(startPosition.x, startPosition.y - 0.8f, startPosition.z);
+
+        if (transform.parent.GetComponent<FallingHazard>() != null)
+        {
+            isFallingHazard = true;
+        }
 
     }
 	
@@ -48,8 +55,15 @@ public class Hazard : MonoBehaviour {
                 lowerHazard = false;
             }
         }
-
 	}
+
+    public virtual void OnCollisionEnter2D(Collision2D other)
+    {
+        if (transform.GetComponent<Rigidbody2D>() != null && other.gameObject.CompareTag("Ground") && isFallingHazard)//Makes sure we are destroyed when hitting the ground.
+        {
+            DestroyMyself();
+        }
+    }
 
     public virtual void OnCollisionStay2D(Collision2D other)
     {
@@ -70,8 +84,43 @@ public class Hazard : MonoBehaviour {
                 //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
                 //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
                 health.TakeDamage(gameObject, damage, hitStun);
-                Debug.Log("did damage " + damage);
+                
+                if(isFallingHazard)//Removes itself if it is a falling hazard once it hits a player.
+                {
+                    DestroyMyself();
+                }
+
             }
         }
+
+        if (other.transform.tag == ("Enemy") && Time.time > newSwingTimer)//Lets it hurt enemies
+        {
+            //Debug.Log("Player should take damage");
+            newSwingTimer = Time.time + swingTimer;
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
+            //PlayerAttacks playerAttacks = health.playerAttacks;
+            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+
+            //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+            if (enemy && health)
+            {
+                //float distX = (other.transform.position.x - transform.position.x) * knockback;
+                //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
+                //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
+                health.TakeDamage(gameObject, damage, hitStun);
+
+                if (isFallingHazard)//Removes itself if it is a falling hazard once it hits a player.
+                {
+                    DestroyMyself();
+                }
+            }
+        }
+    }
+
+    void DestroyMyself()
+    {
+        //[TODO] Destroy effect
+        Destroy(gameObject);
     }
 }

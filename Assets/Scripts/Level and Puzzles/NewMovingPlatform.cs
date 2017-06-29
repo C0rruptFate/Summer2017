@@ -16,6 +16,8 @@ public class NewMovingPlatform : MonoBehaviour {
     [SerializeField]
     float platformSpeed = 2;
 
+    public bool allowedToMove = true;
+
     Vector3 direction;
 
     Transform destination;
@@ -38,7 +40,10 @@ public class NewMovingPlatform : MonoBehaviour {
 
     void FixedUpdate()
     {
-        platform.GetComponent<Rigidbody2D>().MovePosition(platform.position + direction * platformSpeed * Time.fixedDeltaTime);
+        if (allowedToMove)
+        {
+            platform.GetComponent<Rigidbody2D>().MovePosition(platform.position + direction * platformSpeed * Time.fixedDeltaTime);
+        }
 
         if (Vector3.Distance(platform.position, destination.position) < platformSpeed * Time.fixedDeltaTime)
         {

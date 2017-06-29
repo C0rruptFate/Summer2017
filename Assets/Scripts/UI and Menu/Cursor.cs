@@ -153,8 +153,13 @@ public class Cursor : MonoBehaviour {
     public void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log(other.gameObject);
-        possibleElement = other.GetComponent<CharacterSelector>().element;
-        currentlySelected = other.gameObject;
+
+        if (other.GetComponent<CharacterSelector>() != null)
+        {
+            possibleElement = other.GetComponent<CharacterSelector>().element;
+            currentlySelected = other.gameObject;
+        }
+
         //possibleCharacter = other.gameObject;
     }
 
@@ -162,8 +167,11 @@ public class Cursor : MonoBehaviour {
     public void OnTriggerExit2D(Collider2D other)
     {
         //Debug.Log(other.gameObject);
-        possibleElement = Element.None;
-        currentlySelected = null;
+        if (other.GetComponent<CharacterSelector>() != null)
+        {
+            possibleElement = Element.None;
+            currentlySelected = null;
+        }
         //possibleCharacter = null;
     }
 }
