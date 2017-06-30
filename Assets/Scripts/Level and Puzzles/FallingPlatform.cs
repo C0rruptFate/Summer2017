@@ -9,12 +9,14 @@ public class FallingPlatform : MonoBehaviour {
     private Rigidbody2D rb;
 
     private Vector3 startPosition;
+    private Quaternion startRotation;
 
     private bool alreadyFalling;
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
+        startRotation = transform.rotation;
 	}
 
     void OnCollisionEnter2D(Collision2D other)
@@ -36,6 +38,7 @@ public class FallingPlatform : MonoBehaviour {
     void ResetPlatform()
     {
         transform.position = startPosition;
+        transform.rotation = startRotation;
         rb.bodyType = RigidbodyType2D.Kinematic;
         alreadyFalling = false;
     }

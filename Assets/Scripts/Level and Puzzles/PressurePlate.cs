@@ -79,7 +79,7 @@ public class PressurePlate : MonoBehaviour {
         {
             foreach (Transform child in transform)
             {
-                if (child.name == "Door")
+                if (child.name == "Door" || child.name == "Wisp Stopper")
                 {
                     child.gameObject.SetActive(false);
                 }
