@@ -27,9 +27,16 @@ public class JumpingHazard : MonoBehaviour {
     {
         nextFire = Time.time + fireRate;
         GameObject newJumpingHazard = Instantiate(myjumpingHazard, transform.position, transform.rotation);
-        newJumpingHazard.AddComponent<DestroySelfRightAway>();
-        newJumpingHazard.AddComponent<Rigidbody2D>();
-        newJumpingHazard.GetComponent<DestroySelfRightAway>().waitToDestroyTime = destoryHazardsTime;
-        newJumpingHazard.GetComponent<Rigidbody2D>().AddForce(shootForce, ForceMode2D.Impulse);
+        if (myjumpingHazard.name != "Bubble")
+        {
+            newJumpingHazard.AddComponent<DestroySelfRightAway>();
+            newJumpingHazard.AddComponent<Rigidbody2D>();
+            newJumpingHazard.GetComponent<DestroySelfRightAway>().waitToDestroyTime = destoryHazardsTime;
+            newJumpingHazard.GetComponent<Rigidbody2D>().AddForce(shootForce, ForceMode2D.Impulse);
+        }
+        else
+        {
+
+        }
     }
 }

@@ -29,8 +29,8 @@ public class PlayerMovement : MonoBehaviour {
     public float minSpeed = 0;
 
 
-//Jumping
-[Tooltip("Force applied to the short jump.")]
+    //Jumping
+    [Tooltip("Force applied to the short jump.")]
     public int shortJumpForce = 5; //Force applied to the short jump.
     [Tooltip("Used to set how long a jump needs to be held down.")]
     public int maxJumpTimer = 10;
@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]
     public bool inWater = false;
     public float inWaterMass = 10;
+    [HideInInspector]//Should be kept at 1, if this is changed we need to change the bubble too and let Mike know.
     public float outofWaterMass = 1;
     [HideInInspector]
     public float inWaterMaxSpeed;
@@ -134,7 +135,7 @@ public class PlayerMovement : MonoBehaviour {
         //Start Swimming
         if(verticalDir < 0 && floatingOnWater)
         {
-            Debug.Log("player hit down to go into the water");
+            //Debug.Log("player hit down to go into the water");
             //in water
             //Increase mass
             rb.mass = inWaterMass;
@@ -170,7 +171,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if (inWater)
             {
-                Debug.Log("Water Jump");
+                //Debug.Log("Water Jump");
                 //Jump code for when in water
                 // Reset our velocity
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);

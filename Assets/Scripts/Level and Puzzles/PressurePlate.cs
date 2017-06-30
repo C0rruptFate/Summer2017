@@ -40,7 +40,7 @@ public class PressurePlate : MonoBehaviour {
             else if (child.GetComponent<NewMovingPlatform>() != null)
             {
                 child.GetComponent<NewMovingPlatform>().allowedToMove = false;
-                Debug.Log("Found a child");
+                //Debug.Log("Found a child");
             }
         }
 
