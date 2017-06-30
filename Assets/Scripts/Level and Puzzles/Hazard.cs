@@ -15,14 +15,14 @@ public class Hazard : MonoBehaviour {
 
     public bool lowerHazard;
     public bool raiseHazard;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
+    protected Vector3 startPosition;
+    protected Vector3 endPosition;
     [SerializeField]
     private float moveSpeed;
 
     private bool isFallingHazard = false;
     // Use this for initialization
-    void Start () {
+    public virtual void Start () {
         startPosition = transform.position;
         endPosition = new Vector3(startPosition.x, startPosition.y - 0.8f, startPosition.z);
 
@@ -34,7 +34,7 @@ public class Hazard : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	public virtual void Update () {
 		
         if(raiseHazard)
         {
@@ -118,7 +118,7 @@ public class Hazard : MonoBehaviour {
         }
     }
 
-    void DestroyMyself()
+    public virtual void DestroyMyself()
     {
         //[TODO] Destroy effect
         Destroy(gameObject);
