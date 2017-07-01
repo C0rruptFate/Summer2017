@@ -55,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
         if(enemyHPUIObject == null)
         {
             enemyHPUIObject = canvas.transform.Find("Enemy HP Slider").gameObject;
-            Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
+            //Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
             enemyHPUI = enemyHPUIObject.GetComponent<Slider>();
         }
     }
@@ -93,6 +93,7 @@ public class EnemyHealth : MonoBehaviour
                 enemyHPUIObject.SetActive(true);
             }
             UpDateEnemyUI();//Caues the enemy hp to update when they get hit.
+            Debug.Log("I took Damage: " + damage);
             //Hit stun
             myEnemyScript.enabled = false;
             Invoke("HitStun", hitStun);//calls hit stun as long as the attack that hit me says it should last for.

@@ -9,8 +9,8 @@ public class PlayerHealth : MonoBehaviour
     public Element element; //element of this player
     [Tooltip("How much Health do I start with? 'This is also max health.'")]
     public float startingHealth = 100f;
-    [HideInInspector]//The player's current HP
-    public float health = 100f;
+    //[HideInInspector]//The player's current HP
+    public float health = 200f;
 
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
     public float counterDamageModifier = 1.5f;
