@@ -19,9 +19,9 @@ public class EnemyHealth : MonoBehaviour
     public GameObject enemyHPUIObject;
 
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
-    public float counterDamageModifier = 1.5f;
+    public float counterDamageModifier = 0.5f;
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this below 1.0f'")]
-    public float counterResistanceModifier = 0.75f;
+    public float counterResistanceModifier = 0.25f;
 
     [Tooltip("Fill with empty drops and pick ups that could be dropped.")]
     public GameObject[] drops;
@@ -35,6 +35,8 @@ public class EnemyHealth : MonoBehaviour
     public GameObject canvas;
     [HideInInspector]
     public GameObject whatCantHitMe;
+    [HideInInspector]
+    public bool invulnerable = false;
 
     // Use this for initialization
     public virtual void Start()
@@ -61,44 +63,69 @@ public class EnemyHealth : MonoBehaviour
 
     public virtual void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
     {
+        float totalDamageModifier = 0;
         //Checks the element of what hit me and causes me to take extra damage or reduced damage.
         if (whatHitMe.GetComponent<Projectiles>() != null)
         {
             if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatCountersMe(element))
             {
-                damage = damage * counterDamageModifier;
+                totalDamageModifier = totalDamageModifier - counterDamageModifier;
+                //damage = damage * counterDamageModifier;
             }
             else if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatICounter(element))
             {
-                damage = damage * counterResistanceModifier;
+                totalDamageModifier = totalDamageModifier + counterResistanceModifier;
+                //damage = damage * counterResistanceModifier;
             }
         }
         else if (whatHitMe.GetComponent<PlayerMelee>() != null)
         {
             if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatCountersMe(element))
             {
-                damage = damage * counterDamageModifier;
+                totalDamageModifier = totalDamageModifier - counterDamageModifier;
+                //damage = damage * counterDamageModifier;
             }
             else if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatICounter(element))
             {
-                damage = damage * counterResistanceModifier;
+                totalDamageModifier = totalDamageModifier + counterResistanceModifier;
+                //damage = damage * counterResistanceModifier;
             }
         }
         else if (whatHitMe.GetComponent<Hazard>() != null)
         {
             if (whatHitMe.GetComponent<Hazard>().element == Constants.whatCountersMe(element))
             {
-                damage = damage * counterDamageModifier;
+                totalDamageModifier = totalDamageModifier - counterDamageModifier;
+                //damage = damage * counterDamageModifier;
             }
             else if (whatHitMe.GetComponent<Hazard>().element == Constants.whatICounter(element))
             {
-                damage = damage * counterResistanceModifier;
+                totalDamageModifier = totalDamageModifier + counterResistanceModifier;
+                //damage = damage * counterResistanceModifier;
             }
         }
         else
         {
             Debug.LogError("Something tried to damage " + gameObject.name + " that I don't have listed!");
         }
+
+        // [TODO] Enemies don't block (yet)
+        //if (gameObject.GetComponent<PlayerAttacks>().blocking)//If I am blocking take reduced damage and no hitstun.
+        //{
+        //    totalDamageModifier = totalDamageModifier + gameObject.GetComponent<PlayerAttacks>().blockingResistanceModifier;
+        //    Debug.Log("blocking mod: " + gameObject.GetComponent<PlayerAttacks>().blockingResistanceModifier);
+        //    Debug.Log("total Damage Mod round 3 after blocking: " + totalDamageModifier);
+        //    Debug.Log("damage round 3 after blocking: " + damage);
+        //    hitStun = 0;
+        //}
+
+        //if invulnerable don't take damage
+        if (invulnerable)
+        {
+            damage = 0;
+        }
+
+        damage = damage * (1 - totalDamageModifier); //calculates total damage taken.
 
 
         if (whatHitMe != whatCantHitMe)//Makes it so that this enemy can't be hit by the same attack right away (largely for melee attacks that last long).
