@@ -70,12 +70,10 @@ public class EnemyHealth : MonoBehaviour
             if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatCountersMe(element))
             {
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
-                //damage = damage * counterDamageModifier;
             }
             else if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatICounter(element))
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
-                //damage = damage * counterResistanceModifier;
             }
         }
         else if (whatHitMe.GetComponent<PlayerMelee>() != null)
@@ -83,12 +81,10 @@ public class EnemyHealth : MonoBehaviour
             if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatCountersMe(element))
             {
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
-                //damage = damage * counterDamageModifier;
             }
             else if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatICounter(element))
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
-                //damage = damage * counterResistanceModifier;
             }
         }
         else if (whatHitMe.GetComponent<Hazard>() != null)
@@ -96,12 +92,10 @@ public class EnemyHealth : MonoBehaviour
             if (whatHitMe.GetComponent<Hazard>().element == Constants.whatCountersMe(element))
             {
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
-                //damage = damage * counterDamageModifier;
             }
             else if (whatHitMe.GetComponent<Hazard>().element == Constants.whatICounter(element))
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
-                //damage = damage * counterResistanceModifier;
             }
         }
         else

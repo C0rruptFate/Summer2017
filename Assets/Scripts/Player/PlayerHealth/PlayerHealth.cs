@@ -67,8 +67,6 @@ public class PlayerHealth : MonoBehaviour
     {
         //damage reduction.
         float totalDamageModifier = 0;
-        Debug.Log("total Damage Mod: " + totalDamageModifier);
-        Debug.Log("damage: " + damage);
 
         //if I am hit by a projectile or melee enemy
         if (whatHitMe.CompareTag("Projectile"))
@@ -98,16 +96,10 @@ public class PlayerHealth : MonoBehaviour
             if (whatHitMe.GetComponent<Hazard>().element == Constants.whatCountersMe(element))
             {
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
-                Debug.Log("total Damage Mod round 2 what counters me: " + totalDamageModifier);
-                Debug.Log("damage round 2 what counters me: " + damage);
-                Debug.Log("counter damage Mod round 2: " + counterDamageModifier);
             }
             else if (whatHitMe.GetComponent<Hazard>().element == Constants.whatICounter(element))
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
-                Debug.Log("total Damage Mod round 2 what counters me: " + totalDamageModifier);
-                Debug.Log("damage round 2: " + damage);
-                Debug.Log("resist damage Mod round 2: " + counterResistanceModifier);
             }
         }
         else
@@ -118,9 +110,6 @@ public class PlayerHealth : MonoBehaviour
         if (gameObject.GetComponent<PlayerAttacks>().blocking)//If I am blocking take reduced damage and no hitstun.
         {
             totalDamageModifier = totalDamageModifier + gameObject.GetComponent<PlayerAttacks>().blockingResistanceModifier;
-            Debug.Log("blocking mod: " + gameObject.GetComponent<PlayerAttacks>().blockingResistanceModifier);
-            Debug.Log("total Damage Mod round 3 after blocking: " + totalDamageModifier);
-            Debug.Log("damage round 3 after blocking: " + damage);
             hitStun = 0;
         }
         //if invulnerable don't take damage
