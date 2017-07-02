@@ -104,7 +104,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Something tried to damage me that I don't have listed!");
+            Debug.LogError("Something tried to damage " + gameObject.name + " that I don't have listed!");
         }
 
         if (gameObject.GetComponent<PlayerAttacks>().blocking)//If I am blocking take reduced damage and no hitstun.

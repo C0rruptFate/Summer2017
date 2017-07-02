@@ -6,7 +6,7 @@ public class LightningStrike : Hazard {
 
     public float waitTime = 1;
 
-    private float hitStun = 0;
+    //public float hitStun = 0;
 
     // Use this for initialization
     public override void Start() {

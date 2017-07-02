@@ -275,7 +275,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740151737074810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.894, y: 1.33, z: 0}
+  m_LocalPosition: {x: 0, y: 1.33, z: 0}
   m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_Children:
   - {fileID: 4718649403340284}
@@ -408,7 +408,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -539,7 +539,8 @@ MonoBehaviour:
   blocking: 0
   blockEffect: {fileID: 1391775472913824, guid: 985114a4363cbe74bb668a0da16d969b,
     type: 2}
-  specialActiveEffect: {fileID: 0}
+  specialActiveEffect: {fileID: 1994015533333344, guid: f53c0a3f70ec5ae4db41212763ef3aac,
+    type: 2}
   specialActive: 0
   specialMeleeAttackObject: {fileID: 1058402032370298, guid: f703b28382f61d94fb17f698608d9d25,
     type: 2}

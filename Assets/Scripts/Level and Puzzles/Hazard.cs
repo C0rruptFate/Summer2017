@@ -9,9 +9,9 @@ public class Hazard : MonoBehaviour {
     [Tooltip("How much time must take place between swings.")]
     public float swingTimer = 0.5f;
 
-    //[HideInInspector]//How long it has been sense the enemy last attacked, use so that the enemy can't attack every frame.
+    //How long it has been sense the enemy last attacked, use so that the enemy can't attack every frame.
     private float newSwingTimer = 0f;
-    private float hitStun = 0;
+    public float hitStun = 0;
 
     public bool lowerHazard;
     public bool raiseHazard;

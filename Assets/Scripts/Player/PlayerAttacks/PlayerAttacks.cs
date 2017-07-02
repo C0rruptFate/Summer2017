@@ -513,12 +513,22 @@ public class PlayerAttacks : MonoBehaviour {
             //turn special is active to true
             //Debug.Log("Special is active.");
             specialActive = true;
+            if (transform.Find("specialActiveEffect") == null)
+            {
+                GameObject newSpecialActiveEffect = Instantiate(specialActiveEffect, transform.position, transform.rotation);
+                newSpecialActiveEffect.name = "specialActiveEffect";
+                newSpecialActiveEffect.transform.parent = transform;
+            }
         }
         if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)//Turns off the special when the button/trigger is released.
         {
             //Turn off special
             //Debug.Log("SpeciaL has been DEACTIVATED");
             specialActive = false;
+            if (transform.Find("specialActiveEffect") != null)
+            {
+                Destroy(transform.Find("specialActiveEffect").gameObject);
+            }
         }
 
         //Melee attacks

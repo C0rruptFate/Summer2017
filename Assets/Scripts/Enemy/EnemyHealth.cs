@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//public enum Element { Fire, Ice, Earth, Air };
 public class EnemyHealth : MonoBehaviour
 {
     [Header("Spawn rate and type")]
@@ -63,18 +62,18 @@ public class EnemyHealth : MonoBehaviour
     public virtual void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
     {
         //Checks the element of what hit me and causes me to take extra damage or reduced damage.
-        if (whatHitMe.CompareTag("Projectile"))
+        if (whatHitMe.GetComponent<Projectiles>() != null)
         {
-            if (whatHitMe.GetComponent<PlayerProjectile>().element == Constants.whatCountersMe(element))
+            if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatCountersMe(element))
             {
                 damage = damage * counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<PlayerProjectile>().element == Constants.whatICounter(element))
+            else if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatICounter(element))
             {
                 damage = damage * counterResistanceModifier;
             }
         }
-        else
+        else if (whatHitMe.GetComponent<PlayerMelee>() != null)
         {
             if (whatHitMe.GetComponent<PlayerMelee>().myElement == Constants.whatCountersMe(element))
             {
@@ -85,6 +84,23 @@ public class EnemyHealth : MonoBehaviour
                 damage = damage * counterResistanceModifier;
             }
         }
+        else if (whatHitMe.GetComponent<Hazard>() != null)
+        {
+            if (whatHitMe.GetComponent<Hazard>().element == Constants.whatCountersMe(element))
+            {
+                damage = damage * counterDamageModifier;
+            }
+            else if (whatHitMe.GetComponent<Hazard>().element == Constants.whatICounter(element))
+            {
+                damage = damage * counterResistanceModifier;
+            }
+        }
+        else
+        {
+            Debug.LogError("Something tried to damage " + gameObject.name + " that I don't have listed!");
+        }
+
+
         if (whatHitMe != whatCantHitMe)//Makes it so that this enemy can't be hit by the same attack right away (largely for melee attacks that last long).
         {
             health -= damage;//Takes damage.
