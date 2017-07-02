@@ -26,22 +26,13 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
     {
         //Debug.Log("Look here");
         //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
         {
             gameObject.GetComponent<Collider2D>().enabled = true;
         }
-
-        //Used to set up lobbed projectiles.
-        //if (!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
-        //{
-        //    Debug.Log("Look here");
-        //    formerParent = transform.parent;
-        //    transform.parent = player.transform;
-        //    Invoke("ThrowForce", throwWaitTime);
-        //}
 
         //Debug.Log("Look here");
         formerParent = transform.parent;
@@ -65,7 +56,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
         {
             Destroy(gameObject);
         }
-
+       
         //Causes the object to fly forward.
         if (usesConstantForceProjectile)
         {

@@ -34,7 +34,7 @@ public class Wisp : MonoBehaviour {
         //if Moving will move to the target wisp location.
         if(moving)
         {
-            shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
+            //shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
             MoveToTarget();
         }
 
@@ -43,7 +43,7 @@ public class Wisp : MonoBehaviour {
         {
             moving = false;
             //Causes the particles to move clockwise
-            shape.arcMode = ParticleSystemShapeMultiModeValue.Loop;
+            //shape.arcMode = ParticleSystemShapeMultiModeValue.Loop;
         }
     }
 

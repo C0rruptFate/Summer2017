@@ -600,7 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   element: 2
-  startingHealth: 100
+  startingHealth: 200
   health: 100
   counterDamageModifier: 1.5
   counterResistanceModifier: 0.75
@@ -647,6 +647,8 @@ MonoBehaviour:
   inWater: 0
   inWaterMass: 10
   outofWaterMass: 1
+  inWaterMaxSpeed: 0
+  inWaterRunForce: 0
   bounceJumpsUsed: 0
   arialJumpsUsed: 0
   grounded: 0

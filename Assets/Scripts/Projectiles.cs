@@ -32,18 +32,21 @@ public class Projectiles : MonoBehaviour {
     [HideInInspector]
     public GameObject player; //Who this belongs to.
     [HideInInspector]//What element is this projectile.
-    public Element myElement;
+    public Element element;
 
     protected Rigidbody2D rb; //My Rigidibody
 
     [HideInInspector]//Make this false to hurt enemies and true to hurt players.
-    public bool hurtsPlayers;
+    public bool hurtsPlayers = false;
+    [HideInInspector]
+    public Transform reflectedPoint;
     // Start and fixed update are blocked out atm
+
     public virtual void Start()
     {
 
         //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -82,6 +85,10 @@ public class Projectiles : MonoBehaviour {
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
         }
+        else
+        {//Reflects the projectile.
+            transform.position = Vector3.MoveTowards(transform.position, reflectedPoint.position, -projectileSpeed * Time.deltaTime);
+        }
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other)
@@ -96,11 +103,6 @@ public class Projectiles : MonoBehaviour {
 
                 if (enemy && health)
                 {
-                    //Debug.Log("Hit enemy");
-                    //float distX = (other.transform.position.x - transform.position.x) * knockback;
-                    //float distY = (other.transform.position.y - transform.position.y) * knockback;
-                    //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
-                    //otherRB.AddForce(new Vector3(distX, distY, 0), ForceMode.Impulse);
                     health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
                     //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
                     if (breaking)
@@ -108,11 +110,30 @@ public class Projectiles : MonoBehaviour {
                         Destroy(gameObject);
                     }
                 }
-            } 
+            }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
         }
-        else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+        else if (hurtsPlayers == true)
         {
-            Destroy(gameObject);
+            if (other.transform.tag == ("Player"))
+            {
+                //Debug.Log("Player should take damage");
+                PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+                PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
+
+                //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+                if (playerMovement && health)
+                {
+                    health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                }
+            }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

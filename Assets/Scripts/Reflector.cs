@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Reflector : MonoBehaviour {
+    
+    public bool hurtsPlayers = true;
+
+    public Transform reflectPoint;
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("reflector has spawned.");
+        reflectPoint.transform.position = transform.position;
+        //Debug.Log("reflector has spawned.");
     }
 	
 	// Update is called once per frame
@@ -20,16 +25,17 @@ public class Reflector : MonoBehaviour {
         {
             other.GetComponent<PlayerProjectileAirBasic>().currentLife = Time.time + other.GetComponent<PlayerProjectileAirBasic>().projectileMaxDuration;
             other.GetComponent<PlayerProjectileAirBasic>().returnToPlayer = false;
+            other.GetComponent<Projectiles>().hurtsPlayers = hurtsPlayers;
             //Debug.Log("Reflected my own projectile");
         }
-
-        if (other.CompareTag("Projectile"))
+        else if (other.GetComponent<Projectiles>() != null)
         {
-             Quaternion otherRotation = other.transform.rotation;
-            otherRotation.y = other.transform.rotation.y - 180;
+            //Debug.Log(other.gameObject.name + " Hit me");
+            //Debug.Log("other.transform.rotation after changes: " + other.transform.rotation);
+            other.GetComponent<Projectiles>().usesConstantForceProjectile = false;
+            other.GetComponent<Projectiles>().reflectedPoint = reflectPoint;
+            other.GetComponent<Projectiles>().hurtsPlayers = hurtsPlayers;
             //Debug.Log("Reflected A projectile");
         }
-
-
     }
 }

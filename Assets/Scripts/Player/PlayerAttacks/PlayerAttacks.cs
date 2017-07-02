@@ -143,7 +143,7 @@ public class PlayerAttacks : MonoBehaviour {
     [HideInInspector]//Current cool down of this ability.
     public float currentSpecialDefendCooldown;
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool specialBlocking;
     #endregion
 
@@ -550,7 +550,7 @@ public class PlayerAttacks : MonoBehaviour {
         {
             if (!blocking)
             {
-                Debug.Log("Defend Special is active.");
+                //Debug.Log("Defend Special is active.");
                 blocking = true;
                 specialBlocking = true;
                 SpecialPlayerDefend();

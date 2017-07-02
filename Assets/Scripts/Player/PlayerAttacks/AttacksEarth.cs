@@ -12,8 +12,17 @@ public class AttacksEarth : PlayerAttacks {
 
     [Tooltip("Speed objects will be pulled in at.")]
     public float pullSpeed = 10;
-    [Tooltip("How Long does this last.")]
+    [Tooltip("How Long does my Melee pull in last.")]
     public float effectDuration = 5;
+
+    [Tooltip("How Long does my Special Defend last.")]
+    public float specialDefendDestroyWait = 4f;
+
+    [Tooltip("How fast does my Special Defend Move.")]
+    public float specialDefendMoveSpeed = 50f;
+
+    [Tooltip("How many Hits can my Special Defend Take.")]
+    public int specialDefendMaxHits = 5;
 
     // Use this for initialization
     public override void Start()
@@ -24,7 +33,6 @@ public class AttacksEarth : PlayerAttacks {
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksEarth>();
         base.Start();
     }
-   
 
     protected override void SpecialMeleeAttack()
     {
@@ -34,12 +42,11 @@ public class AttacksEarth : PlayerAttacks {
     }
 
     public override void SpecialPlayerDefend()
-    {
-        //Spends the mana to use your special ranged attack.
-        //playerHealth.SpendMana(specialDefendManaCost);
-
-        //[TODO] Set up the special Defend for each character.
-
+    {//Might need to change spawn from location.
+        GameObject specialDefender = Instantiate(specialDefendObject, new Vector3 (transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+        //specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
+        specialDefender.transform.parent = playerWeaponParent.transform;
+        SetSpecialDefendStats(specialDefender);
     }
 
     public override void SetSpecialMeleeAttackStats(GameObject melee)
@@ -64,5 +71,14 @@ public class AttacksEarth : PlayerAttacks {
         specialProjectile.GetComponent<PlayerProjectile>().projectileMaxDuration = specialProjectileMaxDuration;
         specialProjectile.GetComponent<PlayerProjectile>().lobbedForce = specialLobbedForce;
         specialProjectile.GetComponent<PlayerProjectileEarthSpecial>().throwWaitTime = throwWaitTime;
+    }
+
+    public override void SetSpecialDefendStats(GameObject defend)
+    {
+        defend.GetComponent<EarthSpecialDefend>().player = gameObject;
+        defend.GetComponent<EarthSpecialDefend>().destroyWait = specialDefendDestroyWait;
+        defend.GetComponent<EarthSpecialDefend>().moveSpeed = specialDefendMoveSpeed;
+        defend.GetComponent<EarthSpecialDefend>().maxHits = specialDefendMaxHits;
+        defend.GetComponent<EarthSpecialDefend>().myGun = groundMeleeGun;
     }
 }

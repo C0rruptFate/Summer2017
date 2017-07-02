@@ -10,6 +10,8 @@ public class AttacksAir : PlayerAttacks {
     [Tooltip("How long does this debuff last?")]
     public float airEffectDuration = 3f;
 
+    public Transform reflectorPoint;
+
     // Use this for initialization
     public override void Start()
     {
@@ -18,6 +20,8 @@ public class AttacksAir : PlayerAttacks {
         GetComponent<PlayerHealth>().playerAttacks = GetComponent<AttacksAir>();
         GetComponent<PlayerMovement>().playerAttacks = GetComponent<AttacksAir>();
         base.Start();
+        //Removes the reflector from myself and puts it on the weapon Parent.
+        reflectorPoint.parent = playerWeaponParent.transform;
     }
 
     public override void MeleeAttack()
@@ -75,10 +79,6 @@ public class AttacksAir : PlayerAttacks {
     public override void SpecialPlayerDefend()
     {
         base.SpecialPlayerDefend();
-        //Spends the mana to use your special ranged attack.
-        //playerHealth.SpendMana(specialDefendManaCost);
-
-        //[TODO] Set up the special Defend for each character.
 
     }
 
@@ -98,5 +98,12 @@ public class AttacksAir : PlayerAttacks {
         projectile.GetComponent<PlayerProjectile>().usesConstantForceProjectile = usesConstantForceProjectile;
         projectile.GetComponent<PlayerProjectile>().breaksHittingWall = specialBreaksHittingWall;
         projectile.GetComponent<PlayerProjectile>().throwWaitTime = throwWaitTime;
+    }
+
+    public override void SetSpecialDefendStats(GameObject defend)
+    {
+        base.SetSpecialDefendStats(defend);
+        defend.GetComponent<Reflector>().hurtsPlayers = false;
+        defend.GetComponent<Reflector>().reflectPoint = reflectorPoint;
     }
 }

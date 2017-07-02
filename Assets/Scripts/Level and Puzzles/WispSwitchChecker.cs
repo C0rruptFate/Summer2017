@@ -75,6 +75,9 @@ public class WispSwitchChecker : MonoBehaviour
                 case PuzzleType.EndLevel:
                     BeatLevel();
                     break;
+                case PuzzleType.RemoveHazard:
+                    RemoveHazards();
+                    break;
             }
         }
     }
@@ -90,5 +93,10 @@ public class WispSwitchChecker : MonoBehaviour
     {
         //[TODO] Set end level function.
         gameManager.GetComponent<GameController>().BeatLevel();
+    }
+
+    public void RemoveHazards()
+    {
+
     }
 }

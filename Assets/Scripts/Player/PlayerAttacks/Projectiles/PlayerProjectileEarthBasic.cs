@@ -21,9 +21,9 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
     // Use this for initialization
     public override void Start()
     {
-        Debug.Log("I am born!");
+        //Debug.Log("I am born!");
         //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -88,41 +88,64 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
 
     public override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
+        if (hurtsPlayers == false)
         {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
-            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
-
-            if (enemy && health)
+            if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
             {
-                //Debug.Log("Hit enemy");
-                //float distX = (other.transform.position.x - transform.position.x) * knockback;
-                //float distY = (other.transform.position.y - transform.position.y) * knockback;
-                //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
-                //otherRB.AddForce(new Vector3(distX, distY, 0), ForceMode.Impulse);
-                health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
-                //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
+                Enemy enemy = other.gameObject.GetComponent<Enemy>();
+                EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
+                //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
 
-                if (beingPulledIn && iveHitSomething == false)
+                if (enemy && health)
                 {
-                    iveHitSomething = true;
-                    rb.gravityScale = 1;
-                    beingPulledIn = false;
-                }
+                    //Debug.Log("Hit enemy");
+                    health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                    //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
 
-                currentHitCount++;
-                Debug.Log("current Hit Count: " + currentHitCount);
-                if (breaking || currentHitCount == maxHitCount)
-                {
-                    Debug.Log("current Hit Count when dieing: " + currentHitCount);
-                    Destroy(gameObject);
+                    if (beingPulledIn && iveHitSomething == false)
+                    {
+                        iveHitSomething = true;
+                        rb.gravityScale = 1;
+                        beingPulledIn = false;
+                    }
+
+                    currentHitCount++;
+                    Debug.Log("current Hit Count: " + currentHitCount);
+                    if (breaking || currentHitCount == maxHitCount)
+                    {
+                        Debug.Log("current Hit Count when dieing: " + currentHitCount);
+                        Destroy(gameObject);
+                    }
                 }
             }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
         }
-        else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+        else if (hurtsPlayers == true)
         {
-            Destroy(gameObject);
+            if (other.transform.tag == ("Player"))
+            {
+                //Debug.Log("Player should take damage");
+                PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+                PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
+                //PlayerAttacks playerAttacks = health.playerAttacks;
+                //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+
+                //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+                if (playerMovement && health)
+                {
+                    //float distX = (other.transform.position.x - transform.position.x) * knockback;
+                    //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
+                    //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
+                    health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                }
+            }
+            else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

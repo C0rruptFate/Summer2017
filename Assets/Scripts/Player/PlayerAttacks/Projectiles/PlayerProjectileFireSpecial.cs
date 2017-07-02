@@ -14,7 +14,7 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
     {
 
         //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
         float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
@@ -43,21 +43,31 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
         }
+        else
+        {//Reflects the projectile.
+            transform.position = Vector3.MoveTowards(transform.position, reflectedPoint.position, -projectileSpeed * Time.deltaTime);
+        }
     }
 
     public override void OnTriggerEnter2D(Collider2D other)
     {
-        //Creates the explosion then distroys itself.
-
-
-        //Should be removed.
-        if (other.tag == ("Enemy") || other.tag == ("Ground"))//If this hits an enemy deals damage to them.
+        if (hurtsPlayers == false)
         {
-            //GameObject explosion = Instantiate(explosionObject, transform.position, transform.rotation);
-            GameObject explosion = Instantiate(explosionObject, explosionLocation.position, explosionLocation.rotation);
-            explosion.GetComponent<FireProjectileExplosion>().player = player;
-            Destroy(gameObject);
-
+            if (other.tag == ("Enemy") || other.tag == ("Ground"))//If this hits an enemy deals damage to them.
+            {
+                GameObject explosion = Instantiate(explosionObject, explosionLocation.position, explosionLocation.rotation);
+                explosion.GetComponent<FireProjectileExplosion>().player = player;
+                Destroy(gameObject);
+            }
+        }
+        else if (hurtsPlayers == true)
+        {
+            if (other.tag == ("Player") || other.tag == ("Ground"))//If this hits an enemy deals damage to them.
+            {
+                GameObject explosion = Instantiate(explosionObject, explosionLocation.position, explosionLocation.rotation);
+                explosion.GetComponent<FireProjectileExplosion>().player = player;
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -54,6 +54,9 @@ public class PlayerUI : MonoBehaviour
     private PlayerHealth playerHealth; //player HP script
     private PlayerAttacks playerAttacks;
     private GameObject player; //the player themself
+    private Animator anim;
+    [HideInInspector]
+    public bool healed;
 
     // Use this for initialization
     void Start()
@@ -63,6 +66,10 @@ public class PlayerUI : MonoBehaviour
         //manaUI = gameObject.transform.GetChild(2);
         //finds the sliders of those elements.
         hpSlider = healthUI.GetComponent<Slider>();
+        //Animation Stuff
+        anim = GetComponent<Animator>();
+        anim.SetBool("UITakeDamage", false);
+        anim.SetBool("UIHeal", false);
         //manaSlider = manaUI.GetComponent<Slider>();
 
         //Sets up the Sliders for player cooldowns
@@ -112,14 +119,30 @@ public class PlayerUI : MonoBehaviour
         rangedSlider.maxValue = playerAttacks.specialRangedCooldown;
         defendSlider.maxValue = playerAttacks.specialDefendCooldown;
 
-
-        //Find player mana
-        //maxMana = playerResources.maxMana;
-        //manaSlider.maxValue = maxMana;
-
-
         //Set the UI
-        SetHealthUI();
+        //SetHealthUI();
+        #region
+        currentHealth = playerHealth.health;
+        hpSlider.value = currentHealth;
+
+        //Changes HP bar colors
+        if (currentHealth <= 0)
+        {
+            hpFillImage.enabled = false;
+        }
+        else if (currentHealth <= (startingHealth / 4))//HP turns red when you are below 25% hp
+        {
+            hpFillImage.color = lowHealthColor;
+        }
+        else if (currentHealth <= (startingHealth / 2))//HP turns yellow when you are below 25% hp
+        {
+            hpFillImage.color = halfHealthColor;
+        }
+        else if (currentHealth == startingHealth)
+        {
+            hpFillImage.color = fullHealthColor;
+        }
+        #endregion
 
         //Fire Combo meter
         fireComboSystem = gameObject.transform.Find("Fire Combo Counter");
@@ -189,6 +212,17 @@ public class PlayerUI : MonoBehaviour
     //Call this everytime the player takes damage or is healed. Using 'uiHealth.GetComponent<UIHealth>().SetHealthUI();' on the player
     public void SetHealthUI()//Updates the HP UI when the player gains/loses HP.
     {
+        if (playerHealth.health < currentHealth) //Testing UI shake Take Damage
+        {
+            Debug.Log("Took Damage");
+            anim.SetBool("UITakeDamage", true);
+        }
+        else if (playerHealth.health > currentHealth) //Testing UI shake Take Damage
+        {
+            Debug.Log("Healed");
+            anim.SetBool("UIHeal", true);
+        }
+
         currentHealth = playerHealth.health;
         hpSlider.value = currentHealth;
         
@@ -217,5 +251,15 @@ public class PlayerUI : MonoBehaviour
             fireComboSlider.value = fireAttacks.currentComboPoints;
             fireComboCountText.text = fireComboSlider.value.ToString();
         }
+    }
+
+    public void NoLongerTakingDamage()
+    {
+        anim.SetBool("UITakeDamage", false);
+    }
+
+    public void FinishHealUIEffect()
+    {
+        anim.SetBool("UIHeal", false);
     }
 }

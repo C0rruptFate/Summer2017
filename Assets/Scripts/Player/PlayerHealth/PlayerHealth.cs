@@ -9,15 +9,9 @@ public class PlayerHealth : MonoBehaviour
     public Element element; //element of this player
     [Tooltip("How much Health do I start with? 'This is also max health.'")]
     public float startingHealth = 100f;
-    [HideInInspector]//The player's current HP
-    public float health = 100f;
+    //[HideInInspector]//The player's current HP
+    public float health = 200f;
 
-    //[Tooltip("What is my max mana?")]
-    //public float maxMana = 100f;
-    //[Tooltip("How much mana do I start with?")]
-    //public float startingMana =100f;
-    //[HideInInspector]//The players current Mana
-    //public float mana;
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
     public float counterDamageModifier = 1.5f;
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this below 1.0f'")]
@@ -77,16 +71,16 @@ public class PlayerHealth : MonoBehaviour
         //if I am hit by a projectile or melee enemy
         if (whatHitMe.CompareTag("Projectile"))
         {
-            if (whatHitMe.GetComponent<EnemyProjectile>().element == Constants.whatCountersMe(element))
+            if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatCountersMe(element) && whatHitMe.GetComponent<Projectiles>().hurtsPlayers)
             {
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<EnemyProjectile>().element == Constants.whatICounter(element))
+            else if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatICounter(element) && whatHitMe.GetComponent<Projectiles>().hurtsPlayers)
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }
         }
-        else
+        else if (whatHitMe.GetComponent<EnemyHealth>() != null)
         {//if I am hit by an enemy
             if (whatHitMe.GetComponent<EnemyHealth>().element == Constants.whatCountersMe(element))
             {
@@ -97,6 +91,22 @@ public class PlayerHealth : MonoBehaviour
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }
         }
+        else if (whatHitMe.GetComponent<Hazard>() != null)
+        {//Damaged by a hazard
+            if (whatHitMe.GetComponent<Hazard>().element == Constants.whatCountersMe(element))
+            {
+                totalDamageModifier = totalDamageModifier - counterDamageModifier;
+            }
+            else if (whatHitMe.GetComponent<Hazard>().element == Constants.whatICounter(element))
+            {
+                totalDamageModifier = totalDamageModifier + counterResistanceModifier;
+            }
+        }
+        else
+        {
+            Debug.LogError("Something tried to damage me that I don't have listed!");
+        }
+
         if (gameObject.GetComponent<PlayerAttacks>().blocking)//If I am blocking take reduced damage and no hitstun.
         {
             totalDamageModifier = totalDamageModifier + gameObject.GetComponent<PlayerAttacks>().blockingResistanceModifier;

@@ -60,7 +60,6 @@ public class AttacksFire : PlayerAttacks {
                 growing = false;
             }     
         }
-
     }
 
     public void FixedUpdate()

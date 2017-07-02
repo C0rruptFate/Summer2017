@@ -55,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
         if(enemyHPUIObject == null)
         {
             enemyHPUIObject = canvas.transform.Find("Enemy HP Slider").gameObject;
-            Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
+            //Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
             enemyHPUI = enemyHPUIObject.GetComponent<Slider>();
         }
     }
@@ -65,11 +65,11 @@ public class EnemyHealth : MonoBehaviour
         //Checks the element of what hit me and causes me to take extra damage or reduced damage.
         if (whatHitMe.CompareTag("Projectile"))
         {
-            if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatCountersMe(element))
+            if (whatHitMe.GetComponent<PlayerProjectile>().element == Constants.whatCountersMe(element))
             {
                 damage = damage * counterDamageModifier;
             }
-            else if (whatHitMe.GetComponent<PlayerProjectile>().myElement == Constants.whatICounter(element))
+            else if (whatHitMe.GetComponent<PlayerProjectile>().element == Constants.whatICounter(element))
             {
                 damage = damage * counterResistanceModifier;
             }
@@ -93,6 +93,7 @@ public class EnemyHealth : MonoBehaviour
                 enemyHPUIObject.SetActive(true);
             }
             UpDateEnemyUI();//Caues the enemy hp to update when they get hit.
+            Debug.Log("I took Damage: " + damage);
             //Hit stun
             myEnemyScript.enabled = false;
             Invoke("HitStun", hitStun);//calls hit stun as long as the attack that hit me says it should last for.

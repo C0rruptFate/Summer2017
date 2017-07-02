@@ -533,6 +533,8 @@ MonoBehaviour:
   inWater: 0
   inWaterMass: 10
   outofWaterMass: 1
+  inWaterMaxSpeed: 0
+  inWaterRunForce: 0
   bounceJumpsUsed: 0
   arialJumpsUsed: 0
   grounded: 0
@@ -552,7 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   element: 3
-  startingHealth: 150
+  startingHealth: 200
   health: 100
   counterDamageModifier: 1.5
   counterResistanceModifier: 0.75
@@ -632,7 +634,7 @@ MonoBehaviour:
   currentSpecialRangedCooldown: 0
   specialDefendObject: {fileID: 1391775472913824, guid: 1fb024f052988464695123a811a91805,
     type: 2}
-  specialDefendCooldown: 5
+  specialDefendCooldown: 20
   currentSpecialDefendCooldown: 0
   specialBlocking: 0
   myWispTargetLocation: {fileID: 4917517063950208}
@@ -649,6 +651,9 @@ MonoBehaviour:
   forceMagnitude: -200
   pullSpeed: 50
   effectDuration: 5
+  specialDefendDestroyWait: 3
+  specialDefendMoveSpeed: 45
+  specialDefendMaxHits: 5
 --- !u!212 &212044679190248080
 SpriteRenderer:
   m_ObjectHideFlags: 1

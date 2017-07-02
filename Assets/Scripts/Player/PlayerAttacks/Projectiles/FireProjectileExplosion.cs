@@ -8,7 +8,7 @@ public class FireProjectileExplosion : PlayerProjectile {
     public override void Start () {
 
         //Set's my element
-        myElement = player.GetComponent<PlayerHealth>().element;
+        element = player.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -21,9 +21,19 @@ public class FireProjectileExplosion : PlayerProjectile {
 
     public override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (hurtsPlayers == false)
         {
-            other.GetComponent<EnemyHealth>().TakeDamage(gameObject, player.GetComponent<PlayerAttacks>().specialRangedDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+            if (other.tag == "Enemy")
+            {
+                other.GetComponent<EnemyHealth>().TakeDamage(gameObject, player.GetComponent<PlayerAttacks>().specialRangedDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+            }
+        }
+        else if (hurtsPlayers == true)
+        {
+            if (other.tag == "Player")
+            {
+                other.GetComponent<EnemyHealth>().TakeDamage(gameObject, player.GetComponent<PlayerAttacks>().specialRangedDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+            }
         }
     }
 

@@ -25,12 +25,12 @@ public class PlayerMovement : MonoBehaviour {
     public float maxSpeed;
     [SerializeField] //how quickly the player stops.
     protected float decelerationForce;
-    [SerializeField]//Used if the character isn't getting input but is still moving.
-    protected float minSpeed;
+    [HideInInspector]//Used if the character isn't getting input but is still moving.
+    public float minSpeed = 0;
 
 
-//Jumping
-[Tooltip("Force applied to the short jump.")]
+    //Jumping
+    [Tooltip("Force applied to the short jump.")]
     public int shortJumpForce = 5; //Force applied to the short jump.
     [Tooltip("Used to set how long a jump needs to be held down.")]
     public int maxJumpTimer = 10;
@@ -60,7 +60,12 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]
     public bool inWater = false;
     public float inWaterMass = 10;
+    [HideInInspector]//Should be kept at 1, if this is changed we need to change the bubble too and let Mike know.
     public float outofWaterMass = 1;
+    [HideInInspector]
+    public float inWaterMaxSpeed;
+    [HideInInspector]
+    public float inWaterRunForce;
 
 
     protected bool groundJumpInitiated = false; //have I started to jump yet?
@@ -99,6 +104,16 @@ public class PlayerMovement : MonoBehaviour {
         jumpMovement = "Jump" + playerNumber;
         //Debug.Log("horizontalMovement" + gameObject + horizontalMovement);
         //Debug.Log("jumpMovement" + gameObject + jumpMovement);
+
+        //Water
+        inWaterMaxSpeed = maxSpeed * 2;
+        inWaterRunForce = runForce * 2;
+        if (playerHealth.element == Element.Ice)
+        {
+
+            inWaterMaxSpeed = inWaterMaxSpeed * 2;
+            inWaterRunForce = inWaterRunForce * 2;
+        }
     }
 	
 	// Update is called once per frame
@@ -120,7 +135,7 @@ public class PlayerMovement : MonoBehaviour {
         //Start Swimming
         if(verticalDir < 0 && floatingOnWater)
         {
-            Debug.Log("player hit down to go into the water");
+            //Debug.Log("player hit down to go into the water");
             //in water
             //Increase mass
             rb.mass = inWaterMass;
@@ -156,7 +171,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if (inWater)
             {
-                Debug.Log("Water Jump");
+                //Debug.Log("Water Jump");
                 //Jump code for when in water
                 // Reset our velocity
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);
@@ -289,13 +304,30 @@ public class PlayerMovement : MonoBehaviour {
 
     public virtual void MovingPlayer()
     {//moves the player by adjusting their velocity.
-        if (horizontalDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
+        
+        if (inWater)
         {
-            rb.AddForce(new Vector2(horizontalDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
-        }   
-        else if (horizontalDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
-        {
-            rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
+            if (horizontalDir != 0 && Mathf.Abs(rb.velocity.x) < inWaterMaxSpeed) //if horizontal input is active and character is below max speed
+            {
+                rb.AddForce(new Vector2(horizontalDir * inWaterRunForce * Time.deltaTime, 0)); //apply horizontal movement force
+            }
+            else if (horizontalDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
+            {
+                rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
+            }
         }
+        else
+        {
+            if (horizontalDir != 0 && Mathf.Abs(rb.velocity.x) < maxSpeed) //if horizontal input is active and character is below max speed
+            {
+                rb.AddForce(new Vector2(horizontalDir * runForce * Time.deltaTime, 0)); //apply horizontal movement force
+            }
+            else if (horizontalDir == 0 && Mathf.Abs(rb.velocity.x) > minSpeed) //if horizontal is inactive but character is still moving
+            {
+                rb.AddForce(new Vector2(-(Mathf.Sign(rb.velocity.x)) * decelerationForce * Time.deltaTime, 0f)); //apply deceleration force
+            }
+        }
+
+
     }
 }
