@@ -282,10 +282,12 @@ MonoBehaviour:
   seenEverySeconds: 5
   element: 4
   health: 20
-  enemyHPUI: {fileID: 114445464948754610}
-  enemyHPUIObject: {fileID: 1774538749918524}
-  counterDamageModifier: 1.5
-  counterResistanceModifier: 0.75
+  enemyHPUI: {fileID: 114430805040022522, guid: 1505521e1d3829d40b592e74170e3a12,
+    type: 2}
+  enemyHPUIObject: {fileID: 1784970520562848, guid: 1505521e1d3829d40b592e74170e3a12,
+    type: 2}
+  counterDamageModifier: 0.5
+  counterResistanceModifier: 0.25
   drops:
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
@@ -294,6 +296,7 @@ MonoBehaviour:
   myEnemyScript: {fileID: 0}
   canvas: {fileID: 0}
   whatCantHitMe: {fileID: 0}
+  invulnerable: 0
 --- !u!114 &114848270721482246
 MonoBehaviour:
   m_ObjectHideFlags: 1

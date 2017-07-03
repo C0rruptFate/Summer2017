@@ -482,13 +482,14 @@ MonoBehaviour:
   element: 4
   startingHealth: 200
   health: 100
-  counterDamageModifier: 1.5
-  counterResistanceModifier: 0.75
+  counterDamageModifier: 0.5
+  counterResistanceModifier: 0.25
   playerUI: {fileID: 0}
   playerAttacks: {fileID: 0}
   playerMovement: {fileID: 0}
   playerDefaultSize: {x: 0, y: 0, z: 0}
   allowedToInputAttacks: 1
+  healEffect: {fileID: 1721839930895370, guid: 1f850bdc23384194680095714ddbf943, type: 2}
   invulnerable: 0
 --- !u!114 &114437842847543146
 MonoBehaviour:

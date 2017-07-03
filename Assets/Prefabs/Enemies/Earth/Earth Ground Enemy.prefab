@@ -199,8 +199,8 @@ MonoBehaviour:
   health: 20
   enemyHPUI: {fileID: 114430805040022522}
   enemyHPUIObject: {fileID: 1784970520562848}
-  counterDamageModifier: 1.5
-  counterResistanceModifier: 0.75
+  counterDamageModifier: 0.5
+  counterResistanceModifier: 0.25
   drops:
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
@@ -209,6 +209,7 @@ MonoBehaviour:
   myEnemyScript: {fileID: 0}
   canvas: {fileID: 0}
   whatCantHitMe: {fileID: 0}
+  invulnerable: 0
 --- !u!114 &114405860857539344
 MonoBehaviour:
   m_ObjectHideFlags: 1

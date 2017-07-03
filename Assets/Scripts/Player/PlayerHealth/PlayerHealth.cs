@@ -36,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
     [HideInInspector]
     public bool allowedToInputAttacks = true;
 
+    public GameObject healEffect;
+
     [HideInInspector]
     public bool invulnerable = false;
 
@@ -158,25 +160,25 @@ public class PlayerHealth : MonoBehaviour
         {
             health = startingHealth;
         }
+
+        if (transform.Find("Heal Effect") == null)
+        {
+            GameObject newHealEffect = Instantiate(healEffect, transform.position, transform.rotation);
+            newHealEffect.name = "Heal Effect";
+            newHealEffect.transform.parent = transform;
+            Invoke("RemoveHealEffect", 0.80f);
+        }
         //Update the player's UI HP slider
         playerUI.GetComponent<PlayerUI>().SetHealthUI();
     }
 
-    //Used to spend mana on specials
-    //public void SpendMana(float manaCost)
-    //{
-    //    if(mana >= manaCost)
-    //    {
-    //        Debug.Log("Spend mana");
-    //        mana -= manaCost;
-    //        playerUI.GetComponent<PlayerUI>().SetManaUI();
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Spend mana but didn't have enough");
-    //        //[TODO] Set up feedback for when you don't have enough mana to use an ability
-    //    }
-    //}
+    public virtual void RemoveHealEffect()
+    {
+        if (transform.Find("Heal Effect") != null)
+        {
+            Destroy(transform.Find("Heal Effect").gameObject);
+        }
+    }
 
     //kills the player by disabling them
     public virtual void PlayerDied()
