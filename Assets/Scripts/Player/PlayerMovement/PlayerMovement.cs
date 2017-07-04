@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]//Used if the character isn't getting input but is still moving.
     public float minSpeed = 0;
 
-
     //Jumping
     [Tooltip("Force applied to the short jump.")]
     public int shortJumpForce = 5; //Force applied to the short jump.
@@ -55,8 +54,6 @@ public class PlayerMovement : MonoBehaviour {
     public string verticalMovement;
     [HideInInspector]//Use to find what direction the player is trying to move
     public float verticalDir; 
-    [HideInInspector]
-    public bool floatingOnWater = false;
     [HideInInspector]
     public bool inWater = false;
     public float inWaterMass = 10;
@@ -130,18 +127,6 @@ public class PlayerMovement : MonoBehaviour {
         if (!playerAttacks.blocking)
         {
             MovingPlayer();
-        }
-
-        //Start Swimming
-        if(verticalDir < 0 && floatingOnWater)
-        {
-            //Debug.Log("player hit down to go into the water");
-            //in water
-            //Increase mass
-            rb.mass = inWaterMass;
-            //Flip in water to true
-            inWater = true;
-            floatingOnWater = false;
         }
 
         //Player jump

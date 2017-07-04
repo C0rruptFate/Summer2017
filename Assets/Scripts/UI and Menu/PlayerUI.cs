@@ -214,12 +214,12 @@ public class PlayerUI : MonoBehaviour
     {
         if (playerHealth.health < currentHealth) //Testing UI shake Take Damage
         {
-            Debug.Log("Took Damage");
+            //Debug.Log("Took Damage");
             anim.SetBool("UITakeDamage", true);
         }
         else if (playerHealth.health > currentHealth) //Testing UI shake Take Damage
         {
-            Debug.Log("Healed");
+            //Debug.Log("Healed");
             anim.SetBool("UIHeal", true);
         }
 

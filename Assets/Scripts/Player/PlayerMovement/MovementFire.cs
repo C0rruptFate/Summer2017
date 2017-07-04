@@ -19,18 +19,6 @@ public class MovementFire : PlayerMovement
             MovingPlayer();
         }
 
-        //Start Swimming
-        if (verticalDir < 0 && floatingOnWater)
-        {
-            Debug.Log("player hit down to go into the water");
-            //in water
-            //Increase mass
-            rb.mass = inWaterMass;
-            //Flip in water to true
-            inWater = true;
-            floatingOnWater = false;
-        }
-
         //Player jump
 
         //DISABLE this if we want to player to need to push jump to bounce off of enemies/players.

@@ -8,21 +8,30 @@ public class Water : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerMovement>().floatingOnWater = true;
+            other.GetComponent<PlayerMovement>().inWater = true;
             other.GetComponent<PlayerMovement>().arialJumpsUsed = 0;
+            other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().inWaterMass;
         }
-
-        if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Ice)//Water enemy is no longer swimming.
+        else if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Ice)//Water enemy is no longer swimming.
         {
             other.GetComponent<Rigidbody2D>().gravityScale = 0;
         }
     }
 
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Player" && !other.GetComponent<PlayerMovement>().inWater)
+        {
+            other.GetComponent<PlayerMovement>().inWater = true;
+            other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().outofWaterMass;
+        }
+    }
+
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerMovement>().floatingOnWater = false;
             other.GetComponent<PlayerMovement>().inWater = false;
             other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().outofWaterMass;
             other.GetComponent<PlayerMovement>().arialJumpsUsed = 0;

@@ -16,7 +16,7 @@ public class EnemyHealth : MonoBehaviour
     [HideInInspector][Tooltip("Fill with empty drops and pick ups that could be dropped.")]
     public Slider enemyHPUI;
     [HideInInspector][Tooltip("Attach the enemyHpSlider that is a child of the enemy.")]
-    public GameObject enemyHPUIObject;
+    public GameObject enemyHPUISliderObject;
 
     [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
     public float counterDamageModifier = 0.5f;
@@ -26,13 +26,16 @@ public class EnemyHealth : MonoBehaviour
     [Tooltip("Fill with empty drops and pick ups that could be dropped.")]
     public GameObject[] drops;
 
+    [Tooltip("The Y offset that the HP bar should be at.")]
+    public Vector3 hpBarOffSet;
+
 
     [HideInInspector]//Currently not being used.
     public GameObject[] enemiesList;
     [HideInInspector]//Set the Enemy controls script this holds the attack and movement for the enemy.
     public Enemy myEnemyScript;
-    [HideInInspector]//
-    public GameObject canvas;
+    //[HideInInspector]//
+    //public GameObject canvas;
     [HideInInspector]
     public GameObject whatCantHitMe;
     [HideInInspector]
@@ -46,19 +49,28 @@ public class EnemyHealth : MonoBehaviour
         enemyHPUI.maxValue = health;
         whatCantHitMe = gameObject;
 
-        canvas = GameObject.Find("Canvas");
+        //Old enemy canvas ui hp bar
+        //canvas = GameObject.Find("Canvas");
 
-        if (!canvas)
-        {
-            canvas = new GameObject("Canvas");
-        }
+        //if (!canvas)
+        //{
+        //    canvas = new GameObject("Canvas");
+        //}
         //Used to set up the enemy HP sliders for the enemy so that the designer doesn't need to. Remove these lines and remove the [HideinInspector] on these varables if this doesn't work.
-        if(enemyHPUIObject == null)
+        if(enemyHPUISliderObject == null)
         {
-            enemyHPUIObject = canvas.transform.Find("Enemy HP Slider").gameObject;
+            enemyHPUISliderObject = transform.Find("Enemy HP Slider").gameObject;
             //Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
-            enemyHPUI = enemyHPUIObject.GetComponent<Slider>();
+            enemyHPUI = enemyHPUISliderObject.GetComponent<Slider>();
         }
+        enemyHPUISliderObject.transform.SetParent(GameObject.Find("Camera Rig").transform.Find("Main Camera Orthagraphic").Find("Canvas-WorldSpace"), false);
+        //enemyHPUISliderObject.transform.parent = GameObject.Find("Camera Rig").transform.Find("Main Camera Orthagraphic").Find("Canvas-WorldSpace");
+        if (enemyHPUISliderObject.transform.parent == transform)
+        {
+            Debug.LogError("Couldn't find the Camera canvas");
+        }
+        enemyHPUISliderObject.GetComponent<EnemyHPUISliderScript>().myEnemy = gameObject;
+        enemyHPUISliderObject.GetComponent<EnemyHPUISliderScript>().offSet = hpBarOffSet;
     }
 
     public virtual void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
@@ -125,12 +137,12 @@ public class EnemyHealth : MonoBehaviour
         if (whatHitMe != whatCantHitMe)//Makes it so that this enemy can't be hit by the same attack right away (largely for melee attacks that last long).
         {
             health -= damage;//Takes damage.
-            if (enemyHPUIObject.activeSelf == false)//Enables the hp bar for this enemy when they get hit.
+            if (enemyHPUISliderObject.activeSelf == false)//Enables the hp bar for this enemy when they get hit.
             {
-                enemyHPUIObject.SetActive(true);
+                enemyHPUISliderObject.SetActive(true);
             }
             UpDateEnemyUI();//Caues the enemy hp to update when they get hit.
-            Debug.Log("I took Damage: " + damage);
+            //Debug.Log("I took Damage: " + damage);
             //Hit stun
             myEnemyScript.enabled = false;
             Invoke("HitStun", hitStun);//calls hit stun as long as the attack that hit me says it should last for.
