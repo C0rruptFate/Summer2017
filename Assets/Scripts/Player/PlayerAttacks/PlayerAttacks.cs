@@ -30,8 +30,10 @@ public class PlayerAttacks : MonoBehaviour {
     public float meleeDamage = 10f;
     [Tooltip("How long it will stop the enemy from moving or attacking.")]
     public float meleeHitStun = 0.5f;
-    [Tooltip("How long it will stop the enemy from moving or attacking.")]
+    [Tooltip("knockback force.")]
     public float meleeKnockBack = 500f;
+    [Tooltip("Attach the effect you want to play when I hit an enemy with my basic melee attack.")]
+    public GameObject meleeEffectParticle;
     [HideInInspector]//The ground Melee attack that is created when the player does a melee attack on the ground.
     public GameObject newGroundMelee;
     [HideInInspector]//The air melee attack that is created when the player does a melee attack in the air.
@@ -870,6 +872,7 @@ public class PlayerAttacks : MonoBehaviour {
         melee.GetComponent<PlayerMelee>().meleeDamage = meleeDamage;
         melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
         melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+        melee.GetComponent<PlayerMelee>().effectParticle = meleeEffectParticle;
     }
 
     public virtual void SetBasicRangedAttackStats(GameObject projectile)//Sets the stats for the projectile object when it is created.

@@ -236,7 +236,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608674901165658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4234154238495866}
@@ -275,7 +275,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740151737074810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.33, z: 0}
+  m_LocalPosition: {x: 7.92, y: 1.33, z: 0}
   m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_Children:
   - {fileID: 4718649403340284}
@@ -513,6 +513,8 @@ MonoBehaviour:
   meleeDamage: 10
   meleeHitStun: 0.5
   meleeKnockBack: 1000
+  meleeEffectParticle: {fileID: 1253374621584694, guid: 1a584b139040ee34fb80ed37701586c0,
+    type: 2}
   newGroundMelee: {fileID: 0}
   newAirMelee: {fileID: 0}
   rb: {fileID: 0}
@@ -608,7 +610,6 @@ MonoBehaviour:
   jumpEffect: {fileID: 1822333789701966, guid: 620f221cc6823234383469f5c5cb893b, type: 2}
   verticalMovement: 
   verticalDir: 0
-  floatingOnWater: 0
   inWater: 0
   inWaterMass: 10
   outofWaterMass: 1

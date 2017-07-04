@@ -19,7 +19,7 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
         {
             gameObject.GetComponent<Collider2D>().enabled = true;
         }
-
+        
         //Used to set up lobbed projectiles.
         if (!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
         {

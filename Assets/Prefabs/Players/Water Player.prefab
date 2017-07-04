@@ -520,6 +520,8 @@ MonoBehaviour:
   meleeDamage: 10
   meleeHitStun: 0.5
   meleeKnockBack: 500
+  meleeEffectParticle: {fileID: 1711250506334910, guid: 84fa666522b88b24a86cfc0c520cd8ad,
+    type: 2}
   newGroundMelee: {fileID: 0}
   newAirMelee: {fileID: 0}
   rb: {fileID: 0}
@@ -645,7 +647,6 @@ MonoBehaviour:
   jumpEffect: {fileID: 1822333789701966, guid: 620f221cc6823234383469f5c5cb893b, type: 2}
   verticalMovement: 
   verticalDir: 0
-  floatingOnWater: 0
   inWater: 0
   inWaterMass: 10
   outofWaterMass: 1
