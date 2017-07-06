@@ -15,6 +15,8 @@ public class Hazard : MonoBehaviour {
 
     public bool lowerHazard;
     public bool raiseHazard;
+    public bool isRollingHazard;
+    public float knockbackForce;
     protected Vector3 startPosition;
     protected Vector3 endPosition;
     [SerializeField]
@@ -88,6 +90,12 @@ public class Hazard : MonoBehaviour {
                 if(isFallingHazard)//Removes itself if it is a falling hazard once it hits a player.
                 {
                     DestroyMyself();
+                }
+                else if (isRollingHazard)
+                {
+                    //other.transform.position = Vector3.MoveTowards(other.transform.position, transform.position, -1 * ( knockbackForce * Time.deltaTime) );
+                    other.transform.GetComponent<Rigidbody2D>().AddForce(Vector3.MoveTowards(other.transform.position, transform.position, -1 * (knockbackForce * Time.deltaTime)));
+                    //other.transform.GetComponent<Rigidbody2D>().AddForce(rollingHazardForce);
                 }
 
             }
