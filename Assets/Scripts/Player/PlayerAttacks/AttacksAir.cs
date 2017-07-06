@@ -12,6 +12,13 @@ public class AttacksAir : PlayerAttacks {
 
     public Transform reflectorPoint;
 
+    [HideInInspector]
+    public float fullSpecialDefendCooldown;
+    public float reducedSpecialDefendCooldown;
+
+    [HideInInspector]
+    public bool reflectedSomething = false;
+
     // Use this for initialization
     public override void Start()
     {
@@ -22,6 +29,145 @@ public class AttacksAir : PlayerAttacks {
         base.Start();
         //Removes the reflector from myself and puts it on the weapon Parent.
         reflectorPoint.parent = playerWeaponParent.transform;
+        fullSpecialDefendCooldown = specialDefendCooldown;
+    }
+
+    public override void Update()
+    {
+        //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
+        //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
+        if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
+        {
+            CallWisp();
+            callingWisp = true;
+        }//Stops calling the Wisp when the button isn't held down.
+        else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
+        {
+            callingWisp = false;
+        }
+
+        //Activate Special
+        if (Input.GetAxisRaw("Special" + playerNumber) == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
+        {
+            //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
+
+            //[TODO]Play special particle effect
+            //turn special is active to true
+            //Debug.Log("Special is active.");
+            specialActive = true;
+            if (transform.Find("specialActiveEffect") == null)
+            {
+                GameObject newSpecialActiveEffect = Instantiate(specialActiveEffect, transform.position, transform.rotation);
+                newSpecialActiveEffect.name = "specialActiveEffect";
+                newSpecialActiveEffect.transform.parent = transform;
+            }
+        }
+        if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)//Turns off the special when the button/trigger is released.
+        {
+            //Turn off special
+            //Debug.Log("SpeciaL has been DEACTIVATED");
+            specialActive = false;
+            if (transform.Find("specialActiveEffect") != null)
+            {
+                Destroy(transform.Find("specialActiveEffect").gameObject);
+            }
+        }
+
+        //Melee attacks
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Special Melee Attack
+        {
+            //Debug.Log("Melee Special is active.");
+            SpecialMeleeAttack();
+        }
+        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Melee Attack
+        {
+            MeleeAttack();
+        }
+
+        //Ranged Attacks
+        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+        if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Special Ranged Attack
+        {
+            //Debug.Log("Ranged Special is active.");
+            SpecialRangedAttack();
+        }
+        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Ranged Attack
+        {
+            RangedAttack();
+        }
+
+        //Defend
+        if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && playerHealth.allowedToInputAttacks)//Special Block
+        {
+            if (!blocking)
+            {
+                //Debug.Log("Defend Special is active.");
+                blocking = true;
+                specialBlocking = true;
+                SpecialPlayerDefend();
+            }
+        }
+        else if (blocking && specialBlocking)//Causes me to release the block.
+        {
+            blocking = false;
+            specialBlocking = false;
+            blockNextFire = Time.time + blockFireRate;
+            if (reflectedSomething)
+            {
+                specialDefendCooldown = reducedSpecialDefendCooldown;
+            }
+            else
+            {
+                specialDefendCooldown = fullSpecialDefendCooldown;
+            }
+            currentSpecialDefendCooldown = specialDefendCooldown;
+
+            //PlayerDefend();
+        }
+        else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
+        {
+            if (!blocking)//If I am not already blocking start blocking
+            {
+                blocking = true;
+                PlayerDefend();//Creates the block effect and all that goes with that.
+            }
+        }
+        else if (blocking)//Causes me to release the block.
+        {
+            blocking = false;
+            blockNextFire = Time.time + blockFireRate;
+            PlayerDefend();
+        }
+
+        //Cooldowns
+        //Melee Cooldown
+        if (currentSpecialMeleeCooldown == specialMeleeCooldown)
+        {
+            StartCoroutine(meleeCooldownCoroutine);
+        }
+        else if (currentSpecialMeleeCooldown <= 0)
+        {
+            StopCoroutine(meleeCooldownCoroutine);
+        }
+        //Ranged Cooldown
+        if (currentSpecialRangedCooldown == specialRangedCooldown)
+        {
+            StartCoroutine(rangedCooldownCoroutine);
+        }
+        else if (currentSpecialRangedCooldown <= 0)
+        {
+            StopCoroutine(rangedCooldownCoroutine);
+        }
+        //Defend Cooldown
+        if (currentSpecialDefendCooldown == specialDefendCooldown)
+        {
+            StartCoroutine(defendCooldownCoroutine);
+        }
+        else if (currentSpecialDefendCooldown <= 0)
+        {
+            StopCoroutine(defendCooldownCoroutine);
+        }
     }
 
     public override void MeleeAttack()
@@ -78,7 +224,11 @@ public class AttacksAir : PlayerAttacks {
 
     public override void SpecialPlayerDefend()
     {
-        base.SpecialPlayerDefend();
+        GameObject specialDefender = Instantiate(specialDefendObject, transform.position, transform.rotation);
+        specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
+        specialDefender.transform.parent = playerWeaponParent.transform;
+        specialDefender.GetComponent<Reflector>().myCharacter = gameObject;
+        SetSpecialDefendStats(specialDefender);
 
     }
 

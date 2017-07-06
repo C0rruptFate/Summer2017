@@ -19,10 +19,10 @@ public class Hazard : MonoBehaviour {
     protected Vector3 startPosition;
     protected Vector3 endPosition;
     [SerializeField]
-    private float moveSpeed;
-    private Vector3 currentPos;
-    private Vector3 lastPos;
-    private bool rolling = false;
+    protected float moveSpeed;
+    protected Vector3 currentPos;
+    protected Vector3 lastPos;
+    protected bool rolling = false;
 
     private bool isFallingHazard = false;
     // Use this for initialization
@@ -30,15 +30,17 @@ public class Hazard : MonoBehaviour {
         startPosition = transform.position;
         endPosition = new Vector3(startPosition.x, startPosition.y - 0.8f, startPosition.z);
 
-        if (transform.parent.GetComponent<FallingHazard>() != null)
+        if (transform.parent != null)
         {
-            isFallingHazard = true;
+            if (transform.parent.GetComponent<FallingHazard>() != null)
+            {
+                isFallingHazard = true;
+            }
+            else if (rollingHazard)
+            {
+                rolling = true;
+            }
         }
-        else if (rollingHazard)
-        {
-            rolling = true;
-        }
-
     }
 	
 	// Update is called once per frame
@@ -65,7 +67,7 @@ public class Hazard : MonoBehaviour {
         }
 	}
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         if (rollingHazard)
         {
@@ -121,8 +123,7 @@ public class Hazard : MonoBehaviour {
 
             }
         }
-
-        if (other.transform.tag == ("Enemy") && Time.time > newSwingTimer)//Lets it hurt enemies
+        else if (other.transform.tag == ("Enemy") && Time.time > newSwingTimer)//Lets it hurt enemies
         {
             //Debug.Log("Player should take damage");
             newSwingTimer = Time.time + swingTimer;

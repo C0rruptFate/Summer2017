@@ -142,7 +142,7 @@ public class PlayerAttacks : MonoBehaviour {
     public GameObject specialDefendObject;
     [Tooltip("Cooldown for Special Defend Attacks.")]
     public float specialDefendCooldown;
-    [HideInInspector]//Current cool down of this ability.
+    //[HideInInspector]//Current cool down of this ability.
     public float currentSpecialDefendCooldown;
 
     [HideInInspector]
@@ -558,7 +558,7 @@ public class PlayerAttacks : MonoBehaviour {
         }
 
         //Defend
-        if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Special Block
+        if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && playerHealth.allowedToInputAttacks)//Special Block
         {
             if (!blocking)
             {
@@ -920,8 +920,8 @@ public class PlayerAttacks : MonoBehaviour {
     {
         while (currentSpecialMeleeCooldown > 0)
         {
-            currentSpecialMeleeCooldown--;
-            yield return new WaitForSeconds(1.0f);
+            currentSpecialMeleeCooldown = currentSpecialMeleeCooldown - 0.5f;
+            yield return new WaitForSeconds(0.5f);
             if (currentSpecialMeleeCooldown == 0)
             {
                 StopCoroutine(meleeCooldownCoroutine);
@@ -933,8 +933,8 @@ public class PlayerAttacks : MonoBehaviour {
     {
         while (currentSpecialRangedCooldown > 0)
         {
-            currentSpecialRangedCooldown--;
-            yield return new WaitForSeconds(1.0f);
+            currentSpecialRangedCooldown = currentSpecialRangedCooldown -0.5f;
+            yield return new WaitForSeconds(0.5f);
             if (currentSpecialRangedCooldown == 0)
             {
                 StopCoroutine(rangedCooldownCoroutine);
@@ -946,8 +946,8 @@ public class PlayerAttacks : MonoBehaviour {
     {
         while (currentSpecialDefendCooldown > 0)
         {
-            currentSpecialDefendCooldown--;
-            yield return new WaitForSeconds(1.0f);
+            currentSpecialDefendCooldown = currentSpecialDefendCooldown - 0.5f;
+            yield return new WaitForSeconds(0.5f);
             if (currentSpecialDefendCooldown == 0)
             {
                 StopCoroutine(defendCooldownCoroutine);

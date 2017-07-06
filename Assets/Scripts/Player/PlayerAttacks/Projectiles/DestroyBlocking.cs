@@ -31,7 +31,7 @@ public class DestroyBlocking : MonoBehaviour {
         //When the player isn't blocking destroyes the object.
         if (!playerAttacks.blocking)
         {
-            Debug.Log("DESTROY block effect");
+            //Debug.Log("DESTROY block effect");
             Destroy(gameObject);
         }
 	}

@@ -6,18 +6,17 @@ public class Reflector : MonoBehaviour {
     
     public bool hurtsPlayers = true;
 
+    [HideInInspector]
+    public GameObject myCharacter;
+
     public Transform reflectPoint;
 
 	// Use this for initialization
 	void Start () {
         reflectPoint.transform.position = transform.position;
+        myCharacter.GetComponent<AttacksAir>().reflectedSomething = false;
         //Debug.Log("reflector has spawned.");
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -26,6 +25,10 @@ public class Reflector : MonoBehaviour {
             other.GetComponent<PlayerProjectileAirBasic>().currentLife = Time.time + other.GetComponent<PlayerProjectileAirBasic>().projectileMaxDuration;
             other.GetComponent<PlayerProjectileAirBasic>().returnToPlayer = false;
             other.GetComponent<Projectiles>().hurtsPlayers = hurtsPlayers;
+            if(myCharacter.GetComponent<AttacksAir>() != null && !myCharacter.GetComponent<AttacksAir>().reflectedSomething)
+            {
+                myCharacter.GetComponent<AttacksAir>().reflectedSomething = true;
+            }
             //Debug.Log("Reflected my own projectile");
         }
         else if (other.GetComponent<Projectiles>() != null)
