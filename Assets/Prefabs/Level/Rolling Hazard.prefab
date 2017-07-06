@@ -38,6 +38,8 @@ GameObject:
   - component: {fileID: 114985282898254640}
   - component: {fileID: 58427742310148564}
   - component: {fileID: 50523497227386038}
+  - component: {fileID: 58602552041227564}
+  - component: {fileID: 250911334252480266}
   m_Layer: 18
   m_Name: Rolling Hazard
   m_TagString: Ground
@@ -52,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601365732131528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 66.4, y: -5.7, z: 0}
+  m_LocalPosition: {x: -33.1, y: 35.3, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4810382756118174}
@@ -83,7 +85,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -107,6 +109,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!58 &58602552041227564
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1601365732131528}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &114985282898254640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,13 +136,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   element: 3
-  damage: 10
+  damage: 50
   swingTimer: 0.5
   hitStun: 0
   lowerHazard: 0
   raiseHazard: 0
-  isRollingHazard: 1
-  knockbackForce: 1
+  rollingHazard: 1
   moveSpeed: 1
 --- !u!212 &212221362403816894
 SpriteRenderer:
@@ -167,3 +183,22 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!250 &250911334252480266
+PointEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1601365732131528}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 133376
+  m_ForceMagnitude: 1500
+  m_ForceVariation: 500
+  m_DistanceScale: 1
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
+  m_Drag: 0
+  m_AngularDrag: 0

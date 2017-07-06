@@ -15,12 +15,14 @@ public class Hazard : MonoBehaviour {
 
     public bool lowerHazard;
     public bool raiseHazard;
-    public bool isRollingHazard;
-    public float knockbackForce;
+    public bool rollingHazard;
     protected Vector3 startPosition;
     protected Vector3 endPosition;
     [SerializeField]
     private float moveSpeed;
+    private Vector3 currentPos;
+    private Vector3 lastPos;
+    private bool rolling = false;
 
     private bool isFallingHazard = false;
     // Use this for initialization
@@ -31,6 +33,10 @@ public class Hazard : MonoBehaviour {
         if (transform.parent.GetComponent<FallingHazard>() != null)
         {
             isFallingHazard = true;
+        }
+        else if (rollingHazard)
+        {
+            rolling = true;
         }
 
     }
@@ -58,6 +64,27 @@ public class Hazard : MonoBehaviour {
             }
         }
 	}
+
+    public void FixedUpdate()
+    {
+        if (rollingHazard)
+        {
+            currentPos = transform.position;
+            if (currentPos == lastPos && rolling)
+            {
+                //Put not moving script here.
+                //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                GetComponent<PointEffector2D>().enabled = false;
+                rolling = false;
+            }
+            else
+            {
+                rolling = true;
+                GetComponent<PointEffector2D>().enabled = true;
+            }
+            lastPos = currentPos;
+        }
+    }
 
     public virtual void OnCollisionEnter2D(Collision2D other)
     {
@@ -90,12 +117,6 @@ public class Hazard : MonoBehaviour {
                 if(isFallingHazard)//Removes itself if it is a falling hazard once it hits a player.
                 {
                     DestroyMyself();
-                }
-                else if (isRollingHazard)
-                {
-                    //other.transform.position = Vector3.MoveTowards(other.transform.position, transform.position, -1 * ( knockbackForce * Time.deltaTime) );
-                    other.transform.GetComponent<Rigidbody2D>().AddForce(Vector3.MoveTowards(other.transform.position, transform.position, -1 * (knockbackForce * Time.deltaTime)));
-                    //other.transform.GetComponent<Rigidbody2D>().AddForce(rollingHazardForce);
                 }
 
             }
