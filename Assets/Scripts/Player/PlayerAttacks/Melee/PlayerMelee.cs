@@ -66,7 +66,7 @@ public class PlayerMelee : MonoBehaviour {
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
-            GameObject meleeAttackEffect = Instantiate(effectParticle, other.transform.position, other.transform.rotation, gameObject.transform.parent);
+            Instantiate(effectParticle, other.transform.position, other.transform.rotation, gameObject.transform.parent);
 
             if (enemy && health)
             {

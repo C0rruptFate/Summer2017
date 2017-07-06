@@ -13,7 +13,7 @@ public class EnemyHealth : MonoBehaviour
 
     [Tooltip("How much health does this enemy have?")]
     public float health = 100f;
-    [HideInInspector][Tooltip("Fill with empty drops and pick ups that could be dropped.")]
+    //[HideInInspector][Tooltip("Fill with empty drops and pick ups that could be dropped.")]
     public Slider enemyHPUI;
     [HideInInspector][Tooltip("Attach the enemyHpSlider that is a child of the enemy.")]
     public GameObject enemyHPUISliderObject;
@@ -46,7 +46,7 @@ public class EnemyHealth : MonoBehaviour
     {
         myEnemyScript = gameObject.GetComponent<Enemy>();
         //Debug.Log("myEnemyScript: " + myEnemyScript);
-        enemyHPUI.maxValue = health;
+        
         whatCantHitMe = gameObject;
 
         //Old enemy canvas ui hp bar
@@ -63,6 +63,7 @@ public class EnemyHealth : MonoBehaviour
             //Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
             enemyHPUI = enemyHPUISliderObject.GetComponent<Slider>();
         }
+        enemyHPUI.maxValue = health;
         enemyHPUISliderObject.transform.SetParent(GameObject.Find("Camera Rig").transform.Find("Main Camera Orthagraphic").Find("Canvas-WorldSpace"), false);
         //enemyHPUISliderObject.transform.parent = GameObject.Find("Camera Rig").transform.Find("Main Camera Orthagraphic").Find("Canvas-WorldSpace");
         if (enemyHPUISliderObject.transform.parent == transform)
@@ -160,9 +161,10 @@ public class EnemyHealth : MonoBehaviour
                 if (drops[whatToSpawn].GetComponent<PickUpHealth>() != null)//Sets the pick up element to my element.
                 {
                     pickUp.GetComponent<PickUpHealth>().pickUpElement = element;
-                } 
+                }
 
                 //calls destroy enemy
+                Destroy(enemyHPUISliderObject);
                 DestroyObject();
             }
         }
