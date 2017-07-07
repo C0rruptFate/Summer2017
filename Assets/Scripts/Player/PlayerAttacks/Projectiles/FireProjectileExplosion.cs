@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FireProjectileExplosion : PlayerProjectile {
 
+    public GameObject explosionEffect;
+
     // Use this for initialization
     public override void Start () {
 
@@ -15,8 +17,33 @@ public class FireProjectileExplosion : PlayerProjectile {
         {
             gameObject.GetComponent<Collider2D>().enabled = true;
         }
+
+        if (GetComponent<CircleCollider2D>().radius == 3)
+        {
+            explosionEffect.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+        }
+        else if (GetComponent<CircleCollider2D>().radius == 4)
+        {
+            explosionEffect.transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+        }
+        else if (GetComponent<CircleCollider2D>().radius == 5)
+        {
+
+        }
+        else if (GetComponent<CircleCollider2D>().radius == 6)
+        {
+
+        }
+        else if (GetComponent<CircleCollider2D>().radius == 7)
+        {
+
+        }
+        else if (GetComponent<CircleCollider2D>().radius == 8)
+        {
+
+        }
         //Debug.Log("Radius!!!: " + gameObject.GetComponent<CircleCollider2D>().radius);
-        Invoke("DestroySelf", 0.1f);
+        Invoke("DestroySelf", 0.5f);
 	}
 
     public override void OnTriggerEnter2D(Collider2D other)

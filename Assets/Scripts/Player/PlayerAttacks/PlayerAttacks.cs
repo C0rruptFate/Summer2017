@@ -860,7 +860,7 @@ public class PlayerAttacks : MonoBehaviour {
     public virtual void SpecialPlayerDefend()
     {
         GameObject specialDefender = Instantiate(specialDefendObject, transform.position, transform.rotation);
-        specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
+        //specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
         specialDefender.transform.parent = playerWeaponParent.transform;
         SetSpecialDefendStats(specialDefender);
 

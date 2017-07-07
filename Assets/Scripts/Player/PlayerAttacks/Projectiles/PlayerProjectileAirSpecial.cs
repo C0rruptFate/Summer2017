@@ -90,7 +90,7 @@ public class PlayerProjectileAirSpecial : PlayerProjectile
             }
         }
 
-        else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
+        if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
         {
             Destroy(gameObject);
         }
