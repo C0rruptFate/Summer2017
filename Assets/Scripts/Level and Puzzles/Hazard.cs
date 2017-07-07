@@ -13,8 +13,12 @@ public class Hazard : MonoBehaviour {
     private float newSwingTimer = 0f;
     public float hitStun = 0;
 
+    [HideInInspector]
     public bool lowerHazard;
+    [HideInInspector]
     public bool raiseHazard;
+    public bool autoRaiseAndLower;
+    public float delayTime;
     public bool rollingHazard;
     protected Vector3 startPosition;
     protected Vector3 endPosition;
@@ -41,6 +45,10 @@ public class Hazard : MonoBehaviour {
                 rolling = true;
             }
         }
+        if (autoRaiseAndLower)
+        {
+            raiseHazard = true;
+        }
     }
 	
 	// Update is called once per frame
@@ -53,7 +61,15 @@ public class Hazard : MonoBehaviour {
             {
                 transform.position = startPosition;
                 raiseHazard = false;
-                lowerHazard = false;
+                if (autoRaiseAndLower)
+                {
+                    Invoke("LowerDelay", delayTime);
+                }
+                else
+                {
+                    lowerHazard = false;
+                }
+
             }
         }
         else if (lowerHazard)
@@ -63,6 +79,10 @@ public class Hazard : MonoBehaviour {
             {
                 transform.position = endPosition;
                 lowerHazard = false;
+                if (autoRaiseAndLower)
+                {
+                    Invoke("RaiseDelay", delayTime);
+                }
             }
         }
 	}
@@ -146,6 +166,16 @@ public class Hazard : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public virtual void LowerDelay()
+    {
+        lowerHazard = true;
+    }
+
+    public virtual void RaiseDelay()
+    {
+        raiseHazard = true;
     }
 
     public virtual void DestroyMyself()
