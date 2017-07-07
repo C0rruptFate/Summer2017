@@ -28,23 +28,27 @@ public class FireProjectileExplosion : PlayerProjectile {
         }
         else if (GetComponent<CircleCollider2D>().radius == 5)
         {
-
+            explosionEffect.transform.localScale = new Vector3(2.1f, 2.1f, 2.1f);
         }
         else if (GetComponent<CircleCollider2D>().radius == 6)
         {
-
+            explosionEffect.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
         }
         else if (GetComponent<CircleCollider2D>().radius == 7)
         {
-
+            explosionEffect.transform.localScale = new Vector3(2.9f, 2.9f, 2.9f);
         }
         else if (GetComponent<CircleCollider2D>().radius == 8)
         {
-
+            explosionEffect.transform.localScale = new Vector3(3.3f, 3.3f, 3.3f);
         }
         //Debug.Log("Radius!!!: " + gameObject.GetComponent<CircleCollider2D>().radius);
         Invoke("DestroySelf", 0.5f);
 	}
+
+    public override void FixedUpdate()
+    {
+    }
 
     public override void OnTriggerEnter2D(Collider2D other)
     {
