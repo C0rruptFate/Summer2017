@@ -71,20 +71,23 @@ public class PlayerMovement : MonoBehaviour {
     public int bounceJumpsUsed; //how many bounce jumps have I used.
     [HideInInspector]
     public int arialJumpsUsed; //How many airal jumps have I used.
-    [HideInInspector]
+    //[HideInInspector]
     public bool grounded = false; //am I currently grounded?
-    [HideInInspector]
+    //[HideInInspector]
     public bool enemyBelow = false;//Is their an enemy below me?
-    [HideInInspector]
+    //[HideInInspector]
     public bool playerBelow = false;//is their a player below me?
     [HideInInspector]
     public bool facingRight;
+
+    protected Animator anim;
 
     protected virtual void Start () {
         //Sets up the player's hp and actions scripts.
         GetComponent<PlayerHealth>().playerMovement = GetComponent<PlayerMovement>();
         GetComponent<PlayerAttacks>().playerMovement = GetComponent<PlayerMovement>();
         //initialize components
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         whatsBelowMeChecker = transform.Find("Whats Below Me");
         if (whatsBelowMeChecker == null)
@@ -127,6 +130,7 @@ public class PlayerMovement : MonoBehaviour {
         if (!playerAttacks.blocking)
         {
             MovingPlayer();
+            AnimationMachine();
         }
 
         //Player jump
@@ -286,6 +290,36 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
     }
+
+    public void AnimationMachine()
+    {
+        //if (inWater)
+        //{
+        //    anim.SetBool("Walking", false);
+        //    anim.SetFloat("vSpeed", 0.0f);
+        //    anim.SetBool("Swimming", true);
+        //}
+        //else if (!inWater && !grounded)
+        //{
+        //    anim.SetBool("Swimming", false);
+        //    anim.SetBool("Walking", false);
+        //    anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
+        //}
+        //else 
+        if (Mathf.Abs(horizontalDir) > 0 && grounded && !inWater)
+        {
+            anim.SetBool("Swimming", false);
+
+            anim.SetFloat("vSpeed", 0.0f);
+            anim.SetBool("Walking", true);
+        }
+        else
+        {
+            anim.SetBool("Walking", false);
+        }
+    }
+
+
 
     public virtual void MovingPlayer()
     {//moves the player by adjusting their velocity.
