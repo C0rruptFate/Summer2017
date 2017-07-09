@@ -296,20 +296,19 @@ public class PlayerMovement : MonoBehaviour {
 
     public void AnimationMachine()
     {
-        //if (inWater)
-        //{
-        //    anim.SetBool("Walking", false);
-        //    anim.SetFloat("vSpeed", 0.0f);
-        //    anim.SetBool("Swimming", true);
-        //}
-        //else if (!inWater && !grounded)
-        //{
-        //    anim.SetBool("Swimming", false);
-        //    anim.SetBool("Walking", false);
-        //    anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
-        //}
-        //else 
-        if (Mathf.Abs(horizontalDir) > 0 && grounded && !inWater)
+        if (inWater)
+        {
+            anim.SetBool("Walking", false);
+            anim.SetFloat("vSpeed", 0.0f);
+            anim.SetBool("Swimming", true);
+        }
+        else if (!inWater && !grounded)
+        {
+            anim.SetBool("Swimming", false);
+            anim.SetBool("Walking", false);
+            anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
+        }
+        else if (Mathf.Abs(horizontalDir) > 0 && grounded && !inWater)
         {
             anim.SetBool("Swimming", false);
 
