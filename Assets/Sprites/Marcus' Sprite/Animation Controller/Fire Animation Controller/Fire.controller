@@ -188,7 +188,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Swimming
+    m_ConditionEvent: Walking
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: inWater
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102711878341184284}
@@ -215,7 +218,7 @@ AnimatorStateTransition:
     m_ConditionEvent: inWater
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Swimming
+    m_ConditionEvent: Walking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102001721608876348}
