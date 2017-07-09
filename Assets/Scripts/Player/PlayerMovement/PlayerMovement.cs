@@ -71,11 +71,11 @@ public class PlayerMovement : MonoBehaviour {
     public int bounceJumpsUsed; //how many bounce jumps have I used.
     [HideInInspector]
     public int arialJumpsUsed; //How many airal jumps have I used.
-    //[HideInInspector]
+    [HideInInspector]
     public bool grounded = false; //am I currently grounded?
-    //[HideInInspector]
+    [HideInInspector]
     public bool enemyBelow = false;//Is their an enemy below me?
-    //[HideInInspector]
+    [HideInInspector]
     public bool playerBelow = false;//is their a player below me?
     [HideInInspector]
     public bool facingRight;
@@ -121,6 +121,8 @@ public class PlayerMovement : MonoBehaviour {
 
         //Determins what direction the player is facing
         PlayerFacing();
+        //Used to control the player animations.
+        AnimationMachine();
         //ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
@@ -130,7 +132,6 @@ public class PlayerMovement : MonoBehaviour {
         if (!playerAttacks.blocking)
         {
             MovingPlayer();
-            AnimationMachine();
         }
 
         //Player jump

@@ -8,6 +8,7 @@ public class MovementFire : PlayerMovement
     {
         //Determins what direction the player is facing
         PlayerFacing();
+        AnimationMachine();
         //ScreenCollisions();
         //get player horizontal input
         horizontalDir = Input.GetAxis(horizontalMovement);
