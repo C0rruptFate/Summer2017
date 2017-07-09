@@ -353,16 +353,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 114312552836072244, guid: 133d31799f9bc8940918f046acabcc2a,
-        type: 2}
-      propertyPath: myWispTargetLocation
-      value: 
-      objectReference: {fileID: 964521409}
-    - target: {fileID: 114312552836072244, guid: 133d31799f9bc8940918f046acabcc2a,
-        type: 2}
-      propertyPath: reflectorPoint
-      value: 
-      objectReference: {fileID: 964521408}
     - target: {fileID: 137999986843580294, guid: 133d31799f9bc8940918f046acabcc2a,
         type: 2}
       propertyPath: m_Mesh
@@ -373,17 +363,7 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 137643259243083504, guid: 133d31799f9bc8940918f046acabcc2a,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 137790829125855934, guid: 133d31799f9bc8940918f046acabcc2a,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137137943408125360, guid: 133d31799f9bc8940918f046acabcc2a,
         type: 2}
       propertyPath: m_Mesh
       value: 
@@ -393,10 +373,44 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 1285955494716532, guid: 133d31799f9bc8940918f046acabcc2a, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 137643259243083504, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 137137943408125360, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114312552836072244, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: myWispTargetLocation
+      value: 
+      objectReference: {fileID: 964521409}
+    - target: {fileID: 114312552836072244, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: reflectorPoint
+      value: 
+      objectReference: {fileID: 964521408}
+    - target: {fileID: 137771727275185382, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 21165138923235662, guid: 6789de9851c0c074e8e06190a2c4ee66,
+        type: 2}
+    - target: {fileID: 137137943408125360, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 21435627275191454, guid: 4c806c03de4b3dc44aaf955376e78cfe,
+        type: 2}
+    - target: {fileID: 137917025786160926, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 21450921842471770, guid: cb8655ec37ed260478422207e5ea052c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 133d31799f9bc8940918f046acabcc2a, type: 2}
   m_IsPrefabParent: 0
@@ -439,12 +453,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 114700695152882910, guid: 3043d37e79e64484caa919cce03609ea,
-        type: 2}
-      propertyPath: myWispTargetLocation
-      value: 
-      objectReference: {fileID: 123837628}
-    - target: {fileID: 137550308688651586, guid: 3043d37e79e64484caa919cce03609ea,
+    - target: {fileID: 137913760907751884, guid: 3043d37e79e64484caa919cce03609ea,
         type: 2}
       propertyPath: m_Mesh
       value: 
@@ -454,16 +463,21 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 137550308688651586, guid: 3043d37e79e64484caa919cce03609ea,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 137139328776585916, guid: 3043d37e79e64484caa919cce03609ea,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 137913760907751884, guid: 3043d37e79e64484caa919cce03609ea,
+    - target: {fileID: 114700695152882910, guid: 3043d37e79e64484caa919cce03609ea,
         type: 2}
-      propertyPath: m_Mesh
+      propertyPath: myWispTargetLocation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 123837628}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3043d37e79e64484caa919cce03609ea, type: 2}
   m_IsPrefabParent: 0
@@ -649,7 +663,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4211977751240062, guid: 94655fc95df670a44b5767b8ce2cb90c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.86
       objectReference: {fileID: 0}
     - target: {fileID: 4211977751240062, guid: 94655fc95df670a44b5767b8ce2cb90c, type: 2}
       propertyPath: m_LocalPosition.y
@@ -716,7 +730,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1606165041327818, guid: 94655fc95df670a44b5767b8ce2cb90c, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94655fc95df670a44b5767b8ce2cb90c, type: 2}

@@ -203,6 +203,7 @@ public class PlayerMovement : MonoBehaviour {
             
             case "Ground":
                 grounded = true;
+                anim.SetBool("Grounded", true);
                 arialJumpsUsed = 0;
                 bounceJumpsUsed = 0;
                 //Debug.Log("Enter Ground");
@@ -226,6 +227,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             case "Ground":
                 grounded = false;
+                anim.SetBool("Grounded", false);
                 //Debug.Log("Exit Ground");
                 break;
             case "Enemy":
