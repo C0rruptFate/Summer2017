@@ -308,11 +308,12 @@ public class PlayerMovement : MonoBehaviour {
             anim.SetBool("Walking", false);
             anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
         }
-        else if (Mathf.Abs(horizontalDir) > 0 && grounded && !inWater)
-        {
-            anim.SetBool("Swimming", false);
+        // else if (Mathf.Abs(horizontalDir) > 0 && grounded && !inWater)
+        if (Mathf.Abs(horizontalDir) > 0)
+         {
+            //anim.SetBool("Swimming", false);
 
-            anim.SetFloat("vSpeed", 0.0f);
+            //anim.SetFloat("vSpeed", 0.0f);
             anim.SetBool("Walking", true);
         }
         else
