@@ -90,7 +90,7 @@ public class PlayerAttacks : MonoBehaviour {
     public float blockFireRate = 0.5f;
     [Tooltip("What percentage of damage does blocking prevent.")]
     public float blockingResistanceModifier = 15f;
-    //[HideInInspector]
+    [HideInInspector]
     public bool blocking = false;//Am I currently blocking.
     [Tooltip("Attach a gameObject that will be spawned when you are blocking.")]
     public GameObject blockEffect; //attach a game object/effect that will be spawned when I am blocking.

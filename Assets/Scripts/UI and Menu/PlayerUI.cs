@@ -23,11 +23,14 @@ public class PlayerUI : MonoBehaviour
     private Color fullHealthColor = Color.green;
     private Color halfHealthColor = Color.yellow;
     private Color lowHealthColor = Color.red;
+    private Color noHealthColor = Color.black;
 
     private Transform healthUI;
     private Slider hpSlider;
-    private float maxHealth;
-    private float currentHealth;
+    [HideInInspector]
+    public float maxHealth;
+    [HideInInspector]
+    public float currentHealth;
     private float startingHealth;
 
     //Dealing with Cooldowns
@@ -130,7 +133,7 @@ public class PlayerUI : MonoBehaviour
         //Changes HP bar colors
         if (currentHealth <= 0)
         {
-            hpFillImage.enabled = false;
+            hpFillImage.color = noHealthColor;
         }
         else if (currentHealth <= (startingHealth / 4))//HP turns red when you are below 25% hp
         {
@@ -232,7 +235,7 @@ public class PlayerUI : MonoBehaviour
         //Changes HP bar colors
         if (currentHealth <= 0)
         {
-            hpFillImage.enabled = false;
+            hpFillImage.color = noHealthColor;
         }
         else if (currentHealth <= (startingHealth / 4))//HP turns red when you are below 25% hp
         {

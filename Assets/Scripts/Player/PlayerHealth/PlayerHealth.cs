@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public int playerNumber = 0;
     public Element element; //element of this player
     [Tooltip("How much Health do I start with? 'This is also max health.'")]
-    public float startingHealth = 100f;
+    public float maxHealth = 200f;
     [HideInInspector]//The player's current HP
     public float health = 200f;
 
@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         //playerAttacks.playerNumber = playerNumber;
         //playerMovement.playerNumber = playerNumber;
 
-        health = startingHealth;
+        health = maxHealth;
 
 
         gameManager = GameObject.Find("Game Manager");
@@ -156,9 +156,9 @@ public class PlayerHealth : MonoBehaviour
     public virtual void Heal(float healGain)
     {
         health += healGain;
-        if(health >= startingHealth)
+        if(health >= maxHealth)
         {
-            health = startingHealth;
+            health = maxHealth;
         }
 
         if (transform.Find("Heal Effect") == null)
@@ -185,7 +185,8 @@ public class PlayerHealth : MonoBehaviour
     {
         //Destroy(playerScript.GetComponent<PlayerController>().newGroundMelee);
         //Destroy(playerScript.GetComponent<PlayerController>().newAirMelee);
-        gameManager.GetComponent<GameController>().LowerPlayerCount();
+        health = 0;
+        gameManager.GetComponent<GameController>().LowerPlayerCount(gameObject);
         gameObject.SetActive(false);
         //Destroy(gameObject);
     }

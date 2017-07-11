@@ -76,7 +76,7 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
                     //Heals the player for half the damage their projectile would do.
                     float healAmount = projectileDamage * baseHealReduction;
                     //If the player is below 25% hp then heal for 3X as much.
-                    if (player.GetComponent<PlayerHealth>().health <= (healMultiplierThreshold * player.GetComponent<PlayerHealth>().startingHealth))
+                    if (player.GetComponent<PlayerHealth>().health <= (healMultiplierThreshold * player.GetComponent<PlayerHealth>().maxHealth))
                     {
                         healAmount = projectileDamage * healMultiplier;
                         //Debug.Log("Bigger heal: " + healAmount);

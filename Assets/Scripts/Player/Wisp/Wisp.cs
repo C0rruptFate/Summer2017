@@ -24,6 +24,8 @@ public class Wisp : MonoBehaviour {
 
         circleCollider = GetComponent<CircleCollider2D>();
 
+        GameObject.Find("Game Manager").transform.GetComponent<GameController>().wisp = gameObject;
+
 	}
 	
 	// Update is called once per frame
