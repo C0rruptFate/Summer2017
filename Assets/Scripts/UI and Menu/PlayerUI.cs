@@ -17,6 +17,7 @@ public class PlayerUI : MonoBehaviour
     public int playerNumber;
 
     //Dealing with Health
+    public Text hpText;
     public Image hpFillImage;
     
     private Color fullHealthColor = Color.green;
@@ -124,6 +125,7 @@ public class PlayerUI : MonoBehaviour
         #region
         currentHealth = playerHealth.health;
         hpSlider.value = currentHealth;
+        hpText.text = currentHealth.ToString() + " / " + maxHealth;
 
         //Changes HP bar colors
         if (currentHealth <= 0)
@@ -225,6 +227,7 @@ public class PlayerUI : MonoBehaviour
 
         currentHealth = playerHealth.health;
         hpSlider.value = currentHealth;
+        hpText.text = currentHealth.ToString() + " / " + maxHealth;
         
         //Changes HP bar colors
         if (currentHealth <= 0)
