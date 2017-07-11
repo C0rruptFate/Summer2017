@@ -23,7 +23,7 @@ public class Water : MonoBehaviour {
         if (other.tag == "Player" && !other.GetComponent<PlayerMovement>().inWater)
         {
             other.GetComponent<PlayerMovement>().inWater = true;
-            other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().outofWaterMass;
+            other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().inWaterMass;
         }
     }
 

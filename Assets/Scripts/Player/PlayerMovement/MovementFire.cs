@@ -32,7 +32,19 @@ public class MovementFire : PlayerMovement
 
         if (Input.GetButtonDown(jumpMovement))
         {
-            if (grounded)
+            if (inWater)
+            {
+                Debug.Log("Water Jump");
+                //Jump code for when in water
+                // Reset our velocity
+                rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+                // Arial Jump
+                //Debug.Log("Air Jump used" + rb.velocity.y);
+                Vector2 waterJump = new Vector2();
+                waterJump.y = arialJumpForce * waterJumpForceMultiplier;
+                rb.AddForce(waterJump, ForceMode2D.Impulse);
+            }
+            else if (grounded)
             {
                 groundJumpForce.y = shortJumpForce;
                 rb.AddForce(groundJumpForce, ForceMode2D.Impulse);
@@ -44,18 +56,6 @@ public class MovementFire : PlayerMovement
                 }
                 //Debug.Log("player Attacks.blocking: " + playerAttacks.blocking);
                 PlayerJump();
-            }
-            else if (inWater)
-            {
-                Debug.Log("Water Jump");
-                //Jump code for when in water
-                // Reset our velocity
-                rb.velocity = new Vector2(rb.velocity.x, 0.0f);
-                // Arial Jump
-                //Debug.Log("Air Jump used" + rb.velocity.y);
-                Vector2 waterJump = new Vector2();
-                waterJump.y = arialJumpForce * 5;
-                rb.AddForce(waterJump, ForceMode2D.Impulse);
             }
             else
             {
@@ -70,6 +70,12 @@ public class MovementFire : PlayerMovement
             //Debug.Log("full jump " + (maxJumpTimer - currentJumpTimer));
             rb.AddForce(groundJumpForce, ForceMode2D.Impulse);
             groundJumpInitiated = false;
+        }
+
+        //water failsafe
+        if (!inWater && GetComponent<Rigidbody2D>().mass == inWaterMass)
+        {
+            GetComponent<Rigidbody2D>().mass = outofWaterMass;
         }
     }
 }

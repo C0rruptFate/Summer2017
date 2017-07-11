@@ -59,10 +59,9 @@ public class PlayerMovement : MonoBehaviour {
     public float inWaterMass = 10;
     [HideInInspector]//Should be kept at 1, if this is changed we need to change the bubble too and let Mike know.
     public float outofWaterMass = 1;
-    [HideInInspector]
     public float inWaterMaxSpeed;
-    [HideInInspector]
     public float inWaterRunForce;
+    public float waterJumpForceMultiplier = 5;
 
 
     protected bool groundJumpInitiated = false; //have I started to jump yet?
@@ -104,16 +103,6 @@ public class PlayerMovement : MonoBehaviour {
         jumpMovement = "Jump" + playerNumber;
         //Debug.Log("horizontalMovement" + gameObject + horizontalMovement);
         //Debug.Log("jumpMovement" + gameObject + jumpMovement);
-
-        //Water
-        inWaterMaxSpeed = maxSpeed * 2;
-        inWaterRunForce = runForce * 2;
-        if (playerHealth.element == Element.Ice)
-        {
-
-            inWaterMaxSpeed = inWaterMaxSpeed * 2;
-            inWaterRunForce = inWaterRunForce * 2;
-        }
     }
 	
 	// Update is called once per frame
@@ -146,7 +135,19 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetButtonDown(jumpMovement))
         {
-            if (grounded)
+            if (inWater)
+            {
+                //Debug.Log("Water Jump");
+                //Jump code for when in water
+                // Reset our velocity
+                rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+                // Arial Jump
+                //Debug.Log("Air Jump used" + rb.velocity.y);
+                Vector2 waterJump = new Vector2();
+                waterJump.y = arialJumpForce * waterJumpForceMultiplier;
+                rb.AddForce(waterJump, ForceMode2D.Impulse);
+            }
+            else if (grounded)
             {
                 groundJumpForce.y = shortJumpForce;
                 rb.AddForce(groundJumpForce, ForceMode2D.Impulse);
@@ -158,18 +159,6 @@ public class PlayerMovement : MonoBehaviour {
                 }
                 //Debug.Log("player Attacks.blocking: " + playerAttacks.blocking);
                 PlayerJump();
-            }
-            else if (inWater)
-            {
-                //Debug.Log("Water Jump");
-                //Jump code for when in water
-                // Reset our velocity
-                rb.velocity = new Vector2(rb.velocity.x, 0.0f);
-                // Arial Jump
-                //Debug.Log("Air Jump used" + rb.velocity.y);
-                Vector2 waterJump = new Vector2();
-                waterJump.y = arialJumpForce * 5;
-                rb.AddForce(waterJump, ForceMode2D.Impulse);
             }
             else
             {
@@ -184,6 +173,12 @@ public class PlayerMovement : MonoBehaviour {
             //Debug.Log("full jump " + (maxJumpTimer - currentJumpTimer));
             rb.AddForce(groundJumpForce, ForceMode2D.Impulse);
             groundJumpInitiated = false;
+        }
+
+        //water failsafe
+        if (!inWater && GetComponent<Rigidbody2D>().mass == inWaterMass)
+        {
+            GetComponent<Rigidbody2D>().mass = outofWaterMass;
         }
     }
 

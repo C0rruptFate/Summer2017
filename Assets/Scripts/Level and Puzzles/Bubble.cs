@@ -51,7 +51,7 @@ public class Bubble : MonoBehaviour {
     {
         if (whatIAmAttachedTo != null && whatIAmAttachedTo.transform.GetComponent<PlayerHealth>() != null)
         {
-            whatIAmAttachedTo.transform.GetComponent<Rigidbody2D>().mass = 10;
+            whatIAmAttachedTo.transform.GetComponent<Rigidbody2D>().mass = whatIAmAttachedTo.transform.GetComponent<PlayerMovement>().inWaterMass;
         }
         Destroy(gameObject);
     }

@@ -1153,8 +1153,9 @@ MonoBehaviour:
   inWater: 0
   inWaterMass: 45
   outofWaterMass: 1
-  inWaterMaxSpeed: 0
-  inWaterRunForce: 0
+  inWaterMaxSpeed: 45
+  inWaterRunForce: 50000
+  waterJumpForceMultiplier: 16
   bounceJumpsUsed: 0
   arialJumpsUsed: 0
   grounded: 0
