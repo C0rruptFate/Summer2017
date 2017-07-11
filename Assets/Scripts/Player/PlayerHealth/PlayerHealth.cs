@@ -124,9 +124,9 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("damage round 4 total damage taken: " + damage);
 
-        Debug.Log("health before hit: " + health);
+        //Debug.Log("health before hit: " + health);
         health -= damage;//take damage
-        Debug.Log("health after hit: " + health);
+        //Debug.Log("health after hit: " + health);
 
         if (hitStun  != 0)//causes hit stun to disable player actions
         {

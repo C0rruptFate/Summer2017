@@ -39,7 +39,7 @@ public class ShockOrbScript : PlayerProjectile {
     {
         if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>())
         {
-            Debug.Log("I hit: " + other.name);
+            //Debug.Log("I hit: " + other.name);
             GameObject miniShockOrb = Instantiate(shockOrbEffect, other.transform.position, other.transform.rotation);
             miniShockOrb.transform.parent = gameObject.transform;
             //Debug.Log("Player: " + player + "damage: " + player.GetComponent<PlayerAttacks>().specialRangedDamage + "HitStun: " + player.GetComponent<PlayerAttacks>().specialRangedHitStun);
