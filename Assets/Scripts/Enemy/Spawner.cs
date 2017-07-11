@@ -11,6 +11,9 @@ public class Spawner : MonoBehaviour {
     [Tooltip("Set to true to have a spawner enabled when the level loads, false if the spawner is enabled by a trigger in game.")]
     public bool active = true;
 
+    [Tooltip("How many enemies can this have before it stops spawning new ones.")]
+    public int maxEnemies = 5;
+
     [HideInInspector]//If this is a child object of a Wisp switch
     public GameObject parent;
     [HideInInspector]//Wake up becomes true when a player is inside of the trigger space of this spawner.

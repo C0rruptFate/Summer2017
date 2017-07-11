@@ -39,9 +39,13 @@ public class OverTimeSpawner : Spawner {
     //Used to spawn enemies and parent them to the spawner.
     public override void Spawn(GameObject myGameObject)
     {
-        GameObject myEnemy = Instantiate(myGameObject) as GameObject;
-        myEnemy.transform.parent = transform;
-        myEnemy.transform.position = transform.position;
+        if(transform.childCount < maxEnemies)
+        {
+            GameObject myEnemy = Instantiate(myGameObject) as GameObject;
+            myEnemy.transform.parent = transform;
+            myEnemy.transform.position = transform.position;
+        }
+
     }
 
     public override void OnTriggerStay2D(Collider2D other)

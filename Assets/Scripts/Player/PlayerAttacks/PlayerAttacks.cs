@@ -142,7 +142,7 @@ public class PlayerAttacks : MonoBehaviour {
     public GameObject specialDefendObject;
     [Tooltip("Cooldown for Special Defend Attacks.")]
     public float specialDefendCooldown;
-    //[HideInInspector]//Current cool down of this ability.
+    [HideInInspector]//Current cool down of this ability.
     public float currentSpecialDefendCooldown;
 
     [HideInInspector]

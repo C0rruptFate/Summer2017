@@ -105,8 +105,10 @@ public class AttacksWater : PlayerAttacks {
 
     public override void SpecialPlayerDefend()
     {
-        base.SpecialPlayerDefend();
-
+        GameObject specialDefender = Instantiate(specialDefendObject, transform.position, transform.rotation);
+        specialDefender.GetComponent<DestroyBlocking>().player = gameObject;
+        specialDefender.transform.parent = playerWeaponParent.transform;
+        SetSpecialDefendStats(specialDefender);
     }
 
     public override void SetBasicMeleeAttackStats(GameObject melee) //Sets the stats for the melee object when it is created.
