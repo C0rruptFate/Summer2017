@@ -122,8 +122,6 @@ public class PlayerHealth : MonoBehaviour
 
         damage = damage * (1 - totalDamageModifier); //calculates total damage taken.
 
-        Debug.Log("damage round 4 total damage taken: " + damage);
-
         //Debug.Log("health before hit: " + health);
         health -= damage;//take damage
         //Debug.Log("health after hit: " + health);

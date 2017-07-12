@@ -8,13 +8,13 @@ public class GameController : MonoBehaviour {
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     public Text pauseText;//Text displayed when a player pauses the game.
 
-    [HideInInspector]//list of all players that joined the level.
+    //[HideInInspector]//list of all players that joined the level.
     public GameObject[] players;
 
-    [HideInInspector]//Total count of all players that joined the level.
+    //[HideInInspector]//Total count of all players that joined the level.
     public int totalPlayerCount;
 
-    [HideInInspector]//Total count of all living players.
+    //[HideInInspector]//Total count of all living players.
     public int alivePlayerCount;
 
     private GameObject levelManager;//Object of the level manager so that we can load levels.
@@ -23,15 +23,16 @@ public class GameController : MonoBehaviour {
 
     //Respawn Values
     public int respawnTime = 30;
-    private IEnumerator player1RespawnTimer;
-    private IEnumerator player2RespawnTimer;
-    private IEnumerator player3RespawnTimer;
-    private IEnumerator player4RespawnTimer;
 
     private int player1CurrentRespawnCount;
     private int player2CurrentRespawnCount;
     private int player3CurrentRespawnCount;
     private int player4CurrentRespawnCount;
+
+    private GameObject player1ReadyToRespawn;
+    private GameObject player2ReadyToRespawn;
+    private GameObject player3ReadyToRespawn;
+    private GameObject player4ReadyToRespawn;
 
     // Use this for initialization
     void Awake () {
@@ -56,12 +57,6 @@ public class GameController : MonoBehaviour {
         {
             Debug.Log("Attach 'Pause Text' from the UI");
         }
-
-        //Respawn Count Downs
-        //player1RespawnTimer = Player1RepawnCountMethod();
-        //player2RespawnTimer = Player2RepawnCountMethod();
-        //player3RespawnTimer = Player3RepawnCountMethod();
-        //player4RespawnTimer = Player4RepawnCountMethod();
     }
 	
 	// Update is called once per frame
@@ -80,6 +75,29 @@ public class GameController : MonoBehaviour {
         }
 
         //Respawn Input
+        if (Input.GetButtonDown("Jump1") && player1ReadyToRespawn != null)
+        {
+            Respawn(player1ReadyToRespawn);
+            player1ReadyToRespawn = null;
+        }
+
+        if (Input.GetButtonDown("Jump2") && player2ReadyToRespawn != null)
+        {
+            Respawn(player2ReadyToRespawn);
+            player2ReadyToRespawn = null;
+        }
+
+        if (Input.GetButtonDown("Jump3") && player3ReadyToRespawn != null)
+        {
+            Respawn(player3ReadyToRespawn);
+            player3ReadyToRespawn = null;
+        }
+
+        if (Input.GetButtonDown("Jump4") && player4ReadyToRespawn != null)
+        {
+            Respawn(player4ReadyToRespawn);
+            player4ReadyToRespawn = null;
+        }
     }
 
     public void Pause() //Currently this can be paused/unpaused by anyone, need to set up per player pause.
@@ -115,25 +133,25 @@ public class GameController : MonoBehaviour {
                     if (player.GetComponent<PlayerHealth>().playerNumber == 1)
                     {
                         player1CurrentRespawnCount = respawnTime;
-                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player1CurrentRespawnCount.ToString();
+                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player1CurrentRespawnCount.ToString() + " seconds";
                         StartCoroutine(Player1RepawnCountMethod(deadPlayer));
                     }
                     else if (player.GetComponent<PlayerHealth>().playerNumber == 2)
                     {
                         player2CurrentRespawnCount = respawnTime;
-                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player2CurrentRespawnCount.ToString();
+                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player2CurrentRespawnCount.ToString() + " seconds";
                         StartCoroutine(Player2RepawnCountMethod(deadPlayer));
                     }
                     else if (player.GetComponent<PlayerHealth>().playerNumber == 3)
                     {
                         player3CurrentRespawnCount = respawnTime;
-                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player2CurrentRespawnCount.ToString();
+                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player3CurrentRespawnCount.ToString() + " seconds";
                         StartCoroutine(Player3RepawnCountMethod(deadPlayer));
                     }
                     else if (player.GetComponent<PlayerHealth>().playerNumber == 4)
                     {
                         player4CurrentRespawnCount = respawnTime;
-                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player4CurrentRespawnCount.ToString();
+                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player4CurrentRespawnCount.ToString() + " seconds";
                         StartCoroutine(Player2RepawnCountMethod(deadPlayer));
                     }
                 }
@@ -159,7 +177,6 @@ public class GameController : MonoBehaviour {
 
     public void Respawn(GameObject playerToRespawn)
     {
-        Debug.Log("Got to this point");
         playerToRespawn.transform.position = wisp.transform.position;
         playerToRespawn.GetComponent<PlayerHealth>().Heal(playerToRespawn.GetComponent<PlayerHealth>().maxHealth);
         playerToRespawn.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = playerToRespawn.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().currentHealth.ToString() + " / " + playerToRespawn.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().maxHealth;
@@ -175,11 +192,18 @@ public class GameController : MonoBehaviour {
         {
             player1CurrentRespawnCount = player1CurrentRespawnCount - 1;
             yield return new WaitForSeconds(1f);
-            player1.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player1CurrentRespawnCount.ToString();
+            if (player1CurrentRespawnCount > 1)
+            {
+                player1.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player1CurrentRespawnCount.ToString() + " seconds";
+            }
+            else
+            {
+                player1.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player1CurrentRespawnCount.ToString() + " second";
+            }
             if (player1CurrentRespawnCount == 0)
             {
                 player1.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Jump to Respawn";
-                Respawn(player1);
+                player1ReadyToRespawn = player1;
                 //StopCoroutine(player1RespawnTimer);
                 StopCoroutine(Player1RepawnCountMethod(player1));
             }
@@ -192,13 +216,21 @@ public class GameController : MonoBehaviour {
         {
             player2CurrentRespawnCount = player2CurrentRespawnCount - 1;
             yield return new WaitForSeconds(1f);
-            player2.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player2CurrentRespawnCount.ToString();
+            if (player2CurrentRespawnCount > 1)
+            {
+                player2.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player2CurrentRespawnCount.ToString() + " seconds";
+            }
+            else
+            {
+                player2.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player2CurrentRespawnCount.ToString() + " second";
+            }
+
             if (player2CurrentRespawnCount == 0)
             {
                 player2.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Jump to Respawn";
-                Respawn(player2);
+                player2ReadyToRespawn = player2;
                 //StopCoroutine(player2RespawnTimer);
-                StopCoroutine(Player1RepawnCountMethod(player2));
+                StopCoroutine(Player2RepawnCountMethod(player2));
                 
             }
         }
@@ -210,13 +242,20 @@ public class GameController : MonoBehaviour {
         {
             player3CurrentRespawnCount = player3CurrentRespawnCount - 1;
             yield return new WaitForSeconds(1f);
-            player3.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player3CurrentRespawnCount.ToString();
+            if (player3CurrentRespawnCount > 1)
+            {
+                player3.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player3CurrentRespawnCount.ToString() + " seconds";
+            }
+            else
+            {
+                player3.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player3CurrentRespawnCount.ToString() + " second";
+            }
             if (player3CurrentRespawnCount == 0)
             {
                 player3.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Jump to Respawn";
-                Respawn(player3);
+                player3ReadyToRespawn = player3;
                 //StopCoroutine(player3RespawnTimer);
-                StopCoroutine(Player1RepawnCountMethod(player3));
+                StopCoroutine(Player3RepawnCountMethod(player3));
             }
         }
     }
@@ -228,13 +267,21 @@ public class GameController : MonoBehaviour {
             Debug.Log("Got to this point");
             player4CurrentRespawnCount = player4CurrentRespawnCount - 1;
             yield return new WaitForSeconds(1f);
-            player4.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = player4CurrentRespawnCount.ToString();
+            if (player4CurrentRespawnCount > 1)
+            {
+                player4.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player4CurrentRespawnCount.ToString() + " seconds";
+            }
+            else
+            {
+                player4.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Respawn in " + player4CurrentRespawnCount.ToString() + " second";
+            }
+                
             if (player4CurrentRespawnCount == 0)
             {
                 player4.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().hpText.text = "Jump to Respawn";
-                Respawn(player4);
+                player4ReadyToRespawn = player4;
                 //StopCoroutine(player4RespawnTimer);
-                StopCoroutine(Player1RepawnCountMethod(player4));
+                StopCoroutine(Player4RepawnCountMethod(player4));
             }
         }
     }
