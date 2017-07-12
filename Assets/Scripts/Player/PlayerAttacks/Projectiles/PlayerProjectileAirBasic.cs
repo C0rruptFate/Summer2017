@@ -6,6 +6,8 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
 
     [HideInInspector]//When true causes the object to return to the player.
     public bool returnToPlayer = false;
+    [HideInInspector]
+    public int wallHitCount = 3;
 
     // Use this for initialization
     public override void Start()
@@ -89,8 +91,15 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
             }
             else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
             {
-                //Destroy(gameObject);
-                currentLife = Time.time;
+                wallHitCount--;
+                if (wallHitCount <= 0)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    currentLife = Time.time;
+                }
             }
             else if (returnToPlayer && other.gameObject == player)
             {

@@ -24,6 +24,10 @@ public class PlayerMeleeFireBasic : PlayerMelee
                 {
                     alreadyGeneratedComboPoint = true;
                     player.GetComponent<AttacksFire>().currentComboPoints++;
+                    //player.GetComponent<AttacksFire>().comboPointCountDown = false;
+                    player.GetComponent<AttacksFire>().currentTimeDelaySet = Time.time;
+                    player.GetComponent<AttacksFire>().comboPointAlreadyCounting = false;
+                    //player.GetComponent<AttacksFire>().comboPointCountDown = !player.GetComponent<AttacksFire>().comboPointCountDown;
                     if (player.GetComponent<AttacksFire>().currentComboPoints >= player.GetComponent<AttacksFire>().maxComboPoints)
                     {
                         player.GetComponent<AttacksFire>().currentComboPoints = player.GetComponent<AttacksFire>().maxComboPoints;

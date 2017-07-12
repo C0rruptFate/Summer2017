@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AttacksAir : PlayerAttacks {
     [Header("Character Specific Settings")]
+
+    [Tooltip("The number of times my basic projectile can hit a wall before vanishing.")]
+    public int wallHitCount = 3;
     [Tooltip("The radius of the shock orb trigger checker.")]
     public float shockOrbRadius;
 
@@ -220,6 +223,12 @@ public class AttacksAir : PlayerAttacks {
     {
         base.SpecialMeleeAttack();
                 //[TODO] Set up special melee attack for each character.
+    }
+
+    public override void SetBasicRangedAttackStats(GameObject projectile)
+    {
+        base.SetBasicRangedAttackStats(projectile);
+        projectile.GetComponent<PlayerProjectileAirBasic>().wallHitCount = wallHitCount;
     }
 
     public override void SpecialPlayerDefend()

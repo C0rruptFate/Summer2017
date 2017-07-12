@@ -9,9 +9,12 @@ public class AttacksFire : PlayerAttacks {
 
     [Tooltip("Ranged Special explosion radius")]
     public int rangedExplosionStartingRadius = 3;
-
     [HideInInspector]
     public int currentComboPoints;
+    public float comboPointFallRateDelay = 10f;
+    public float comboPointFallRate = 2f;
+    public bool comboPointCountDown = false;
+
     public float shrinkSpeed = 50;
     private bool shrinking;
     private bool growing;
@@ -19,6 +22,10 @@ public class AttacksFire : PlayerAttacks {
     public float specialMeleeMovementSpeed = 20f;
     public float speicalMeleeMovementDuration = 2f;
     private Vector3 targetShrinkScale = new Vector3(1f, 1f, 1f);
+
+    public bool comboPointAlreadyCounting = true;
+    [HideInInspector]
+    public float currentTimeDelaySet;
 
     //private bool allowedToInputAttacks = true;
 
@@ -59,6 +66,12 @@ public class AttacksFire : PlayerAttacks {
                 transform.localScale = playerHealth.playerDefaultSize;
                 growing = false;
             }     
+        }
+
+        if ((Time.time >= comboPointFallRateDelay + currentTimeDelaySet) && !comboPointAlreadyCounting)
+        {
+            StartCoroutine("ComboPointFallOffWait");
+            comboPointAlreadyCounting = true;
         }
     }
 
@@ -214,10 +227,7 @@ public class AttacksFire : PlayerAttacks {
     public override void SpecialPlayerDefend()
     {
         base.SpecialPlayerDefend();
-        //GameObject specialdefendExplosion = Instantiate(specialDefendObject, transform.position, transform.rotation);
-        //SetSpecialDefendStats(specialdefendExplosion);
         SpendComboPoints();
-        //[TODO] Set up the special Defend for each character.
 
     }
 
@@ -246,6 +256,26 @@ public class AttacksFire : PlayerAttacks {
     {
         currentComboPoints = 0;
         //Informs the UI and tells it to update.
+        comboPointAlreadyCounting = false;
         GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().UpdateComboPointUI();
+    }
+
+    public IEnumerator ComboPointFallOffWait()
+    {
+        //yield return new WaitForSeconds(comboPointFallRateDelay);
+        while (currentComboPoints >= 1 && (comboPointFallRateDelay + currentTimeDelaySet < Time.time))
+        {
+            yield return new WaitForSeconds(comboPointFallRate);
+            if (currentComboPoints >= 1 && (comboPointFallRateDelay + currentTimeDelaySet < Time.time))
+            {
+                currentComboPoints--;
+                GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().UpdateComboPointUI(); 
+            }
+            if (currentComboPoints <= 0)
+            {
+                comboPointCountDown = false;
+                comboPointAlreadyCounting = false;
+            }
+        }
     }
 }

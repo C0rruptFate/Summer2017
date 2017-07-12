@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
     public int alivePlayerCount;
 
     private GameObject levelManager;//Object of the level manager so that we can load levels.
+    private bool gamePaused = false;
     [HideInInspector]
     public GameObject wisp;
 
@@ -69,7 +70,7 @@ public class GameController : MonoBehaviour {
         }
 
         //Quits the game, [TODO] remove redunency of levelmanager and game manager and put in a confermation when quit is clicked. Attach this to pause.
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && gamePaused)
         {
             Application.Quit();
         }
@@ -106,12 +107,14 @@ public class GameController : MonoBehaviour {
         {
             Time.timeScale = 0;
             //Display pause text
+            gamePaused = true;
             pauseText.enabled = true;
         }
         else
         {
             Time.timeScale = 1;
             //Disable Pause Text
+            gamePaused = false;
             pauseText.enabled = false;
         }
     }

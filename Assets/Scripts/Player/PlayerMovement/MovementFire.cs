@@ -34,7 +34,7 @@ public class MovementFire : PlayerMovement
         {
             if (inWater)
             {
-                Debug.Log("Water Jump");
+                //Debug.Log("Water Jump");
                 //Jump code for when in water
                 // Reset our velocity
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);
