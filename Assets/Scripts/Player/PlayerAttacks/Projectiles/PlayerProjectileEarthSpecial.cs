@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerProjectileEarthSpecial : PlayerProjectile
 {
+    public float heavyObjectMass = 45;
+
     [HideInInspector]
     public float forceMagnitude;
 
@@ -38,6 +40,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
         formerParent = transform.parent;
         transform.parent = player.transform;
         Invoke("ThrowForce", throwWaitTime);
+        Invoke("ChangeMass", throwWaitTime * 3);
 
         currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
         float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
@@ -75,5 +78,10 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
         pointEffector = gameObject.GetComponent<PointEffector2D>();
         pointEffector.enabled = true;
         pointEffector.forceMagnitude = forceMagnitude;
+    }
+
+    void ChangeMass()
+    {
+        GetComponent<Rigidbody2D>().mass = heavyObjectMass;
     }
 }

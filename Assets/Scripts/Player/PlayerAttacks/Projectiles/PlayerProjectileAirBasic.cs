@@ -89,7 +89,8 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
             }
             else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                currentLife = Time.time;
             }
             else if (returnToPlayer && other.gameObject == player)
             {
