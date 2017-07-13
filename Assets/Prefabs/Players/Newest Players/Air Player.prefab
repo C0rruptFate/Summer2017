@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   element: 4
-  startingHealth: 200
+  maxHealth: 200
   health: 100
   counterDamageModifier: 0.5
   counterResistanceModifier: 0.25
@@ -1451,6 +1451,7 @@ MonoBehaviour:
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
+  wallHitCount: 3
   shockOrbRadius: 5
   airEffectDuration: 3
   reflectorPoint: {fileID: 4095334706494864}

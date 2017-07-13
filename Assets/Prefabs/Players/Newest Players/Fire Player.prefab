@@ -1502,9 +1502,14 @@ MonoBehaviour:
   maxComboPoints: 5
   rangedExplosionStartingRadius: 3
   currentComboPoints: 0
+  comboPointFallRateDelay: 10
+  comboPointFallRate: 2
+  comboPointCountDown: 0
   shrinkSpeed: 10
   specialMeleeMovementSpeed: 50
   speicalMeleeMovementDuration: 0.25
+  comboPointAlreadyCounting: 1
+  currentTimeDelaySet: 0
 --- !u!114 &114644947353174864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1574,7 +1579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   element: 1
-  startingHealth: 200
+  maxHealth: 200
   health: 100
   counterDamageModifier: 0.5
   counterResistanceModifier: 0.25
