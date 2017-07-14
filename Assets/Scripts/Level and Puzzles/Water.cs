@@ -11,6 +11,7 @@ public class Water : MonoBehaviour {
             other.GetComponent<PlayerMovement>().inWater = true;
             other.GetComponent<PlayerMovement>().arialJumpsUsed = 0;
             other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().inWaterMass;
+            other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
         else if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Ice)//Water enemy is no longer swimming.
         {

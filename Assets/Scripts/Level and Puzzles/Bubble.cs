@@ -32,7 +32,7 @@ public class Bubble : MonoBehaviour {
         {
             attachedToSomething = true;
             whatIAmAttachedTo = other.gameObject;
-            other.transform.GetComponent<Rigidbody2D>().mass = 1;
+            other.transform.GetComponent<Rigidbody2D>().mass = other.transform.GetComponent<Rigidbody2D>().mass / 2; //Was 1 before.
         }
         else if (other.transform.GetComponent<EnemyHealth>())
         {

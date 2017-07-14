@@ -205,6 +205,9 @@ public class PlayerAttacks : MonoBehaviour {
     protected IEnumerator defendCooldownCoroutine;
     #endregion
 
+    //Animation
+    protected Animator anim;
+
     public virtual void Start()
     {
         meleeCooldownCoroutine = MeleeCooldown();
@@ -213,9 +216,10 @@ public class PlayerAttacks : MonoBehaviour {
 
         //Sets my player # so I know what controller to look at.
         playerNumber = playerHealth.playerNumber;
-        Debug.Log("element " + element + "player Number " + playerNumber);
-        //Sets up my rigid body.
+        //Debug.Log("element " + element + "player Number " + playerNumber);
+        //Sets up my rigid body and animator
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         //Finds the wisp target location object, changes it's name, and removes it as a child.
         myWispTargetLocation = transform.Find("Wisp Target Location");
         myWispTargetLocation.name = gameObject.name + "Wisp Target Location";
