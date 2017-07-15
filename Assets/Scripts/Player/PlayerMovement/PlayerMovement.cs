@@ -216,6 +216,43 @@ public class PlayerMovement : MonoBehaviour {
         }   
     }
 
+    public virtual void OnTriggerStay2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag) //Checks what's below me.
+        {
+
+            case "Ground":
+
+                if(grounded != true)
+                {
+                    grounded = true;
+                    anim.SetBool("Grounded", true);
+                    arialJumpsUsed = 0;
+                    bounceJumpsUsed = 0;
+                }
+                //Debug.Log("Enter Ground");
+                break;
+            case "Enemy":
+
+                if (enemyBelow != true)
+                {
+                    enemyBelow = true;
+                }
+                //Debug.Log("Enter Enemy");
+                break;
+            case "Player":
+
+                if (playerBelow != true)
+                {
+                    playerBelow = true;
+                }
+                //Debug.Log("Enter Player");
+                break;
+            default:
+                break;
+        }
+    }
+
     public virtual void OnTriggerExit2D(Collider2D collision)
     {
         switch (collision.gameObject.tag) //removes what's below me when I leave.
