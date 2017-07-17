@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShooter : Enemy {
+public class EnemyTurret : Enemy {
 
     public Transform shootPoint;
     public GameObject projectile;
