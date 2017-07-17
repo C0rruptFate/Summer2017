@@ -80,19 +80,17 @@ public class EnemyShooter : Enemy {
         {//Moves towards my target.
             if (enemyTargetType != EnemyTargetType.Roam)
             {
+                if (GetComponent<Rigidbody2D>().gravityScale == 0 && transform.position.y != target.transform.position.y)
+                {
+                    Vector2 lowerYTransform = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), target.transform.position, (speed * Time.deltaTime));
+
+                    transform.position = new Vector2(transform.position.x, lowerYTransform.y);
+                }
+
                 float dist = Vector2.Distance(target.transform.position, gameObject.transform.position);
                 if (dist >= furthestIWillGet)
                 {
-                    if (GetComponent<Rigidbody2D>().gravityScale == 0 && transform.position.y != target.transform.position.y)
-                    {
-                        Vector2 lowerYTransform = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), target.transform.position, (speed * Time.deltaTime));
-
-                        transform.position = new Vector2(lowerYTransform.x, lowerYTransform.y);
-                    }
-                    else
-                    {
                         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (speed * Time.deltaTime));
-                    }
                 }
                 else if (dist < closestIWillGet)
                 {
@@ -106,10 +104,7 @@ public class EnemyShooter : Enemy {
 
                         transform.position = new Vector2(lowerYTransform.x, lowerYTransform.y);
                     }
-                    else
-                    {
                         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (-speed * Time.deltaTime));
-                    }
                 }
 
 
