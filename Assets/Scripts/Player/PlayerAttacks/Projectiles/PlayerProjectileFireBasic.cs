@@ -10,7 +10,7 @@ public class PlayerProjectileFireBasic : PlayerProjectile
     {
 
         //Set's my element
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -65,16 +65,16 @@ public class PlayerProjectileFireBasic : PlayerProjectile
                     if (alreadyGeneratedComboPoint == false)
                     {
                         alreadyGeneratedComboPoint = true;
-                        player.GetComponent<AttacksFire>().currentComboPoints++;
-                        player.GetComponent<AttacksFire>().currentTimeDelaySet = Time.time;
-                        player.GetComponent<AttacksFire>().comboPointAlreadyCounting = false;
+                        shooter.GetComponent<AttacksFire>().currentComboPoints++;
+                        shooter.GetComponent<AttacksFire>().currentTimeDelaySet = Time.time;
+                        shooter.GetComponent<AttacksFire>().comboPointAlreadyCounting = false;
                         //player.GetComponent<AttacksFire>().comboPointCountDown = !player.GetComponent<AttacksFire>().comboPointCountDown;
-                        if (player.GetComponent<AttacksFire>().currentComboPoints >= player.GetComponent<AttacksFire>().maxComboPoints)
+                        if (shooter.GetComponent<AttacksFire>().currentComboPoints >= shooter.GetComponent<AttacksFire>().maxComboPoints)
                         {
-                            player.GetComponent<AttacksFire>().currentComboPoints = player.GetComponent<AttacksFire>().maxComboPoints;
+                            shooter.GetComponent<AttacksFire>().currentComboPoints = shooter.GetComponent<AttacksFire>().maxComboPoints;
                         }
                         //Debug.Log("Generates a combo point" + player.GetComponent<AttacksFire>().currentComboPoints);
-                        player.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().UpdateComboPointUI();
+                        shooter.GetComponent<PlayerHealth>().playerUI.GetComponent<PlayerUI>().UpdateComboPointUI();
                     }
 
                     //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.

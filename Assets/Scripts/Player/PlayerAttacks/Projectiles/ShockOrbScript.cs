@@ -17,17 +17,17 @@ public class ShockOrbScript : PlayerProjectile {
     public override void Start () {
 
         Debug.Log("shock orb Spawned");
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         if (GetComponent<CircleCollider2D>().enabled == false)
         {
             GetComponent<CircleCollider2D>().enabled = true;
             
         }
-        currentLife = Time.time + player.GetComponent<PlayerAttacks>().specialRangedHitStun;
-        GetComponent<CircleCollider2D>().radius = player.GetComponent<AttacksAir>().shockOrbRadius;
+        currentLife = Time.time + shooter.GetComponent<PlayerAttacks>().specialRangedHitStun;
+        GetComponent<CircleCollider2D>().radius = shooter.GetComponent<AttacksAir>().shockOrbRadius;
         //Destroys self after damaging all targets.
-        Invoke("ShockOrbVanish", player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+        Invoke("ShockOrbVanish", shooter.GetComponent<PlayerAttacks>().specialRangedHitStun);
     }
 
     // Update is called once per frame
@@ -43,14 +43,14 @@ public class ShockOrbScript : PlayerProjectile {
             GameObject miniShockOrb = Instantiate(shockOrbEffect, other.transform.position, other.transform.rotation);
             miniShockOrb.transform.parent = gameObject.transform;
             //Debug.Log("Player: " + player + "damage: " + player.GetComponent<PlayerAttacks>().specialRangedDamage + "HitStun: " + player.GetComponent<PlayerAttacks>().specialRangedHitStun);
-            float newProjectileDamage = player.GetComponent<PlayerAttacks>().specialRangedDamage;
+            float newProjectileDamage = shooter.GetComponent<PlayerAttacks>().specialRangedDamage;
 
             if (other.transform.Find("Air Effect"))
             {
-                newProjectileDamage = player.GetComponent<PlayerAttacks>().specialRangedDamage * 2;
+                newProjectileDamage = shooter.GetComponent<PlayerAttacks>().specialRangedDamage * 2;
             }
             //Debug.Log("Damage: " + newProjectileDamage);
-            other.GetComponent<EnemyHealth>().TakeDamage(gameObject, newProjectileDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+            other.GetComponent<EnemyHealth>().TakeDamage(gameObject, newProjectileDamage, shooter.GetComponent<PlayerAttacks>().specialRangedHitStun);
             
         }
     }

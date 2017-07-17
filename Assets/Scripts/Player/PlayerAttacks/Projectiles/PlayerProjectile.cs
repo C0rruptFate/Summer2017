@@ -5,88 +5,13 @@ using UnityEngine;
 public class PlayerProjectile : Projectiles
 {
 
-    ////These are all set by the players attacks/actions script.
-    //[HideInInspector]//How fast the projectile moves.
-    //public float projectileSpeed;
-    //[HideInInspector]//How much damage the projectile deals.
-    //public float projectileDamage;
-    //[HideInInspector]//How long the projectile stuns for.
-    //public float projectileHitStun;
+    public override void Start()
+    {
+        element = shooter.GetComponent<PlayerHealth>().element;
+        base.Start();
+    }
 
-    //[HideInInspector]//the projectile will expire after X seconds.
-    //public float projectileMaxDuration;
-    //[HideInInspector]//The chance it will break when hitting an enemy.
-    //public float projectileBreakChance;
-    //[HideInInspector]//Does this fly strait or is is lobbed? True to fly strait.
-    //public bool usesConstantForceProjectile = true;
-    //[HideInInspector]//Does this expire when hitting a wall?
-    //public bool breaksHittingWall = true;
-    //[HideInInspector]//The force this is lobbed at when the player is using a lobbed projectile.
-    //public Vector2 lobbedForce;
-    //[HideInInspector]//How long this is held for before being thrown.
-    //public float throwWaitTime;
-    //protected Transform formerParent;//Used when holding a lobbed projectile.
-
-    //[HideInInspector]
-    //public float currentLife;//How long this has been alive for.
-    //protected bool breaking = false;//used with the break change to decide if this will break.
-
-    //[HideInInspector]
-    //public GameObject player; //Who this belongs to.
-    //[HideInInspector]//What element is this projectile.
-    //public Element myElement;
-
-    //protected Rigidbody2D rb; //My Rigidibody
-
-    // Start and fixed update are blocked out atm
-    //public void Start () {
-
-    //    //Set's my element
-    //    myElement = player.GetComponent<PlayerHealth>().element;
-
-    //    //enables my collider as they start disabled.
-    //    if (gameObject.GetComponent<Collider2D>().enabled == false)
-    //    {
-    //        gameObject.GetComponent<Collider2D>().enabled = true;
-    //    }
-
-    //    //Used to set up lobbed projectiles.
-    //    if(!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
-    //    {
-    //        formerParent = transform.parent;
-    //        transform.parent = player.transform;
-    //        Invoke("ThrowForce", throwWaitTime);
-    //    }
-
-    //    currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
-    //    float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
-    //    if (breakNumber <= projectileBreakChance)
-    //    {
-    //        breaking = true;
-    //    }
-    //}
-
-    //// Update is called once per frame
-    //public virtual void FixedUpdate () {
-
-    //    //Reduces the life of the object at 0 it is destroyed.
-    //    if (Time.time >= currentLife)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-
-    //    //Causes the object to fly forward.
-    //    if (usesConstantForceProjectile)
-    //    {
-    //        transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
-    //    }
-//            else
-//        {//Reflects the projectile.
-//            transform.position = Vector3.MoveTowards(transform.position, reflectedPoint.position, -projectileSpeed* Time.deltaTime);
-//}
-//}
-
-public override void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerEnter2D(Collider2D other)
     {
         if (hurtsPlayers == false)
         {
@@ -124,6 +49,11 @@ public override void OnTriggerEnter2D(Collider2D other)
                 if (playerMovement && health)
                 {
                     health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                    //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
+                    if (breaking)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
             else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
@@ -139,7 +69,7 @@ public override void OnTriggerEnter2D(Collider2D other)
         //Throws the lobbed projectile.
         gameObject.AddComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
-        if (player.GetComponent<Transform>().rotation.y != 0)//If the player is facing left throw to the left.
+        if (shooter.GetComponent<Transform>().rotation.y != 0)//If the player is facing left throw to the left.
         {
             rb.AddForce(new Vector2(-lobbedForce.x, lobbedForce.y), ForceMode2D.Impulse);
         }

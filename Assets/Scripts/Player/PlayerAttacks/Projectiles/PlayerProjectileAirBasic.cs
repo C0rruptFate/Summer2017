@@ -14,7 +14,7 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
     {
 
         //Set's my element
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -26,7 +26,7 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
         if (!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
         {
             formerParent = transform.parent;
-            transform.parent = player.transform;
+            transform.parent = shooter.transform;
             Invoke("ThrowForce", throwWaitTime);
         }
 
@@ -55,7 +55,7 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
         //Causes the object to fly forward.
         if (returnToPlayer)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, projectileSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, shooter.transform.position, projectileSpeed * Time.deltaTime);
         }
         else if (usesConstantForceProjectile)
         {
@@ -101,7 +101,7 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
                     currentLife = Time.time;
                 }
             }
-            else if (returnToPlayer && other.gameObject == player)
+            else if (returnToPlayer && other.gameObject == shooter)
             {
                 //Debug.Log("Touched player");
                 Destroy(gameObject);
@@ -130,7 +130,7 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
             {
                 Destroy(gameObject);
             }
-            else if (returnToPlayer && other.gameObject == player)
+            else if (returnToPlayer && other.gameObject == shooter)
             {
                 //Debug.Log("Touched player");
                 Destroy(gameObject);

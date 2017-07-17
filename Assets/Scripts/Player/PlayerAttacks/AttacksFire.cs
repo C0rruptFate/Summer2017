@@ -249,7 +249,7 @@ public class AttacksFire : PlayerAttacks {
     {
         base.SetSpecialDefendStats(defend);
         defend.GetComponent<CircleCollider2D>().radius = rangedExplosionStartingRadius + currentComboPoints;
-        defend.GetComponent<FireProjectileExplosion>().player = gameObject;
+        defend.GetComponent<FireProjectileExplosion>().shooter = gameObject;
     }
 
     void SpendComboPoints()

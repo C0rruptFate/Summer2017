@@ -16,7 +16,7 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
         //Set's my element
 
         //Debug.Log("I'm the special ranged attack");
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -28,7 +28,7 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
         if (!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
         {
             formerParent = transform.parent;
-            transform.parent = player.transform;
+            transform.parent = shooter.transform;
             Invoke("ThrowForce", throwWaitTime);
         }
 
@@ -76,7 +76,7 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
                     //Heals the player for half the damage their projectile would do.
                     float healAmount = projectileDamage * baseHealReduction;
                     //If the player is below 25% hp then heal for 3X as much.
-                    if (player.GetComponent<PlayerHealth>().health <= (healMultiplierThreshold * player.GetComponent<PlayerHealth>().maxHealth))
+                    if (shooter.GetComponent<PlayerHealth>().health <= (healMultiplierThreshold * shooter.GetComponent<PlayerHealth>().maxHealth))
                     {
                         healAmount = projectileDamage * healMultiplier;
                         //Debug.Log("Bigger heal: " + healAmount);
@@ -85,7 +85,7 @@ public class PlayerProjectileWaterSpecial : PlayerProjectile
                     {
                         //Debug.Log("Small heal: " + healAmount);
                     }
-                    player.GetComponent<PlayerHealth>().Heal(healAmount);
+                    shooter.GetComponent<PlayerHealth>().Heal(healAmount);
 
                     //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
                     if (breaking)

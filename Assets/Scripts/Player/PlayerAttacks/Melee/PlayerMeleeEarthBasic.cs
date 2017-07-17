@@ -22,7 +22,7 @@ public class PlayerMeleeEarthBasic : PlayerMelee
                 //GameObject Instantiate(projectileSpawn,)
                 GameObject newGroundProjectile = Instantiate(projectileSpawn, new Vector2(transform.position.x, transform.position.y + 1f), transform.rotation);
                 newGroundProjectile.transform.parent = player.GetComponent<PlayerAttacks>().playerWeaponParent.transform;
-                newGroundProjectile.GetComponent<PlayerProjectile>().player = player;
+                newGroundProjectile.GetComponent<PlayerProjectile>().shooter = player;
                 SetBasicRangedAttackStats(newGroundProjectile);
                 //Uncomment if you only want it to hit a single guy, we can add a bool for hitting multipule guys if we want.
                 //Destroy(gameObject);

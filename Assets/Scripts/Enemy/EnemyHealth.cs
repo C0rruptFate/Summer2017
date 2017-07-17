@@ -42,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
     public bool invulnerable = false;
 
     // Use this for initialization
-    public virtual void Start()
+    protected virtual void Start()
     {
         myEnemyScript = gameObject.GetComponent<Enemy>();
         //Debug.Log("myEnemyScript: " + myEnemyScript);

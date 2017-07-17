@@ -697,27 +697,27 @@ public class PlayerAttacks : MonoBehaviour {
                 //Set up a gun position object on each player.
                 GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
                 newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                newGroundProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                 SetBasicRangedAttackStats(newGroundProjectile);
                 if (groundGunTwo != null)
                 {
                     //Does the same thing for the secondary grounded projectile if one is set.
                     newGroundProjectile = Instantiate(groundProjectile, groundGunTwo.position, groundGunTwo.rotation);
                     newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                    newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    newGroundProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                     SetBasicRangedAttackStats(newGroundProjectile);
                 }
                 break;
             default://Set up a aerial gun position object on each player.
                 GameObject newAirProjectile = Instantiate(airProjectile, airGun.position, airGun.rotation);
                 newAirProjectile.transform.parent = playerWeaponParent.transform;
-                newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                newAirProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                 SetBasicRangedAttackStats(newAirProjectile);
                 if (airGunTwo != null)
                 {//Does the same thing for the secondary if one is set.
                     newAirProjectile = Instantiate(airProjectile, airGunTwo.position, airGunTwo.rotation);
                     newAirProjectile.transform.parent = playerWeaponParent.transform;
-                    newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    newAirProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                     SetBasicRangedAttackStats(newAirProjectile);
                 }
                 break;
@@ -827,27 +827,27 @@ public class PlayerAttacks : MonoBehaviour {
                 //Set up a gun position object on each player.
                 GameObject newGroundProjectile = Instantiate(specialRangedAttackObject, groundGun.position, groundGun.rotation);
                 newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                newGroundProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                 SetSpecialRangedAttackStats(newGroundProjectile);
                 if (groundGunTwo != null && useRangedSecondaryGunSpecial)
                 {
                     //Does the same thing for the secondary grounded projectile if one is set.
                     newGroundProjectile = Instantiate(specialRangedAttackObject, groundGunTwo.position, groundGunTwo.rotation);
                     newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                    newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    newGroundProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                     SetSpecialRangedAttackStats(newGroundProjectile);
                 }
                 break;
             default://Set up a aerial gun position object on each player.
                 GameObject newAirProjectile = Instantiate(specialRangedAttackObject, airGun.position, airGun.rotation);
                 newAirProjectile.transform.parent = playerWeaponParent.transform;
-                newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                newAirProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                 SetSpecialRangedAttackStats(newAirProjectile);
                 if (airGunTwo != null && useRangedSecondaryGunSpecial)
                 {//Does the same thing for the secondary if one is set.
                     newAirProjectile = Instantiate(specialRangedAttackObject, airGunTwo.position, airGunTwo.rotation);
                     newAirProjectile.transform.parent = playerWeaponParent.transform;
-                    newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    newAirProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                     SetSpecialRangedAttackStats(newAirProjectile);
                 }
                 break;

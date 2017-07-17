@@ -17,7 +17,7 @@ public class PlayerProjectileAirSpecial : PlayerProjectile
     {
         //shockOrbRadius = player.GetComponent<PlayerAttacks>().
         //Set's my element
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -63,7 +63,7 @@ public class PlayerProjectileAirSpecial : PlayerProjectile
             if (other.tag == ("Enemy"))//If this hits an enemy deals damage to them.
             {
                 GameObject myShockOrb = Instantiate(shockOrb, transform.position, transform.rotation);
-                myShockOrb.GetComponent<ShockOrbScript>().player = player;
+                myShockOrb.GetComponent<ShockOrbScript>().shooter = shooter;
                 Destroy(gameObject);
                 //myShockOrb.GetComponent<ShockOrbScript>().element = myElement;
                 //myShockOrb.GetComponent<ShockOrbScript>().projectileDamage = projectileDamage;

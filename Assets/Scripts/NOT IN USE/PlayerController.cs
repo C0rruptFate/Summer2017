@@ -661,12 +661,12 @@ public class PlayerController : MonoBehaviour
                     //Set up a gun position object on each player.
                     GameObject newGroundProjectile = Instantiate(groundProjectile, groundGun.position, groundGun.rotation);
                     newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                    newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    newGroundProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                     if(groundGunTwo != null)
                     {
                         newGroundProjectile = Instantiate(groundProjectile, groundGunTwo.position, groundGunTwo.rotation);
                         newGroundProjectile.transform.parent = playerWeaponParent.transform;
-                        newGroundProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                        newGroundProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                     }
 
                 }
@@ -675,12 +675,12 @@ public class PlayerController : MonoBehaviour
             default:
                 GameObject newAirProjectile = Instantiate(airProjectile, airGun.position, airGun.rotation);
                 newAirProjectile.transform.parent = playerWeaponParent.transform;
-                newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                newAirProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                 if(airGunTwo != null)
                 {
                     newAirProjectile = Instantiate(airProjectile, airGunTwo.position, airGunTwo.rotation);
                     newAirProjectile.transform.parent = playerWeaponParent.transform;
-                    newAirProjectile.GetComponent<PlayerProjectile>().player = gameObject;
+                    newAirProjectile.GetComponent<PlayerProjectile>().shooter = gameObject;
                 }
                 break;
         }

@@ -14,7 +14,7 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
     {
 
         //Set's my element
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         currentLife = Time.time + projectileMaxDuration;//sets the max life of this object.
         float breakNumber = Random.Range(0, 100);//Used to help decide if this will break when hitting an enemy.
@@ -56,7 +56,7 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
             if (other.tag == ("Enemy") || other.tag == ("Ground"))//If this hits an enemy deals damage to them.
             {
                 GameObject explosion = Instantiate(explosionObject, explosionLocation.position, explosionLocation.rotation);
-                explosion.GetComponent<FireProjectileExplosion>().player = player;
+                explosion.GetComponent<FireProjectileExplosion>().shooter = shooter;
                 Destroy(gameObject);
             }
         }
@@ -65,7 +65,7 @@ public class PlayerProjectileFireSpecial : PlayerProjectile
             if (other.tag == ("Player") || other.tag == ("Ground"))//If this hits an enemy deals damage to them.
             {
                 GameObject explosion = Instantiate(explosionObject, explosionLocation.position, explosionLocation.rotation);
-                explosion.GetComponent<FireProjectileExplosion>().player = player;
+                explosion.GetComponent<FireProjectileExplosion>().shooter = shooter;
                 Destroy(gameObject);
             }
         }

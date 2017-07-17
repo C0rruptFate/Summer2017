@@ -30,7 +30,7 @@ public class Projectiles : MonoBehaviour {
     protected bool breaking = false;//used with the break change to decide if this will break.
 
     [HideInInspector]
-    public GameObject player; //Who this belongs to.
+    public GameObject shooter; //Who this belongs to.
     [HideInInspector]//What element is this projectile.
     public Element element;
 
@@ -46,7 +46,7 @@ public class Projectiles : MonoBehaviour {
     {
 
         //Set's my element
-        element = player.GetComponent<PlayerHealth>().element;
+        //element = player.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -58,7 +58,7 @@ public class Projectiles : MonoBehaviour {
         if (!usesConstantForceProjectile && GetComponent<Rigidbody2D>() == null)
         {
             formerParent = transform.parent;
-            transform.parent = player.transform;
+            transform.parent = shooter.transform;
             Invoke("ThrowForce", throwWaitTime);
         }
 
@@ -128,6 +128,11 @@ public class Projectiles : MonoBehaviour {
                 if (playerMovement && health)
                 {
                     health.TakeDamage(gameObject, projectileDamage, projectileHitStun);
+                    //If this is true it will destroy itself after hitting a single enemy false lets it hit several enemies.
+                    if (breaking)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
             else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
@@ -143,7 +148,7 @@ public class Projectiles : MonoBehaviour {
         //Throws the lobbed projectile.
         gameObject.AddComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
-        if (player.GetComponent<Transform>().rotation.y != 0)//If the player is facing left throw to the left.
+        if (shooter.GetComponent<Transform>().rotation.y != 0)//If the player is facing left throw to the left.
         {
             rb.AddForce(new Vector2(-lobbedForce.x, lobbedForce.y), ForceMode2D.Impulse);
         }

@@ -56,7 +56,7 @@ public class EarthSpecialDefend : PlayerMelee {
         {
             GameObject shard = Instantiate(player.GetComponent<PlayerAttacks>().groundProjectile, spawnPoint.position, spawnPoint.rotation);
             player.GetComponent<AttacksEarth>().SetBasicRangedAttackStats(shard);
-            shard.GetComponent<Projectiles>().player = player;
+            shard.GetComponent<Projectiles>().shooter = player;
             shard.GetComponent<PlayerProjectileEarthBasic>().throwWaitTime = 0;
         }
         player.GetComponent<Rigidbody2D>().gravityScale = 1;

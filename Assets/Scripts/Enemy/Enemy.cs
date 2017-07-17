@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour {
     EnemyHealth enemyHealth;
 
     // Use this for initialization
-    public virtual void Start()
+    protected virtual void Start()
     {
         //Sets up the components 
         //animator = GetComponent<Animator>();

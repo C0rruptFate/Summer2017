@@ -28,7 +28,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
     {
         //Debug.Log("Look here");
         //Set's my element
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -38,7 +38,7 @@ public class PlayerProjectileEarthSpecial : PlayerProjectile
 
         //Debug.Log("Look here");
         formerParent = transform.parent;
-        transform.parent = player.transform;
+        transform.parent = shooter.transform;
         Invoke("ThrowForce", throwWaitTime);
         Invoke("ChangeMass", throwWaitTime * 3);
 

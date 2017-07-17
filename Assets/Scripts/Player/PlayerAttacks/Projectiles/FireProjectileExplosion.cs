@@ -10,7 +10,7 @@ public class FireProjectileExplosion : PlayerProjectile {
     public override void Start () {
 
         //Set's my element
-        element = player.GetComponent<PlayerHealth>().element;
+        element = shooter.GetComponent<PlayerHealth>().element;
 
         //enables my collider as they start disabled.
         if (gameObject.GetComponent<Collider2D>().enabled == false)
@@ -56,14 +56,14 @@ public class FireProjectileExplosion : PlayerProjectile {
         {
             if (other.tag == "Enemy")
             {
-                other.GetComponent<EnemyHealth>().TakeDamage(gameObject, player.GetComponent<PlayerAttacks>().specialRangedDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+                other.GetComponent<EnemyHealth>().TakeDamage(gameObject, shooter.GetComponent<PlayerAttacks>().specialRangedDamage, shooter.GetComponent<PlayerAttacks>().specialRangedHitStun);
             }
         }
         else if (hurtsPlayers == true)
         {
             if (other.tag == "Player")
             {
-                other.GetComponent<EnemyHealth>().TakeDamage(gameObject, player.GetComponent<PlayerAttacks>().specialRangedDamage, player.GetComponent<PlayerAttacks>().specialRangedHitStun);
+                other.GetComponent<EnemyHealth>().TakeDamage(gameObject, shooter.GetComponent<PlayerAttacks>().specialRangedDamage, shooter.GetComponent<PlayerAttacks>().specialRangedHitStun);
             }
         }
     }
