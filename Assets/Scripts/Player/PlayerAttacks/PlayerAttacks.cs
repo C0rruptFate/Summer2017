@@ -542,10 +542,14 @@ public class PlayerAttacks : MonoBehaviour {
         if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Special Melee Attack
         {
             //Debug.Log("Melee Special is active.");
+            //Animator Trigger is True
+            anim.SetTrigger("Melee");
             SpecialMeleeAttack();
         }
         else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Melee Attack
         {
+            //Animator Trigger is True
+            anim.SetTrigger("Melee");
             MeleeAttack();
         }
 
@@ -554,10 +558,14 @@ public class PlayerAttacks : MonoBehaviour {
         if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Special Ranged Attack
         {
             //Debug.Log("Ranged Special is active.");
+            //Animator Trigger is True
+            anim.SetTrigger("Ranged");
             SpecialRangedAttack();
         }
         else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Ranged Attack
         {
+            //Animator Trigger is True
+            anim.SetTrigger("Ranged");
             RangedAttack();
         }
 
