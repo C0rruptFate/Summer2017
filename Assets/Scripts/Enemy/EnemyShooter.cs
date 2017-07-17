@@ -80,7 +80,7 @@ public class EnemyShooter : Enemy {
         {//Moves towards my target.
             if (enemyTargetType != EnemyTargetType.Roam)
             {
-                if (GetComponent<Rigidbody2D>().gravityScale == 0 && transform.position.y != target.transform.position.y)
+                if (GetComponent<Rigidbody2D>().gravityScale == 0 && (transform.position.y < target.transform.position.y - 2 || transform.position.y > target.transform.position.y + 2))
                 {
                     Vector2 lowerYTransform = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), target.transform.position, (speed * Time.deltaTime));
 
