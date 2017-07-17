@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour {
     public float knockback = 1f;
     [Tooltip("How much time must take place between swings.")]
     public float swingTimer = 0.5f;
+    [Tooltip("Jump force for enemies that have a jump, not all do.")]
+    public float jumpForce;
 
     //private GameObject currentTarget;
     //private Animator animator;
@@ -45,6 +47,9 @@ public class Enemy : MonoBehaviour {
     public float newSwingTimer = 0f;
     [HideInInspector]//Enemy HP script.
     EnemyHealth enemyHealth;
+
+    [HideInInspector]
+    public bool grounded;
 
     // Use this for initialization
     protected virtual void Start()
@@ -196,6 +201,30 @@ public class Enemy : MonoBehaviour {
                 //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
                 health.TakeDamage(gameObject, damage, hitStun);
             }    
+        }
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            grounded = true;
+        }
+    }
+
+    public virtual void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ground") && !grounded)
+        {
+            grounded = true;
+        }
+    }
+
+    public virtual void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            grounded = false;
         }
     }
 }

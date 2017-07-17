@@ -6,6 +6,7 @@ public class EnemyShooter : Enemy {
 
     public Transform shootPoint;
     public GameObject projectile;
+    public bool aimProjectile = false;
     public float projectileSpeed;
     public float projectileMaxDuration;
     public float projectileBreakChance;
@@ -37,6 +38,11 @@ public class EnemyShooter : Enemy {
 
     void Update()
     {
+        if (aimProjectile)
+        {
+            shootPoint.LookAt(target.transform.position, Vector3.up);
+        }
+
         if (Time.time > newSwingTimer)
         {
             Shoot();
@@ -81,6 +87,10 @@ public class EnemyShooter : Enemy {
                 }
                 else if (dist < closestIWillGet)
                 {
+                    if (grounded)
+                    {
+                        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                    }
                     transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (-speed * Time.deltaTime));
                 }
             }
@@ -99,9 +109,16 @@ public class EnemyShooter : Enemy {
 
     void Shoot()
     {
-        GameObject myProjectile = Instantiate(projectile, shootPoint.position, shootPoint.rotation);
-        ProjectileStats(myProjectile);
-        
+        if (aimProjectile)
+        {
+            GameObject myProjectile = Instantiate(projectile, shootPoint.position, shootPoint.transform.Find("Direction").transform.rotation);
+            ProjectileStats(myProjectile);
+        }
+        else
+        {
+            GameObject myProjectile = Instantiate(projectile, shootPoint.position, shootPoint.transform.rotation);
+            ProjectileStats(myProjectile);
+        }
     }
 
     void ProjectileStats(GameObject myProjectile)

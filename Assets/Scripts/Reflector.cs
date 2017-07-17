@@ -11,8 +11,15 @@ public class Reflector : MonoBehaviour {
 
     public Transform reflectPoint;
 
-	// Use this for initialization
-	void Start () {
+    void OnDrawGizmos()
+    {
+        //Wire for start position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(reflectPoint.position, reflectPoint.localScale);
+    }
+
+    // Use this for initialization
+    void Start () {
         reflectPoint.transform.position = transform.position;
         myCharacter.GetComponent<AttacksAir>().reflectedSomething = false;
         //Debug.Log("reflector has spawned.");
@@ -38,6 +45,7 @@ public class Reflector : MonoBehaviour {
             other.GetComponent<Projectiles>().usesConstantForceProjectile = false;
             other.GetComponent<Projectiles>().reflectedPoint = reflectPoint;
             other.GetComponent<Projectiles>().hurtsPlayers = hurtsPlayers;
+            other.GetComponent<Projectiles>().currentLife = Time.time + other.GetComponent<Projectiles>().projectileMaxDuration;
             //Debug.Log("Reflected A projectile");
         }
     }
