@@ -78,42 +78,6 @@ public class EnemyTurret : Enemy {
         }
         else
         {//Moves towards my target.
-            if (enemyTargetType != EnemyTargetType.Roam)
-            {
-                float dist = Vector2.Distance(target.transform.position, gameObject.transform.position);
-                if (dist >= furthestIWillGet)
-                {
-                    if (GetComponent<Rigidbody2D>().gravityScale == 0 && transform.position.y != target.transform.position.y)
-                    {
-                        Vector2 lowerYTransform = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), target.transform.position, (speed * Time.deltaTime));
-
-                        transform.position = new Vector2(lowerYTransform.x, lowerYTransform.y);
-                    }
-                    else
-                    {
-                        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (speed * Time.deltaTime));
-                    }
-                }
-                else if (dist < closestIWillGet)
-                {
-                    if (grounded)
-                    {
-                        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                    }
-                    if (GetComponent<Rigidbody2D>().gravityScale == 0 && transform.position.y != target.transform.position.y)
-                    {
-                        Vector2 lowerYTransform = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), target.transform.position, (-speed * Time.deltaTime));
-
-                        transform.position = new Vector2(lowerYTransform.x, lowerYTransform.y);
-                    }
-                    else
-                    {
-                        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (-speed * Time.deltaTime));
-                    }
-                }
-
-
-            }
             if (relentless == false && Time.time > newNextTarget)
             {
                 TargetSelection();

@@ -721,6 +721,49 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b8ed8214003d5bb469eb6fd8d5187a4d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &894285448 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1043441738132792, guid: b8ed8214003d5bb469eb6fd8d5187a4d,
+    type: 2}
+  m_PrefabInternal: {fileID: 894285447}
+--- !u!114 &894285449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 894285448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0e3b5c000ead14b95e76190896080a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: 0
+  enemyTargetType: 0
+  relentless: 1
+  newTargetAcquisition: 0
+  speed: 13
+  maxMoveSpeed: 13
+  damage: 13
+  hitStun: 0.1
+  knockback: 1
+  swingTimer: 0.5
+  jumpForce: 0
+  rb: {fileID: 0}
+  targets: []
+  target: {fileID: 0}
+  newNextTarget: 0
+  direction: {x: 0, y: 0}
+  newSwingTimer: 0
+  grounded: 0
+  shootPoint: {fileID: 0}
+  projectile: {fileID: 0}
+  aimProjectile: 0
+  projectileSpeed: 0
+  projectileMaxDuration: 0
+  projectileBreakChance: 0
+  projectileBreaksHittingWall: 1
+  closestIWillGet: 0
+  furthestIWillGet: 0
 --- !u!1001 &1073381279
 Prefab:
   m_ObjectHideFlags: 0
