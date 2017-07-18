@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour {
     public Rigidbody2D rb;
     [HideInInspector]//list of players that I can target.
     public GameObject[] targets;
-    [HideInInspector]//What player I choose to target.
+    //[HideInInspector]//What player I choose to target.
     public GameObject target;
     [HideInInspector]//Finds a new target when the player dies or relentless is not checked.
     public float newNextTarget;

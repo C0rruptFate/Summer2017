@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class EnemyTurret : Enemy {
 
+    public float sightRange = 7;
+    public Transform idleTarget;
     public Transform shootPoint;
+    public GameObject lasorSight;
     public GameObject projectile;
     public bool aimProjectile = false;
     public float projectileSpeed;
     public float projectileMaxDuration;
     public float projectileBreakChance;
     public bool projectileBreaksHittingWall = true;
+    public float multiShotCount;
+    public float multiShotDelay;
     private bool hurtsPlayers = true;
-
-
-    public float closestIWillGet;
-    public float furthestIWillGet;
 
     private GameObject enemyWeaponParent;
 
@@ -23,7 +24,7 @@ public class EnemyTurret : Enemy {
     {
         //Wire for start position
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(shootPoint.position, shootPoint.localScale);
+        Gizmos.DrawWireCube(idleTarget.position, idleTarget.localScale);
     }
 
     protected override void Start()
@@ -34,73 +35,46 @@ public class EnemyTurret : Enemy {
         {
             enemyWeaponParent = new GameObject("Enemy Attacks");
         }
+        target = idleTarget.gameObject;
     }
 
     void Update()
     {
-        if (aimProjectile)
-        {
-            shootPoint.LookAt(target.transform.position, Vector3.up);
-        }
+        //if (aimProjectile)
+        //{
+        //    shootPoint.LookAt(target.transform.position, Vector3.up);
+        //}
 
-        if (Time.time > newSwingTimer)
+        if (Time.time > newSwingTimer && target != idleTarget.gameObject)
         {
-            Shoot();
+            for (int i = 0; i < multiShotCount; i++)
+            {
+                Invoke("Shoot", multiShotDelay + i * 0.5f);
+            }
             newSwingTimer = Time.time + swingTimer;
         }
     }
 
     public override void FixedUpdate()
     {
-        //Moves the enemy
-        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxMoveSpeed, maxMoveSpeed), rb.velocity.y);
-
-        //Finds a new target if my target dies or something happens.
-        if (target == null || !target.gameObject.activeSelf)
-        {
-            if (enemyTargetType != EnemyTargetType.Roam)
-            {
-                TargetSelection();
-            }
-            else
-            {
-                // Roaming Enemy
-                if (relentless == false && Time.time > newNextTarget)
-                {
-                    TargetSelection();
-                    if (direction.x == 0)
-                    {
-                        direction = new Vector2(Random.Range(-1, 2), 0);
-                    }
-                }
-                rb.AddForce(direction * speed, ForceMode2D.Force);
-            }
-        }
-        else
-        {//Moves towards my target.
-            if (relentless == false && Time.time > newNextTarget)
-            {
-                TargetSelection();
-            }
-        }
-        DirectionFacing();
+        shootPoint.LookAt(target.transform.position, Vector3.up);
     }
 
-    public override void TargetSelection()
-    {
-        base.TargetSelection();
-    }
+    //public override void TargetSelection()
+    //{
+    //    base.TargetSelection();
+    //}
 
     void Shoot()
     {
         if (aimProjectile)
         {
-            GameObject myProjectile = Instantiate(projectile, shootPoint.position, shootPoint.transform.Find("Direction").transform.rotation);
+            GameObject myProjectile = Instantiate(projectile, lasorSight.transform.position, shootPoint.transform.Find("Direction").transform.rotation);
             ProjectileStats(myProjectile);
         }
         else
         {
-            GameObject myProjectile = Instantiate(projectile, shootPoint.position, shootPoint.transform.rotation);
+            GameObject myProjectile = Instantiate(projectile, lasorSight.transform.position, shootPoint.transform.rotation);
             ProjectileStats(myProjectile);
         }
     }
@@ -120,7 +94,41 @@ public class EnemyTurret : Enemy {
         //Set up shooter for the projectile
     }
 
+    void TargetIdleTarget()
+    {
+        if (target == null)
+        {
+            target = idleTarget.gameObject;
+        }
+    }
+
     public override void OnCollisionStay2D(Collision2D other)
     {
+    }
+
+    public override void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            target = other.gameObject;
+        }
+    }
+
+    public override void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && target != other.gameObject)
+        {
+            target = other.gameObject;
+        }
+    }
+
+    public override void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            //target = null;
+            //Invoke("TargetIdleTarget", 1);
+            target = idleTarget.gameObject;
+        }
     }
 }
