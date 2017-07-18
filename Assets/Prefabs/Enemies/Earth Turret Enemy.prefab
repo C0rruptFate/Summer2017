@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 212753562831943462}
   - component: {fileID: 61288563393625222}
   m_Layer: 0
-  m_Name: lasor Sight
+  m_Name: laser Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ Transform:
   m_GameObject: {fileID: 1841246924556424}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 5}
-  m_LocalScale: {x: 10, y: 0.2, z: 1}
+  m_LocalScale: {x: 10, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4718365250874290}
   m_RootOrder: 1
@@ -425,7 +425,7 @@ MonoBehaviour:
   sightRange: 7
   idleTarget: {fileID: 4622001610473386}
   shootPoint: {fileID: 4718365250874290}
-  lasorSight: {fileID: 1841246924556424}
+  laserSight: {fileID: 1841246924556424}
   projectile: {fileID: 1138533282552756, guid: 9865393c60b0b384ca9a467d67fbc022, type: 2}
   aimProjectile: 1
   projectileSpeed: 20

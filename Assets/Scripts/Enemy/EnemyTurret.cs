@@ -7,7 +7,7 @@ public class EnemyTurret : Enemy {
     public float sightRange = 7;
     public Transform idleTarget;
     public Transform shootPoint;
-    public GameObject lasorSight;
+    public GameObject laserSight;
     public GameObject projectile;
     public bool aimProjectile = false;
     public float projectileSpeed;
@@ -53,11 +53,15 @@ public class EnemyTurret : Enemy {
             }
             newSwingTimer = Time.time + swingTimer;
         }
+
+        Vector3 relativePos = target.transform.position - shootPoint.position;
+        shootPoint.rotation = Quaternion.LookRotation(relativePos);
     }
 
     public override void FixedUpdate()
     {
-        shootPoint.LookAt(target.transform.position, Vector3.up);
+        //shootPoint.LookAt(new Vector2(target.transform.position.x, target.transform.position.y + 5));
+
     }
 
     //public override void TargetSelection()
@@ -69,12 +73,12 @@ public class EnemyTurret : Enemy {
     {
         if (aimProjectile)
         {
-            GameObject myProjectile = Instantiate(projectile, lasorSight.transform.position, shootPoint.transform.Find("Direction").transform.rotation);
+            GameObject myProjectile = Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.Find("Direction").transform.rotation);
             ProjectileStats(myProjectile);
         }
         else
         {
-            GameObject myProjectile = Instantiate(projectile, lasorSight.transform.position, shootPoint.transform.rotation);
+            GameObject myProjectile = Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.rotation);
             ProjectileStats(myProjectile);
         }
     }
@@ -126,9 +130,9 @@ public class EnemyTurret : Enemy {
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //target = null;
-            //Invoke("TargetIdleTarget", 1);
-            target = idleTarget.gameObject;
+            target = null;
+            Invoke("TargetIdleTarget", 1);
+            //target = idleTarget.gameObject;
         }
     }
 }
