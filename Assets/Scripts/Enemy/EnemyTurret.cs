@@ -6,7 +6,8 @@ public class EnemyTurret : Enemy {
 
     public float sightRange = 7;
     public Transform idleTarget;
-    public Transform shootPoint;
+    [HideInInspector]
+    public GameObject shootPoint;
     public GameObject laserSight;
     public GameObject projectile;
     public bool aimProjectile = false;
@@ -30,6 +31,10 @@ public class EnemyTurret : Enemy {
     protected override void Start()
     {
         base.Start();
+        shootPoint = transform.Find("Shoot Point").gameObject;
+        laserSight.GetComponent<TurretLaserSight>().myTurret = gameObject;
+        shootPoint.name = "Laser Sight for " + gameObject.name;
+        shootPoint.transform.parent = null;
         enemyWeaponParent = GameObject.Find("Enemy Attacks");
         if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
         {
@@ -54,8 +59,8 @@ public class EnemyTurret : Enemy {
             newSwingTimer = Time.time + swingTimer;
         }
 
-        Vector3 relativePos = target.transform.position - shootPoint.position;
-        shootPoint.rotation = Quaternion.LookRotation(relativePos);
+        Vector3 relativePos = target.transform.position - shootPoint.transform.position;
+        shootPoint.transform.rotation = Quaternion.LookRotation(relativePos);
     }
 
     public override void FixedUpdate()
