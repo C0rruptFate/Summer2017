@@ -61,6 +61,12 @@ public class PlayerProjectileAirBasic : PlayerProjectile {
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
         }
+
+        //Destroyes the projectile if the player is dead and it is returning to them.
+        if (returnToPlayer && shooter == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override void OnTriggerEnter2D(Collider2D other)
