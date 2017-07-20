@@ -9,5 +9,4 @@ public class EnemyProjectile : Projectiles {
         element = shooter.GetComponent<EnemyHealth>().element;
         base.Start();
     }
-
 }

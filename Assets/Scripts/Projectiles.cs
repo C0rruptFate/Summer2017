@@ -73,7 +73,6 @@ public class Projectiles : MonoBehaviour {
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-
         //Reduces the life of the object at 0 it is destroyed.
         if (Time.time >= currentLife)
         {
@@ -85,7 +84,7 @@ public class Projectiles : MonoBehaviour {
         {
             transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
         }
-        else
+        else if (!usesConstantForceProjectile && !GetComponent<Rigidbody2D>())
         {//Reflects the projectile.
             transform.position = Vector3.MoveTowards(transform.position, reflectedPoint.position, -projectileSpeed * Time.deltaTime);
         }

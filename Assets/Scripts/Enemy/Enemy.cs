@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour {
     public float speed = 13f;
     [Tooltip("Max speed of the enemy.")]
     public float maxMoveSpeed = 13f;
+    [Tooltip("Use if you want a roaming enemy to stay within some boundries")]
+    public bool useBoundries = false;
+    [Tooltip("How far from the Boundries can this unit move?")]
+    public float boundryRange = 15f;
 
     [Header("Damage and Attacks")]
     [Tooltip("Damage dealt when colliding with the enemy.")]
@@ -37,7 +41,7 @@ public class Enemy : MonoBehaviour {
     public Rigidbody2D rb;
     [HideInInspector]//list of players that I can target.
     public GameObject[] targets;
-    //[HideInInspector]//What player I choose to target.
+    [HideInInspector]//What player I choose to target.
     public GameObject target;
     [HideInInspector]//Finds a new target when the player dies or relentless is not checked.
     public float newNextTarget;
@@ -47,6 +51,7 @@ public class Enemy : MonoBehaviour {
     public float newSwingTimer = 0f;
     [HideInInspector]//Enemy HP script.
     EnemyHealth enemyHealth;
+    protected Vector2 startPosition;
 
     [HideInInspector]
     public bool grounded;
@@ -59,6 +64,11 @@ public class Enemy : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         element = gameObject.GetComponent<EnemyHealth>().element;
 
+        if (useBoundries)
+        {
+            startPosition = transform.position;
+        }
+        
         TargetSelection();//Finds the target.
     }
 
@@ -74,6 +84,7 @@ public class Enemy : MonoBehaviour {
             if (enemyTargetType != EnemyTargetType.Roam)
             {
                 TargetSelection();
+
             }
             else
             {
@@ -85,8 +96,20 @@ public class Enemy : MonoBehaviour {
                     {
                         direction = new Vector2(Random.Range(-1, 2), 0);
                     }
+                    if (useBoundries)
+                    {
+                        if (transform.position.x > startPosition.x + boundryRange)
+                        {
+                            direction.x = -1;
+                        }
+                        else if (transform.position.x < startPosition.x - boundryRange)
+                        {
+                            direction.x = 1;
+                        }
+                    }
                 }
                 rb.AddForce(direction * speed,ForceMode2D.Force);
+
             } 
         }
         else
@@ -138,6 +161,7 @@ public class Enemy : MonoBehaviour {
                 target = targets[Random.Range(0, targets.Length)];
                 break;
             case EnemyTargetType.Roam://Moves around randomly
+                //target = gameObject;
                 direction = new Vector2(Random.Range(-1, 2), 0);
                 break;
             case EnemyTargetType.Proximity://Finds the target closest to me.
@@ -171,14 +195,14 @@ public class Enemy : MonoBehaviour {
 
     public virtual void DirectionFacing()
     {
-        if(target.transform.position.x < transform.position.x)
-        {
-            transform.eulerAngles = new Vector2(transform.eulerAngles.x, 180);
-        }
-        else
-        {
-            transform.eulerAngles = new Vector2(transform.eulerAngles.x, 0);
-        }
+            if (target !=null && (target.transform.position.x < transform.position.x || direction.x < 0))
+            {
+                transform.eulerAngles = new Vector2(transform.eulerAngles.x, 180);
+            }
+            else
+            {
+                transform.eulerAngles = new Vector2(transform.eulerAngles.x, 0);
+            }
     }
 
     public virtual void OnCollisionStay2D(Collision2D other)
@@ -191,14 +215,14 @@ public class Enemy : MonoBehaviour {
             PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
             //PlayerAttacks playerAttacks = health.playerAttacks;
-            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+            Rigidbody2D otherRB = other.gameObject.GetComponent<Rigidbody2D>();
 
             //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
             if (playerMovement && health)
             {
-                //float distX = (other.transform.position.x - transform.position.x) * knockback;
-                //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
-                //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
+                float distX = (other.transform.position.x - transform.position.x) * knockback;
+                otherRB.velocity = new Vector2(0.0f, 0.0f);
+                otherRB.AddForce(new Vector2(otherRB.velocity.x + distX, otherRB.velocity.y), ForceMode2D.Impulse);
                 health.TakeDamage(gameObject, damage, hitStun);
             }    
         }

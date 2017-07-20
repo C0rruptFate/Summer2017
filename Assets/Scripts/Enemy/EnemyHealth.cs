@@ -173,6 +173,7 @@ public class EnemyHealth : MonoBehaviour
     public virtual void DestroyObject()//Paly death animation, wait then enemy dies.
     {
         //[TODO]trigger death animation
+        
         Destroy(gameObject);
     }
 

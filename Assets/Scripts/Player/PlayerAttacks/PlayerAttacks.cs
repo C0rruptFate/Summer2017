@@ -301,7 +301,7 @@ public class PlayerAttacks : MonoBehaviour {
         if (groundMeleeGunTwo == null)
         {
             //If the this object is missing it will inform the designer.
-            Debug.Log("Can't find the SECONDARY GROUND MELEE gun for " + gameObject);
+            //Debug.Log("Can't find the SECONDARY GROUND MELEE gun for " + gameObject);
         }
         //Sets up the aerial melee attack for your first weapon.
         switch (airMeleeType)
@@ -431,7 +431,7 @@ public class PlayerAttacks : MonoBehaviour {
         if (groundGunTwo == null)
         {
             //If the this object is missing it will inform the designer.
-            Debug.Log("No GROUND PROJECTILE selected on SECONDARY gun for " + gameObject);
+            //Debug.Log("No GROUND PROJECTILE selected on SECONDARY gun for " + gameObject);
         }
 
         //Sets up the aerial projectile for your primary weapon.
@@ -491,7 +491,7 @@ public class PlayerAttacks : MonoBehaviour {
         if (airGunTwo == null)
         {
             //If the this object is missing it will inform the designer.
-            Debug.Log("No air projectile selected on SECONDARY gun for " + gameObject);
+            //Debug.Log("No air projectile selected on SECONDARY gun for " + gameObject);
         }
         #endregion
     }

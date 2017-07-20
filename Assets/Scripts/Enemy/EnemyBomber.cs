@@ -6,6 +6,8 @@ public class EnemyBomber : Enemy {
 
     public GameObject bomb;
     public float projectileMaxDuration;
+    public float explosion_radius;
+    public float explosion_force;
     private bool hurtsPlayers = true;
 
     private Transform dropPoint;
@@ -49,5 +51,10 @@ public class EnemyBomber : Enemy {
         myProjectile.GetComponent<EnemyProjectile>().projectileHitStun = hitStun;
         myProjectile.GetComponent<EnemyProjectile>().projectileMaxDuration = projectileMaxDuration;
         myProjectile.GetComponent<EnemyProjectile>().hurtsPlayers = hurtsPlayers;
+        if (myProjectile.GetComponent<Bomb>() != null)
+        {
+            myProjectile.GetComponent<Bomb>().explosion_radius = explosion_radius;
+            myProjectile.GetComponent<Bomb>().explosion_force = explosion_force;
+        }
     }
 }
