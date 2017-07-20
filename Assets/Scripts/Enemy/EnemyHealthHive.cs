@@ -1,85 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
-{
-    [Header("Spawn rate and type")]
-    [Tooltip("Average Number of seconds between apperences")]
-    public float seenEverySeconds;
-    [Tooltip("Select the elemental type the enemy will be.")]
-    public Element element;
+public class EnemyHealthHive : EnemyHealth {
 
-    [Tooltip("How much health does this enemy have?")]
-    public float health = 100f;
-    //[HideInInspector][Tooltip("Fill with empty drops and pick ups that could be dropped.")]
-    public Slider enemyHPUI;
-    [HideInInspector][Tooltip("Attach the enemyHpSlider that is a child of the enemy.")]
-    public GameObject enemyHPUISliderObject;
-
-    [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this above 1.0f'")]
-    public float counterDamageModifier = 0.5f;
-    [Tooltip("How much is the damage I take multiplied by if it counters my element? 'Make this below 1.0f'")]
-    public float counterResistanceModifier = 0.25f;
-
-    [Tooltip("Fill with empty drops and pick ups that could be dropped.")]
-    public GameObject[] drops;
-
-    [Tooltip("The Y offset that the HP bar should be at.")]
-    public Vector3 hpBarOffSet;
+    public GameObject[] spawn;
+    public Vector2 spawnToss = new Vector2(5,5);
 
 
-    [HideInInspector]//Currently not being used.
-    public GameObject[] enemiesList;
-    [HideInInspector]//Set the Enemy controls script this holds the attack and movement for the enemy.
-    public Enemy myEnemyScript;
-    //[HideInInspector]//
-    //public GameObject canvas;
-    [HideInInspector]
-    public GameObject whatCantHitMe;
-    [HideInInspector]
-    public bool invulnerable = false;
-
-    // Use this for initialization
-    protected virtual void Start()
-    {
-        myEnemyScript = gameObject.GetComponent<Enemy>();
-
-        if (myEnemyScript.enabled == false)
-        {
-            Invoke("ComeAlive", 0.5f);
-        }
-        //Debug.Log("myEnemyScript: " + myEnemyScript);
-        
-        whatCantHitMe = gameObject;
-
-        //Old enemy canvas ui hp bar
-        //canvas = GameObject.Find("Canvas");
-
-        //if (!canvas)
-        //{
-        //    canvas = new GameObject("Canvas");
-        //}
-        //Used to set up the enemy HP sliders for the enemy so that the designer doesn't need to. Remove these lines and remove the [HideinInspector] on these varables if this doesn't work.
-        if(enemyHPUISliderObject == null)
-        {
-            enemyHPUISliderObject = transform.Find("Enemy HP Slider").gameObject;
-            //Debug.Log("Enemy HP Slider Object: " + enemyHPUIObject);
-            enemyHPUI = enemyHPUISliderObject.GetComponent<Slider>();
-        }
-        enemyHPUI.maxValue = health;
-        enemyHPUISliderObject.transform.SetParent(GameObject.Find("Camera Rig").transform.Find("Main Camera Orthagraphic").Find("Canvas-WorldSpace"), false);
-        //enemyHPUISliderObject.transform.parent = GameObject.Find("Camera Rig").transform.Find("Main Camera Orthagraphic").Find("Canvas-WorldSpace");
-        if (enemyHPUISliderObject.transform.parent == transform)
-        {
-            Debug.LogError("Couldn't find the Camera canvas");
-        }
-        enemyHPUISliderObject.GetComponent<EnemyHPUISliderScript>().myEnemy = gameObject;
-        enemyHPUISliderObject.GetComponent<EnemyHPUISliderScript>().offSet = hpBarOffSet;
-    }
-
-    public virtual void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
+    public override void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
     {
         float totalDamageModifier = 0;
         //Checks the element of what hit me and causes me to take extra damage or reduced damage.
@@ -143,6 +72,8 @@ public class EnemyHealth : MonoBehaviour
         if (whatHitMe != whatCantHitMe)//Makes it so that this enemy can't be hit by the same attack right away (largely for melee attacks that last long).
         {
             health -= damage;//Takes damage.
+            GameObject mySpawn = Instantiate(spawn[Random.Range(0, spawn.Length)], new Vector2 (transform.position.x, transform.position.y + 0.5f), transform.rotation);
+            SpawnStats(mySpawn);
             if (enemyHPUISliderObject.activeSelf == false)//Enables the hp bar for this enemy when they get hit.
             {
                 enemyHPUISliderObject.SetActive(true);
@@ -175,26 +106,10 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public virtual void DestroyObject()//Paly death animation, wait then enemy dies.
+    void SpawnStats(GameObject spawn)
     {
-        //[TODO]trigger death animation
-        
-        Destroy(gameObject);
-    }
-
-    public virtual void HitStun()//Resets what can hit me and removes stun effect.
-    {
-        myEnemyScript.enabled = true;
-        whatCantHitMe = gameObject;
-    }
-
-    public virtual void UpDateEnemyUI()//Updates enemy hp slider when enemy is hit.
-    {
-        enemyHPUI.value = health;
-    }
-
-    public virtual void ComeAlive()
-    {
-        myEnemyScript.enabled = true;
+        spawn.GetComponent<Rigidbody2D>().AddForce(new Vector2(spawnToss.x * Random.Range(-3, 3), spawnToss.y), ForceMode2D.Impulse);
+        spawn.transform.parent = transform.parent;
+        spawn.GetComponent<Enemy>().enabled = false;
     }
 }
