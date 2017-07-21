@@ -197,7 +197,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &537386718
+--- !u!1001 &1559633492
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -236,17 +236,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 137137943408125360, guid: 133d31799f9bc8940918f046acabcc2a,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137771727275185382, guid: 133d31799f9bc8940918f046acabcc2a,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 137999986843580294, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 137917025786160926, guid: 133d31799f9bc8940918f046acabcc2a,
         type: 2}
       propertyPath: m_Mesh
       value: 
@@ -256,12 +251,17 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 137771727275185382, guid: 133d31799f9bc8940918f046acabcc2a,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 137643259243083504, guid: 133d31799f9bc8940918f046acabcc2a,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 137917025786160926, guid: 133d31799f9bc8940918f046acabcc2a,
+    - target: {fileID: 137137943408125360, guid: 133d31799f9bc8940918f046acabcc2a,
         type: 2}
       propertyPath: m_Mesh
       value: 
@@ -306,6 +306,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4395188481647220, guid: 80eae33a6bc98a648a86336156306b9d, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395188481647220, guid: 80eae33a6bc98a648a86336156306b9d, type: 2}
+      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
