@@ -28,7 +28,7 @@ public class AttackLocation : MonoBehaviour {
 
         if(nextStopMovingTime < Time.time)
         {
-            Vector2.MoveTowards(transform.position, target.transform.position, targetingSpeed);
+            Vector2.MoveTowards(transform.position, new Vector2 (target.transform.position.x, target.transform.position.y - 1), targetingSpeed);
         }
         else if(!fired)
         {
@@ -42,6 +42,7 @@ public class AttackLocation : MonoBehaviour {
         GameObject myAttack = Instantiate(shooter.GetComponent<EnemyTargetWizard>().wizardAttack, transform.position, shooter.GetComponent<EnemyTargetWizard>().wizardAttack.transform.rotation);
         AttackStats(myAttack);
         shooter.GetComponent<EnemyTargetWizard>().targeting = false;
+        shooter.GetComponent<EnemyTargetWizard>().speed = shooter.GetComponent<EnemyTargetWizard>().startingSpeed;
         Destroy(gameObject);
     }
 
@@ -53,6 +54,7 @@ public class AttackLocation : MonoBehaviour {
         attack.GetComponent<EnemyProjectile>().projectileDamage = shooter.GetComponent<EnemyTargetWizard>().damage;
         attack.GetComponent<EnemyProjectile>().projectileHitStun = shooter.GetComponent<EnemyTargetWizard>().hitStun;
         attack.GetComponent<EnemyProjectile>().projectileMaxDuration = shooter.GetComponent<EnemyTargetWizard>().projectileMaxDuration;
+        attack.GetComponent<EnemyProjectile>().hurtsPlayers = true;
         if (attack.GetComponent<Bomb>() != null)
         {
             attack.GetComponent<Bomb>().explosion_radius = shooter.GetComponent<EnemyTargetWizard>().explosion_radius;

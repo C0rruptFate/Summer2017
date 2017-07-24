@@ -27,9 +27,11 @@ public class EnemyTargetWizard : Enemy {
     public float furthestIWillGet;
 
     private float dist;
-    [HideInInspector]
+    //[HideInInspector]
     public bool targeting;
     private float nextFireDelay;
+    [HideInInspector]
+    public float startingSpeed;
     [HideInInspector]
     public GameObject enemyWeaponParent;
 
@@ -41,6 +43,7 @@ public class EnemyTargetWizard : Enemy {
         {
             enemyWeaponParent = new GameObject("Enemy Attacks");
         }
+        startingSpeed = speed;
     }
 
     void Update()

@@ -271,7 +271,7 @@ MonoBehaviour:
   maxMoveSpeed: 13
   useBoundries: 0
   boundryRange: 15
-  damage: 13
+  damage: 50
   hitStun: 0.1
   knockback: 1
   swingTimer: 10
@@ -290,12 +290,13 @@ MonoBehaviour:
   targetingSpeed: 6
   stopMovingTime: 3
   firePostMoveDelay: 1
-  projectileMaxDuration: 1
+  projectileMaxDuration: 3
   explosion_radius: 5
-  explosion_force: 500
+  explosion_force: 1000
   closestIWillGet: 5
   furthestIWillGet: 10
   targeting: 0
+  startingSpeed: 0
   enemyWeaponParent: {fileID: 0}
 --- !u!114 &114428376434441032
 MonoBehaviour:
@@ -315,7 +316,8 @@ MonoBehaviour:
   enemyHPUISliderObject: {fileID: 0}
   counterDamageModifier: 0.5
   counterResistanceModifier: 0.25
-  drops: []
+  drops:
+  - {fileID: 1360427287876576, guid: 60c702560d6949d4288f0efde99c9693, type: 2}
   hpBarOffSet: {x: 0, y: 2.4, z: 0}
   enemiesList: []
   myEnemyScript: {fileID: 0}
