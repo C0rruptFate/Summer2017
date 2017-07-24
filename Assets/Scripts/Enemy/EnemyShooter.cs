@@ -16,6 +16,7 @@ public class EnemyShooter : Enemy {
 
     public float closestIWillGet;
     public float furthestIWillGet;
+    private float dist;
 
     private GameObject enemyWeaponParent;
 
@@ -43,7 +44,7 @@ public class EnemyShooter : Enemy {
             shootPoint.LookAt(target.transform.position, Vector3.up);
         }
 
-        if (Time.time > newSwingTimer)
+        if (Time.time > newSwingTimer && target != null && dist <= furthestIWillGet)
         {
             Shoot();
             newSwingTimer = Time.time + swingTimer;
@@ -87,7 +88,7 @@ public class EnemyShooter : Enemy {
                     transform.position = new Vector2(transform.position.x, lowerYTransform.y);
                 }
 
-                float dist = Vector2.Distance(target.transform.position, gameObject.transform.position);
+                dist = Vector2.Distance(target.transform.position, gameObject.transform.position);
                 if (dist >= furthestIWillGet)
                 {
                         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (speed * Time.deltaTime));

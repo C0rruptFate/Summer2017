@@ -58,9 +58,12 @@ public class EnemyTurret : Enemy {
             }
             newSwingTimer = Time.time + swingTimer;
         }
+        if (target != null)
+        {
+            Vector3 relativePos = target.transform.position - shootPoint.transform.position;
+            shootPoint.transform.rotation = Quaternion.LookRotation(relativePos);
+        }
 
-        Vector3 relativePos = target.transform.position - shootPoint.transform.position;
-        shootPoint.transform.rotation = Quaternion.LookRotation(relativePos);
     }
 
     public override void FixedUpdate()
