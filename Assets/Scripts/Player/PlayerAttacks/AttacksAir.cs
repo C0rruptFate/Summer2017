@@ -78,14 +78,14 @@ public class AttacksAir : PlayerAttacks {
 
         //Melee attacks
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Special Melee Attack
+        if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Melee Attack
         {
             //Debug.Log("Melee Special is active.");
             //Animator Trigger is True
             anim.SetTrigger("Melee");
             SpecialMeleeAttack();
         }
-        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks)//Melee Attack
+        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Melee Attack
         {
             //Animator Trigger is True
             anim.SetTrigger("Melee");
@@ -94,14 +94,14 @@ public class AttacksAir : PlayerAttacks {
 
         //Ranged Attacks
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Special Ranged Attack
+        if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Ranged Attack
         {
             //Debug.Log("Ranged Special is active.");
             //Animator Trigger is True
             anim.SetTrigger("Ranged");
             SpecialRangedAttack();
         }
-        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks)//Ranged Attack
+        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Ranged Attack
         {
             //Animator Trigger is True
             anim.SetTrigger("Ranged");

@@ -8,8 +8,11 @@ public class EnemyCharger : Enemy {
     public float yTargetingOffset = 5;
     public float chargingSpeed = 30;
     public float aggroRange;
+    public float chargeRampUp = 1;
+    public float timeBetweenCharge = 2;
 
     private float defaultSpeed;
+    private float currentTimeBetweenCharge;
 
     protected override void Start()
     {
@@ -26,11 +29,15 @@ public class EnemyCharger : Enemy {
             if (possibleTarget.gameObject.activeSelf && (possibleTarget.transform.position.y <= yTargetingOffset + transform.position.y && possibleTarget.transform.position.y >= transform.position.y - yTargetingOffset))
             {
                 float dist = Vector2.Distance(possibleTarget.transform.position, gameObject.transform.position);
-                if (dist <= aggroRange)
+                if (dist <= aggroRange && Time.time > currentTimeBetweenCharge)
                 {
+                    currentTimeBetweenCharge = Time.time + timeBetweenCharge;
                     closestTargetDist = dist;
                     target = possibleTarget;
-                    Charge();
+                    enemyTargetType = EnemyTargetType.Proximity;
+                    speed = 0;
+                    //[TODO] Charger ramp up animation
+                    Invoke("Charge", chargeRampUp);
                     
                 }
                 else if (closestTargetDist == 0.0f)
@@ -51,7 +58,6 @@ public class EnemyCharger : Enemy {
 
     void Charge()
     {
-        enemyTargetType = EnemyTargetType.Proximity;
         speed = chargingSpeed;
     }
 }
