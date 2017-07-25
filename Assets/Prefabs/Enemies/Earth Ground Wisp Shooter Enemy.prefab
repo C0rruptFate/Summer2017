@@ -146,7 +146,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1739043322240856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1, y: 0.125, z: 0}
+  m_LocalPosition: {x: 0.04, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4314567691201990}
@@ -160,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789444519777270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.78, y: -1, z: 0}
+  m_LocalPosition: {x: 90.846, y: -19.223108, z: 0}
   m_LocalScale: {x: 1, y: 4, z: 1}
   m_Children:
   - {fileID: 224128495633667830}
@@ -389,7 +389,7 @@ MonoBehaviour:
   damage: 13
   hitStun: 0.1
   knockback: 1
-  swingTimer: 0.5
+  swingTimer: 5
   jumpForce: 0
   rb: {fileID: 0}
   targets: []
@@ -405,6 +405,8 @@ MonoBehaviour:
   projectileMaxDuration: 20
   projectileBreakChance: 0
   projectileBreaksHittingWall: 0
+  aggroRange: 43
+  shotsPerRound: 10
   closestIWillGet: 0
   furthestIWillGet: 0
 --- !u!212 &212801530220299976

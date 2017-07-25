@@ -684,14 +684,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4730834698997840, guid: 79620338dfbeaab44a2b4ad4a3a67b43, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730834698997840, guid: 79620338dfbeaab44a2b4ad4a3a67b43, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.04
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79620338dfbeaab44a2b4ad4a3a67b43, type: 2}
   m_IsPrefabParent: 0
@@ -3375,6 +3367,16 @@ Prefab:
     - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 61529806801434470, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702,
+        type: 2}
+      propertyPath: m_UsedByEffector
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61529806801434470, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702,
+        type: 2}
+      propertyPath: m_AutoTiling
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
@@ -8480,6 +8482,29 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &1561303707 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1878513431396942, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702,
+    type: 2}
+  m_PrefabInternal: {fileID: 636875998}
+--- !u!251 &1561303708
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1561303707}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &1564074727
 GameObject:
   m_ObjectHideFlags: 0

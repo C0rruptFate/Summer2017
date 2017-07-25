@@ -12,11 +12,14 @@ public class EnemyWispHunter : Enemy {
     public float projectileBreakChance;
     public bool projectileBreaksHittingWall = true;
     //private bool hurtsPlayers = true;
+    public float aggroRange = 10f;
+    public int shotsPerRound = 5;
 
 
     public float closestIWillGet;
     public float furthestIWillGet;
     private float dist;
+    //private int numberOfShots;
 
     private GameObject enemyWeaponParent;
 
@@ -36,20 +39,31 @@ public class EnemyWispHunter : Enemy {
             enemyWeaponParent = new GameObject("Enemy Attacks");
         }
 
+        //numberOfShots = shotsPerRound;
         target = GameObject.Find("Wisp");
     }
 
     void Update()
     {
-        if (aimProjectile)
+        dist = Vector2.Distance(target.transform.position, gameObject.transform.position);
+        if (aimProjectile && dist <= aggroRange)
         {
             shootPoint.LookAt(target.transform.position, Vector3.up);
         }
 
-        if (Time.time > newSwingTimer && target != null && dist <= furthestIWillGet)
+        if (Time.time > newSwingTimer && target != null && dist <= aggroRange)
         {
-            Shoot();
+            //Shoot();
+            Firing();
             newSwingTimer = Time.time + swingTimer;
+        }
+    }
+
+    void Firing()
+    {
+        for(int i = 0; i < shotsPerRound; i++)
+        {
+            Invoke("Shoot", i - (i * 0.75f));
         }
     }
 
