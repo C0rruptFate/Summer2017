@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 61224925604820420}
   - component: {fileID: 50655896143719328}
   - component: {fileID: 114654885211625842}
-  - component: {fileID: 114958094061261534}
+  - component: {fileID: 114961198314089900}
   m_Layer: 11
   m_Name: Earth Ground Wisp Shooter Enemy
   m_TagString: Enemy
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myEnemy: {fileID: 0}
   offSet: {x: 0, y: 0, z: 0}
---- !u!114 &114958094061261534
+--- !u!114 &114961198314089900
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -375,22 +375,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1789444519777270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e75878081931b674980649b813d06c40, type: 3}
+  m_Script: {fileID: 11500000, guid: f437e09b311aefd4eb0dead3f739130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   element: 0
-  enemyTargetType: 1
-  relentless: 0
-  newTargetAcquisition: 1
-  speed: 13
-  maxMoveSpeed: 13
-  useBoundries: 1
+  enemyTargetType: 0
+  relentless: 1
+  newTargetAcquisition: 0
+  speed: 0
+  maxMoveSpeed: 0
+  useBoundries: 0
   boundryRange: 15
   damage: 13
   hitStun: 0.1
   knockback: 1
-  swingTimer: 3
-  jumpForce: 10
+  swingTimer: 0.5
+  jumpForce: 0
   rb: {fileID: 0}
   targets: []
   target: {fileID: 0}
@@ -399,14 +399,14 @@ MonoBehaviour:
   newSwingTimer: 0
   grounded: 0
   shootPoint: {fileID: 4730834698997840}
-  projectile: {fileID: 1138533282552756, guid: 9865393c60b0b384ca9a467d67fbc022, type: 2}
+  projectile: {fileID: 1045662993140282, guid: 07427c0085cf16d43922019240709b32, type: 2}
   aimProjectile: 1
-  projectileSpeed: 20
-  projectileMaxDuration: 10
-  projectileBreakChance: 100
-  projectileBreaksHittingWall: 1
-  closestIWillGet: 15
-  furthestIWillGet: 20
+  projectileSpeed: 10
+  projectileMaxDuration: 20
+  projectileBreakChance: 0
+  projectileBreaksHittingWall: 0
+  closestIWillGet: 0
+  furthestIWillGet: 0
 --- !u!212 &212801530220299976
 SpriteRenderer:
   m_ObjectHideFlags: 1

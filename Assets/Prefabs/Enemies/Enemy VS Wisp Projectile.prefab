@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4664028449048864}
   - component: {fileID: 212446009839354312}
   - component: {fileID: 58616102340289516}
-  - component: {fileID: 114902587975549646}
+  - component: {fileID: 114619873940448656}
   m_Layer: 15
   m_Name: Enemy VS Wisp Projectile
   m_TagString: Projectile
@@ -117,7 +117,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.52666676
---- !u!114 &114902587975549646
+--- !u!114 &114619873940448656
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -125,23 +125,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1045662993140282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 074dfe96e8e21d540a77838b0f9d761c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fdb52ab0a6128046939659548f94e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   projectileSpeed: 0
-  projectileDamage: 0
-  projectileHitStun: 0
   projectileMaxDuration: 0
-  projectileBreakChance: 0
-  usesConstantForceProjectile: 1
-  breaksHittingWall: 1
-  lobbedForce: {x: 0, y: 0}
-  throwWaitTime: 0
-  currentLife: 0
-  shooter: {fileID: 0}
+  hitStun: 0
   element: 0
-  hurtsPlayers: 0
-  reflectedPoint: {fileID: 0}
+  breaksHittingWall: 0
 --- !u!212 &212020652365536456
 SpriteRenderer:
   m_ObjectHideFlags: 1

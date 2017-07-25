@@ -9,7 +9,7 @@ public class HurtsWisp : MonoBehaviour {
     [HideInInspector]
     public float projectileSpeed;
     [HideInInspector]
-    public float maxLife;
+    public float projectileMaxDuration;
     [HideInInspector]
     public float hitStun;
     [HideInInspector]
@@ -23,7 +23,7 @@ public class HurtsWisp : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        currentLife = Time.time + projectileMaxDuration;
 	}
 	
 	// Update is called once per frame
@@ -44,12 +44,11 @@ public class HurtsWisp : MonoBehaviour {
     {
         if (other.CompareTag("Wisp"))
         {
-            players = GameObject.FindGameObjectsWithTag("Player");
-
-            foreach(GameObject player in players)
+            foreach(GameObject player in other.GetComponent<Wisp>().players)
             {
                 player.GetComponent<PlayerHealth>().TakeDamage(gameObject, damage, hitStun);
             }
+            Destroy(gameObject);
         }
         else if (other.tag == ("Ground") && breaksHittingWall) //Gets destroyed when hitting the ground/walls
         {
