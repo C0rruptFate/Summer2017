@@ -70,8 +70,8 @@ public class PlayerHealth : MonoBehaviour
         //damage reduction.
         float totalDamageModifier = 0;
 
-        //if I am hit by a projectile or melee enemy
-        if (whatHitMe.CompareTag("Projectile"))
+        //if I am hit by a projectile or melee enemy //whatHitMe.CompareTag("Projectile")
+        if (whatHitMe.GetComponent<Projectiles>() != null)
         {
             if (whatHitMe.GetComponent<Projectiles>().element == Constants.whatCountersMe(element) && whatHitMe.GetComponent<Projectiles>().hurtsPlayers)
             {
@@ -100,6 +100,17 @@ public class PlayerHealth : MonoBehaviour
                 totalDamageModifier = totalDamageModifier - counterDamageModifier;
             }
             else if (whatHitMe.GetComponent<Hazard>().element == Constants.whatICounter(element))
+            {
+                totalDamageModifier = totalDamageModifier + counterResistanceModifier;
+            }
+        }
+        else if (whatHitMe.GetComponent<HurtsWisp>() != null)
+        {//Damaged by a hazard
+            if (whatHitMe.GetComponent<HurtsWisp>().element == Constants.whatCountersMe(element))
+            {
+                totalDamageModifier = totalDamageModifier - counterDamageModifier;
+            }
+            else if (whatHitMe.GetComponent<HurtsWisp>().element == Constants.whatICounter(element))
             {
                 totalDamageModifier = totalDamageModifier + counterResistanceModifier;
             }

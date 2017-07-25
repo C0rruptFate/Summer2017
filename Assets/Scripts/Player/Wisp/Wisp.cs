@@ -8,6 +8,9 @@ public class Wisp : MonoBehaviour {
     public Transform targetLocation;
     private ParticleSystem ps;// the wisps particle system used to show active/inactive
 
+    //[HideInInspector]
+    public GameObject[] players;
+
     [HideInInspector]
     public bool moving = false; //flipped on when the wisp is moving used to help the wisp find it's target
     [Tooltip("Speed of the Wisp.")]
@@ -26,7 +29,8 @@ public class Wisp : MonoBehaviour {
 
         GameObject.Find("Game Manager").transform.GetComponent<GameController>().wisp = gameObject;
 
-	}
+        players = GameObject.FindGameObjectsWithTag("Player");
+    }
 	
 	// Update is called once per frame
 	void Update () {
