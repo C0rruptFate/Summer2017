@@ -296,7 +296,8 @@ public class PlayerMovement : MonoBehaviour {
                 //play jump effect
                 Instantiate(jumpEffect, whatsBelowMeChecker.position, whatsBelowMeChecker.rotation);
                 // Reset our velocity
-                rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+                //rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+                rb.velocity = new Vector2(0.0f, 0.0f);
                 // Arial Jump
                 //Debug.Log("Air Jump used" + rb.velocity.y);
                 Vector2 arialJump = new Vector2();
