@@ -578,6 +578,7 @@ Transform:
   - {fileID: 1918985684}
   - {fileID: 706453607}
   - {fileID: 386337152}
+  - {fileID: 293947962}
   m_Father: {fileID: 0}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1354,6 +1355,57 @@ Transform:
   m_PrefabParentObject: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702,
     type: 2}
   m_PrefabInternal: {fileID: 285946340}
+--- !u!1001 &293947961
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 117684332}
+    m_Modifications:
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -34.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_RootOrder
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878513431396942, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+      propertyPath: m_Name
+      value: Earth Platform-Static (11)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &293947962 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702,
+    type: 2}
+  m_PrefabInternal: {fileID: 293947961}
 --- !u!1 &298738108
 GameObject:
   m_ObjectHideFlags: 0
@@ -7793,11 +7845,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4953230526716936, guid: 1290513633a02e74fac3dd2967590605, type: 2}
       propertyPath: m_LocalScale.y
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4953230526716936, guid: 1290513633a02e74fac3dd2967590605, type: 2}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4953230526716936, guid: 1290513633a02e74fac3dd2967590605, type: 2}
       propertyPath: m_LocalPosition.y

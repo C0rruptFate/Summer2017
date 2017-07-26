@@ -14,6 +14,37 @@ public class MovementFire : PlayerMovement
         horizontalDir = Input.GetAxis(horizontalMovement);
         verticalDir = Input.GetAxis(verticalMovement);
 
+        ////////////////////////////////////////////////////////////
+        if (verticalDir == -1 && onADropAblePlatform)
+        {
+            //Find colliders that arn't triggers.
+            foreach (BoxCollider2D bc in colliders)
+            {
+                if (!bc.isTrigger)
+                {
+                    bc.enabled = false;
+                    nextEnableColliders = Time.time + enableCollidersWait;
+                }
+
+                //if (!bc.isTrigger)
+                //{
+                //    bc.enabled = true;
+                //}
+            }
+        }
+
+        if (Time.time >= nextEnableColliders)
+        {
+            foreach (BoxCollider2D bc in colliders)
+            {
+                if (!bc.isTrigger)
+                {
+                    bc.enabled = true;
+                }
+            }
+        }
+        ////////////////////////////////////////////////////////////
+
         //allows the player to move if they arn't holding the block button.
         if (!playerAttacks.blocking)
         {

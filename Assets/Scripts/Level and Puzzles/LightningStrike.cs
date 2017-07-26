@@ -33,6 +33,7 @@ public class LightningStrike : Hazard {
                 //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
                 //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
                 health.TakeDamage(gameObject, damage, hitStun);
+                Debug.Log("Hit player");
 
             }
         }

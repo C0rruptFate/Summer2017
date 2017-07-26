@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //components
     protected Rigidbody2D rb; //My Rigidbody
+    protected Collider2D[] colliders; //My Colliders
     [HideInInspector] public PlayerAttacks playerAttacks; //My player Attacks and actions.
     [HideInInspector] public PlayerHealth playerHealth; //My player HP script.
 
@@ -72,12 +73,17 @@ public class PlayerMovement : MonoBehaviour {
     public int arialJumpsUsed; //How many airal jumps have I used.
     [HideInInspector]
     public bool grounded = false; //am I currently grounded?
+    //[HideInInspector]
+    public bool onADropAblePlatform = false;
     [HideInInspector]
     public bool enemyBelow = false;//Is their an enemy below me?
     [HideInInspector]
     public bool playerBelow = false;//is their a player below me?
     [HideInInspector]
     public bool facingRight;
+
+    protected float nextEnableColliders;
+    protected float enableCollidersWait = 0.01f;
 
     protected Animator anim;
 
@@ -88,6 +94,7 @@ public class PlayerMovement : MonoBehaviour {
         //initialize components
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        colliders = GetComponents<Collider2D>();
         whatsBelowMeChecker = transform.Find("Whats Below Me");
         if (whatsBelowMeChecker == null)
         {
@@ -118,17 +125,42 @@ public class PlayerMovement : MonoBehaviour {
         verticalDir = Input.GetAxis(verticalMovement);
 
         ////////////////////////////////////////////////////////////
-        //if (verticalDir == -1)
-        //{
-        //    Collider2D[] colliders = GetComponents<Collider2D>();
-            
-        //    //Find colliders that arn't triggers.
-        //    foreach(BoxCollider2D bc in colliders)
-        //    {
-        //        bc.enabled = false;
-                
-        //    }
-        //}
+        if (verticalDir == -1 && onADropAblePlatform)
+        {
+            //Find colliders that arn't triggers.
+            foreach (BoxCollider2D bc in colliders)
+            {
+                if (!bc.isTrigger)
+                {
+                    bc.enabled = false;
+                    nextEnableColliders = Time.time + enableCollidersWait;
+                }
+                if (bc.isTrigger)
+                {
+                    bc.enabled = true;
+                }
+
+                //if (!bc.isTrigger)
+                //{
+                //    bc.enabled = true;
+                //}
+            }
+        }
+
+        if (Time.time >= nextEnableColliders)
+        {
+            foreach (BoxCollider2D bc in colliders)
+            {
+                if (!bc.isTrigger)
+                {
+                    bc.enabled = true;
+                }
+                if (bc.isTrigger)
+                {
+                    bc.enabled = false;
+                }
+            }
+        }
         ////////////////////////////////////////////////////////////
 
         //allows the player to move if they arn't holding the block button.
@@ -215,6 +247,10 @@ public class PlayerMovement : MonoBehaviour {
                 anim.SetBool("Grounded", true);
                 arialJumpsUsed = 0;
                 bounceJumpsUsed = 0;
+                if (collision.GetComponent<PlatformEffector2D>())
+                {
+                    onADropAblePlatform = true;
+                }
                 //Debug.Log("Enter Ground");
                 break;
             case "Enemy":
@@ -243,6 +279,10 @@ public class PlayerMovement : MonoBehaviour {
                     anim.SetBool("Grounded", true);
                     arialJumpsUsed = 0;
                     bounceJumpsUsed = 0;
+                    if (collision.GetComponent<PlatformEffector2D>())
+                    {
+                        onADropAblePlatform = true;
+                    }
                 }
                 //Debug.Log("Enter Ground");
                 break;
@@ -274,6 +314,10 @@ public class PlayerMovement : MonoBehaviour {
             case "Ground":
                 grounded = false;
                 anim.SetBool("Grounded", false);
+                if (collision.GetComponent<PlatformEffector2D>())
+                {
+                    onADropAblePlatform = false;
+                }
                 //Debug.Log("Exit Ground");
                 break;
             case "Enemy":
