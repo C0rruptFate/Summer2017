@@ -22,8 +22,8 @@ public class Hazard : MonoBehaviour {
     public bool rollingHazard;
     protected Vector3 startPosition;
     protected Vector3 endPosition;
-    [SerializeField]
-    protected float moveSpeed;
+    [HideInInspector]
+    public float moveSpeed;
     protected Vector3 currentPos;
     protected Vector3 lastPos;
     protected bool rolling = false;

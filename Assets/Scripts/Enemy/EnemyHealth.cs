@@ -38,7 +38,6 @@ public class EnemyHealth : MonoBehaviour
     //public GameObject canvas;
     [HideInInspector]
     public GameObject whatCantHitMe;
-    [HideInInspector]
     public bool invulnerable = false;
 
     // Use this for initialization
