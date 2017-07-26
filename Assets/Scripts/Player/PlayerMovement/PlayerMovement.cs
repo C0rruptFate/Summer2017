@@ -117,6 +117,20 @@ public class PlayerMovement : MonoBehaviour {
         horizontalDir = Input.GetAxis(horizontalMovement);
         verticalDir = Input.GetAxis(verticalMovement);
 
+        ////////////////////////////////////////////////////////////
+        //if (verticalDir == -1)
+        //{
+        //    Collider2D[] colliders = GetComponents<Collider2D>();
+            
+        //    //Find colliders that arn't triggers.
+        //    foreach(BoxCollider2D bc in colliders)
+        //    {
+        //        bc.enabled = false;
+                
+        //    }
+        //}
+        ////////////////////////////////////////////////////////////
+
         //allows the player to move if they arn't holding the block button.
         if (!playerAttacks.blocking)
         {
@@ -354,8 +368,6 @@ public class PlayerMovement : MonoBehaviour {
             anim.SetBool("Walking", false);
         }
     }
-
-
 
     public virtual void MovingPlayer()
     {//moves the player by adjusting their velocity.
