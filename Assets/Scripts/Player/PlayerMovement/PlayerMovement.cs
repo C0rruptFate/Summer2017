@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour {
         if (verticalDir == -1 && onADropAblePlatform)
         {
             //Find colliders that arn't triggers.
-            foreach (BoxCollider2D bc in colliders)
+            foreach (Collider2D bc in colliders)
             {
                 if (!bc.isTrigger)
                 {
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Time.time >= nextEnableColliders)
         {
-            foreach (BoxCollider2D bc in colliders)
+            foreach (Collider2D bc in colliders)
             {
                 if (!bc.isTrigger)
                 {

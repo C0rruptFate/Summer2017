@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: Water Swimming
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: Bones/Chest
+    localPosition: {x: 0, y: 0, z: 0}
+    localRotation: {x: -0, y: 0, z: -0.06383549, w: -0.99796045}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders
+    localPosition: {x: 1.0000025, y: 0.000000059604645, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.13153324, w: 0.9913118}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Neck
+    localPosition: {x: 0.83729607, y: 5.711627e-10, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.23065263, w: 0.9730362}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Neck/Neck 2
+    localPosition: {x: 0.83959734, y: 0.00000031292439, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.107192546, w: 0.9942383}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Neck/Neck 2/Head
+    localPosition: {x: 0.31579387, y: 0.00000036880374, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.3009804, w: 0.9536303}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Back Arm
+    localPosition: {x: 0.61698335, y: -0.29491562, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.99623644, w: 0.08667724}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Back Arm/Back Arm 2
+    localPosition: {x: 1.5327803, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.5051434, w: 0.86303544}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Back Arm/Back Arm 2/Back Hand
+    localPosition: {x: 0.8000002, y: 0.00000011920929, z: 0}
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Front Arm
+    localPosition: {x: 0.63740593, y: 0.049304485, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.9969596, w: 0.0779197}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Front Arm/Front Arm 2
+    localPosition: {x: 1.5608269, y: -0.00000012665987, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.15497768, w: 0.987918}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Sholders/Front Arm/Front Arm 2/Front Hand
+    localPosition: {x: 0.8000001, y: 0.00000029802322, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.030394943, w: 0.99953794}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Bottom
+    localPosition: {x: -0.21980491, y: 0.007817432, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.9972288, w: 0.07439566}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Bottom/Bottom 2
+    localPosition: {x: 0.6289875, y: -0.00000017881393, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.03977432, w: 0.99920875}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Bottom/Bottom 2/Bottom 3
+    localPosition: {x: 0.6292557, y: 0.00000035762787, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.03880641, w: 0.9992468}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Bones/Chest/Bottom/Bottom 2/Bottom 3/Bottom 4
+    localPosition: {x: 0.6601766, y: 0.00000061956234, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.039303377, w: 0.99922734}
+    localScale: {x: 1, y: 1, z: 1}
