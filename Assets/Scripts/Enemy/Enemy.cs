@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour {
     public bool useBoundries = false;
     [Tooltip("How far from the Boundries can this unit move?")]
     public float boundryRange = 15f;
+    [Tooltip("The Effect that plays when I hit a player.")]
+    public GameObject hitEffect;
 
     [Header("Damage and Attacks")]
     [Tooltip("Damage dealt when colliding with the enemy.")]
@@ -224,6 +226,8 @@ public class Enemy : MonoBehaviour {
                 otherRB.velocity = new Vector2(0.0f, 0.0f);
                 otherRB.AddForce(new Vector2(otherRB.velocity.x + distX, otherRB.velocity.y), ForceMode2D.Impulse);
                 health.TakeDamage(gameObject, damage, hitStun);
+                //[TODO]
+                //Instantiate(hitEffect, other.transform.position, hitEffect.transform.rotation, );
             }    
         }
     }
