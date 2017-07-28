@@ -269,7 +269,6 @@ GameObject:
   - component: {fileID: 114125543720197998}
   - component: {fileID: 114312552836072244}
   - component: {fileID: 114141313722401196}
-  - component: {fileID: 61676613679323854}
   m_Layer: 8
   m_Name: Air Player
   m_TagString: Player
@@ -1590,7 +1589,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1285955494716532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.47, y: 5.54, z: 0}
+  m_LocalPosition: {x: -7.68, y: 6.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4550227690861394}
@@ -1775,31 +1774,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.83, y: 4.3}
   m_EdgeRadius: 0
---- !u!61 &61676613679323854
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1285955494716532}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.09, y: 0.39}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.75, y: 4.2}
-  m_EdgeRadius: 0
 --- !u!61 &61740951918117340
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -1962,8 +1936,8 @@ MonoBehaviour:
   verticalMovement: 
   verticalDir: 0
   inWater: 0
-  inWaterMass: 20
-  outofWaterMass: 1
+  inWaterMass: 15
+  outOfWaterMass: 1
   inWaterMaxSpeed: 13
   inWaterRunForce: 20000
   waterJumpForceMultiplier: 10
@@ -1986,7 +1960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.2999999
+  m_Length: 0.29999936
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4254054884844902}
   m_AttachedIK: {fileID: 0}
@@ -2161,7 +2135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.7500003
+  m_Length: 0.74999934
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4521274766222232}
   m_AttachedIK: {fileID: 0}
@@ -2276,7 +2250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.30000007
+  m_Length: 0.2999997
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4809365233399612}
   m_AttachedIK: {fileID: 0}
@@ -2414,7 +2388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.50821364
+  m_Length: 0.5082134
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4372555264753526}
   m_AttachedIK: {fileID: 0}

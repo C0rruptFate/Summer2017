@@ -34,7 +34,7 @@ public class Water : MonoBehaviour {
         if (other.tag == "Player")
         {
             other.GetComponent<PlayerMovement>().inWater = false;
-            other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().outofWaterMass;
+            other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().outOfWaterMass;
             other.GetComponent<PlayerMovement>().arialJumpsUsed = 0;
         }
 

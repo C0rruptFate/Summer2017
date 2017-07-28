@@ -10,7 +10,7 @@ public class Hazard : MonoBehaviour {
     public float swingTimer = 0.5f;
 
     //How long it has been sense the enemy last attacked, use so that the enemy can't attack every frame.
-    private float newSwingTimer = 0f;
+    protected float newSwingTimer = 0f;
     public float hitStun = 0;
 
     [HideInInspector]

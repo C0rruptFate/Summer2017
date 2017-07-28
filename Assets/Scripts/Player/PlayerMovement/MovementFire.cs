@@ -15,34 +15,34 @@ public class MovementFire : PlayerMovement
         verticalDir = Input.GetAxis(verticalMovement);
 
         ////////////////////////////////////////////////////////////
-        if (verticalDir == -1 && onADropAblePlatform)
-        {
-            //Find colliders that arn't triggers.
-            foreach (BoxCollider2D bc in colliders)
-            {
-                if (!bc.isTrigger)
-                {
-                    bc.enabled = false;
-                    nextEnableColliders = Time.time + enableCollidersWait;
-                }
+        //if (verticalDir == -1 && onADropAblePlatform)
+        //{
+        //    //Find colliders that arn't triggers.
+        //    foreach (BoxCollider2D bc in colliders)
+        //    {
+        //        if (!bc.isTrigger)
+        //        {
+        //            bc.enabled = false;
+        //            nextEnableColliders = Time.time + enableCollidersWait;
+        //        }
 
-                //if (!bc.isTrigger)
-                //{
-                //    bc.enabled = true;
-                //}
-            }
-        }
+        //        //if (!bc.isTrigger)
+        //        //{
+        //        //    bc.enabled = true;
+        //        //}
+        //    }
+        //}
 
-        if (Time.time >= nextEnableColliders)
-        {
-            foreach (BoxCollider2D bc in colliders)
-            {
-                if (!bc.isTrigger)
-                {
-                    bc.enabled = true;
-                }
-            }
-        }
+        //if (Time.time >= nextEnableColliders)
+        //{
+        //    foreach (BoxCollider2D bc in colliders)
+        //    {
+        //        if (!bc.isTrigger)
+        //        {
+        //            bc.enabled = true;
+        //        }
+        //    }
+        //}
         ////////////////////////////////////////////////////////////
 
         //allows the player to move if they arn't holding the block button.
@@ -106,7 +106,24 @@ public class MovementFire : PlayerMovement
         //water failsafe
         if (!inWater && GetComponent<Rigidbody2D>().mass == inWaterMass)
         {
-            GetComponent<Rigidbody2D>().mass = outofWaterMass;
+            GetComponent<Rigidbody2D>().mass = outOfWaterMass;
+        }
+
+        if (verticalDir == -1 && inWater)
+        {
+            rb.mass = inWaterMassGoingDown;
+        }
+        else if (verticalDir == 0 && inWater)
+        {
+            rb.mass = inWaterMass;
+        }
+        else if (verticalDir == -1)
+        {
+            rb.mass = outOfWaterMassGoingDown;
+        }
+        else if (verticalDir == 0)
+        {
+            rb.mass = outOfWaterMass;
         }
     }
 }
