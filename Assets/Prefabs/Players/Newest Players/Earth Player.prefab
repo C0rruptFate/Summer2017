@@ -955,7 +955,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942978346545856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.015, z: 0}
+  m_LocalPosition: {x: -4.44, y: 2.89, z: 0}
   m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_Children:
   - {fileID: 4118524030566718}
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.3877588
+  m_Length: 0.38775855
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4696139995263400}
   m_AttachedIK: {fileID: 0}
@@ -1509,7 +1509,9 @@ MonoBehaviour:
   verticalDir: 0
   inWater: 0
   inWaterMass: 20
+  inWaterMassGoingDown: 25
   outOfWaterMass: 1
+  outOfWaterMassGoingDown: 6
   inWaterMaxSpeed: 20
   inWaterRunForce: 20000
   waterJumpForceMultiplier: 8
@@ -1570,7 +1572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.7988249
+  m_Length: 0.79882485
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4141916910446986}
   m_AttachedIK: {fileID: 0}
@@ -1602,7 +1604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 2.188407
+  m_Length: 2.1884072
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4908603597770080}
   m_AttachedIK: {fileID: 0}
@@ -1698,7 +1700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 1.515436
+  m_Length: 1.5154358
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4597942779933768}
   m_AttachedIK: {fileID: 0}
@@ -1730,7 +1732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.7499991
+  m_Length: 0.7499993
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4830779698564880}
   m_AttachedIK: {fileID: 0}

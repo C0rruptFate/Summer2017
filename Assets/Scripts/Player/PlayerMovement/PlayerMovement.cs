@@ -58,10 +58,10 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]
     public bool inWater = false;
     public float inWaterMass = 10;
-    protected float inWaterMassGoingDown;
+    public float inWaterMassGoingDown;
     [HideInInspector]//Should be kept at 1, if this is changed we need to change the bubble too and let Mike know.
     public float outOfWaterMass = 1;
-    protected float outOfWaterMassGoingDown;
+    public float outOfWaterMassGoingDown;
     public float inWaterMaxSpeed;
     public float inWaterRunForce;
     public float waterJumpForceMultiplier = 5;
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour {
     public int arialJumpsUsed; //How many airal jumps have I used.
     [HideInInspector]
     public bool grounded = false; //am I currently grounded?
-    //[HideInInspector]
+    [HideInInspector]
     public bool onADropAblePlatform = false;
     [HideInInspector]
     public bool enemyBelow = false;//Is their an enemy below me?
@@ -96,8 +96,6 @@ public class PlayerMovement : MonoBehaviour {
         //initialize components
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        inWaterMassGoingDown = inWaterMass + 5;
-        outOfWaterMassGoingDown = outOfWaterMass + 5;
         colliders = GetComponents<Collider2D>();
         whatsBelowMeChecker = transform.Find("Whats Below Me");
         if (whatsBelowMeChecker == null)

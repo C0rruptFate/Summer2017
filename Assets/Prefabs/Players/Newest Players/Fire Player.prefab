@@ -415,13 +415,14 @@ GameObject:
   - component: {fileID: 114744602220616084}
   - component: {fileID: 114850908762547338}
   - component: {fileID: 114618137363623384}
+  - component: {fileID: 60422151476732526}
   m_Layer: 8
   m_Name: Fire Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1612029912395246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,6 +1506,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!60 &60422151476732526
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1606165041327818}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.7997546, y: 2.271404}
+      - {x: -0.07512164, y: 2.271404}
+      - {x: -0.07512164, y: 0.70846653}
+      - {x: -1.0138419, y: -0.39987278}
+      - {x: -1.013842, y: -1.5677576}
+      - {x: 0.7997546, y: -1.567758}
 --- !u!61 &61194148642686958
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -1638,6 +1669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Poses:
   - {fileID: 11400000, guid: 4c0f0d44892be8444b550c56f44df21e, type: 2}
+  - {fileID: 11400000, guid: 26636d2a4af86d64d831e84f1f8740cd, type: 2}
 --- !u!114 &114201307839427214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1650,7 +1682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.41846836
+  m_Length: 0.41846845
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4027398434132220}
   m_AttachedIK: {fileID: 0}
@@ -1682,7 +1714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.38786623
+  m_Length: 0.38786626
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4415655047857800}
   m_AttachedIK: {fileID: 0}
@@ -1764,7 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.9199578
+  m_Length: 0.91995776
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4972161199531980}
   m_AttachedIK: {fileID: 0}
@@ -1780,7 +1812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.3842628
+  m_Length: 0.38426277
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4886578424249662}
   m_AttachedIK: {fileID: 0}
@@ -1796,7 +1828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.37885574
+  m_Length: 0.37885582
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4184360379634090}
   m_AttachedIK: {fileID: 0}
@@ -1828,7 +1860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.29703638
+  m_Length: 0.29703626
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4894591407058904}
   m_AttachedIK: {fileID: 0}
@@ -1860,7 +1892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.3977678
+  m_Length: 0.39776784
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4881789992469388}
   m_AttachedIK: {fileID: 0}
@@ -1988,7 +2020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.25343937
+  m_Length: 0.25343946
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4329188980570390}
   m_AttachedIK: {fileID: 0}
@@ -2068,7 +2100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.297036
+  m_Length: 0.29703608
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4672851436708976}
   m_AttachedIK: {fileID: 0}
@@ -2104,11 +2136,13 @@ MonoBehaviour:
   verticalMovement: 
   verticalDir: 0
   inWater: 0
-  inWaterMass: 13
+  inWaterMass: 10.5
+  inWaterMassGoingDown: 12.5
   outOfWaterMass: 1
+  outOfWaterMassGoingDown: 6
   inWaterMaxSpeed: 13
   inWaterRunForce: 20000
-  waterJumpForceMultiplier: 7
+  waterJumpForceMultiplier: 3.7
   bounceJumpsUsed: 0
   arialJumpsUsed: 0
   grounded: 0
@@ -2150,7 +2184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.8324206
+  m_Length: 0.83242065
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4362528386695158}
   m_AttachedIK: {fileID: 0}
@@ -2166,7 +2200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.39946932
+  m_Length: 0.39946944
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4221238511818998}
   m_AttachedIK: {fileID: 0}
@@ -2182,7 +2216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.39516267
+  m_Length: 0.3951629
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4684874873571836}
   m_AttachedIK: {fileID: 0}

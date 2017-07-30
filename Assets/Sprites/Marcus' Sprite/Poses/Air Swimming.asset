@@ -9,27 +9,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
-  m_Name: Air Bind
+  m_Name: Air Swimming
   m_EditorClassIdentifier: 
   m_PoseEntries:
   - path: Bones/Hips
-    localPosition: {x: 0, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.74360925, w: 0.66861445}
+    localPosition: {x: -1.1, y: 0.6, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.28914875, w: 0.9572842}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders
     localPosition: {x: 0.99999994, y: -0.00000011920929, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.00000011920932, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.18477474, w: 0.98278093}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders/Neck
     localPosition: {x: 0.40000004, y: 0.00000023841858, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.01694638, w: 0.9998565}
+    localRotation: {x: 0, y: 0, z: 0.119807675, w: 0.9927972}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders/Neck/Head
-    localPosition: {x: 0.3000001, y: 7.385097e-10, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.027293492, w: 0.9996275}
+    localPosition: {x: 0.30000088, y: -0.0000000016298145, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.018045766, w: 0.9998372}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders/Neck/Front Arm
-    localPosition: {x: -0.035376154, y: 0.5349719, z: 0}
+    localPosition: {x: 0.018973716, y: 0.5168107, z: 0}
     localRotation: {x: 0, y: -0, z: 0.9999473, w: -0.010270861}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders/Neck/Front Arm/Front Arm 2
@@ -45,7 +45,7 @@ MonoBehaviour:
     localRotation: {x: 0, y: 0, z: 0.540879, w: 0.84110045}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders/Neck/Right Wing
-    localPosition: {x: -0.01401295, y: -0.21199718, z: 0}
+    localPosition: {x: -0.1220191, y: -0.10606597, z: 0}
     localRotation: {x: 0, y: 0, z: -0.5984225, w: 0.80118066}
     localScale: {x: 1.000001, y: 1.000001, z: 1}
   - path: Bones/Hips/Shoulders/Neck/Right Wing/Right Wing 2
@@ -58,7 +58,7 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders/Neck/Left Wing
     localPosition: {x: 0.05043062, y: 0.24207516, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.5725823, w: 0.8198473}
+    localRotation: {x: 0, y: 0, z: 0.5055745, w: 0.86278296}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/Shoulders/Neck/Left Wing/Left Wing 2
     localPosition: {x: 0.7499998, y: 0.0000004172325, z: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/New bone/New bone/New bone/New bone/New bone
     localPosition: {x: 0.29999962, y: -0.0000002682209, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.31487063, w: 0.94913465}
+    localRotation: {x: 0, y: -0, z: 0.314874, w: -0.9491335}
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/New bone/New bone/New bone/New bone/New bone/New bone
     localPosition: {x: 0.19999988, y: 0.00000006891787, z: 0}
@@ -94,5 +94,5 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Bones/Hips/New bone/New bone/New bone/New bone/New bone/New bone/New bone
     localPosition: {x: 0.24999984, y: 0.0000001937151, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.64307505, w: 0.7658032}
+    localRotation: {x: 0, y: 0, z: -0.6430776, w: 0.7658011}
     localScale: {x: 1, y: 1, z: 1}

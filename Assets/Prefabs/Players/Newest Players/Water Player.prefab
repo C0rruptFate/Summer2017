@@ -1174,7 +1174,9 @@ MonoBehaviour:
   verticalDir: 0
   inWater: 0
   inWaterMass: 20
-  outofWaterMass: 1
+  inWaterMassGoingDown: 25
+  outOfWaterMass: 1
+  outOfWaterMassGoingDown: 6
   inWaterMaxSpeed: 30
   inWaterRunForce: 30000
   waterJumpForceMultiplier: 8
