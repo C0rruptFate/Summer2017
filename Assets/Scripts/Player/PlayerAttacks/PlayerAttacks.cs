@@ -506,12 +506,12 @@ public class PlayerAttacks : MonoBehaviour {
     {
         //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
-        if (input_manager.GetAxisRaw("Call_Wisp") > 0.25f)
+        if (input_manager.GetAxis("Call_Wisp") == 1f)//was > 0.25f
         {
             CallWisp();
             callingWisp = true;
         }//Stops calling the Wisp when the button isn't held down.
-        else if (input_manager.GetAxisRaw("Call_Wisp") <= 0.25f)
+        else if (input_manager.GetAxis("Call_Wisp") == 0f)
         {
             callingWisp = false;
         }
