@@ -21,7 +21,6 @@ public class EarthSpecialDefend : PlayerMelee {
 
     public override void Start()
     {
-        Debug.Log("I exist");
         rb = GetComponent<Rigidbody2D>();
         myElement = player.GetComponent<PlayerHealth>().element;
         facingRight = player.GetComponent<PlayerMovement>().facingRight;
@@ -51,7 +50,6 @@ public class EarthSpecialDefend : PlayerMelee {
 
     void DestroySelf()
     {
-        Debug.Log("I died");
         foreach (Transform spawnPoint in spawnPoints)
         {
             GameObject shard = Instantiate(player.GetComponent<PlayerAttacks>().groundProjectile, spawnPoint.position, spawnPoint.rotation);

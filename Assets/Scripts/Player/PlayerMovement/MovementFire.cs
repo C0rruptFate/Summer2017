@@ -11,8 +11,8 @@ public class MovementFire : PlayerMovement
         AnimationMachine();
         //ScreenCollisions();
         //get player horizontal input
-        horizontalDir = Input.GetAxis(horizontalMovement);
-        verticalDir = Input.GetAxis(verticalMovement);
+        horizontalDir = input_manager.GetAxis("move_horizontal");
+        verticalDir = input_manager.GetAxis("move_vertical");
 
         ////////////////////////////////////////////////////////////
         //if (verticalDir == -1 && onADropAblePlatform)
@@ -61,7 +61,7 @@ public class MovementFire : PlayerMovement
             Instantiate(jumpEffect, whatsBelowMeChecker.position, whatsBelowMeChecker.rotation);
         }
 
-        if (Input.GetButtonDown(jumpMovement))
+        if (input_manager.GetButtonDown("Jump"))
         {
             if (inWater)
             {
@@ -94,7 +94,7 @@ public class MovementFire : PlayerMovement
             }
         }
 
-        if (Input.GetButton(jumpMovement) && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
+        if (input_manager.GetButton("Jump") && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
         {
             // do full jump
             groundJumpForce.y = fullJumpForce;

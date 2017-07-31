@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class PlayerMovement : MonoBehaviour {
     //Player
     [HideInInspector]//Set by game manager, used to determine the player # and find the controller attached to them.
     public int playerNumber = 1;
-    [HideInInspector]//Used to find what controller this is attached to.
-    public string horizontalMovement;
-    [HideInInspector]//Used to find what controller this is attached to.
-    public string jumpMovement;
+    //input manager
+    protected Player input_manager;
+    protected int player_id;
 
     //components
     protected Rigidbody2D rb; //My Rigidbody
@@ -51,8 +51,6 @@ public class PlayerMovement : MonoBehaviour {
     protected Transform whatsBelowMeChecker;//Checks what is below me, used to check for jumps and jump attacks.
 
     //Water
-    [HideInInspector]//Used to find what controller this is attached to.
-    public string verticalMovement;
     [HideInInspector]//Use to find what direction the player is trying to move
     public float verticalDir; 
     [HideInInspector]
@@ -99,6 +97,7 @@ public class PlayerMovement : MonoBehaviour {
         inWaterMassGoingDown = inWaterMass + 5;
         outOfWaterMassGoingDown = outOfWaterMass + 5;
         colliders = GetComponents<Collider2D>();
+        
         whatsBelowMeChecker = transform.Find("Whats Below Me");
         if (whatsBelowMeChecker == null)
         {
@@ -108,10 +107,9 @@ public class PlayerMovement : MonoBehaviour {
         //Set's the player's number.
         playerNumber = playerHealth.playerNumber;
 
-        //Setup what player I control
-        horizontalMovement = "Horizontal" + playerNumber;
-        verticalMovement = "Vertical" + playerNumber;
-        jumpMovement = "Jump" + playerNumber;
+        //set player id
+        player_id = playerNumber - 1;
+        input_manager = ReInput.players.GetPlayer(player_id);
         //Debug.Log("horizontalMovement" + gameObject + horizontalMovement);
         //Debug.Log("jumpMovement" + gameObject + jumpMovement);
     }
@@ -125,8 +123,8 @@ public class PlayerMovement : MonoBehaviour {
         AnimationMachine();
         //ScreenCollisions();
         //get player horizontal input
-        horizontalDir = Input.GetAxis(horizontalMovement);
-        verticalDir = Input.GetAxis(verticalMovement);
+        horizontalDir = input_manager.GetAxis("move_horizontal");
+        verticalDir = input_manager.GetAxis("move_vertical");
 
         ////////////////////////////////////////////////////////////
         //if (verticalDir == -1 && onADropAblePlatform)
@@ -183,7 +181,7 @@ public class PlayerMovement : MonoBehaviour {
             Instantiate(jumpEffect, whatsBelowMeChecker.position,whatsBelowMeChecker.rotation);
         }
 
-        if (Input.GetButtonDown(jumpMovement))
+        if (input_manager.GetButtonDown("Jump"))
         {
             if (inWater)
             {
@@ -216,7 +214,7 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        if (Input.GetButton(jumpMovement) && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
+        if (input_manager.GetButton("Jump") && groundJumpInitiated && (maxJumpTimer - currentJumpTimer == fullJumpLimit))
         {
             // do full jump
             groundJumpForce.y = fullJumpForce;
@@ -390,9 +388,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public virtual void PlayerFacing()
     {//what direction is the player facing/last moving
-        if (Input.GetAxisRaw(horizontalMovement) != 0)
+        if (input_manager.GetAxisRaw("move_horizontal") != 0)
         {
-            if (Input.GetAxisRaw(horizontalMovement) < 0)
+            if (input_manager.GetAxisRaw("move_horizontal") < 0)
             {
                 //Facing left
                 facingRight = false;

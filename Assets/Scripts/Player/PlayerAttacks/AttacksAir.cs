@@ -39,18 +39,18 @@ public class AttacksAir : PlayerAttacks {
     {
         //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
         //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
-        if (Input.GetAxisRaw("CallWisp" + playerNumber) > 0.25f)
+        if (input_manager.GetAxisRaw("Call_Wisp") > 0.25f)
         {
             CallWisp();
             callingWisp = true;
         }//Stops calling the Wisp when the button isn't held down.
-        else if (Input.GetAxisRaw("CallWisp" + playerNumber) <= 0.25f)
+        else if (input_manager.GetAxisRaw("Call_Wisp") <= 0.25f)
         {
             callingWisp = false;
         }
 
         //Activate Special
-        if (Input.GetAxisRaw("Special" + playerNumber) == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
+        if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
         {
             //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
 
@@ -65,7 +65,7 @@ public class AttacksAir : PlayerAttacks {
                 newSpecialActiveEffect.transform.parent = transform;
             }
         }
-        if (Input.GetAxisRaw("Special" + playerNumber) != 1 && specialActive)//Turns off the special when the button/trigger is released.
+        if (input_manager.GetAxisRaw("Special") != 1 && specialActive)//Turns off the special when the button/trigger is released.
         {
             //Turn off special
             //Debug.Log("SpeciaL has been DEACTIVATED");
@@ -78,14 +78,14 @@ public class AttacksAir : PlayerAttacks {
 
         //Melee attacks
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialMeleeCooldown == 0 && Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Melee Attack
+        if (specialActive && currentSpecialMeleeCooldown == 0 && input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Melee Attack
         {
             //Debug.Log("Melee Special is active.");
             //Animator Trigger is True
             anim.SetTrigger("Melee");
             SpecialMeleeAttack();
         }
-        else if (Input.GetButtonDown("Melee" + playerNumber) && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Melee Attack
+        else if (input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Melee Attack
         {
             //Animator Trigger is True
             anim.SetTrigger("Melee");
@@ -94,14 +94,14 @@ public class AttacksAir : PlayerAttacks {
 
         //Ranged Attacks
         //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialRangedCooldown <= 0 && Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Ranged Attack
+        if (specialActive && currentSpecialRangedCooldown <= 0 && input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Ranged Attack
         {
             //Debug.Log("Ranged Special is active.");
             //Animator Trigger is True
             anim.SetTrigger("Ranged");
             SpecialRangedAttack();
         }
-        else if (Input.GetButtonDown("Ranged" + playerNumber) && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Ranged Attack
+        else if (input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Ranged Attack
         {
             //Animator Trigger is True
             anim.SetTrigger("Ranged");
@@ -109,7 +109,7 @@ public class AttacksAir : PlayerAttacks {
         }
 
         //Defend
-        if (specialActive && currentSpecialDefendCooldown == 0 && Input.GetButton("Defend" + playerNumber) && playerHealth.allowedToInputAttacks)//Special Block
+        if (specialActive && currentSpecialDefendCooldown == 0 && input_manager.GetButton("Defend") && playerHealth.allowedToInputAttacks)//Special Block
         {
             if (!blocking)
             {
@@ -136,7 +136,7 @@ public class AttacksAir : PlayerAttacks {
 
             //PlayerDefend();
         }
-        else if (Input.GetButton("Defend" + playerNumber) && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
+        else if (input_manager.GetButton("Defend") && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
         {
             if (!blocking)//If I am not already blocking start blocking
             {
