@@ -1169,16 +1169,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 80
       objectReference: {fileID: 0}
-    - target: {fileID: 212326014659285132, guid: e988eafc7ebba6449a79759b94658403,
+    - target: {fileID: 114579194916174160, guid: e988eafc7ebba6449a79759b94658403,
         type: 2}
-      propertyPath: m_Color.g
-      value: 0.5568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 212326014659285132, guid: e988eafc7ebba6449a79759b94658403,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: debugText
+      value: 
+      objectReference: {fileID: 1012037277}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e988eafc7ebba6449a79759b94658403, type: 2}
   m_IsPrefabParent: 0
@@ -10110,7 +10105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68e953c8857d94448e191e4c446e8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugText: {fileID: 0}
 --- !u!4 &1876732577
 Transform:
   m_ObjectHideFlags: 0
