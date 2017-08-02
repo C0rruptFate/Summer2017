@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 114125543720197998}
   - component: {fileID: 114312552836072244}
   - component: {fileID: 114141313722401196}
+  - component: {fileID: 114724124120062112}
   m_Layer: 8
   m_Name: Air Player
   m_TagString: Player
@@ -2088,9 +2089,6 @@ MonoBehaviour:
   specialDefendCooldown: 5
   currentSpecialDefendCooldown: 0
   specialBlocking: 0
-  myWispTargetLocation: {fileID: 0}
-  wisp: {fileID: 0}
-  callingWisp: 0
   element: 0
   playerWeaponParent: {fileID: 0}
   blockNextFire: 0
@@ -2315,6 +2313,22 @@ MonoBehaviour:
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4691625409046136}
   m_AttachedIK: {fileID: 0}
+--- !u!114 &114724124120062112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1285955494716532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999bd20fe267c074ab33dee8f28a5e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWispTargetLocation: {fileID: 0}
+  wisp: {fileID: 0}
+  callingWisp: 0
+  playerHealth: {fileID: 0}
+  playerNumber: 1
 --- !u!114 &114724972665768568
 MonoBehaviour:
   m_ObjectHideFlags: 1

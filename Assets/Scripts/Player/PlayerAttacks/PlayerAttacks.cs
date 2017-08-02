@@ -152,12 +152,12 @@ public class PlayerAttacks : MonoBehaviour {
 
     //Wisp Settings 
     #region
-    [HideInInspector]//The transform that I will be calling the wisp to.
-    public Transform myWispTargetLocation;
-    [HideInInspector]//The Wisp that I will be telling where to go.
-    public GameObject wisp;
-    [HideInInspector]//Am I currently calling the Wisp?
-    public bool callingWisp = false;
+    //[HideInInspector]//The transform that I will be calling the wisp to.
+    //public Transform myWispTargetLocation;
+    //[HideInInspector]//The Wisp that I will be telling where to go.
+    //public GameObject wisp;
+    //[HideInInspector]//Am I currently calling the Wisp?
+    //public bool callingWisp = false;
     #endregion
 
     //Private Attack extras
@@ -226,17 +226,18 @@ public class PlayerAttacks : MonoBehaviour {
         //Sets up my rigid body and animator
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Finds the wisp target location object, changes it's name, and removes it as a child.
-        myWispTargetLocation = transform.Find("Wisp Target Location");
-        myWispTargetLocation.name = gameObject.name + "Wisp Target Location";
-        myWispTargetLocation.parent = null;
-        //Find the wisp object
-        wisp = GameObject.Find("Wisp");
-        if (wisp == null)
-        {//If the wisp can't be found it will inform the designer.
-            Debug.LogError("Can't find the Wisp, it might not be added to the scene.");
-        }
-
+        //myWispTargetLocation = transform.Find("Wisp Target Location");
+        //myWispTargetLocation.name = gameObject.name + "Wisp Target Location";
+        //myWispTargetLocation.parent = null;
+        ////Find the wisp object
+        //wisp = GameObject.Find("Wisp");
+        //if (wisp == null)
+        //{//If the wisp can't be found it will inform the designer.
+        //    Debug.LogError("Can't find the Wisp, it might not be added to the scene.");
+        //}
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Set's up the player's weapon parent object
         playerWeaponParent = GameObject.Find("Player Attacks");
         if (!playerWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
@@ -504,17 +505,19 @@ public class PlayerAttacks : MonoBehaviour {
 
     public virtual void Update()
     {
-        //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
-        //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
-        if (input_manager.GetAxis("Call_Wisp") == 1f)//was > 0.25f
-        {
-            CallWisp();
-            callingWisp = true;
-        }//Stops calling the Wisp when the button isn't held down.
-        else if (input_manager.GetAxis("Call_Wisp") == 0f)
-        {
-            callingWisp = false;
-        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
+        ////Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
+        //if (input_manager.GetAxis("Call_Wisp") == 1f)//was > 0.25f
+        //{
+        //    CallWisp();
+        //    callingWisp = true;
+        //}//Stops calling the Wisp when the button isn't held down.
+        //else if (input_manager.GetAxis("Call_Wisp") == 0f)
+        //{
+        //    callingWisp = false;
+        //}
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //Activate Special
         if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
@@ -638,16 +641,16 @@ public class PlayerAttacks : MonoBehaviour {
         }
     }
 
-    public virtual void CallWisp()
-    {
-        //Moves target location to the player
-        myWispTargetLocation.position = gameObject.transform.position;
+    //public virtual void CallWisp()
+    //{
+    //    //Moves target location to the player
+    //    myWispTargetLocation.position = gameObject.transform.position;
 
-        //Tells the Wisp to move to the targeted location
-        wisp.GetComponent<Wisp>().targetLocation = myWispTargetLocation;
-        wisp.GetComponent<Wisp>().moving = true;
-        //callingWisp = false;
-    }
+    //    //Tells the Wisp to move to the targeted location
+    //    wisp.GetComponent<WispScript>().targetLocation = myWispTargetLocation;
+    //    wisp.GetComponent<WispScript>().moving = true;
+    //    //callingWisp = false;
+    //}
 
     //Player Basic Melee attacks
     public virtual void MeleeAttack()

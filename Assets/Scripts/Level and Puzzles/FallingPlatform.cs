@@ -13,13 +13,13 @@ public class FallingPlatform : MonoBehaviour {
 
     private bool alreadyFalling;
     // Use this for initialization
-    void Start () {
+    public void Start () {
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
         startRotation = transform.rotation;
 	}
 
-    void OnCollisionEnter2D(Collision2D other)
+    public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -29,13 +29,13 @@ public class FallingPlatform : MonoBehaviour {
         }
     }
 
-    void PlatformFalling()
+    public void PlatformFalling()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
         Invoke("ResetPlatform", fallWaitTime * 5);
     }
 
-    void ResetPlatform()
+    public void ResetPlatform()
     {
         transform.position = startPosition;
         transform.rotation = startRotation;

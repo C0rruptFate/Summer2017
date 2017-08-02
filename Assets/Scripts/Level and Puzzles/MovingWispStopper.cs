@@ -32,6 +32,6 @@ public class MovingWispStopper : MonoBehaviour {
     {
         wisp.GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
         wisp.GetComponent<Rigidbody2D>().angularVelocity = 0;
-        wisp.GetComponent<Wisp>().moving = false;
+        wisp.GetComponent<WispScript>().moving = false;
     }
 }

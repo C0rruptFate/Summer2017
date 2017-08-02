@@ -45,12 +45,12 @@ public class EnemyCounterCallWisp : Enemy {
 
     void Update()
     {
-        foreach (GameObject player in wisp.GetComponent<Wisp>().players)
+        foreach (GameObject player in wisp.GetComponent<WispScript>().players)
         {
             
-            if (player.GetComponent<PlayerAttacks>().callingWisp && Time.time > newSwingTimer)
+            if (player.GetComponent<PlayerCallWisp>().callingWisp && Time.time > newSwingTimer)
             {
-                Transform possibleTarget = wisp.GetComponent<Wisp>().targetLocation;
+                Transform possibleTarget = wisp.GetComponent<WispScript>().targetLocation;
                 dist = Vector2.Distance(possibleTarget.transform.position, gameObject.transform.position);
 
                 if (dist <= aggroRange)

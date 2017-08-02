@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour {
     public int arialJumpsUsed; //How many airal jumps have I used.
     [HideInInspector]
     public bool grounded = false; //am I currently grounded?
-    //[HideInInspector]
+    [HideInInspector]
     public bool onADropAblePlatform = false;
     [HideInInspector]
     public bool enemyBelow = false;//Is their an enemy below me?

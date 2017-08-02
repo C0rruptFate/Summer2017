@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 114744602220616084}
   - component: {fileID: 114850908762547338}
   - component: {fileID: 114618137363623384}
+  - component: {fileID: 114235180595144098}
   m_Layer: 8
   m_Name: Fire Player
   m_TagString: Player
@@ -1686,6 +1687,22 @@ MonoBehaviour:
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4415655047857800}
   m_AttachedIK: {fileID: 0}
+--- !u!114 &114235180595144098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1606165041327818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999bd20fe267c074ab33dee8f28a5e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWispTargetLocation: {fileID: 0}
+  wisp: {fileID: 0}
+  callingWisp: 0
+  playerHealth: {fileID: 0}
+  playerNumber: 1
 --- !u!114 &114269704131986632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1940,9 +1957,6 @@ MonoBehaviour:
   specialDefendCooldown: 10
   currentSpecialDefendCooldown: 0
   specialBlocking: 0
-  myWispTargetLocation: {fileID: 0}
-  wisp: {fileID: 0}
-  callingWisp: 0
   element: 0
   playerWeaponParent: {fileID: 0}
   blockNextFire: 0

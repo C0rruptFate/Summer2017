@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 114700695152882910}
   - component: {fileID: 70964319913348108}
   - component: {fileID: 60613718233438760}
+  - component: {fileID: 114730086362832926}
   m_Layer: 8
   m_Name: Water Player
   m_TagString: Player
@@ -1334,9 +1335,6 @@ MonoBehaviour:
   specialDefendCooldown: 5
   currentSpecialDefendCooldown: 0
   specialBlocking: 0
-  myWispTargetLocation: {fileID: 0}
-  wisp: {fileID: 0}
-  callingWisp: 0
   element: 0
   playerWeaponParent: {fileID: 0}
   blockNextFire: 0
@@ -1376,6 +1374,22 @@ MonoBehaviour:
   invulnerable: 0
   targets: []
   target: {fileID: 0}
+--- !u!114 &114730086362832926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686081207311448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999bd20fe267c074ab33dee8f28a5e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWispTargetLocation: {fileID: 0}
+  wisp: {fileID: 0}
+  callingWisp: 0
+  playerHealth: {fileID: 0}
+  playerNumber: 1
 --- !u!114 &114756770804761112
 MonoBehaviour:
   m_ObjectHideFlags: 1
