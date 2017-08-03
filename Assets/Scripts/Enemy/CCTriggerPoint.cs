@@ -34,6 +34,7 @@ public class CCTriggerPoint : MonoBehaviour {
         attachedTo.GetComponent<PlayerAttacks>().crowdControl = false;
         attachedTo.GetComponent<PlayerMovement>().crowdControl = false;
         attachedTo.GetComponent<Rigidbody2D>().gravityScale = 1;
+        attachedTo.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         shooter.GetComponent<EnemyCCWizard>().StopCasting();
         Destroy(gameObject);
     }

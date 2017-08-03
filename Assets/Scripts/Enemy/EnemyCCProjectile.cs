@@ -15,7 +15,10 @@ public class EnemyCCProjectile : EnemyProjectile {
 
     // Update is called once per frame
     void Update () {
-		
+		if (shooter == null)
+        {
+            Destroy(gameObject);
+        }
 	}
 
     public override void FixedUpdate()
