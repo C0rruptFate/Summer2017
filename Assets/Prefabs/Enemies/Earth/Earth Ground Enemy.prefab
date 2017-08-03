@@ -246,6 +246,7 @@ MonoBehaviour:
   maxMoveSpeed: 10
   useBoundries: 0
   boundryRange: 15
+  hitEffect: {fileID: 1769951128066908, guid: 58bb811b6a0ca424b816f8ad1e749b98, type: 2}
   damage: 13
   hitStun: 0.1
   knockback: 1
@@ -258,6 +259,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   newSwingTimer: 0
   grounded: 0
+  enemyWeaponParent: {fileID: 0}
 --- !u!114 &114949507823595706
 MonoBehaviour:
   m_ObjectHideFlags: 1
