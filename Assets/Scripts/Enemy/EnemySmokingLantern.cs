@@ -13,8 +13,6 @@ public class EnemySmokingLantern : Enemy {
 
     [HideInInspector]
     public GameObject smokingLanternSmoke;
-
-    private GameObject enemyWeaponParent;
     private float currentShrinkDuration;
 
     // Use this for initialization
@@ -25,13 +23,6 @@ public class EnemySmokingLantern : Enemy {
         rb = GetComponent<Rigidbody2D>();
         element = Element.None;
         smokingLanternSmoke = transform.Find("Smoking Lantern Smoke").gameObject;
-
-        enemyWeaponParent = GameObject.Find("Enemy Attacks");
-        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
-        {
-            enemyWeaponParent = new GameObject("Enemy Attacks");
-        }
-
         DamageZoneStats(smokingLanternSmoke.gameObject);
     }
 

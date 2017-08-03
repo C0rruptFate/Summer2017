@@ -22,8 +22,6 @@ public class EnemyCCWizard : Enemy {
     public float furthestIWillGet;
     private float dist;
 
-    private GameObject enemyWeaponParent;
-
     void OnDrawGizmos()
     {
         //Wire for start position
@@ -35,11 +33,6 @@ public class EnemyCCWizard : Enemy {
     {
         base.Start();
         startSpeed = speed;
-        enemyWeaponParent = GameObject.Find("Enemy Attacks");
-        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
-        {
-            enemyWeaponParent = new GameObject("Enemy Attacks");
-        }
     }
 
     void Update()

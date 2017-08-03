@@ -19,8 +19,6 @@ public class EnemyTurret : Enemy {
     public float multiShotDelay;
     private bool hurtsPlayers = true;
 
-    private GameObject enemyWeaponParent;
-
     void OnDrawGizmos()
     {
         //Wire for start position
@@ -35,11 +33,6 @@ public class EnemyTurret : Enemy {
         laserSight.GetComponent<TurretLaserSight>().myTurret = gameObject;
         shootPoint.name = "Laser Sight for " + gameObject.name;
         shootPoint.transform.parent = null;
-        enemyWeaponParent = GameObject.Find("Enemy Attacks");
-        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
-        {
-            enemyWeaponParent = new GameObject("Enemy Attacks");
-        }
         target = idleTarget.gameObject;
     }
 

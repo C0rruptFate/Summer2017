@@ -21,7 +21,6 @@ public class EnemyCounterCallWisp : Enemy {
 
 
     private float dist;
-    private GameObject enemyWeaponParent;
 
     void OnDrawGizmos()
     {
@@ -33,11 +32,6 @@ public class EnemyCounterCallWisp : Enemy {
     protected override void Start()
     {
         base.Start();
-        enemyWeaponParent = GameObject.Find("Enemy Attacks");
-        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
-        {
-            enemyWeaponParent = new GameObject("Enemy Attacks");
-        }
 
         //numberOfShots = shotsPerRound;
         wisp = GameObject.Find("Wisp");

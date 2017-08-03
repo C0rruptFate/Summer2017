@@ -21,8 +21,6 @@ public class EnemyWispHunter : Enemy {
     private float dist;
     //private int numberOfShots;
 
-    private GameObject enemyWeaponParent;
-
     void OnDrawGizmos()
     {
         //Wire for start position
@@ -33,11 +31,6 @@ public class EnemyWispHunter : Enemy {
     protected override void Start()
     {
         base.Start();
-        enemyWeaponParent = GameObject.Find("Enemy Attacks");
-        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
-        {
-            enemyWeaponParent = new GameObject("Enemy Attacks");
-        }
 
         //numberOfShots = shotsPerRound;
         target = GameObject.Find("Wisp");

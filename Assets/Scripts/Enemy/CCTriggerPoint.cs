@@ -14,11 +14,13 @@ public class CCTriggerPoint : MonoBehaviour {
         attachedTo.GetComponent<PlayerAttacks>().crowdControl = true;
         attachedTo.GetComponent<PlayerMovement>().crowdControl = true;
         attachedTo.GetComponent<Rigidbody2D>().gravityScale = 0;
+        attachedTo.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
 
 	// Update is called once per frame
 	void Update () {
-        transform.position = new Vector3(attachedTo.transform.position.x, attachedTo.transform.position.y, attachedTo.transform.position.z);
+        attachedTo.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        //transform.position = new Vector3(attachedTo.transform.position.x, attachedTo.transform.position.y, attachedTo.transform.position.z);
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -34,7 +36,6 @@ public class CCTriggerPoint : MonoBehaviour {
         attachedTo.GetComponent<PlayerAttacks>().crowdControl = false;
         attachedTo.GetComponent<PlayerMovement>().crowdControl = false;
         attachedTo.GetComponent<Rigidbody2D>().gravityScale = 1;
-        attachedTo.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         shooter.GetComponent<EnemyCCWizard>().StopCasting();
         Destroy(gameObject);
     }

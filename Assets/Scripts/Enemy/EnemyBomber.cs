@@ -12,16 +12,9 @@ public class EnemyBomber : Enemy {
 
     private Transform dropPoint;
 
-    private GameObject enemyWeaponParent;
-
     protected override void Start()
     {
         base.Start();
-        enemyWeaponParent = GameObject.Find("Enemy Attacks");
-        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
-        {
-            enemyWeaponParent = new GameObject("Enemy Attacks");
-        }
 
         dropPoint = transform.Find("Drop Point");
     }

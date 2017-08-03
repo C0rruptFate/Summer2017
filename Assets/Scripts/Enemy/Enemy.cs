@@ -58,6 +58,9 @@ public class Enemy : MonoBehaviour {
     [HideInInspector]
     public bool grounded;
 
+    [HideInInspector]
+    public GameObject enemyWeaponParent;
+
     // Use this for initialization
     protected virtual void Start()
     {
@@ -72,6 +75,11 @@ public class Enemy : MonoBehaviour {
         }
         
         TargetSelection();//Finds the target.
+        enemyWeaponParent = GameObject.Find("Enemy Attacks");
+        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
+        {
+            enemyWeaponParent = new GameObject("Enemy Attacks");
+        }
     }
 
     // Update is called once per frame
@@ -227,7 +235,15 @@ public class Enemy : MonoBehaviour {
                 otherRB.AddForce(new Vector2(otherRB.velocity.x + distX, otherRB.velocity.y), ForceMode2D.Impulse);
                 health.TakeDamage(gameObject, damage, hitStun);
                 //[TODO]
-                //Instantiate(hitEffect, other.transform.position, hitEffect.transform.rotation, );
+                if (hitEffect != null)
+                {
+                    Instantiate(hitEffect, other.transform.position, hitEffect.transform.rotation, enemyWeaponParent.transform);
+                }
+                else
+                {
+                    Debug.Log(gameObject.name + " is missing it's hit effect.");
+                }
+                
             }    
         }
     }

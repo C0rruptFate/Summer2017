@@ -32,17 +32,10 @@ public class EnemyTargetWizard : Enemy {
     private float nextFireDelay;
     [HideInInspector]
     public float startingSpeed;
-    [HideInInspector]
-    public GameObject enemyWeaponParent;
 
     protected override void Start()
     {
         base.Start();
-        enemyWeaponParent = GameObject.Find("Enemy Attacks");
-        if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
-        {
-            enemyWeaponParent = new GameObject("Enemy Attacks");
-        }
         startingSpeed = speed;
     }
 
