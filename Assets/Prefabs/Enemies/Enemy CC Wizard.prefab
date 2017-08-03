@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 212105238483821430}
   - component: {fileID: 61890460664395824}
   - component: {fileID: 50241038601167664}
-  - component: {fileID: 114551656261645132}
+  - component: {fileID: 114356735893933776}
   - component: {fileID: 114154117208220724}
   m_Layer: 11
   m_Name: Enemy CC Wizard
@@ -196,7 +196,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -285,14 +285,40 @@ MonoBehaviour:
   newSwingTimer: 0
   grounded: 0
   shootPoint: {fileID: 4420369369270892}
-  projectile: {fileID: 0}
-  aimProjectile: 0
+  projectile: {fileID: 1749789496821494, guid: 26de7ddfad997d24d99e3206d050a7c1, type: 2}
+  aimProjectile: 1
   projectileSpeed: 10
   projectileMaxDuration: 1000
-  projectileBreakChance: 0
+  projectileBreakChance: 100
   projectileBreaksHittingWall: 0
-  closestIWillGet: 0
-  furthestIWillGet: 0
+  closestIWillGet: 10
+  furthestIWillGet: 20
+--- !u!114 &114356735893933776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616064071867142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0081ffc70dc7c48a42cc9c8e72f65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seenEverySeconds: 0
+  element: 0
+  health: 100
+  enemyHPUI: {fileID: 114651309965335362}
+  enemyHPUISliderObject: {fileID: 1243453730395912}
+  counterDamageModifier: 0.5
+  counterResistanceModifier: 0.25
+  drops:
+  - {fileID: 1360427287876576, guid: 60c702560d6949d4288f0efde99c9693, type: 2}
+  hpBarOffSet: {x: 0, y: 0, z: 0}
+  enemiesList: []
+  myEnemyScript: {fileID: 0}
+  whatCantHitMe: {fileID: 0}
+  invulnerable: 0
+  ccTriggerPoint: {fileID: 0}
 --- !u!114 &114449322734531296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -320,33 +346,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114551656261645132
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1616064071867142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6d6ac6957b0ce04ca7f3f600772761a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seenEverySeconds: 10
-  element: 3
-  health: 100
-  enemyHPUI: {fileID: 114651309965335362}
-  enemyHPUISliderObject: {fileID: 0}
-  counterDamageModifier: 0.5
-  counterResistanceModifier: 0.25
-  drops:
-  - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
-  - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
-  - {fileID: 1360427287876576, guid: 60c702560d6949d4288f0efde99c9693, type: 2}
-  hpBarOffSet: {x: 0, y: 2.4, z: 0}
-  enemiesList: []
-  myEnemyScript: {fileID: 0}
-  whatCantHitMe: {fileID: 0}
-  invulnerable: 0
 --- !u!114 &114651309965335362
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -13,7 +13,7 @@ public class EnemyHealth : MonoBehaviour
 
     [Tooltip("How much health does this enemy have?")]
     public float health = 100f;
-    //[HideInInspector][Tooltip("Fill with empty drops and pick ups that could be dropped.")]
+    [HideInInspector][Tooltip("Fill with empty drops and pick ups that could be dropped.")]
     public Slider enemyHPUI;
     [HideInInspector][Tooltip("Attach the enemyHpSlider that is a child of the enemy.")]
     public GameObject enemyHPUISliderObject;

@@ -52,7 +52,7 @@ public class EnemyCCWizard : Enemy {
         if (Time.time > newSwingTimer && target != null && dist <= furthestIWillGet && !casting)
         {
             Shoot();
-            newSwingTimer = Time.time + swingTimer;
+            
         }
     }
 
@@ -150,6 +150,7 @@ public class EnemyCCWizard : Enemy {
         myProjectile.GetComponent<EnemyProjectile>().projectileBreakChance = projectileBreakChance;
         myProjectile.GetComponent<EnemyProjectile>().breaksHittingWall = projectileBreaksHittingWall;
         myProjectile.GetComponent<EnemyProjectile>().hurtsPlayers = hurtsPlayers;
+        myProjectile.GetComponent<EnemyCCProjectile>().target = target;
         //Set up shooter for the projectile
     }
 
@@ -165,6 +166,8 @@ public class EnemyCCWizard : Enemy {
 
     public void StopCasting()
     {
+        casting = false;
+        newSwingTimer = Time.time + swingTimer;
         speed = startSpeed;
     }
 }
