@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectiles : MonoBehaviour {
     //These are all set by the players attacks/actions script.
-    [HideInInspector]//How fast the projectile moves.
+    //[HideInInspector]//How fast the projectile moves.
     public float projectileSpeed;
     [HideInInspector]//How much damage the projectile deals.
     public float projectileDamage;

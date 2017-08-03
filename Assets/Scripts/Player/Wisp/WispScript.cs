@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Wisp : MonoBehaviour {
-
+public class WispScript : MonoBehaviour
+{
     [HideInInspector] //The transform location that the wisp will be flying to.
     public Transform targetLocation;
-    private ParticleSystem ps;// the wisps particle system used to show active/inactive
 
-    //[HideInInspector]
+    [HideInInspector]
     public GameObject[] players;
 
     [HideInInspector]
@@ -21,9 +21,10 @@ public class Wisp : MonoBehaviour {
     public Collider2D circleCollider;
 
     // Use this for initialization
-    void Start () {
+    public void Start()
+    {
         targetLocation = gameObject.transform;
-        ps = gameObject.GetComponent<ParticleSystem>();
+        //ps = gameObject.GetComponent<ParticleSystem>();
 
         circleCollider = GetComponent<CircleCollider2D>();
 
@@ -31,14 +32,12 @@ public class Wisp : MonoBehaviour {
 
         players = GameObject.FindGameObjectsWithTag("Player");
     }
-	
-	// Update is called once per frame
-	void Update () {
-        //Used to change the Wisps particles.
-        var shape = ps.shape;
 
+    // Update is called once per frame
+    public void Update()
+    {
         //if Moving will move to the target wisp location.
-        if(moving)
+        if (moving)
         {
             //shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
             MoveToTarget();
@@ -55,7 +54,7 @@ public class Wisp : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Wisp Stopper")
+        if (other.tag == "Wisp Stopper")
         {
             circleCollider.enabled = true;
         }

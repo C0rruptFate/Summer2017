@@ -44,7 +44,7 @@ public class HurtsWisp : MonoBehaviour {
     {
         if (other.CompareTag("Wisp"))
         {
-            foreach(GameObject player in other.GetComponent<Wisp>().players)
+            foreach(GameObject player in other.GetComponent<WispScript>().players)
             {
                 player.GetComponent<PlayerHealth>().TakeDamage(gameObject, damage, hitStun);
             }

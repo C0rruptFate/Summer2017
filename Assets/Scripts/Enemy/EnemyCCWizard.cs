@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShooter : Enemy {
+public class EnemyCCWizard : Enemy {
 
     public Transform shootPoint;
     public GameObject projectile;
@@ -12,6 +12,10 @@ public class EnemyShooter : Enemy {
     public float projectileBreakChance;
     public bool projectileBreaksHittingWall = true;
     private bool hurtsPlayers = true;
+
+
+    private bool casting;
+    private float startSpeed;
 
 
     public float closestIWillGet;
@@ -30,6 +34,7 @@ public class EnemyShooter : Enemy {
     protected override void Start()
     {
         base.Start();
+        startSpeed = speed;
         enemyWeaponParent = GameObject.Find("Enemy Attacks");
         if (!enemyWeaponParent)//If it can't find the weapon parent it will create one (the first player on each level should create this automatically).
         {
@@ -44,10 +49,10 @@ public class EnemyShooter : Enemy {
             shootPoint.LookAt(target.transform.position, Vector3.up);
         }
 
-        if (Time.time > newSwingTimer && target != null && dist <= furthestIWillGet)
+        if (Time.time > newSwingTimer && target != null && dist <= furthestIWillGet && !casting)
         {
             Shoot();
-            newSwingTimer = Time.time + swingTimer;
+            
         }
     }
 
@@ -91,7 +96,7 @@ public class EnemyShooter : Enemy {
                 dist = Vector2.Distance(target.transform.position, gameObject.transform.position);
                 if (dist >= furthestIWillGet)
                 {
-                        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (speed * Time.deltaTime));
+                    transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (speed * Time.deltaTime));
                 }
                 else if (dist < closestIWillGet)
                 {
@@ -105,7 +110,7 @@ public class EnemyShooter : Enemy {
 
                         transform.position = new Vector2(lowerYTransform.x, lowerYTransform.y);
                     }
-                        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (-speed * Time.deltaTime));
+                    transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (-speed * Time.deltaTime));
                 }
 
 
@@ -118,13 +123,9 @@ public class EnemyShooter : Enemy {
         DirectionFacing();
     }
 
-    //public override void TargetSelection()
-    //{
-    //    base.TargetSelection();
-    //}
-
     void Shoot()
     {
+        StartCasting();
         if (aimProjectile)
         {
             GameObject myProjectile = Instantiate(projectile, shootPoint.position, shootPoint.transform.Find("Direction").transform.rotation);
@@ -149,10 +150,24 @@ public class EnemyShooter : Enemy {
         myProjectile.GetComponent<EnemyProjectile>().projectileBreakChance = projectileBreakChance;
         myProjectile.GetComponent<EnemyProjectile>().breaksHittingWall = projectileBreaksHittingWall;
         myProjectile.GetComponent<EnemyProjectile>().hurtsPlayers = hurtsPlayers;
+        myProjectile.GetComponent<EnemyCCProjectile>().target = target;
         //Set up shooter for the projectile
     }
 
     public override void OnCollisionStay2D(Collision2D other)
     {
+    }
+
+    public void StartCasting()
+    {
+        casting = true;
+        speed = 0;
+    }
+
+    public void StopCasting()
+    {
+        casting = false;
+        newSwingTimer = Time.time + swingTimer;
+        speed = startSpeed;
     }
 }

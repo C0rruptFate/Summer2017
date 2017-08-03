@@ -37,118 +37,109 @@ public class AttacksAir : PlayerAttacks {
 
     public override void Update()
     {
-        //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
-        //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
-        if (input_manager.GetAxis("Call_Wisp") == 1f)//was > 0.25f
+        if (!crowdControl)
         {
-            CallWisp();
-            callingWisp = true;
-        }//Stops calling the Wisp when the button isn't held down.
-        else if (input_manager.GetAxis("Call_Wisp") == 0f)
-        {
-            callingWisp = false;
-        }
-
-        //Activate Special
-        if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
-        {
-            //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
-
-            //[TODO]Play special particle effect
-            //turn special is active to true
-            //Debug.Log("Special is active.");
-            specialActive = true;
-            if (transform.Find("specialActiveEffect") == null)
+            //Activate Special
+            if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
             {
-                GameObject newSpecialActiveEffect = Instantiate(specialActiveEffect, transform.position, transform.rotation);
-                newSpecialActiveEffect.name = "specialActiveEffect";
-                newSpecialActiveEffect.transform.parent = transform;
-            }
-        }
-        if (input_manager.GetAxisRaw("Special") != 1 && specialActive)//Turns off the special when the button/trigger is released.
-        {
-            //Turn off special
-            //Debug.Log("SpeciaL has been DEACTIVATED");
-            specialActive = false;
-            if (transform.Find("specialActiveEffect") != null)
-            {
-                Destroy(transform.Find("specialActiveEffect").gameObject);
-            }
-        }
+                //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
 
-        //Melee attacks
-        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialMeleeCooldown == 0 && input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Melee Attack
-        {
-            //Debug.Log("Melee Special is active.");
-            //Animator Trigger is True
-            anim.SetTrigger("Melee");
-            SpecialMeleeAttack();
-        }
-        else if (input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Melee Attack
-        {
-            //Animator Trigger is True
-            anim.SetTrigger("Melee");
-            MeleeAttack();
-        }
+                //[TODO]Play special particle effect
+                //turn special is active to true
+                //Debug.Log("Special is active.");
+                specialActive = true;
+                if (transform.Find("specialActiveEffect") == null)
+                {
+                    GameObject newSpecialActiveEffect = Instantiate(specialActiveEffect, transform.position, transform.rotation);
+                    newSpecialActiveEffect.name = "specialActiveEffect";
+                    newSpecialActiveEffect.transform.parent = transform;
+                }
+            }
+            if (input_manager.GetAxisRaw("Special") != 1 && specialActive)//Turns off the special when the button/trigger is released.
+            {
+                //Turn off special
+                //Debug.Log("SpeciaL has been DEACTIVATED");
+                specialActive = false;
+                if (transform.Find("specialActiveEffect") != null)
+                {
+                    Destroy(transform.Find("specialActiveEffect").gameObject);
+                }
+            }
 
-        //Ranged Attacks
-        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialRangedCooldown <= 0 && input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Ranged Attack
-        {
-            //Debug.Log("Ranged Special is active.");
-            //Animator Trigger is True
-            anim.SetTrigger("Ranged");
-            SpecialRangedAttack();
-        }
-        else if (input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Ranged Attack
-        {
-            //Animator Trigger is True
-            anim.SetTrigger("Ranged");
-            RangedAttack();
-        }
+            //Melee attacks
+            //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+            if (specialActive && currentSpecialMeleeCooldown == 0 && input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Melee Attack
+            {
+                //Debug.Log("Melee Special is active.");
+                //Animator Trigger is True
+                anim.SetTrigger("Melee");
+                SpecialMeleeAttack();
+            }
+            else if (input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Melee Attack
+            {
+                //Animator Trigger is True
+                anim.SetTrigger("Melee");
+                MeleeAttack();
+            }
 
-        //Defend
-        if (specialActive && currentSpecialDefendCooldown == 0 && input_manager.GetButton("Defend") && playerHealth.allowedToInputAttacks)//Special Block
-        {
-            if (!blocking)
+            //Ranged Attacks
+            //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+            if (specialActive && currentSpecialRangedCooldown <= 0 && input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Ranged Attack
             {
-                //Debug.Log("Defend Special is active.");
-                blocking = true;
-                specialBlocking = true;
-                SpecialPlayerDefend();
+                //Debug.Log("Ranged Special is active.");
+                //Animator Trigger is True
+                anim.SetTrigger("Ranged");
+                SpecialRangedAttack();
             }
-        }
-        else if (blocking && specialBlocking)//Causes me to release the block.
-        {
-            blocking = false;
-            specialBlocking = false;
-            blockNextFire = Time.time + blockFireRate;
-            if (reflectedSomething)
+            else if (input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Ranged Attack
             {
-                specialDefendCooldown = reducedSpecialDefendCooldown;
+                //Animator Trigger is True
+                anim.SetTrigger("Ranged");
+                RangedAttack();
             }
-            else
-            {
-                specialDefendCooldown = fullSpecialDefendCooldown;
-            }
-            currentSpecialDefendCooldown = specialDefendCooldown;
 
-            //PlayerDefend();
-        }
-        else if (input_manager.GetButton("Defend") && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
-        {
-            if (!blocking)//If I am not already blocking start blocking
+            //Defend
+            if (specialActive && currentSpecialDefendCooldown == 0 && input_manager.GetButton("Defend") && playerHealth.allowedToInputAttacks)//Special Block
             {
-                blocking = true;
-                PlayerDefend();//Creates the block effect and all that goes with that.
+                if (!blocking)
+                {
+                    //Debug.Log("Defend Special is active.");
+                    blocking = true;
+                    specialBlocking = true;
+                    SpecialPlayerDefend();
+                }
             }
-        }
-        else if (blocking)//Causes me to release the block.
-        {
-            blocking = false;
-            blockNextFire = Time.time + blockFireRate;
-            PlayerDefend();
+            else if (blocking && specialBlocking)//Causes me to release the block.
+            {
+                blocking = false;
+                specialBlocking = false;
+                blockNextFire = Time.time + blockFireRate;
+                if (reflectedSomething)
+                {
+                    specialDefendCooldown = reducedSpecialDefendCooldown;
+                }
+                else
+                {
+                    specialDefendCooldown = fullSpecialDefendCooldown;
+                }
+                currentSpecialDefendCooldown = specialDefendCooldown;
+
+                //PlayerDefend();
+            }
+            else if (input_manager.GetButton("Defend") && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
+            {
+                if (!blocking)//If I am not already blocking start blocking
+                {
+                    blocking = true;
+                    PlayerDefend();//Creates the block effect and all that goes with that.
+                }
+            }
+            else if (blocking)//Causes me to release the block.
+            {
+                blocking = false;
+                blockNextFire = Time.time + blockFireRate;
+                PlayerDefend();
+            } 
         }
 
         //Cooldowns

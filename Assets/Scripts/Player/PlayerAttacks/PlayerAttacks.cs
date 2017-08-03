@@ -152,12 +152,12 @@ public class PlayerAttacks : MonoBehaviour {
 
     //Wisp Settings 
     #region
-    [HideInInspector]//The transform that I will be calling the wisp to.
-    public Transform myWispTargetLocation;
-    [HideInInspector]//The Wisp that I will be telling where to go.
-    public GameObject wisp;
-    [HideInInspector]//Am I currently calling the Wisp?
-    public bool callingWisp = false;
+    //[HideInInspector]//The transform that I will be calling the wisp to.
+    //public Transform myWispTargetLocation;
+    //[HideInInspector]//The Wisp that I will be telling where to go.
+    //public GameObject wisp;
+    //[HideInInspector]//Am I currently calling the Wisp?
+    //public bool callingWisp = false;
     #endregion
 
     //Private Attack extras
@@ -203,6 +203,10 @@ public class PlayerAttacks : MonoBehaviour {
     [HideInInspector]//My Movement script
     public PlayerMovement playerMovement;
 
+    //crowd control
+    //[HideInInspector]
+    public bool crowdControl = false;
+
     protected IEnumerator meleeCooldownCoroutine;
     protected IEnumerator rangedCooldownCoroutine;
     protected IEnumerator defendCooldownCoroutine;
@@ -226,16 +230,6 @@ public class PlayerAttacks : MonoBehaviour {
         //Sets up my rigid body and animator
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        //Finds the wisp target location object, changes it's name, and removes it as a child.
-        myWispTargetLocation = transform.Find("Wisp Target Location");
-        myWispTargetLocation.name = gameObject.name + "Wisp Target Location";
-        myWispTargetLocation.parent = null;
-        //Find the wisp object
-        wisp = GameObject.Find("Wisp");
-        if (wisp == null)
-        {//If the wisp can't be found it will inform the designer.
-            Debug.LogError("Can't find the Wisp, it might not be added to the scene.");
-        }
 
         //Set's up the player's weapon parent object
         playerWeaponParent = GameObject.Find("Player Attacks");
@@ -504,109 +498,100 @@ public class PlayerAttacks : MonoBehaviour {
 
     public virtual void Update()
     {
-        //Calls Wisp and ticks up how long it has been held down. When greater than 20 the Wisp will attach to you.
-        //Debug.Log("Callwisp" + Input.GetAxisRaw("CallWisp" + playerNumber));
-        if (input_manager.GetAxis("Call_Wisp") == 1f)//was > 0.25f
-        {
-            CallWisp();
-            callingWisp = true;
-        }//Stops calling the Wisp when the button isn't held down.
-        else if (input_manager.GetAxis("Call_Wisp") == 0f)
-        {
-            callingWisp = false;
-        }
-
-        //Activate Special
-        if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
-        {
-            //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
-
-            //[TODO]Play special particle effect
-            //turn special is active to true
-            //Debug.Log("Special is active.");
-            specialActive = true;
-            if (transform.Find("specialActiveEffect") == null)
+        //Checks if the player is CC'd
+        if (!crowdControl)
+        {//Activate Special
+            if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
             {
-                GameObject newSpecialActiveEffect = Instantiate(specialActiveEffect, transform.position, transform.rotation);
-                newSpecialActiveEffect.name = "specialActiveEffect";
-                newSpecialActiveEffect.transform.parent = transform;
-            }
-        }
-        if (input_manager.GetAxisRaw("Special") != 1 && specialActive)//Turns off the special when the button/trigger is released.
-        {
-            //Turn off special
-            //Debug.Log("SpeciaL has been DEACTIVATED");
-            specialActive = false;
-            if (transform.Find("specialActiveEffect") != null)
-            {
-                Destroy(transform.Find("specialActiveEffect").gameObject);
-            }
-        }
+                //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
 
-        //Melee attacks
-        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialMeleeCooldown == 0 && input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Melee Attack
-        {
-            //Debug.Log("Melee Special is active.");
-            //Animator Trigger is True
-            anim.SetTrigger("Melee");
-            SpecialMeleeAttack();
-        }
-        else if (input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Melee Attack
-        {
-            //Animator Trigger is True
-            anim.SetTrigger("Melee");
-            MeleeAttack();
-        }
-
-        //Ranged Attacks
-        //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
-        if (specialActive && currentSpecialRangedCooldown <= 0 && input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Ranged Attack
-        {
-            //Debug.Log("Ranged Special is active.");
-            //Animator Trigger is True
-            anim.SetTrigger("Ranged");
-            SpecialRangedAttack();
-        }
-        else if (input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Ranged Attack
-        {
-            //Animator Trigger is True
-            anim.SetTrigger("Ranged");
-            RangedAttack();
-        }
-
-        //Defend
-        if (specialActive && currentSpecialDefendCooldown == 0 && input_manager.GetButton("Defend") && playerHealth.allowedToInputAttacks)//Special Block
-        {
-            if (!blocking)
-            {
-                //Debug.Log("Defend Special is active.");
-                blocking = true;
-                specialBlocking = true;
-                SpecialPlayerDefend();
+                //[TODO]Play special particle effect
+                //turn special is active to true
+                //Debug.Log("Special is active.");
+                specialActive = true;
+                if (transform.Find("specialActiveEffect") == null)
+                {
+                    GameObject newSpecialActiveEffect = Instantiate(specialActiveEffect, transform.position, transform.rotation);
+                    newSpecialActiveEffect.name = "specialActiveEffect";
+                    newSpecialActiveEffect.transform.parent = transform;
+                }
             }
-        }
-        else if (blocking && specialBlocking)//Causes me to release the block.
-        {
-            blocking = false;
-            specialBlocking = false;
-            blockNextFire = Time.time + blockFireRate;
-            currentSpecialDefendCooldown = specialDefendCooldown;
-            //PlayerDefend();
-        }
-        else if (input_manager.GetButton("Defend") && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
-        {
-            if (!blocking)//If I am not already blocking start blocking
+            if (input_manager.GetAxisRaw("Special") != 1 && specialActive)//Turns off the special when the button/trigger is released.
             {
-                blocking = true;
-                PlayerDefend();//Creates the block effect and all that goes with that.
+                //Turn off special
+                //Debug.Log("SpeciaL has been DEACTIVATED");
+                specialActive = false;
+                if (transform.Find("specialActiveEffect") != null)
+                {
+                    Destroy(transform.Find("specialActiveEffect").gameObject);
+                }
             }
-        }
-        else if (blocking)//Causes me to release the block.
-        {
-            blocking = false;
-            blockNextFire = Time.time + blockFireRate;
-            PlayerDefend();
+
+            //Melee attacks
+            //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+            if (specialActive && currentSpecialMeleeCooldown == 0 && input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Melee Attack
+            {
+                //Debug.Log("Melee Special is active.");
+                //Animator Trigger is True
+                anim.SetTrigger("Melee");
+                SpecialMeleeAttack();
+            }
+            else if (input_manager.GetButtonDown("Melee") && Time.time > meleeNextFire && playerHealth.allowedToInputAttacks && !blocking)//Melee Attack
+            {
+                //Animator Trigger is True
+                anim.SetTrigger("Melee");
+                MeleeAttack();
+            }
+
+            //Ranged Attacks
+            //[TODO ALSO REQUIRE MANA TO BE >=SPECIAL MELEE MANA COST]
+            if (specialActive && currentSpecialRangedCooldown <= 0 && input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Special Ranged Attack
+            {
+                //Debug.Log("Ranged Special is active.");
+                //Animator Trigger is True
+                anim.SetTrigger("Ranged");
+                SpecialRangedAttack();
+            }
+            else if (input_manager.GetButtonDown("Ranged") && Time.time > projectileNextFire && playerHealth.allowedToInputAttacks && !blocking)//Ranged Attack
+            {
+                //Animator Trigger is True
+                anim.SetTrigger("Ranged");
+                RangedAttack();
+            }
+
+            //Defend
+            if (specialActive && currentSpecialDefendCooldown == 0 && input_manager.GetButton("Defend") && playerHealth.allowedToInputAttacks)//Special Block
+            {
+                if (!blocking)
+                {
+                    //Debug.Log("Defend Special is active.");
+                    blocking = true;
+                    specialBlocking = true;
+                    SpecialPlayerDefend();
+                }
+            }
+            else if (blocking && specialBlocking)//Causes me to release the block.
+            {
+                blocking = false;
+                specialBlocking = false;
+                blockNextFire = Time.time + blockFireRate;
+                currentSpecialDefendCooldown = specialDefendCooldown;
+                //PlayerDefend();
+            }
+            else if (input_manager.GetButton("Defend") && Time.time >= blockNextFire && playerHealth.allowedToInputAttacks)//Block
+            {
+                if (!blocking)//If I am not already blocking start blocking
+                {
+                    blocking = true;
+                    PlayerDefend();//Creates the block effect and all that goes with that.
+                }
+            }
+            else if (blocking)//Causes me to release the block.
+            {
+                blocking = false;
+                blockNextFire = Time.time + blockFireRate;
+                PlayerDefend();
+            } 
         }
 
         //Cooldowns
@@ -638,16 +623,16 @@ public class PlayerAttacks : MonoBehaviour {
         }
     }
 
-    public virtual void CallWisp()
-    {
-        //Moves target location to the player
-        myWispTargetLocation.position = gameObject.transform.position;
+    //public virtual void CallWisp()
+    //{
+    //    //Moves target location to the player
+    //    myWispTargetLocation.position = gameObject.transform.position;
 
-        //Tells the Wisp to move to the targeted location
-        wisp.GetComponent<Wisp>().targetLocation = myWispTargetLocation;
-        wisp.GetComponent<Wisp>().moving = true;
-        //callingWisp = false;
-    }
+    //    //Tells the Wisp to move to the targeted location
+    //    wisp.GetComponent<WispScript>().targetLocation = myWispTargetLocation;
+    //    wisp.GetComponent<WispScript>().moving = true;
+    //    //callingWisp = false;
+    //}
 
     //Player Basic Melee attacks
     public virtual void MeleeAttack()

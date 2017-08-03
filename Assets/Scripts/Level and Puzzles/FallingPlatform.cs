@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FallingPlatform : MonoBehaviour {
 
@@ -11,35 +12,39 @@ public class FallingPlatform : MonoBehaviour {
     private Vector3 startPosition;
     private Quaternion startRotation;
 
+    public Text debugText;
+
     private bool alreadyFalling;
     // Use this for initialization
-    void Start () {
+    public void Start () {
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
         startRotation = transform.rotation;
+        debugText = GameObject.Find("Debug Text").GetComponent<Text>();
 	}
 
-    void OnCollisionEnter2D(Collision2D other)
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !alreadyFalling)
         {
+            debugText.text = "Got to here";
             //Animation for shaking platform.
-            if(!alreadyFalling)
+
             Invoke("PlatformFalling", fallWaitTime);
         }
     }
 
-    void PlatformFalling()
+    public void PlatformFalling()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
         Invoke("ResetPlatform", fallWaitTime * 5);
     }
 
-    void ResetPlatform()
+    public void ResetPlatform()
     {
+        rb.bodyType = RigidbodyType2D.Kinematic;
         transform.position = startPosition;
         transform.rotation = startRotation;
-        rb.bodyType = RigidbodyType2D.Kinematic;
         alreadyFalling = false;
     }
 }
