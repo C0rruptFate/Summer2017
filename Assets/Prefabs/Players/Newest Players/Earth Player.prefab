@@ -1534,6 +1534,7 @@ MonoBehaviour:
   enemyBelow: 0
   playerBelow: 0
   facingRight: 0
+  crowdControl: 0
 --- !u!114 &114429864575570958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1907,6 +1908,7 @@ MonoBehaviour:
   playerNumber: 1
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
+  crowdControl: 0
   maxHitCount: 5
   specialLobbedForce: {x: 30, y: 0}
   forceMagnitude: -200
