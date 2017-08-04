@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour {
 
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     public Text pauseText;//Text displayed when a player pauses the game.
+    public GameObject questText; //The quest text in the top right corner.
 
     //[HideInInspector]//list of all players that joined the level.
     public GameObject[] players;
@@ -22,8 +23,11 @@ public class GameController : MonoBehaviour {
     [HideInInspector]
     public GameObject wisp;
 
-    //Respawn Values
+    //Respawn wait time
     public int respawnTime = 30;
+
+    [HideInInspector]
+    public BeatLevelCondition beatLevelCondition;
 
     private int player1CurrentRespawnCount;
     private int player2CurrentRespawnCount;
@@ -57,6 +61,33 @@ public class GameController : MonoBehaviour {
         if (pauseText == null)
         {
             Debug.Log("Attach 'Pause Text' from the UI");
+        }
+    }
+
+    void Start()
+    {
+        questText = GameObject.Find("Quest Text");
+        switch (beatLevelCondition)
+        {
+            case BeatLevelCondition.DefeatTheBoss:
+                //[TODO] Find the boss, Set up Quest Text
+                //questText.GetComponent<Text>().text = "";
+                break;
+            case BeatLevelCondition.KillXEnemies:
+                //Set up kill enemy checker, set up quest text
+                break;
+            case BeatLevelCondition.ReachThePortal:
+                //Set up portal and find the portal and set up quest text
+                break;
+            case BeatLevelCondition.PushAllSwitches:
+                //Set button checkers and quest text
+                break;
+            case BeatLevelCondition.LightASingleTorch:
+                //Find the end level torch and set up quest text
+                break;
+            case BeatLevelCondition.LightAllTorches:
+                //Find all torches and set up quest text
+                break;
         }
     }
 	

@@ -20,6 +20,9 @@ public class WispScript : MonoBehaviour
     [HideInInspector]
     public Collider2D circleCollider;
 
+    [Tooltip("Turn to false if you want the Wisp to startout inactive, something will need to be added to the scene to activate the Wisp.")]
+    public bool wispActive = true;
+
     // Use this for initialization
     public void Start()
     {
@@ -37,7 +40,7 @@ public class WispScript : MonoBehaviour
     public void Update()
     {
         //if Moving will move to the target wisp location.
-        if (moving)
+        if (moving && wispActive)
         {
             //shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
             MoveToTarget();
