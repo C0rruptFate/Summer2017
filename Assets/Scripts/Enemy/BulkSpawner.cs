@@ -38,7 +38,7 @@ public class BulkSpawner : Spawner {
 	void Update () {
 		
         //If this isn't active then it will not spawn. Set to active to have it spawn when a player enters it's trigger space.
-        if(active && wakeUp)
+        if(active && wakeUp && Time.time >= spawnActiveDelay)
         {
             Spawn();
             active = false;
