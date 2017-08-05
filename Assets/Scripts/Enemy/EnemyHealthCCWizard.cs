@@ -10,6 +10,6 @@ public class EnemyHealthCCWizard : EnemyHealth {
     public override void DestroyObject()
     {
         ccTriggerPoint.GetComponent<CCTriggerPoint>().BreakCasting();
-        Destroy(gameObject);
+        base.DestroyObject();
     }
 }

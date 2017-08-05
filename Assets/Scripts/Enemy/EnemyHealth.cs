@@ -168,7 +168,6 @@ public class EnemyHealth : MonoBehaviour
                 }
 
                 //calls destroy enemy
-                Destroy(enemyHPUISliderObject);
                 DestroyObject();
             }
         }
@@ -177,7 +176,9 @@ public class EnemyHealth : MonoBehaviour
     public virtual void DestroyObject()//Paly death animation, wait then enemy dies.
     {
         //[TODO]trigger death animation
-        
+
+        Destroy(enemyHPUISliderObject);
+        GameObject.Find("GameManager").GetComponent<GameController>().EnemyDeath(gameObject);
         Destroy(gameObject);
     }
 

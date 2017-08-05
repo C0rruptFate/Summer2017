@@ -6,16 +6,49 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
+    [HideInInspector]
     public Text pauseText;//Text displayed when a player pauses the game.
-    public GameObject questText; //The quest text in the top right corner.
 
-    //[HideInInspector]//list of all players that joined the level.
+    //End level requirments.
+    //[HideInInspector]
+    public BeatLevelCondition beatLevelCondition;
+    [HideInInspector]
+    public Text questText; //The quest text in the top right corner.
+    [HideInInspector]
+    public Text microQuestText;
+    [HideInInspector] //The boss if one is in this level
+    public GameObject boss;
+    private int enemyDeathCount;
+    [Tooltip("Only used if beat level condition is set to Kill X Enemies.")]
+    public int requiredEnemyDeathCount;
+    [Tooltip("Only used if the Macro quest is to kill this enemy type.")]
+    public EnemyTypes enemyTypes;
+    [HideInInspector]
+    public int uniqueEnemiesKilled;
+    public int requiredUniqueEnemies;
+    [HideInInspector]//How many enemies need to be killed to clear the level.
+    public int numberOfSwitchesToPush;
+    [HideInInspector]
+    public int currentNumberOfSwitchesToPush;
+    [HideInInspector]//How many torches need to be activated.
+    public int numberOfTorchesToActivate;
+    [HideInInspector]
+    public int currentNumberofTorchesActive;
+    [HideInInspector]
+    public int playersOnPortal;
+
+    [Tooltip("The first string of text used in the quest text if one is being used.")]
+    public string string1;
+    [Tooltip("The second string of text used in the quest text if one is being used.")]
+    public string string2;
+
+    [HideInInspector]//list of all players that joined the level.
     public GameObject[] players;
 
-    //[HideInInspector]//Total count of all players that joined the level.
+    [HideInInspector]//Total count of all players that joined the level.
     public int totalPlayerCount;
 
-    //[HideInInspector]//Total count of all living players.
+    [HideInInspector]//Total count of all living players.
     public int alivePlayerCount;
 
     private GameObject levelManager;//Object of the level manager so that we can load levels.
@@ -25,10 +58,7 @@ public class GameController : MonoBehaviour {
 
     //Respawn wait time
     public int respawnTime = 30;
-
-    [HideInInspector]
-    public BeatLevelCondition beatLevelCondition;
-
+    
     private int player1CurrentRespawnCount;
     private int player2CurrentRespawnCount;
     private int player3CurrentRespawnCount;
@@ -40,7 +70,8 @@ public class GameController : MonoBehaviour {
     private GameObject player4ReadyToRespawn;
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         //Sets gameobject and components.
         levelManager = GameObject.Find("Level Manager");
         levelManager.GetComponent<LevelManager>().SpawnPlayers();
@@ -66,27 +97,49 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
-        questText = GameObject.Find("Quest Text");
+        enemyDeathCount = 0;
+        uniqueEnemiesKilled = 0;
+        questText = GameObject.Find("Quest Text").GetComponent<Text>();
+        microQuestText = GameObject.Find("Micro Quest Text").GetComponent<Text>();
+        pauseText = GameObject.Find("Pause Text").GetComponent<Text>();
+        microQuestText.text = "";
         switch (beatLevelCondition)
         {
             case BeatLevelCondition.DefeatTheBoss:
-                //[TODO] Find the boss, Set up Quest Text
-                //questText.GetComponent<Text>().text = "";
+                //[TODO] Boss needs to tell the game manager who it is.
+                if (boss != null)
+                {
+                    questText.GetComponent<Text>().text = "Defeat " + boss.name + " to cleanse the corruption in this area.";
+                }
+                else
+                {
+                    questText.GetComponent<Text>().text = "Missing the boss prefab place add the boss or change the beat level condition.";
+                    Debug.LogError("Missing the boss prefab place add the boss or change the beat level condition.");
+                }
                 break;
             case BeatLevelCondition.KillXEnemies:
                 //Set up kill enemy checker, set up quest text
+                questText.GetComponent<Text>().text = "Defeat all enemies. \n" + enemyDeathCount + " / " + requiredEnemyDeathCount + " defeated.";
+                break;
+            case BeatLevelCondition.KillXOfYEnemies:
+                //Set up kill enemy checker, set up quest text
+                questText.GetComponent<Text>().text = "Defeat " + requiredUniqueEnemies + " " + enemyTypes + ".\n" + uniqueEnemiesKilled +  " / " + requiredUniqueEnemies + " defeated.";
                 break;
             case BeatLevelCondition.ReachThePortal:
                 //Set up portal and find the portal and set up quest text
+                questText.GetComponent<Text>().text = "Reach the final portal to escape!";
                 break;
             case BeatLevelCondition.PushAllSwitches:
                 //Set button checkers and quest text
+                questText.GetComponent<Text>().text = "Activate all switches to " + string1 + "\n" + currentNumberOfSwitchesToPush + " / " + numberOfSwitchesToPush + " currently active.";
                 break;
             case BeatLevelCondition.LightASingleTorch:
                 //Find the end level torch and set up quest text
+                    questText.GetComponent<Text>().text = "Light the beacon to challenge the corruption directly.";
                 break;
             case BeatLevelCondition.LightAllTorches:
                 //Find all torches and set up quest text
+                questText.GetComponent<Text>().text = "Activate all the beacons to reveal the way forward. \n" + currentNumberofTorchesActive + " / " + numberOfTorchesToActivate + " activated.";
                 break;
         }
     }
@@ -203,10 +256,107 @@ public class GameController : MonoBehaviour {
         levelManager.GetComponent<LevelManager>().LoadLevel("GameOver");
     }
 
+    public void LevelProgression()
+    {
+        switch(beatLevelCondition)
+        {
+            case BeatLevelCondition.DefeatTheBoss:
+                //[TODO] Boss needs to tell the game manager who it is.
+                if (boss != null)
+                {
+                    questText.GetComponent<Text>().text = "Defeat " + boss.name + " to cleanse the corruption in this area.";
+                }
+                else
+                {
+                    questText.GetComponent<Text>().text = "Missing the boss prefab place add the boss or change the beat level condition.";
+                    Debug.LogError("Missing the boss prefab place add the boss or change the beat level condition.");
+                }
+                break;
+            case BeatLevelCondition.KillXEnemies:
+                //Set up kill enemy checker, set up quest text
+                questText.GetComponent<Text>().text = "Defeat all enemies. \n" + enemyDeathCount + " / " + requiredEnemyDeathCount + " defeated.";
+                break;
+            case BeatLevelCondition.KillXOfYEnemies:
+                //Set up kill enemy checker, set up quest text
+                questText.GetComponent<Text>().text = "Defeat " + requiredUniqueEnemies + " " + enemyTypes + ".\n" + uniqueEnemiesKilled + " / " + requiredUniqueEnemies + " defeated.";
+                break;
+            case BeatLevelCondition.ReachThePortal:
+                //Set up portal and find the portal and set up quest text
+                questText.GetComponent<Text>().text = "Reach the final portal to escape!" + playersOnPortal + " / " + totalPlayerCount + " standing on the portal.";
+                break;
+            case BeatLevelCondition.PushAllSwitches:
+                //Set button checkers and quest text
+                questText.GetComponent<Text>().text = "Activate all switches to " + string1 + "\n" + currentNumberOfSwitchesToPush + " / " + numberOfSwitchesToPush + " currently active.";
+                break;
+            case BeatLevelCondition.LightASingleTorch:
+                //Find the end level torch and set up quest text
+                questText.GetComponent<Text>().text = "Light the beacon to challenge the corruption directly.";
+                break;
+            case BeatLevelCondition.LightAllTorches:
+                //Find all torches and set up quest text
+                questText.GetComponent<Text>().text = "Activate all the beacons to reveal the way forward. \n" + currentNumberofTorchesActive + " / " + numberOfTorchesToActivate + " activated.";
+                break;
+        }
+
+    }
+
     public void BeatLevel()
     {
         //[TODO] change to a beat level screen or the next level.
         levelManager.GetComponent<LevelManager>().LoadLevel("GameOver");
+    }
+
+    public void EnemyDeath(GameObject enemy)
+    {
+        enemyDeathCount++;
+
+        switch(enemyTypes)
+        {
+            case EnemyTypes.BasicEnemies:
+                if (enemy.GetComponent<EnemyT1>())
+                    uniqueEnemiesKilled++;
+                break;
+            case EnemyTypes.Bombers:
+                if (enemy.GetComponent<EnemyBomber>())
+                    uniqueEnemiesKilled++;
+                break;
+            case EnemyTypes.CCWizards:
+                if (enemy.GetComponent<EnemyCCWizard>())
+                    uniqueEnemiesKilled++;
+                break;
+            case EnemyTypes.Chargers:
+                if (enemy.GetComponent<EnemyCharger>())
+                    uniqueEnemiesKilled++;
+                break;
+            case EnemyTypes.Hives:
+                if (enemy.GetComponent<EnemyHive>())
+                    uniqueEnemiesKilled++;
+                break;
+            case EnemyTypes.Shooters:
+                if (enemy.GetComponent<EnemyShooter>())
+                    uniqueEnemiesKilled++;
+                break;
+            case EnemyTypes.Turrets:
+                if (enemy.GetComponent<EnemyTurret>())
+                    uniqueEnemiesKilled++;
+                break;
+            case EnemyTypes.WispHunters:
+                if (enemy.GetComponent<EnemyWispHunter>())
+                    uniqueEnemiesKilled++;
+                break;
+                
+        }
+
+        if (beatLevelCondition == BeatLevelCondition.KillXEnemies || beatLevelCondition == BeatLevelCondition.KillXOfYEnemies)
+        {
+            LevelProgression();
+        }
+
+        if (enemyDeathCount >= requiredEnemyDeathCount || uniqueEnemiesKilled >= requiredUniqueEnemies)
+        {
+            BeatLevel();
+        }
+
     }
 
     public void Respawn(GameObject playerToRespawn)

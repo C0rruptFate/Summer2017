@@ -6,16 +6,17 @@ public class PressurePlate : MonoBehaviour {
     
     public bool holdDownButtons = true;
 
+    [Tooltip("If true this is used to end the level. Buttons should be held down for this.")]
+    public bool endLevelButtons = false;
+
     [HideInInspector]
     public int pressurePlatePushedCount;
 
     [HideInInspector]
     public int pressurePlateTotal;
 
-    //private Transform Door;
-
     public GameObject[] myButtons;
-    private int myButtonCount;
+    //private int myButtonCount;
 
     private int activeButtonCount;
 
@@ -28,7 +29,6 @@ public class PressurePlate : MonoBehaviour {
         {
             holdDownButtons = false;
         }
-            
 
         foreach (Transform child in transform)
         {
@@ -60,11 +60,22 @@ public class PressurePlate : MonoBehaviour {
                 //Debug.Log("I " + i + "Pressure Plat Total: " + pressurePlateTotal);
             }
         }
+
+        if (endLevelButtons == true)
+        {
+            gm.GetComponent<GameController>().numberOfSwitchesToPush = activeButtonCount;
+            gm.GetComponent<GameController>().LevelProgression();
+        }
     }
 
     public void CheckandIncreaseButtons()
     {
         pressurePlatePushedCount++;
+        if (endLevelButtons)
+        {
+            gm.GetComponent<GameController>().currentNumberOfSwitchesToPush = pressurePlatePushedCount;
+            gm.GetComponent<GameController>().LevelProgression();
+        }
         if (holdDownButtons == false)
         {
             //Needs to check for only active buttons
@@ -90,6 +101,10 @@ public class PressurePlate : MonoBehaviour {
                 if (child.GetComponent<NewMovingPlatform>() != null)
                 {
                     child.GetComponent<NewMovingPlatform>().allowedToMove = true;
+                }
+                if (endLevelButtons)
+                {
+                    BeatLevel();
                 }
             }
         }
@@ -127,5 +142,11 @@ public class PressurePlate : MonoBehaviour {
             pressurePlateTotal = gm.GetComponent<GameController>().totalPlayerCount - 1;
             //Debug.Log("Running this code: " + pressurePlateTotal);
         }
+    }
+
+    public void BeatLevel()
+    {
+        //[TODO]Maybe add some sound or something for this type.
+        gm.GetComponent<GameController>().BeatLevel();
     }
 }

@@ -12,22 +12,18 @@ public class FallingPlatform : MonoBehaviour {
     private Vector3 startPosition;
     private Quaternion startRotation;
 
-    public Text debugText;
-
     private bool alreadyFalling;
     // Use this for initialization
     public void Start () {
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
         startRotation = transform.rotation;
-        debugText = GameObject.Find("Debug Text").GetComponent<Text>();
 	}
 
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player") && !alreadyFalling)
         {
-            debugText.text = "Got to here";
             //Animation for shaking platform.
 
             Invoke("PlatformFalling", fallWaitTime);

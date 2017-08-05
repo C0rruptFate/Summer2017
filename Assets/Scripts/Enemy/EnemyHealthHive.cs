@@ -100,7 +100,6 @@ public class EnemyHealthHive : EnemyHealth {
                 }
 
                 //calls destroy enemy
-                Destroy(enemyHPUISliderObject);
                 DestroyObject();
             }
         }

@@ -95,7 +95,6 @@ public class EnemyHealthTurret : EnemyHealth {
                 }
 
                 //calls destroy enemy
-                Destroy(enemyHPUISliderObject);
                 Destroy(GetComponent<EnemyTurret>().shootPoint);
                 DestroyObject();
             }

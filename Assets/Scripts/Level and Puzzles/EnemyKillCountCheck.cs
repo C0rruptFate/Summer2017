@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyKillCountCheck : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class EnemyKillCountCheck : MonoBehaviour {
     public GameObject[] spawners;
 
     public int needToKill;
+
+    [HideInInspector]
+    public Text microQuestText;
 
     private int playersInArea;
 
@@ -28,6 +32,7 @@ public class EnemyKillCountCheck : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gameManager = GameObject.Find("Game Manager");
+        microQuestText = GameObject.Find("Micro Quest Text").GetComponent<Text>();
 
         foreach (GameObject parts in thingsToDisable)
         {
@@ -73,6 +78,7 @@ public class EnemyKillCountCheck : MonoBehaviour {
     {
         if (playersInArea == gameManager.GetComponent<GameController>().totalPlayerCount)
         {
+            microQuestText.text = needToKill + " enemies left to slay.";
             foreach (GameObject parts in thingsToEnable)
             {
                 parts.SetActive(true);
@@ -89,6 +95,8 @@ public class EnemyKillCountCheck : MonoBehaviour {
     {
         needToKill--;
 
+        microQuestText.text = needToKill + " enemies left to slay.";
+
         if (needToKill <= 0)
         {
             foreach (GameObject parts in thingsToDisable)
@@ -102,6 +110,10 @@ public class EnemyKillCountCheck : MonoBehaviour {
             }
 
             beenBeaten = true;
+            if (microQuestText.text.Contains(" enemies left to slay."))
+            {
+                microQuestText.text = "";
+            }
         }
     }
 }

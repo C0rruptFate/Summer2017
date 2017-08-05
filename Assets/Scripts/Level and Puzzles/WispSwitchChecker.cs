@@ -34,22 +34,28 @@ public class WispSwitchChecker : MonoBehaviour
                 switchTotal++;
             }
 
-            if(child.GetComponent<Spawner>() != null)//Finds all spawners that are children of mine.
+            if (child.GetComponent<Spawner>() != null)//Finds all spawners that are children of mine.
             {
                 mySpawners.Add(child);
             }
         }
-
         if (puzzleType == PuzzleType.EndLevel)
         {
             gameManager = GameObject.Find("Game Manager");
+            gameManager.GetComponent<GameController>().numberOfTorchesToActivate = switchTotal;
+            gameManager.GetComponent<GameController>().LevelProgression();
         }
     }
 
     public void CheckSwitches()
     {
         switchesActive++;//This is called by the switch when it is flipped, it increases the flipped switch count by 1.
-
+        if (puzzleType == PuzzleType.EndLevel)
+        {
+            gameManager.GetComponent<GameController>().currentNumberofTorchesActive = switchesActive;
+            gameManager.GetComponent<GameController>().LevelProgression();
+        }
+        
         //Checks to see if any spawners should become active when a switch is flipped.
         if (mySpawners != null && actionArray != null && actionArray.Contains(switchesActive))
         {

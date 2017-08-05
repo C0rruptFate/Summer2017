@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 50535625100225454}
   - component: {fileID: 114287133992806994}
   - component: {fileID: 114444234869929560}
+  - component: {fileID: 114528317724844580}
   m_Layer: 11
   m_Name: Earth Ground Enemy Hive
   m_TagString: Enemy
@@ -86,7 +87,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1762934927836776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -34.74, y: -20.66579, z: 0}
   m_LocalScale: {x: 3, y: 1.5, z: 1.5}
   m_Children:
@@ -234,6 +235,7 @@ MonoBehaviour:
   maxMoveSpeed: 1
   useBoundries: 1
   boundryRange: 15
+  hitEffect: {fileID: 0}
   damage: 13
   hitStun: 0.1
   knockback: 1
@@ -246,6 +248,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   newSwingTimer: 0
   grounded: 0
+  enemyWeaponParent: {fileID: 0}
 --- !u!114 &114496449515552670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -286,6 +289,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myEnemy: {fileID: 0}
   offSet: {x: 0, y: 0, z: 0}
+--- !u!114 &114528317724844580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1762934927836776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a40d6b463794e84999a2a594041437a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212076863606286528
 SpriteRenderer:
   m_ObjectHideFlags: 1
