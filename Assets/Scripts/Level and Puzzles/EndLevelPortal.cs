@@ -10,8 +10,14 @@ public class EndLevelPortal : MonoBehaviour {
     [HideInInspector]
     public GameObject gameManager;
 
-	// Use this for initialization
-	void Start () {
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireCube(transform.position, transform.localScale);
+    }
+
+        // Use this for initialization
+        void Start () {
         gameManager = GameObject.Find("Game Manager");
 	}
 
