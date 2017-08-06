@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Rewired;
 
 public class Cursor : MonoBehaviour {
 
     //Find Cursor and who is belongs to.
     [Tooltip("The player # for this cursor.")]
-    public int playerNumber = 1;
+    public int playerNumber;
+    //input manager
+    protected Player input_manager;
+    public int player_id;
     [Tooltip("How fast the corsor moves.")]
     public float speed;
 
@@ -22,10 +26,10 @@ public class Cursor : MonoBehaviour {
     [HideInInspector]//Button used to deselect their chracter.
     public string playerCancel;
 
-    [HideInInspector]//sets up the controls for the joystick of each player.
-    public string horizontalMovement;
-    [HideInInspector]//Sets up the controls for the joystick of each player.
-    public string verticalMovement;
+    //[HideInInspector]//sets up the controls for the joystick of each player.
+    //public string horizontalMovement;
+    //[HideInInspector]//Sets up the controls for the joystick of each player.
+    //public string verticalMovement;
     [HideInInspector]//This becomes true when the player is active, and turned off again when they select a character.
     public bool mouseMovementAllowed = false;
 
@@ -49,16 +53,17 @@ public class Cursor : MonoBehaviour {
     //Used to make it so you can't pick the same character as someone else.
     private GameObject currentlySelected;
 
-
     // Use this for initialization
     void Start () {
 
         //Sets up the controls for each character.
-        horizontalMovement = "Horizontal" + playerNumber;
-        verticalMovement = "Vertical" + playerNumber;
-        playerSelect = "Jump" + playerNumber;
-        playerCancel = "Ranged" + playerNumber;
+        //horizontalMovement = "Horizontal" + playerNumber;
+        //verticalMovement = "Vertical" + playerNumber;
+        //playerSelect = "Jump" + playerNumber;
+        //playerCancel = "Ranged" + playerNumber;
         gameObject.name = "Player " + playerNumber + " Cursor";
+        player_id = playerNumber - 1;
+        input_manager = ReInput.players.GetPlayer(player_id);
 
         //Sets up the components for each character.
         rb = GetComponent<Rigidbody2D>();
@@ -74,11 +79,11 @@ public class Cursor : MonoBehaviour {
 	void Update () {
 
         //Used to control the movement of the cursor.
-        horizontalDir = Input.GetAxis(horizontalMovement);
-        verticalDir = Input.GetAxis(verticalMovement);
+        horizontalDir = input_manager.GetAxis("move_horizontal");
+        verticalDir = input_manager.GetAxis("move_vertical");
 
         //Enables the player's cursor increases player count and sets them active.
-        if (Input.GetButtonDown(playerSelect) && !activePlayer)
+        if (input_manager.GetButtonDown("Jump") && !activePlayer)
         {
             activePlayer = true;
             Constants.playerCount++;
@@ -93,7 +98,7 @@ public class Cursor : MonoBehaviour {
         }
 
         //Selects the character, disables cursor movement, sets element to the element of what I am touching.
-        if (Input.GetButtonDown(playerSelect) && possibleElement != Element.None && !currentlySelected.GetComponent<CharacterSelector>().alreadySelected)
+        if (input_manager.GetButtonDown("Jump") && possibleElement != Element.None && !currentlySelected.GetComponent<CharacterSelector>().alreadySelected)
         {
             if (characterSelected == false)
             {
@@ -108,7 +113,7 @@ public class Cursor : MonoBehaviour {
             ImLockedInEffect = Instantiate(lockedInEffect, transform.position, lockedInEffect.transform.rotation);
         }
         //Deselects the character and allows them to select a new character.
-        if (Input.GetButtonDown(playerCancel) && characterSelected)
+        if (input_manager.GetButtonDown("Ranged") && characterSelected)
         {
             characterSelected = false;
             mouseMovementAllowed = true;
