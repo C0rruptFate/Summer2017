@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using UnityEngine.UI;
 
 public class LevelSelectMap : MonoBehaviour {
 
@@ -13,10 +14,19 @@ public class LevelSelectMap : MonoBehaviour {
     private int arrayPosition = 0;
     public int player_id;
 
+    public Color fire;//FF4500AA FF4500FF
+    public Color earth;//6D5D49AA 6D5D49FF
+    public Color air;//9C31F1AA FDD02380
+    public Color water;//A5F2F3AA 2389DAFF 
+    public Color dark; //9C31F1AA
+
     public float speed;
 
     //[HideInInspector]
     public GameObject wisp;
+
+    public Text levelName;
+    public Image levelNameImage;
 
     private Player input_manager;
 
@@ -45,6 +55,9 @@ public class LevelSelectMap : MonoBehaviour {
     {
         wisp = GameObject.Find("Wisp Cursor");
         levelManager = GameObject.Find("Level Manager");
+        //levelName = GameObject.Find("Level Name Text").GetComponent<Text>();
+        //levelNameImage = GameObject.Find("Level Name Text").GetComponent<Image>();
+
         levelIndex = levelManager.GetComponent<LevelManager>().levelIndex;
         int i = 0;
         while (i <= levelIndex)
@@ -73,6 +86,7 @@ public class LevelSelectMap : MonoBehaviour {
         arrayPosition = levelIndex;
         wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
         levelManager.GetComponent<LevelManager>().levelSelectMap = gameObject;
+        LevelName();
     }
 	
 	// Update is called once per frame
@@ -81,6 +95,7 @@ public class LevelSelectMap : MonoBehaviour {
         //Move to the next level up
         if (input_manager.GetAxis("move_horizontal") == 1 && Time.time >= nextMoveWait && levelList[arrayPosition + 1].GetComponent<LevelLoader>().unlocked && arrayPosition < levelList.Length)
         {
+            Debug.Log("List Length " + levelList.Length);
             FindNextLevel();
         }
         else if (input_manager.GetAxis("move_horizontal") == -1 && Time.time >= nextMoveWait && (arrayPosition - 1 >= 0))
@@ -101,6 +116,7 @@ public class LevelSelectMap : MonoBehaviour {
         arrayPosition++;
         target = levelList[arrayPosition];
         wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        LevelName();
         //wisp.transform.position = Vector2.MoveTowards(wisp.transform.position, levelList[arrayPosition].transform.position,speed);
         nextMoveWait = Time.time + moveWait;
     }
@@ -110,7 +126,32 @@ public class LevelSelectMap : MonoBehaviour {
         arrayPosition--;
         target = levelList[arrayPosition];
         wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        LevelName();
         //wisp.transform.position = Vector2.MoveTowards(wisp.transform.position, levelList[arrayPosition].transform.position, speed);
         nextMoveWait = Time.time + moveWait;
+    }
+
+    void LevelName()
+    {
+        levelName.text = target.GetComponent<LevelLoader>().sceneName.ToString();
+
+        switch(target.GetComponent<LevelLoader>().primeElement)
+        {
+            case Element.Fire:
+                levelNameImage.color = fire;
+                break;
+            case Element.Earth:
+                levelNameImage.color = earth;
+                break;
+            case Element.Wind:
+                levelNameImage.color = air;
+                break;
+            case Element.Ice:
+                levelNameImage.color = water;
+                break;
+            case Element.None:
+                levelNameImage.color = dark;
+                break;
+        }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour {
 
     public bool unlocked;
     public string sceneName;
+    public Element primeElement;
+
+    public GameObject levelSelectMap;
 
     public GameObject switchActiveEffect;//The effect that is played when this switch is flipped
     //public GameObject unlockEffect;
@@ -29,6 +33,9 @@ public class LevelLoader : MonoBehaviour {
 
     public void UnlockTorch()
     {
+        //levelSelectMap = GameObject.Find("Level Select Map");
+        //levelSelectMap.GetComponent<LevelSelectMap>().levelName = GameObject.Find("Level Name Text").GetComponent<Text>();
+        //levelSelectMap.GetComponent<LevelSelectMap>().levelNameImage = GameObject.Find("Level Name Text").GetComponent<Image>();
         torchLightSpot = transform.Find("Trigger Location");//Sets the position of where the effect should spawn when this is active.
         parentObject = transform.parent;//Sets what door or other object I am a part of, used to solve puzzles.
         unlitTorch = transform.Find("Locked Level Effect").gameObject;
