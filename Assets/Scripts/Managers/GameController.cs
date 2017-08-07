@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
+    public int levelIndex;
+
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     [HideInInspector]
     public Text pauseText;//Text displayed when a player pauses the game.
@@ -74,6 +76,7 @@ public class GameController : MonoBehaviour {
     {
         //Sets gameobject and components.
         levelManager = GameObject.Find("Level Manager");
+        levelIndex = levelManager.GetComponent<LevelManager>().playableLevelIndex;
         levelManager.GetComponent<LevelManager>().SpawnPlayers();
         players = GameObject.FindGameObjectsWithTag("Player");
         totalPlayerCount = players.Length;
@@ -142,6 +145,7 @@ public class GameController : MonoBehaviour {
                 questText.GetComponent<Text>().text = "Activate all the beacons to reveal the way forward. \n" + currentNumberofTorchesActive + " / " + numberOfTorchesToActivate + " activated.";
                 break;
         }
+
     }
 	
 	// Update is called once per frame
@@ -302,8 +306,24 @@ public class GameController : MonoBehaviour {
 
     public void BeatLevel()
     {
+        //[TODO] tell level manager to unlock the next level
         //[TODO] change to a beat level screen or the next level.
-        levelManager.GetComponent<LevelManager>().LoadLevel("GameOver");
+        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex)
+        {
+            levelManager.GetComponent<LevelManager>().levelIndex++; 
+        }
+        levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
+    }
+
+    public void BeatLevel(int UnlockXLevels)
+    {
+        //[TODO] tell level manager to unlock the next level
+        //[TODO] change to a beat level screen or the next level.
+        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex)
+        {
+            levelManager.GetComponent<LevelManager>().levelIndex = levelManager.GetComponent<LevelManager>().levelIndex + UnlockXLevels;
+        }
+        levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
     }
 
     public void EnemyDeath(GameObject enemy)

@@ -23,7 +23,6 @@ public class CharacterSelectionManager : MonoBehaviour {
     private GameObject levelManager;//The level manager so that the this can pass the characters through to them.
     private IEnumerator coroutine;//The count down that resets when a player deselects or joins the lobby.
 
-
     // Use this for initialization
     void Start () {
         //Sets everything up so that the players can select their characters.
@@ -77,8 +76,10 @@ public class CharacterSelectionManager : MonoBehaviour {
             if (countDown == 0)
             {
                 CharactersSelect();
-                yield return new WaitForSeconds(1.0f);
-                levelManager.GetComponent<LevelManager>().SpawnPlayers();
+                //yield return new WaitForSeconds(1.0f);
+                //////////////////////////////////////////////////////////////
+                //levelManager.GetComponent<LevelManager>().SpawnPlayers();
+                //////////////////////////////////////////////////////////////
             }
         }
     }

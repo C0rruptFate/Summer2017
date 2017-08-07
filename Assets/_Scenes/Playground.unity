@@ -5677,6 +5677,48 @@ Transform:
   m_PrefabParentObject: {fileID: 4741375853076120, guid: 6e3dcfc87fb9cb445a93bc1b93a8f702,
     type: 2}
   m_PrefabInternal: {fileID: 1129186000}
+--- !u!1001 &1131255870
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 11.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -16.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816407944650564, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+      propertyPath: m_RootOrder
+      value: 23
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 218ec31438bcbe3408e22d4c4f6260a3, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1138422034
 Prefab:
   m_ObjectHideFlags: 0
@@ -6813,7 +6855,7 @@ Prefab:
     - target: {fileID: 114900928729085326, guid: 40c0e8fc0b4f51c49aa83def324a3122,
         type: 2}
       propertyPath: beatLevelCondition
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114900928729085326, guid: 40c0e8fc0b4f51c49aa83def324a3122,
         type: 2}

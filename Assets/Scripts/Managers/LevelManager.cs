@@ -10,6 +10,9 @@ public class LevelManager : MonoBehaviour
     public float autoLoadNextLevelAfter;
     [HideInInspector]
     public string previousLevel;
+    public int playableLevelIndex;
+
+    public GameObject levelSelectMap;
 
     //Spawn points 
     private GameObject spawnPoint1;
@@ -32,6 +35,8 @@ public class LevelManager : MonoBehaviour
     public Element player3Element;
     [HideInInspector]
     public Element player4Element;
+
+    public int levelIndex;
 
     //Tells the camera to track these players
     private GameObject cameraRig;
@@ -96,7 +101,6 @@ public class LevelManager : MonoBehaviour
                 newPlayer.name = "Player 1";
                 //Debug.Log("Summon "+ newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
-                //[TODO] add players to camera rig transform tracking.
                 break;
             case Element.Ice:
                 newPlayer = Instantiate(waterCharacter, spawnPoint1.transform.position, spawnPoint1.transform.rotation);

@@ -132,4 +132,9 @@ public class Constants : MonoBehaviour
 
     }
 
+    //using System.Diagnostics;
+    //StackTrace stackTrace = new StackTrace();
+    //stackTrace = new StackTrace();
+    //    print("stackTrace !! " + stackTrace.GetFrame(1).GetMethod().Name);
+
 }
