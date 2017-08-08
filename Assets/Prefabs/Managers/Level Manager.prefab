@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4207237223869260}
   - component: {fileID: 114706408600343762}
   - component: {fileID: 114978668848430728}
+  - component: {fileID: 114289232232492404}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: GameController
@@ -41,6 +42,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114289232232492404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1886366687719568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88554da47eb1efb469d60900c24acf36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114706408600343762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,6 +66,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoLoadNextLevelAfter: 0
   previousLevel: 
+  playableLevelIndex: 0
+  playingBonusLevel: 0
+  currentLevelEnemyDeathCount: 0
+  levelSelectMap: {fileID: 0}
   fireCharacter: {fileID: 1606165041327818, guid: 94655fc95df670a44b5767b8ce2cb90c,
     type: 2}
   waterCharacter: {fileID: 1686081207311448, guid: 3043d37e79e64484caa919cce03609ea,
@@ -66,6 +82,7 @@ MonoBehaviour:
   player2Element: 0
   player3Element: 0
   player4Element: 0
+  levelIndex: 0
 --- !u!114 &114978668848430728
 MonoBehaviour:
   m_ObjectHideFlags: 1

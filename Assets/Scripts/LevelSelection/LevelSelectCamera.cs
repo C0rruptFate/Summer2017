@@ -5,14 +5,8 @@ using UnityEngine;
 public class LevelSelectCamera : MonoBehaviour {
 
     public float speed = 20f; //How long the camera takes to move to it's target location.
-    private Camera m_Camera; //The camera that is part of this rig
 
     private GameObject wisp;
-
-    private void Awake()//On Spawn finds the camera component under this rig.
-    {
-        m_Camera = GetComponentInChildren<Camera>();
-    }
 
     // Use this for initialization
     void Start () {
