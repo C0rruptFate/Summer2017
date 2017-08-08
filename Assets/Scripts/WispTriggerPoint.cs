@@ -7,10 +7,13 @@ public class WispTriggerPoint : MonoBehaviour {
     public GameObject wispTriggerHitEffect;
     public float effectDuration;
 
+    private bool hasBeenActivated = false;
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Wisp"))
+        if (other.CompareTag("Wisp") && !hasBeenActivated)
         {
+            hasBeenActivated = true;
             GameObject myEffect = Instantiate(wispTriggerHitEffect, transform.position, transform.rotation);
             wispTriggerHitEffectStats(myEffect);
         }

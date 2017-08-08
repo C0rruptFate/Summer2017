@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     public int playerNumber = 1;
     //input manager
     protected Player input_manager;
+    [SerializeField]
     protected int player_id;
 
     //components
