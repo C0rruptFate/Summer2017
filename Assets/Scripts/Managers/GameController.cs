@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public int levelIndex;
+    public bool isBonusLevel = false;
 
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     [HideInInspector]
@@ -77,6 +78,7 @@ public class GameController : MonoBehaviour {
         //Sets gameobject and components.
         levelManager = GameObject.Find("Level Manager");
         levelIndex = levelManager.GetComponent<LevelManager>().playableLevelIndex;
+        isBonusLevel = levelManager.GetComponent<LevelManager>().playingBonusLevel;
         levelManager.GetComponent<LevelManager>().SpawnPlayers();
         players = GameObject.FindGameObjectsWithTag("Player");
         totalPlayerCount = players.Length;
@@ -306,12 +308,12 @@ public class GameController : MonoBehaviour {
 
     public void BeatLevel()
     {
-        //[TODO] tell level manager to unlock the next level
-        //[TODO] change to a beat level screen or the next level.
-        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex)
+        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex && !isBonusLevel)
         {
             levelManager.GetComponent<LevelManager>().levelIndex++; 
         }
+        //[TODO] save # to player prefs
+        //levelManager.GetComponent<LevelManager>().currentLevelEnemyDeathCount = enemyDeathCount;
         levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
     }
 

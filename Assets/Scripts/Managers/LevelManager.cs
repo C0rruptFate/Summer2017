@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     [HideInInspector]
     public string previousLevel;
     public int playableLevelIndex;
+    public bool playingBonusLevel;
+    public int currentLevelEnemyDeathCount;
 
     public GameObject levelSelectMap;
 

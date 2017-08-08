@@ -9,6 +9,14 @@ public class LevelLoader : MonoBehaviour {
     public string sceneName;
     public Element primeElement;
 
+    public GameObject bonusLevel;
+    public bool isBonusLevel;
+    public GameObject previousLevel;
+
+    public int enemiesSlain;
+    //[HideInInspector]
+    public int highestEnemiesSlain;
+
     public GameObject levelSelectMap;
 
     public GameObject switchActiveEffect;//The effect that is played when this switch is flipped
@@ -49,5 +57,15 @@ public class LevelLoader : MonoBehaviour {
         unlocked = true;
         Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
         Destroy(unlitTorch);
+
+        if (bonusLevel != null)
+        {
+            bonusLevel.GetComponent<LevelLoader>().previousLevel = gameObject;
+            if (bonusLevel.GetComponent<LevelLoader>().previousLevel.GetComponent<LevelLoader>().unlocked)
+            {
+                bonusLevel.GetComponent<LevelLoader>().isBonusLevel = true;
+                bonusLevel.GetComponent<LevelLoader>().UnlockTorch(); 
+            }
+        }
     }
 }

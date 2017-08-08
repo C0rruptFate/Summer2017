@@ -93,21 +93,36 @@ public class LevelSelectMap : MonoBehaviour {
 	void Update () {
 
         //Move to the next level up
-        if (input_manager.GetAxis("move_horizontal") == 1 && Time.time >= nextMoveWait && levelList[arrayPosition + 1].GetComponent<LevelLoader>().unlocked && arrayPosition < levelList.Length)
+        if (input_manager.GetAxis("move_horizontal") == 1 && Time.time >= nextMoveWait && levelList[arrayPosition + 1].GetComponent<LevelLoader>().unlocked && arrayPosition < levelList.Length && !levelList[arrayPosition + 1].GetComponent<LevelLoader>().isBonusLevel)
         {
             Debug.Log("List Length " + levelList.Length);
             FindNextLevel();
         }
-        else if (input_manager.GetAxis("move_horizontal") == -1 && Time.time >= nextMoveWait && (arrayPosition - 1 >= 0))
+        else if (input_manager.GetAxis("move_horizontal") == -1 && Time.time >= nextMoveWait && (arrayPosition - 1 >= 0 && !levelList[arrayPosition + 1].GetComponent<LevelLoader>().isBonusLevel))
         {
             FindPreviousLevel();
+        }
+        else if (target.GetComponent<LevelLoader>().bonusLevel != null && input_manager.GetAxis("move_vertical") == 1 && Time.time >= nextMoveWait)
+        {
+            TargetBonusLevel();
+        }
+        else if (target.GetComponent<LevelLoader>().isBonusLevel && input_manager.GetAxis("move_vertical") == -1 && Time.time >= nextMoveWait)
+        {
+            TargetPreviousLevel();
         }
 
         if (input_manager.GetButtonDown("Jump"))
         {
             //[TODO]Load the targeted level
             levelManager.GetComponent<LevelManager>().playableLevelIndex = arrayPosition;
+            levelManager.GetComponent<LevelManager>().playingBonusLevel = target.GetComponent<LevelLoader>().isBonusLevel;
             levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<LevelLoader>().sceneName);
+        }
+
+        if (input_manager.GetButtonDown("Ranged"))
+        {
+            Debug.Log("Went back to Character Select");
+            levelManager.GetComponent<LevelManager>().LoadLevel(levelManager.GetComponent<LevelManager>().previousLevel);
         }
     }
 
@@ -128,6 +143,23 @@ public class LevelSelectMap : MonoBehaviour {
         wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
         LevelName();
         //wisp.transform.position = Vector2.MoveTowards(wisp.transform.position, levelList[arrayPosition].transform.position, speed);
+        nextMoveWait = Time.time + moveWait;
+    }
+
+    void TargetBonusLevel()
+    {
+        target = target.GetComponent<LevelLoader>().bonusLevel;
+        wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        //arrayPosition = arrayPosition - 1;
+        LevelName();
+        nextMoveWait = Time.time + moveWait;
+    }
+
+    void TargetPreviousLevel()
+    {
+        target = target.GetComponent<LevelLoader>().previousLevel;
+        wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        LevelName();
         nextMoveWait = Time.time + moveWait;
     }
 
