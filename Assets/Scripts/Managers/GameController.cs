@@ -321,7 +321,12 @@ public class GameController : MonoBehaviour {
 
         //Show Kyle
         PlayerData data = levelManager.GetComponent<PlayerData>();
-        data.levelData[levelIndexName] = true;
+
+        if (!data.levelData[levelIndexName])
+        {
+            data.levelData[levelIndexName] = true;
+        }
+        
         if (enemyDeathCount >= data.levelKills[enemyDeathCount])
         {
             data.levelKills[enemyDeathCount] = enemyDeathCount;
