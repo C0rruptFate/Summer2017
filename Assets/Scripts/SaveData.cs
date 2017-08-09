@@ -71,6 +71,7 @@ public class SaveData : MonoBehaviour {
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
 
         PlayerData data = new PlayerData();
+
         data.zoneALevel1Beat = zoneALevel1Beat;
         data.zoneALevel1EnemiesSlain = zoneALevel1EnemiesSlain;
         data.zoneALevel2Beat = zoneALevel2Beat;
@@ -211,16 +212,40 @@ class PlayerData
     public bool zoneDBossBeat;
 
     public Dictionary<string, bool> levelData = new Dictionary<string, bool>();
-    public Dictionary<int, int> levelKills = new Dictionary<int, int>();
+    public Dictionary<string, int> levelKills = new Dictionary<string, int>();
+    public Dictionary<string, Dictionary<bool, int>> stuff = new Dictionary<string, Dictionary<bool, int>>();
 
     bool levelBeat(string level)
     {
         //levelmanager.levelBeat
-        return levelData[level] = true;
+        return levelData[level];
     }
 
-    int enemiesSlain(int enemies)
+    int enemiesSlain(string enemies)
     {
         return levelKills[enemies];
+    }
+}
+
+public class PlayerDictionary : MonoBehaviour
+{
+    public int level_count;
+    public Dictionary<string, int[]> level_data = new Dictionary<string, int[]>();
+
+    private void Start()
+    {
+        for (int i = 0; i < level_count; i++)
+            level_data.Add("level_0" + i, new int[] { 0, 0 });
+    }
+
+    public void UpdateLevelData(string level_name, int kills)
+    {
+        int[] data = level_data[level_name];
+
+        if (kills > data[0])
+        {
+            data[0] = kills;
+        }
+        level_data[level_name] = data;
     }
 }

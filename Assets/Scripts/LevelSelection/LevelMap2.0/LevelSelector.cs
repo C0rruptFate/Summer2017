@@ -23,7 +23,7 @@ public class LevelSelector : MonoBehaviour {
 	void Start () {
         levelManager = GameObject.Find("Level Manager");
         isBeaten = levelManager.GetComponent<PlayerData>().levelData[levelName];
-        enemiesSlain = levelManager.GetComponent<PlayerData>().levelKills[enemiesSlain];
+        enemiesSlain = levelManager.GetComponent<PlayerData>().levelKills[sceneName];
 
         // If I am not a boss level check to see if my previous level has been beaten
         CheckUnlock();
