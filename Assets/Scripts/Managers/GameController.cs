@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public int levelIndex;
+    public string levelIndexName;
     public bool isBonusLevel = false;
 
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
@@ -308,16 +309,32 @@ public class GameController : MonoBehaviour {
 
     public void BeatLevel()
     {
-        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex && !isBonusLevel)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex && !isBonusLevel)
+        //{
+        //    levelManager.GetComponent<LevelManager>().levelIndex++; 
+        //}
+        ////[TODO] save # to player prefs
+        ////levelManager.GetComponent<LevelManager>().currentLevelEnemyDeathCount = enemyDeathCount;
+        //levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //Show Kyle
+        PlayerData data = levelManager.GetComponent<PlayerData>();
+        data.levelData[levelIndexName] = true;
+        if (enemyDeathCount >= data.levelKills[enemyDeathCount])
         {
-            levelManager.GetComponent<LevelManager>().levelIndex++; 
+            data.levelKills[enemyDeathCount] = enemyDeathCount;
         }
-        //[TODO] save # to player prefs
-        //levelManager.GetComponent<LevelManager>().currentLevelEnemyDeathCount = enemyDeathCount;
+        //Takes us back tot he level select screen with the new data added.
         levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
+        //Saves the game
+        //levelManager.GetComponent<SaveData>().Save();
     }
 
-    public void BeatLevel(int UnlockXLevels)
+
+
+public void BeatLevel(int UnlockXLevels)
     {
         //[TODO] tell level manager to unlock the next level
         //[TODO] change to a beat level screen or the next level.

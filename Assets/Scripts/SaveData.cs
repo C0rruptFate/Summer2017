@@ -49,6 +49,8 @@ public class SaveData : MonoBehaviour {
 
     public static SaveData saveData;
 
+    
+
     void Awake()
     {
         if (saveData == null)
@@ -61,8 +63,8 @@ public class SaveData : MonoBehaviour {
             Destroy(gameObject);
         }
     }
-    //Save code could be on disable to make sure it saves when you quit and load code on enable to load it right away
 
+    //Save code could be on disable to make sure it saves when you quit and load code on enable to load it right away
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -207,4 +209,18 @@ class PlayerData
     public bool zoneDLevel4Beat;
     public int zoneDLevel4EnemiesSlain;
     public bool zoneDBossBeat;
+
+    public Dictionary<string, bool> levelData = new Dictionary<string, bool>();
+    public Dictionary<int, int> levelKills = new Dictionary<int, int>();
+
+    bool levelBeat(string level)
+    {
+        //levelmanager.levelBeat
+        return levelData[level] = true;
+    }
+
+    int enemiesSlain(int enemies)
+    {
+        return levelKills[enemies];
+    }
 }
