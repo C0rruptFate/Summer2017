@@ -320,7 +320,7 @@ public class GameController : MonoBehaviour {
         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //Show Kyle
-        PlayerData data = levelManager.GetComponent<PlayerData>();
+        PlayerDictionary data = levelManager.GetComponent<PlayerDictionary>();
 
         if (!data.levelData[levelIndexName])
         {
@@ -332,11 +332,11 @@ public class GameController : MonoBehaviour {
             data.levelKills["levelIndexName"] = enemyDeathCount;
         }
 
-        PlayerDictionary dataDictionary = levelManager.GetComponent<PlayerDictionary>();
-        dataDictionary.UpdateLevelData(levelIndexName, enemyDeathCount);
+        //PlayerDictionary dataDictionary = levelManager.GetComponent<PlayerDictionary>();
+        //dataDictionary.UpdateLevelData(levelIndexName, enemyDeathCount);
 
         //Takes us back tot he level select screen with the new data added.
-        levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
+        //levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
         //Saves the game
         //levelManager.GetComponent<SaveData>().Save();
     }

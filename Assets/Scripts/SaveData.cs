@@ -72,6 +72,11 @@ public class SaveData : MonoBehaviour {
 
         PlayerData data = new PlayerData();
 
+        PlayerDictionary dataDictionary = GetComponent<PlayerDictionary>();
+
+
+        data.zoneALevel1Beat = dataDictionary.levelBeat("zoneALevel1");
+
         data.zoneALevel1Beat = zoneALevel1Beat;
         data.zoneALevel1EnemiesSlain = zoneALevel1EnemiesSlain;
         data.zoneALevel2Beat = zoneALevel2Beat;
@@ -123,9 +128,12 @@ public class SaveData : MonoBehaviour {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
             PlayerData data = (PlayerData)bf.Deserialize(file);
+            PlayerDictionary dataDictionary = GetComponent<PlayerDictionary>();
             file.Close();
 
-            zoneALevel1Beat = data.zoneALevel1Beat;
+
+
+            dataDictionary.levelData["zoneALevel1"] = data.zoneALevel1Beat;
             zoneALevel1EnemiesSlain = data.zoneALevel1EnemiesSlain;
             zoneALevel2Beat = data.zoneALevel2Beat;
             zoneALevel2EnemiesSlain = data.zoneALevel2EnemiesSlain;
@@ -210,42 +218,43 @@ class PlayerData
     public bool zoneDLevel4Beat;
     public int zoneDLevel4EnemiesSlain;
     public bool zoneDBossBeat;
+}
+
+public class PlayerDictionary : MonoBehaviour
+{
 
     public Dictionary<string, bool> levelData = new Dictionary<string, bool>();
     public Dictionary<string, int> levelKills = new Dictionary<string, int>();
-    public Dictionary<string, Dictionary<bool, int>> stuff = new Dictionary<string, Dictionary<bool, int>>();
+    //public Dictionary<string, Dictionary<bool, int>> stuff = new Dictionary<string, Dictionary<bool, int>>();
 
-    bool levelBeat(string level)
+    public bool levelBeat(string level)
     {
         //levelmanager.levelBeat
         return levelData[level];
     }
 
-    int enemiesSlain(string enemies)
+    public int enemiesSlain(string enemies)
     {
         return levelKills[enemies];
     }
-}
 
-public class PlayerDictionary : MonoBehaviour
-{
-    public int level_count;
-    public Dictionary<string, int[]> level_data = new Dictionary<string, int[]>();
+    //public int level_count;
+    //public Dictionary<string, int[]> level_data = new Dictionary<string, int[]>();
 
-    private void Start()
-    {
-        for (int i = 0; i < level_count; i++)
-            level_data.Add("level_0" + i, new int[] { 0, 0 });
-    }
+    //private void Start()
+    //{
+    //    for (int i = 0; i < level_count; i++)
+    //        level_data.Add("level_0" + i, new int[] { 0, 0 });
+    //}
 
-    public void UpdateLevelData(string level_name, int kills)
-    {
-        int[] data = level_data[level_name];
+    //public void UpdateLevelData(string level_name, int kills)
+    //{
+    //    int[] data = level_data[level_name];
 
-        if (kills > data[0])
-        {
-            data[0] = kills;
-        }
-        level_data[level_name] = data;
-    }
+    //    if (kills > data[0])
+    //    {
+    //        data[0] = kills;
+    //    }
+    //    level_data[level_name] = data;
+    //}
 }
