@@ -18,14 +18,17 @@ public class LevelSelector : MonoBehaviour {
     public GameObject previousLevel;
     public GameObject nextLevel;
     public GameObject myBossLevel;
+    public GameObject switchActiveEffect;
 
     public bool isUnlocked;
     public bool isBeaten;
     public int enemiesSlain;
 
     private GameObject levelManager;
+    private Transform torchLightSpot;
+    private GameObject unlitTorch;
 
-    public PlayerDictionary playerDictionary;
+    private PlayerDictionary playerDictionary;
 
     // Use this for initialization
     void Start () {
@@ -43,6 +46,11 @@ public class LevelSelector : MonoBehaviour {
             isBeaten = playerDictionary.CheckLevelBeat(levelIDName);
             GetComponent<IsUnlocked>().isBeaten = isBeaten;
             killCount = playerDictionary.CheckLevelKills(levelIDName);
+            if (isBeaten)
+            {
+                BeatenTorchEffect();
+            }
+            
         }
         else
         {
@@ -76,6 +84,15 @@ public class LevelSelector : MonoBehaviour {
         }
     }
 
+    public void BeatenTorchEffect()
+    {
+        torchLightSpot = transform.Find("Trigger Location");
+        unlitTorch = transform.Find("Locked Level Effect").gameObject;
+
+        Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
+        Destroy(unlitTorch);
+    }
+
     public void CheckUnlock()
     {
         if (previousLevel == null || previousLevel.GetComponent<IsUnlocked>().isUnlocked)
@@ -89,10 +106,27 @@ public class LevelSelector : MonoBehaviour {
             
         }
 
-        if (gameObject.name == "zoneALevel3")
-        {
-            Debug.Log(playerDictionary.CheckZoneClearCount(zone) +" " + zone);
-        }
+        //if (playerDictionary.CheckZoneClearCount(zone) >= myBossLevel.GetComponent<BossLevelSelector>().requiredLevelBeatCount)
+        //{
+        //    myBossLevel.GetComponent<BossLevelSelector>().bossUnlockProgress.sprite = myBossLevel.GetComponent<BossLevelSelector>().bossBeatSprite;
+        //}
+        //else if (playerDictionary.CheckZoneClearCount(zone) == 0)
+        //{
+        //    myBossLevel.GetComponent<BossLevelSelector>().bossUnlockProgress.sprite = myBossLevel.GetComponent<BossLevelSelector>().zeroLevelBeat;
+        //}
+        //else if (playerDictionary.CheckZoneClearCount(zone) == 1)
+        //{
+        //    myBossLevel.GetComponent<BossLevelSelector>().bossUnlockProgress.sprite = myBossLevel.GetComponent<BossLevelSelector>().oneLevelBeat;
+        //}
+        //else if (playerDictionary.CheckZoneClearCount(zone) == 2)
+        //{
+        //    myBossLevel.GetComponent<BossLevelSelector>().bossUnlockProgress.sprite = myBossLevel.GetComponent<BossLevelSelector>().twoLevelBeat;
+        //}
+        //else if (playerDictionary.CheckZoneClearCount(zone) == 3)
+        //{
+        //    myBossLevel.GetComponent<BossLevelSelector>().bossUnlockProgress.sprite = myBossLevel.GetComponent<BossLevelSelector>().threeLevelBeat;
+        //}
+
 
         if (playerDictionary.CheckZoneClearCount(zone) >= myBossLevel.GetComponent<BossLevelSelector>().requiredLevelBeatCount && !myBossLevel.GetComponent<BossLevelSelector>().bossUnlocked)
         {

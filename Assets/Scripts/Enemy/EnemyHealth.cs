@@ -178,7 +178,7 @@ public class EnemyHealth : MonoBehaviour
         //[TODO]trigger death animation
 
         Destroy(enemyHPUISliderObject);
-        GameObject.Find("GameManager").GetComponent<GameController>().EnemyDeath(gameObject);
+        GameObject.Find("Game Manager").GetComponent<GameController>().EnemyDeath(gameObject);
         Destroy(gameObject);
     }
 

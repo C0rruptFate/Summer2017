@@ -14,6 +14,7 @@ public class BossLevelSelector : MonoBehaviour {
     public int requiredLevelBeatCount;
     [Tooltip("The prime element for this level")]
     public Element primeElement;
+    public string bossName;
 
     public GameObject previousLevel;
 
@@ -24,17 +25,29 @@ public class BossLevelSelector : MonoBehaviour {
     public bool bossUnlocked;
 
     public bool bossBeaten;
+
+    public GameObject switchActiveEffect;
+    public SpriteRenderer bossUnlockProgress;
+    public Sprite zeroLevelBeat;
+    public Sprite oneLevelBeat;
+    public Sprite twoLevelBeat;
+    public Sprite threeLevelBeat;
+    public Sprite bossBeatSprite;
+
+    private Transform torchLightSpot;
+    private GameObject unlitTorch;
+
     [HideInInspector]
     public PlayerDictionary playerDictionary;
 
     // Use this for initialization
     void Start () {
-		if (bossBeaten)
-        {
-            GameObject myPathEffect = Instantiate(pathEffect, transform.position, pathEffect.transform.rotation);
-            myPathEffect.GetComponent<LevelMapPathEffect>().point2 = transform;
-            myPathEffect.GetComponent<LevelMapPathEffect>().point1 = nextLevel.transform;
-        }
+		//if (bossBeaten)
+  //      {
+  //          GameObject myPathEffect = Instantiate(pathEffect, transform.position, pathEffect.transform.rotation);
+  //          myPathEffect.GetComponent<LevelMapPathEffect>().point2 = transform;
+  //          myPathEffect.GetComponent<LevelMapPathEffect>().point1 = nextLevel.transform;
+  //      }
 	}
 	
 	// Update is called once per frame
@@ -55,6 +68,20 @@ public class BossLevelSelector : MonoBehaviour {
         if (bossBeaten)
         {
             nextLevel.GetComponent<LevelSelector>().CheckUnlock();
+            GameObject myPathEffect = Instantiate(pathEffect, transform.position, pathEffect.transform.rotation);
+            myPathEffect.GetComponent<LevelMapPathEffect>().point2 = transform;
+            myPathEffect.GetComponent<LevelMapPathEffect>().point1 = nextLevel.transform;
+            bossUnlockProgress.sprite = bossBeatSprite;
+            BeatenTorchEffect();
         }
+    }
+
+    public void BeatenTorchEffect()
+    {
+        torchLightSpot = transform.Find("Trigger Location");
+        unlitTorch = transform.Find("Locked Level Effect").gameObject;
+
+        Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
+        Destroy(unlitTorch);
     }
 }

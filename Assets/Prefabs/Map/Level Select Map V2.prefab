@@ -133,6 +133,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1196080334855846
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4684444115823294}
+  - component: {fileID: 212590259059673758}
+  m_Layer: 0
+  m_Name: Boss Unlock Progress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1205972884162054
 GameObject:
   m_ObjectHideFlags: 1
@@ -856,6 +872,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1924076186277254
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4475420291636994}
+  - component: {fileID: 212734340142700750}
+  m_Layer: 0
+  m_Name: Boss Unlock Progress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1950564840766066
 GameObject:
   m_ObjectHideFlags: 1
@@ -1239,6 +1271,7 @@ Transform:
   - {fileID: 4960524145293912}
   - {fileID: 4361732897704578}
   - {fileID: 4837059646993420}
+  - {fileID: 4684444115823294}
   m_Father: {fileID: 4403565811257956}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1317,6 +1350,19 @@ Transform:
   m_Father: {fileID: 4784662405930540}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4475420291636994
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1924076186277254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4511295807479010}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4479287560044036
 Transform:
   m_ObjectHideFlags: 1
@@ -1387,6 +1433,7 @@ Transform:
   - {fileID: 4201632318951598}
   - {fileID: 4919056946770270}
   - {fileID: 4096509018241636}
+  - {fileID: 4475420291636994}
   m_Father: {fileID: 4403565811257956}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1430,6 +1477,19 @@ Transform:
   - {fileID: 4887872553381546}
   m_Father: {fileID: 4775710373547362}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4684444115823294
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196080334855846}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -56.704548, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4347928480087274}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4772639364172186
 Transform:
@@ -2520,10 +2580,11 @@ MonoBehaviour:
   previousLevel: {fileID: 1669023717395958}
   nextLevel: {fileID: 1578215380876224}
   myBossLevel: {fileID: 1111611845704990}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!114 &114130790990641348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2554,11 +2615,20 @@ MonoBehaviour:
   bossZone: A
   requiredLevelBeatCount: 3
   primeElement: 3
+  bossName: BOSSNAME
   previousLevel: {fileID: 1421802305524864}
   nextLevel: {fileID: 1548045905771234}
-  pathEffect: {fileID: 0}
+  pathEffect: {fileID: 1420154868246834, guid: 26a351f1e1d8be543865600392cbcf59, type: 2}
   bossUnlocked: 0
   bossBeaten: 0
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
+  bossUnlockProgress: {fileID: 212734340142700750}
+  zeroLevelBeat: {fileID: 0}
+  oneLevelBeat: {fileID: 0}
+  twoLevelBeat: {fileID: 0}
+  threeLevelBeat: {fileID: 0}
+  bossBeatSprite: {fileID: 0}
   playerDictionary: {fileID: 0}
 --- !u!114 &114184497589240524
 MonoBehaviour:
@@ -2580,10 +2650,11 @@ MonoBehaviour:
   previousLevel: {fileID: 0}
   nextLevel: {fileID: 1912034975854512}
   myBossLevel: {fileID: 1226227023995644}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!114 &114209293191391204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2604,10 +2675,11 @@ MonoBehaviour:
   previousLevel: {fileID: 1267402166099050}
   nextLevel: {fileID: 1111611845704990}
   myBossLevel: {fileID: 1111611845704990}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!114 &114236569700530210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2624,11 +2696,20 @@ MonoBehaviour:
   bossZone: B
   requiredLevelBeatCount: 3
   primeElement: 2
+  bossName: 
   previousLevel: {fileID: 1578215380876224}
   nextLevel: {fileID: 0}
-  pathEffect: {fileID: 0}
+  pathEffect: {fileID: 1420154868246834, guid: 26a351f1e1d8be543865600392cbcf59, type: 2}
   bossUnlocked: 0
   bossBeaten: 0
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
+  bossUnlockProgress: {fileID: 212590259059673758}
+  zeroLevelBeat: {fileID: 0}
+  oneLevelBeat: {fileID: 0}
+  twoLevelBeat: {fileID: 0}
+  threeLevelBeat: {fileID: 0}
+  bossBeatSprite: {fileID: 0}
   playerDictionary: {fileID: 0}
 --- !u!114 &114318424061735286
 MonoBehaviour:
@@ -2650,10 +2731,11 @@ MonoBehaviour:
   previousLevel: {fileID: 1548045905771234}
   nextLevel: {fileID: 1267402166099050}
   myBossLevel: {fileID: 1111611845704990}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!114 &114346533693655324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2703,10 +2785,11 @@ MonoBehaviour:
   previousLevel: {fileID: 1227322291328964}
   nextLevel: {fileID: 1356588867296016}
   myBossLevel: {fileID: 1226227023995644}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!114 &114454249562277112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2785,10 +2868,11 @@ MonoBehaviour:
   previousLevel: {fileID: 1226227023995644}
   nextLevel: {fileID: 1669023717395958}
   myBossLevel: {fileID: 1111611845704990}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!114 &114648568371454448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2938,10 +3022,11 @@ MonoBehaviour:
   previousLevel: {fileID: 1356588867296016}
   nextLevel: {fileID: 1226227023995644}
   myBossLevel: {fileID: 1226227023995644}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!114 &114826524683099482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3019,10 +3104,11 @@ MonoBehaviour:
   previousLevel: {fileID: 1912034975854512}
   nextLevel: {fileID: 1421802305524864}
   myBossLevel: {fileID: 1226227023995644}
+  switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
+    type: 2}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
-  playerDictionary: {fileID: 0}
 --- !u!198 &198049058213156674
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -43315,7 +43401,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1178339059
+  randomSeed: -1920811339
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -66423,6 +66509,46 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!212 &212590259059673758
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196080334855846}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!212 &212609711081473568
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -66457,6 +66583,46 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 90f85a7356d3f804884851c22d362f5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.497}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+--- !u!212 &212734340142700750
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1924076186277254}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

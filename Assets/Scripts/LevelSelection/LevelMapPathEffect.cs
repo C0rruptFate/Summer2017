@@ -48,5 +48,10 @@ public class LevelMapPathEffect : MonoBehaviour {
         {
             Destroy(other.gameObject);
         }
+        if (other.GetComponent<OverWorldSmoke>() != null)
+        {
+            
+            other.GetComponent<OverWorldSmoke>().StartCoroutine("DecreaseSmoke"); ;
+        }
     }
 }

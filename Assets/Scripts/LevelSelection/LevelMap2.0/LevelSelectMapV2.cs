@@ -31,11 +31,13 @@ public class LevelSelectMapV2 : MonoBehaviour {
     public Text statsText;
 
     private string characterSelectionScreen = "Main Menu";
+    private PlayerDictionary playerDictionary;
 
     // Use this for initialization
     void Start () {
         wisp = GameObject.Find("Wisp Cursor");
         levelManager = GameObject.Find("Level Manager");
+        playerDictionary = levelManager.GetComponent<PlayerDictionary>();
         input_manager = ReInput.players.GetPlayer(player_id);
         //Tell the wisp to target the highest value target it can find. Maybe it finds it target from the level manager string or something that tracks what it just beat.
         if (levelManager.GetComponent<LevelManager>().playableLevelIndex != "")
@@ -141,7 +143,7 @@ public class LevelSelectMapV2 : MonoBehaviour {
         if (target.GetComponent<LevelSelector>() != null)
         {
             levelName.text = target.GetComponent<LevelSelector>().sceneName.ToString();
-            statsText.text = "Primary Element: " + target.GetComponent<LevelSelector>().primeElement + "\n Highest Kills: " + target.GetComponent<LevelSelector>().killCount;
+            statsText.text = "Primary Element: " + target.GetComponent<LevelSelector>().primeElement + "\nHighest Kills: " + target.GetComponent<LevelSelector>().killCount;
             switch (target.GetComponent<LevelSelector>().primeElement)
             {
                 case Element.Fire:
@@ -164,6 +166,16 @@ public class LevelSelectMapV2 : MonoBehaviour {
         else if (target.GetComponent<BossLevelSelector>() != null)
         {
             levelName.text = target.GetComponent<BossLevelSelector>().sceneName.ToString();
+
+            if (target.GetComponent<BossLevelSelector>().bossBeaten)
+            {
+                statsText.text = target.GetComponent<BossLevelSelector>().bossName + " Has been defeated \nthis area has been cleansed!";
+            }
+            else
+            {
+                statsText.text = target.GetComponent<BossLevelSelector>().bossName + " is ready to be challenged.";
+            }
+
             switch (target.GetComponent<BossLevelSelector>().primeElement)
             {
                 case Element.Fire:
