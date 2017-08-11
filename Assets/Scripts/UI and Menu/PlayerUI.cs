@@ -157,7 +157,7 @@ public class PlayerUI : MonoBehaviour
 
         switch (playerHealth.element)
         {
-            case Element.Wind:
+            case Element.Air:
                 playerUIPanel.color = airColor;
                 fireComboSystem.gameObject.SetActive(false);
                 break;
@@ -171,7 +171,7 @@ public class PlayerUI : MonoBehaviour
                 fireComboSlider.maxValue = fireAttacks.maxComboPoints;
                 UpdateComboPointUI();
                 break;
-            case Element.Ice:
+            case Element.Water:
                 playerUIPanel.color = iceColor;
                 fireComboSystem.gameObject.SetActive(false);
                 break;

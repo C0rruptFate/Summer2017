@@ -12,7 +12,8 @@ public class LevelSelector : MonoBehaviour {
     public string zone;
     [Tooltip("The prime element for this level.")]
     public Element primeElement;
-
+    public bool isLevelOne = false;
+    public int killCount;
 
     public GameObject previousLevel;
     public GameObject nextLevel;
@@ -24,13 +25,14 @@ public class LevelSelector : MonoBehaviour {
 
     private GameObject levelManager;
 
-    private PlayerDictionary playerDictionary;
+    public PlayerDictionary playerDictionary;
 
     // Use this for initialization
     void Start () {
         levelManager = GameObject.Find("Level Manager");
         playerDictionary = levelManager.GetComponent<PlayerDictionary>();
         levelIDName = gameObject.name;
+        zone = myBossLevel.GetComponent<BossLevelSelector>().bossZone;
 
         /////////////////////
         //Debug.Log("index count: " + playerDictionary.levelBeat.Count + " level ID Name: " + levelIDName + " level ID bool value: " + playerDictionary.CheckLevelBeat(levelIDName));
@@ -39,6 +41,8 @@ public class LevelSelector : MonoBehaviour {
         {
             //Debug.Log("level ID name " + levelIDName);
             isBeaten = playerDictionary.CheckLevelBeat(levelIDName);
+            GetComponent<IsUnlocked>().isBeaten = isBeaten;
+            killCount = playerDictionary.CheckLevelKills(levelIDName);
         }
         else
         {
@@ -51,8 +55,12 @@ public class LevelSelector : MonoBehaviour {
         //Debug.Log("Enemy Kills: " + playerDictionary.CheckLevelKills(levelIDName));
         enemiesSlain = playerDictionary.CheckLevelKills(levelIDName);
 
-        // If I am not a boss level check to see if my previous level has been beaten
-        CheckUnlock();
+        // Check to see if my previous level has been beaten
+        if (isLevelOne)
+        {
+            CheckUnlock();
+        }
+        
     }
 	
 	// Update is called once per frame
@@ -68,15 +76,27 @@ public class LevelSelector : MonoBehaviour {
         }
     }
 
-    void CheckUnlock()
+    public void CheckUnlock()
     {
-        if (previousLevel == null || previousLevel.GetComponent<IsUnlocked>().isBeaten)
+        if (previousLevel == null || previousLevel.GetComponent<IsUnlocked>().isUnlocked)
         {
             isUnlocked = true;
+            GetComponent<IsUnlocked>().isUnlocked = isUnlocked;
+            if (nextLevel.GetComponent<LevelSelector>() != null)
+            {
+                nextLevel.GetComponent<LevelSelector>().CheckUnlock();
+            }
+            
         }
+
+        if (gameObject.name == "zoneALevel3")
+        {
+            Debug.Log(playerDictionary.CheckZoneClearCount(zone) +" " + zone);
+        }
+
         if (playerDictionary.CheckZoneClearCount(zone) >= myBossLevel.GetComponent<BossLevelSelector>().requiredLevelBeatCount && !myBossLevel.GetComponent<BossLevelSelector>().bossUnlocked)
         {
-            myBossLevel.GetComponent<BossLevelSelector>().bossUnlocked = true;
+            myBossLevel.GetComponent<BossLevelSelector>().UnlockBossLevel();
         }
     }
 }

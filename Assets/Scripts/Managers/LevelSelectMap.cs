@@ -175,10 +175,10 @@ public class LevelSelectMap : MonoBehaviour {
             case Element.Earth:
                 levelNameImage.color = earth;
                 break;
-            case Element.Wind:
+            case Element.Air:
                 levelNameImage.color = air;
                 break;
-            case Element.Ice:
+            case Element.Water:
                 levelNameImage.color = water;
                 break;
             case Element.None:

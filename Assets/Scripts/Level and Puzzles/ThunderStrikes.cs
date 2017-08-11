@@ -8,7 +8,7 @@ public class ThunderStrikes : MonoBehaviour {
 
     public GameObject sparks;
 
-    public Element element = Element.Wind;
+    public Element element = Element.Air;
 
     public float lightningStrikeFireRate;
 

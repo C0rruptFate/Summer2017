@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Element { None, Fire, Ice, Earth, Wind, }; //Possible player elements
+public enum Element { None, Fire, Water, Earth, Air, }; //Possible player elements
 public enum AttackFromLocation { Empty, Self, Overhead, DownAngled, Horizontal, Behind, Below }; //where each player's attack can come from
 public enum EnemyTargetType { Element, Proximity, Random, Roam }; //How enemies find their targets
 public enum PuzzleType {None, Door, EndLevel, Bridge, RemoveHazard };//What does each switch controller do when all switches are hit (open a door, end the level spawn enemies, other)
@@ -39,10 +39,10 @@ public class Constants : MonoBehaviour
             case Element.Fire:
                 return Element.Earth;
             case Element.Earth:
-                return Element.Wind;
-            case Element.Wind:
-                return Element.Ice;
-            case Element.Ice:
+                return Element.Air;
+            case Element.Air:
+                return Element.Water;
+            case Element.Water:
                 return Element.Fire;
             default:
                 return Element.None;
@@ -55,13 +55,13 @@ public class Constants : MonoBehaviour
         switch (myElement)
         {
             case Element.Fire:
-                return Element.Ice;
+                return Element.Water;
             case Element.Earth:
                 return Element.Fire;
-            case Element.Wind:
+            case Element.Air:
                 return Element.Earth;
-            case Element.Ice:
-                return Element.Wind;
+            case Element.Water:
+                return Element.Air;
             default:
                 return Element.None;
         }

@@ -15,7 +15,7 @@ public class Water : MonoBehaviour {
             other.GetComponent<Rigidbody2D>().mass = other.GetComponent<PlayerMovement>().inWaterMass;
             other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
-        else if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Ice)//Water enemy is no longer swimming.
+        else if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Water)//Water enemy is no longer swimming.
         {
             other.GetComponent<Rigidbody2D>().gravityScale = 0;
         }
@@ -41,7 +41,7 @@ public class Water : MonoBehaviour {
             other.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,jumpOutOfWaterForce),ForceMode2D.Impulse);
         }
 
-        if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Ice)//Water enemy is no longer swimming.
+        if (other.tag == "Enemy" && other.GetComponent<EnemyHealth>().element == Element.Water)//Water enemy is no longer swimming.
         {
             other.GetComponent<Rigidbody2D>().gravityScale = 1;
             other.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpOutOfWaterForce), ForceMode2D.Impulse);

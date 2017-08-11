@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour {
     public string zoneGroup;
     //[HideInInspector]
     public string levelIndexName;
-    public GameObject myBossLevel;
+    public bool bossLevel;
 
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     [HideInInspector]
@@ -82,6 +82,7 @@ public class GameController : MonoBehaviour {
         levelManager = GameObject.Find("Level Manager");
         zoneGroup = levelManager.GetComponent<LevelManager>().playableZoneGroup;
         levelIndexName = levelManager.GetComponent<LevelManager>().playableLevelIndex;
+        bossLevel = levelManager.GetComponent<LevelManager>().playingBossLevel;
         levelManager.GetComponent<LevelManager>().SpawnPlayers();
         players = GameObject.FindGameObjectsWithTag("Player");
         totalPlayerCount = players.Length;
@@ -314,13 +315,25 @@ public class GameController : MonoBehaviour {
         PlayerDictionary playerDictionary = levelManager.GetComponent<PlayerDictionary>();
 
         //If the level hasn't been beaten before tells the game it is now beat. 
-        if (!playerDictionary.CheckLevelBeat(levelIndexName))
+        if (bossLevel)
+        {
+            if (!playerDictionary.CheckBossBeat(levelIndexName))
+            {
+                //Debug.Log("Got to here");
+                playerDictionary.UpdateBossBeat(levelIndexName, true);
+            }
+        }
+        else if (!playerDictionary.CheckLevelBeat(levelIndexName))
         {
             playerDictionary.BeatLevel(levelIndexName, zoneGroup);
         }
 
         //Tell the game about how many kills I got.
-        playerDictionary.UpdateEnemiesSlain(levelIndexName, enemyDeathCount);
+        if (!bossLevel)
+        {
+            playerDictionary.UpdateEnemiesSlain(levelIndexName, enemyDeathCount);
+        }
+        
 
         //[TODO]
         levelManager.GetComponent<LevelManager>().LoadScene("LevelSelectScreen 1");

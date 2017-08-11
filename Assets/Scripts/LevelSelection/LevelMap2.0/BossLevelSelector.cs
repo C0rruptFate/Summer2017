@@ -19,17 +19,42 @@ public class BossLevelSelector : MonoBehaviour {
 
     public GameObject nextLevel;
 
+    public GameObject pathEffect;
+
     public bool bossUnlocked;
 
     public bool bossBeaten;
+    [HideInInspector]
+    public PlayerDictionary playerDictionary;
 
     // Use this for initialization
     void Start () {
-		
+		if (bossBeaten)
+        {
+            GameObject myPathEffect = Instantiate(pathEffect, transform.position, pathEffect.transform.rotation);
+            myPathEffect.GetComponent<LevelMapPathEffect>().point2 = transform;
+            myPathEffect.GetComponent<LevelMapPathEffect>().point1 = nextLevel.transform;
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void UnlockBossLevel()
+    {
+        bossUnlocked = true;
+        GetComponent<IsUnlocked>().isUnlocked = bossUnlocked;
+    }
+
+    public void CheckBossLevelBeaten()
+    {
+        bossBeaten =  playerDictionary.GetComponent<PlayerDictionary>().CheckBossBeat(levelIDName);
+        GetComponent<IsUnlocked>().isBeaten = bossBeaten;
+        if (bossBeaten)
+        {
+            nextLevel.GetComponent<LevelSelector>().CheckUnlock();
+        }
+    }
 }

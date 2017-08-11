@@ -10,7 +10,7 @@ public class LightningStrike : Hazard {
 
     // Use this for initialization
     public override void Start() {
-        element = Element.Wind;
+        element = Element.Air;
 
         Invoke("DestroyMyself", waitTime);
     }

@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     public string playableZoneGroup;
     public string playableLevelIndex;
     public int currentLevelEnemyDeathCount;
+    public bool playingBossLevel;
 
     public GameObject levelSelectMap;
 
@@ -64,18 +65,19 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(string sceneName, string levelIndexName)//Loads the level that is put into the string.
     {
         previousScene = SceneManager.GetActiveScene().name;//Saves the last level I was in so that I can go back.
-        Debug.Log("level I'm loading " + sceneName);
+        //Debug.Log("level I'm loading " + sceneName);
         playableLevelIndex = levelIndexName;
         SceneManager.LoadScene(sceneName);
         //SpawnPlayers();
         //Invoke("SpawnPlayers", .5f);
     }
     //Used for loading playable levels that are not boss levels.
-    public void LoadLevel(string sceneName, string levelIndexName, string zoneGroup)//Loads the level that is put into the string.
+    public void LoadLevel(string sceneName, string levelIndexName, string zoneGroup, bool bossLevel)//Loads the level that is put into the string.
     {
         previousScene = SceneManager.GetActiveScene().name;//Saves the last level I was in so that I can go back.
         playableZoneGroup = zoneGroup;
         playableLevelIndex = levelIndexName;
+        playingBossLevel = bossLevel;
         SceneManager.LoadScene(sceneName);
         //SpawnPlayers();
         //Invoke("SpawnPlayers", .5f);
@@ -123,7 +125,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon "+ newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Ice:
+            case Element.Water:
                 newPlayer = Instantiate(waterCharacter, spawnPoint1.transform.position, spawnPoint1.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 1;
                 newPlayer.name = "Player 1";
@@ -137,7 +139,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon " + newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Wind:
+            case Element.Air:
                 newPlayer = Instantiate(windCharacter, spawnPoint1.transform.position, spawnPoint1.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 1;
                 newPlayer.name = "Player 1";
@@ -158,7 +160,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon " + newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Ice:
+            case Element.Water:
                 newPlayer = Instantiate(waterCharacter, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 2;
                 newPlayer.name = "Player 2";
@@ -172,7 +174,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon " + newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Wind:
+            case Element.Air:
                 newPlayer = Instantiate(windCharacter, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 2;
                 newPlayer.name = "Player 2";
@@ -193,7 +195,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon " + newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Ice:
+            case Element.Water:
                 newPlayer = Instantiate(waterCharacter, spawnPoint3.transform.position, spawnPoint3.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 3;
                 newPlayer.name = "Player 3";
@@ -207,7 +209,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon " + newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Wind:
+            case Element.Air:
                 newPlayer = Instantiate(windCharacter, spawnPoint3.transform.position, spawnPoint3.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 3;
                 newPlayer.name = "Player 3";
@@ -228,7 +230,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon " + newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Ice:
+            case Element.Water:
                 newPlayer = Instantiate(waterCharacter, spawnPoint4.transform.position, spawnPoint4.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 4;
                 newPlayer.name = "Player 4";
@@ -242,7 +244,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Summon " + newPlayer.name + " at " + spawnPoint1.name + player1Element);
                 cameraRig.GetComponent<CameraControls>().players.Add(newPlayer.transform);
                 break;
-            case Element.Wind:
+            case Element.Air:
                 newPlayer = Instantiate(windCharacter, spawnPoint4.transform.position, spawnPoint4.transform.rotation);
                 newPlayer.GetComponent<PlayerHealth>().playerNumber = 4;
                 newPlayer.name = "Player 4";

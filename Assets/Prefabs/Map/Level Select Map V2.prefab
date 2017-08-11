@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114236569700530210}
   - component: {fileID: 114674422601764602}
   m_Layer: 0
-  m_Name: Boss 2
+  m_Name: zoneBBossBeat
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 114183377332859688}
   - component: {fileID: 114838149218853480}
   m_Layer: 0
-  m_Name: Boss 1
+  m_Name: zoneABossBeat
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2483,8 +2483,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 1
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1356588867296016}
+  nextLevel: {fileID: 1226227023995644}
 --- !u!114 &114068395992596116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2498,8 +2498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 1
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1912034975854512}
+  nextLevel: {fileID: 1421802305524864}
 --- !u!114 &114115619796033766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2515,12 +2515,15 @@ MonoBehaviour:
   levelIDName: zoneBLevel3
   zone: B
   primeElement: 2
+  isLevelOne: 0
+  killCount: 0
   previousLevel: {fileID: 1669023717395958}
   nextLevel: {fileID: 1578215380876224}
   myBossLevel: {fileID: 1111611845704990}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114130790990641348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2546,15 +2549,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b158205de21c57f4490df4edd5fb5f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: 
-  levelIDName: 
-  bossZone: 
+  sceneName: playground
+  levelIDName: zoneABossBeat
+  bossZone: A
   requiredLevelBeatCount: 3
   primeElement: 3
   previousLevel: {fileID: 1421802305524864}
   nextLevel: {fileID: 1548045905771234}
+  pathEffect: {fileID: 0}
   bossUnlocked: 0
   bossBeaten: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114184497589240524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2570,12 +2575,15 @@ MonoBehaviour:
   levelIDName: zoneALevel1
   zone: A
   primeElement: 3
+  isLevelOne: 1
+  killCount: 0
   previousLevel: {fileID: 0}
   nextLevel: {fileID: 1912034975854512}
   myBossLevel: {fileID: 1226227023995644}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114209293191391204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2591,12 +2599,15 @@ MonoBehaviour:
   levelIDName: zoneBLevel4
   zone: B
   primeElement: 2
+  isLevelOne: 0
+  killCount: 0
   previousLevel: {fileID: 1267402166099050}
   nextLevel: {fileID: 1111611845704990}
   myBossLevel: {fileID: 1111611845704990}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114236569700530210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2608,15 +2619,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b158205de21c57f4490df4edd5fb5f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: 
-  levelIDName: 
-  bossZone: 
+  sceneName: playground
+  levelIDName: zoneBBossBeat
+  bossZone: B
   requiredLevelBeatCount: 3
   primeElement: 2
   previousLevel: {fileID: 1578215380876224}
   nextLevel: {fileID: 0}
+  pathEffect: {fileID: 0}
   bossUnlocked: 0
   bossBeaten: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114318424061735286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2632,12 +2645,15 @@ MonoBehaviour:
   levelIDName: zoneBLevel2
   zone: B
   primeElement: 2
+  isLevelOne: 0
+  killCount: 0
   previousLevel: {fileID: 1548045905771234}
   nextLevel: {fileID: 1267402166099050}
   myBossLevel: {fileID: 1111611845704990}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114346533693655324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2665,8 +2681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 1
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1227322291328964}
+  nextLevel: {fileID: 1356588867296016}
 --- !u!114 &114445239808529948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2682,12 +2698,15 @@ MonoBehaviour:
   levelIDName: zoneALevel2
   zone: A
   primeElement: 3
+  isLevelOne: 0
+  killCount: 0
   previousLevel: {fileID: 1227322291328964}
   nextLevel: {fileID: 1356588867296016}
   myBossLevel: {fileID: 1226227023995644}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114454249562277112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2729,8 +2748,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 0
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1669023717395958}
+  nextLevel: {fileID: 1578215380876224}
 --- !u!114 &114543651612775178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2744,8 +2763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 0
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1226227023995644}
+  nextLevel: {fileID: 1669023717395958}
 --- !u!114 &114558936468747042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2761,12 +2780,15 @@ MonoBehaviour:
   levelIDName: zoneBLevel1
   zone: B
   primeElement: 2
+  isLevelOne: 0
+  killCount: 0
   previousLevel: {fileID: 1226227023995644}
   nextLevel: {fileID: 1669023717395958}
   myBossLevel: {fileID: 1111611845704990}
   isUnlocked: 0
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114648568371454448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2780,8 +2802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 0
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1548045905771234}
+  nextLevel: {fileID: 1267402166099050}
 --- !u!114 &114674422601764602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2795,7 +2817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 0
   isBeaten: 0
-  previousLevel: {fileID: 0}
+  previousLevel: {fileID: 1578215380876224}
   nextLevel: {fileID: 0}
 --- !u!114 &114676406583002594
 MonoBehaviour:
@@ -2838,8 +2860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 0
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1267402166099050}
+  nextLevel: {fileID: 1111611845704990}
 --- !u!114 &114710783420271234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2855,6 +2877,9 @@ MonoBehaviour:
   target: {fileID: 1227322291328964}
   moveWait: 0.1
   levelManager: {fileID: 0}
+  bossLevels:
+  - {fileID: 1226227023995644}
+  - {fileID: 1111611845704990}
   player_id: 0
   levelName: {fileID: 0}
   levelNameImage: {fileID: 0}
@@ -2863,6 +2888,7 @@ MonoBehaviour:
   air: {r: 0.99215686, g: 0.8156863, b: 0.13725491, a: 0.5019608}
   water: {r: 0.13725491, g: 0.5372549, b: 0.85490197, a: 0.5019608}
   dark: {r: 0.6117647, g: 0.19215687, b: 0.94509804, a: 0.5019608}
+  statsText: {fileID: 0}
 --- !u!114 &114745296192580126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2891,7 +2917,7 @@ MonoBehaviour:
   isUnlocked: 1
   isBeaten: 0
   previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  nextLevel: {fileID: 1912034975854512}
 --- !u!114 &114768093465627460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2907,12 +2933,15 @@ MonoBehaviour:
   levelIDName: zoneALevel4
   zone: A
   primeElement: 3
+  isLevelOne: 0
+  killCount: 0
   previousLevel: {fileID: 1356588867296016}
   nextLevel: {fileID: 1226227023995644}
   myBossLevel: {fileID: 1226227023995644}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!114 &114826524683099482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2940,8 +2969,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUnlocked: 0
   isBeaten: 0
-  previousLevel: {fileID: 0}
-  nextLevel: {fileID: 0}
+  previousLevel: {fileID: 1421802305524864}
+  nextLevel: {fileID: 1548045905771234}
 --- !u!114 &114874574437755272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2985,12 +3014,15 @@ MonoBehaviour:
   levelIDName: zoneALevel3
   zone: A
   primeElement: 3
+  isLevelOne: 0
+  killCount: 0
   previousLevel: {fileID: 1912034975854512}
   nextLevel: {fileID: 1421802305524864}
   myBossLevel: {fileID: 1226227023995644}
   isUnlocked: 1
   isBeaten: 0
   enemiesSlain: 0
+  playerDictionary: {fileID: 0}
 --- !u!198 &198049058213156674
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -6143,7 +6175,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: 196656843
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24713,7 +24745,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: -150239885
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -27808,7 +27840,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: -1092788861
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -30903,7 +30935,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: -1816516428
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -33998,7 +34030,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: 965421679
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -43283,7 +43315,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: 1178339059
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -46378,7 +46410,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: 610276841
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -49473,7 +49505,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: 2067157557
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -55663,7 +55695,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: 1608371066
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -61853,7 +61885,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -176996270
+  randomSeed: -1890429957
   InitialModule:
     serializedVersion: 3
     enabled: 1

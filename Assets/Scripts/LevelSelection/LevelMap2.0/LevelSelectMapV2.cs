@@ -14,6 +14,7 @@ public class LevelSelectMapV2 : MonoBehaviour {
 
     //Objects
     public GameObject levelManager;
+    public GameObject[] bossLevels;
 
     //Controls
     private Player input_manager;
@@ -22,11 +23,12 @@ public class LevelSelectMapV2 : MonoBehaviour {
     //UI
     public Text levelName;
     public Image levelNameImage;
-    public Color fire;//FF4500AA FF4500FF
-    public Color earth;//6D5D49AA 6D5D49FF
-    public Color air;//9C31F1AA FDD02380
-    public Color water;//A5F2F3AA 2389DAFF 
-    public Color dark; //9C31F1AA
+    public Color fire;//FF450080
+    public Color earth;// 6D5D4980
+    public Color air;// FDD02380
+    public Color water;//2389DA80
+    public Color dark; //9C31F180
+    public Text statsText;
 
     private string characterSelectionScreen = "Main Menu";
 
@@ -45,6 +47,13 @@ public class LevelSelectMapV2 : MonoBehaviour {
             target = GameObject.Find("zoneALevel1");
         }
         wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        LevelName();
+
+        foreach(GameObject bossLevel in bossLevels)
+        {
+            bossLevel.GetComponent<BossLevelSelector>().playerDictionary = levelManager.GetComponent<PlayerDictionary>();
+            bossLevel.GetComponent<BossLevelSelector>().CheckBossLevelBeaten();
+        }
 
 
     }
@@ -68,11 +77,11 @@ public class LevelSelectMapV2 : MonoBehaviour {
         {
             if (target.GetComponent<LevelSelector>() != null)
             {
-                levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<LevelSelector>().sceneName, target.GetComponent<LevelSelector>().levelIDName, target.GetComponent<LevelSelector>().zone);
+                levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<LevelSelector>().sceneName, target.GetComponent<LevelSelector>().levelIDName, target.GetComponent<LevelSelector>().zone, false);
             }
             else if(target.GetComponent<BossLevelSelector>() != null)
             {
-                levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<BossLevelSelector>().sceneName, target.GetComponent<BossLevelSelector>().levelIDName, target.GetComponent<BossLevelSelector>().bossZone);
+                levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<BossLevelSelector>().sceneName, target.GetComponent<BossLevelSelector>().levelIDName, target.GetComponent<BossLevelSelector>().bossZone, true);
             }
             else
             {
@@ -132,6 +141,7 @@ public class LevelSelectMapV2 : MonoBehaviour {
         if (target.GetComponent<LevelSelector>() != null)
         {
             levelName.text = target.GetComponent<LevelSelector>().sceneName.ToString();
+            statsText.text = "Primary Element: " + target.GetComponent<LevelSelector>().primeElement + "\n Highest Kills: " + target.GetComponent<LevelSelector>().killCount;
             switch (target.GetComponent<LevelSelector>().primeElement)
             {
                 case Element.Fire:
@@ -140,10 +150,10 @@ public class LevelSelectMapV2 : MonoBehaviour {
                 case Element.Earth:
                     levelNameImage.color = earth;
                     break;
-                case Element.Wind:
+                case Element.Air:
                     levelNameImage.color = air;
                     break;
-                case Element.Ice:
+                case Element.Water:
                     levelNameImage.color = water;
                     break;
                 case Element.None:
@@ -162,10 +172,10 @@ public class LevelSelectMapV2 : MonoBehaviour {
                 case Element.Earth:
                     levelNameImage.color = earth;
                     break;
-                case Element.Wind:
+                case Element.Air:
                     levelNameImage.color = air;
                     break;
-                case Element.Ice:
+                case Element.Water:
                     levelNameImage.color = water;
                     break;
                 case Element.None:
