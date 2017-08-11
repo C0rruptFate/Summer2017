@@ -63,7 +63,7 @@ public class CharacterSelectionManager : MonoBehaviour {
             levelManager.GetComponent<LevelManager>().player3Element = GameObject.Find("Player 3 Cursor").GetComponent<Cursor>().element;
             levelManager.GetComponent<LevelManager>().player4Element = GameObject.Find("Player 4 Cursor").GetComponent<Cursor>().element;
             //Debug.Log("About to load level");
-            levelManager.GetComponent<LevelManager>().LoadLevel(levelToLoad);
+            levelManager.GetComponent<LevelManager>().LoadScene(levelToLoad);
         }
     }
 

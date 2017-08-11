@@ -17,12 +17,12 @@ public class GameOverScript : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown("Submit"))
         {
-            levelManagerScript.LoadLevel(levelManagerScript.previousLevel);
+            levelManagerScript.LoadLevel(levelManagerScript.previousScene, levelManagerScript.playableLevelIndex);
         }
 
         if (Input.GetButtonDown("Cancel"))
         {
-            levelManagerScript.LoadLevel("MainMenu");
+            levelManagerScript.LoadScene("MainMenu");
         }
     }
 }

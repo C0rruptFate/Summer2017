@@ -28,22 +28,37 @@ public class LevelSelectMapV2 : MonoBehaviour {
     public Color water;//A5F2F3AA 2389DAFF 
     public Color dark; //9C31F1AA
 
+    private string characterSelectionScreen = "Main Menu";
+
     // Use this for initialization
     void Start () {
         wisp = GameObject.Find("Wisp Cursor");
         levelManager = GameObject.Find("Level Manager");
         input_manager = ReInput.players.GetPlayer(player_id);
+        //Tell the wisp to target the highest value target it can find. Maybe it finds it target from the level manager string or something that tracks what it just beat.
+        if (levelManager.GetComponent<LevelManager>().playableLevelIndex != "")
+        {
+            target = GameObject.Find(levelManager.GetComponent<LevelManager>().playableLevelIndex);
+        }
+        else
+        {
+            target = GameObject.Find("zoneALevel1");
+        }
+        wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+
+
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
         //Look at the next level
-        if (input_manager.GetAxis("move_horizontal") == 1 && Time.time >= nextMoveWait && target.GetComponent<LevelSelector>().nextLevel != null && target.GetComponent<LevelSelector>().nextLevel.GetComponent<LevelSelector>().isUnlocked)
+        if (input_manager.GetAxis("move_horizontal") == 1 && Time.time >= nextMoveWait && target.GetComponent<IsUnlocked>().nextLevel != null && target.GetComponent<IsUnlocked>().nextLevel.GetComponent<IsUnlocked>().isUnlocked == true)
         {
-            FindNextLevel();
+                FindNextLevel();
         }//Go back to the last level we were looking at
-        else if (input_manager.GetAxis("move_horizontal") == -1 && Time.time >= nextMoveWait && target.GetComponent<LevelSelector>().previousLevel != null && target.GetComponent<LevelSelector>().previousLevel.GetComponent<LevelSelector>().isUnlocked)
+        else if (input_manager.GetAxis("move_horizontal") == -1 && Time.time >= nextMoveWait && target.GetComponent<IsUnlocked>().previousLevel != null && target.GetComponent<IsUnlocked>().previousLevel.GetComponent<IsUnlocked>().isUnlocked == true)
+
         {
             FindPreviousLevel();
         }
@@ -51,19 +66,43 @@ public class LevelSelectMapV2 : MonoBehaviour {
         //Start the level
         if (input_manager.GetButtonDown("Jump"))
         {
-            levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<LevelSelector>().levelName);
+            if (target.GetComponent<LevelSelector>() != null)
+            {
+                levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<LevelSelector>().sceneName, target.GetComponent<LevelSelector>().levelIDName, target.GetComponent<LevelSelector>().zone);
+            }
+            else if(target.GetComponent<BossLevelSelector>() != null)
+            {
+                levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<BossLevelSelector>().sceneName, target.GetComponent<BossLevelSelector>().levelIDName, target.GetComponent<BossLevelSelector>().bossZone);
+            }
+            else
+            {
+                Debug.LogError("Target is missing it's level Selector or boss level selector");
+            }
         }//Go back to the character select screen.
         else if (input_manager.GetButtonDown("Ranged"))
         {
             Debug.Log("Went back to Character Select");
-            levelManager.GetComponent<LevelManager>().LoadLevel(levelManager.GetComponent<LevelManager>().previousLevel);
+            levelManager.GetComponent<LevelManager>().LoadScene(characterSelectionScreen);
         }
 
     }
 
     void FindNextLevel()
     {
-        target = target.GetComponent<LevelSelector>().nextLevel;
+        if (target.GetComponent<LevelSelector>() != null)
+        {
+            target = target.GetComponent<LevelSelector>().nextLevel;
+        }
+        else if(target.GetComponent<BossLevelSelector>() != null)
+        {
+            target = target.GetComponent<BossLevelSelector>().nextLevel;
+        }
+        else
+        {
+            Debug.LogError("Target is missing it's level Selector or boss level selector");
+        }
+
+        
         wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
         LevelName();
         nextMoveWait = Time.time + moveWait;
@@ -71,7 +110,18 @@ public class LevelSelectMapV2 : MonoBehaviour {
 
     void FindPreviousLevel()
     {
-        target = target.GetComponent<LevelSelector>().previousLevel;
+        if (target.GetComponent<LevelSelector>() != null)
+        {
+            target = target.GetComponent<LevelSelector>().previousLevel;
+        }
+        else if (target.GetComponent<BossLevelSelector>() != null)
+        {
+            target = target.GetComponent<BossLevelSelector>().previousLevel;
+        }
+        else
+        {
+            Debug.LogError("Target is missing it's level Selector or boss level selector");
+        }
         wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
         LevelName();
         nextMoveWait = Time.time + moveWait;
@@ -79,25 +129,51 @@ public class LevelSelectMapV2 : MonoBehaviour {
 
     void LevelName()
     {
-        levelName.text = target.GetComponent<LevelSelector>().sceneName.ToString();
-
-        switch (target.GetComponent<LevelLoader>().primeElement)
+        if (target.GetComponent<LevelSelector>() != null)
         {
-            case Element.Fire:
-                levelNameImage.color = fire;
-                break;
-            case Element.Earth:
-                levelNameImage.color = earth;
-                break;
-            case Element.Wind:
-                levelNameImage.color = air;
-                break;
-            case Element.Ice:
-                levelNameImage.color = water;
-                break;
-            case Element.None:
-                levelNameImage.color = dark;
-                break;
+            levelName.text = target.GetComponent<LevelSelector>().sceneName.ToString();
+            switch (target.GetComponent<LevelSelector>().primeElement)
+            {
+                case Element.Fire:
+                    levelNameImage.color = fire;
+                    break;
+                case Element.Earth:
+                    levelNameImage.color = earth;
+                    break;
+                case Element.Wind:
+                    levelNameImage.color = air;
+                    break;
+                case Element.Ice:
+                    levelNameImage.color = water;
+                    break;
+                case Element.None:
+                    levelNameImage.color = dark;
+                    break;
+            }
         }
+        else if (target.GetComponent<BossLevelSelector>() != null)
+        {
+            levelName.text = target.GetComponent<BossLevelSelector>().sceneName.ToString();
+            switch (target.GetComponent<BossLevelSelector>().primeElement)
+            {
+                case Element.Fire:
+                    levelNameImage.color = fire;
+                    break;
+                case Element.Earth:
+                    levelNameImage.color = earth;
+                    break;
+                case Element.Wind:
+                    levelNameImage.color = air;
+                    break;
+                case Element.Ice:
+                    levelNameImage.color = water;
+                    break;
+                case Element.None:
+                    levelNameImage.color = dark;
+                    break;
+            }
+        }
+
+
     }
 }

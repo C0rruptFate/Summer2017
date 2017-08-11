@@ -113,16 +113,16 @@ public class LevelSelectMap : MonoBehaviour {
 
         if (input_manager.GetButtonDown("Jump"))
         {
-            //[TODO]Load the targeted level
-            levelManager.GetComponent<LevelManager>().playableLevelIndex = arrayPosition;
-            levelManager.GetComponent<LevelManager>().playingBonusLevel = target.GetComponent<LevelLoader>().isBonusLevel;
-            levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<LevelLoader>().sceneName);
+            //Uncomment if using the older level select model.
+            //levelManager.GetComponent<LevelManager>().playableLevelIndex = arrayPosition;
+            //levelManager.GetComponent<LevelManager>().playingBonusLevel = target.GetComponent<LevelLoader>().isBonusLevel;
+            //levelManager.GetComponent<LevelManager>().LoadLevel(target.GetComponent<LevelLoader>().sceneName, target.GetComponent<LevelLoader>().lev);
         }
 
         if (input_manager.GetButtonDown("Ranged"))
         {
             Debug.Log("Went back to Character Select");
-            levelManager.GetComponent<LevelManager>().LoadLevel(levelManager.GetComponent<LevelManager>().previousLevel);
+            //levelManager.GetComponent<LevelManager>().LoadLevel(levelManager.GetComponent<LevelManager>().previousScene);
         }
     }
 

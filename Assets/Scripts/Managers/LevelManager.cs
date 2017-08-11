@@ -9,9 +9,9 @@ public class LevelManager : MonoBehaviour
     [Tooltip("How long does it take to load the next level, leave at 0 to avoid loading the next level.")]
     public float autoLoadNextLevelAfter;
     [HideInInspector]
-    public string previousLevel;
-    public int playableLevelIndex;
-    public bool playingBonusLevel;
+    public string previousScene;
+    public string playableZoneGroup;
+    public string playableLevelIndex;
     public int currentLevelEnemyDeathCount;
 
     public GameObject levelSelectMap;
@@ -60,12 +60,31 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void LoadLevel(string name)//Loads the level that is put into the string.
+    //Used for loading scenes (other than playable levels, and boss levels.)
+    public void LoadLevel(string sceneName, string levelIndexName)//Loads the level that is put into the string.
     {
-        previousLevel = SceneManager.GetActiveScene().name;//Saves the last level I was in so that I can go back.
-        SceneManager.LoadScene(name);
+        previousScene = SceneManager.GetActiveScene().name;//Saves the last level I was in so that I can go back.
+        Debug.Log("level I'm loading " + sceneName);
+        playableLevelIndex = levelIndexName;
+        SceneManager.LoadScene(sceneName);
         //SpawnPlayers();
         //Invoke("SpawnPlayers", .5f);
+    }
+    //Used for loading playable levels that are not boss levels.
+    public void LoadLevel(string sceneName, string levelIndexName, string zoneGroup)//Loads the level that is put into the string.
+    {
+        previousScene = SceneManager.GetActiveScene().name;//Saves the last level I was in so that I can go back.
+        playableZoneGroup = zoneGroup;
+        playableLevelIndex = levelIndexName;
+        SceneManager.LoadScene(sceneName);
+        //SpawnPlayers();
+        //Invoke("SpawnPlayers", .5f);
+    }
+
+    public void LoadScene(string name)
+    {
+        previousScene = SceneManager.GetActiveScene().name;//Saves the last level I was in so that I can go back.
+        SceneManager.LoadScene(name);
     }
 
     public void QuitRequest()//Closes the game when this is called. [TODO] put in a confirmation option.
@@ -76,7 +95,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel(string name)//Not being used ATM. [TODO] set this up to load the next level.
     {
-        previousLevel = SceneManager.GetActiveScene().name; //Saves the last level I was in so that I can go back.
+        previousScene = SceneManager.GetActiveScene().name; //Saves the last level I was in so that I can go back.
         SceneManager.LoadScene(name);
         //SceneManager.LoadScene(SceneManager.loadedlevel + 1);
     }

@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    public int levelIndex;
+    //public int levelIndex;
+    public string zoneGroup;
+    //[HideInInspector]
     public string levelIndexName;
-    public bool isBonusLevel = false;
+    public GameObject myBossLevel;
 
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     [HideInInspector]
@@ -78,8 +80,8 @@ public class GameController : MonoBehaviour {
     {
         //Sets gameobject and components.
         levelManager = GameObject.Find("Level Manager");
-        levelIndex = levelManager.GetComponent<LevelManager>().playableLevelIndex;
-        isBonusLevel = levelManager.GetComponent<LevelManager>().playingBonusLevel;
+        zoneGroup = levelManager.GetComponent<LevelManager>().playableZoneGroup;
+        levelIndexName = levelManager.GetComponent<LevelManager>().playableLevelIndex;
         levelManager.GetComponent<LevelManager>().SpawnPlayers();
         players = GameObject.FindGameObjectsWithTag("Player");
         totalPlayerCount = players.Length;
@@ -260,7 +262,7 @@ public class GameController : MonoBehaviour {
 
     public void GameOver() //Called when all players are dead at the same time
     {
-        levelManager.GetComponent<LevelManager>().LoadLevel("GameOver");
+        levelManager.GetComponent<LevelManager>().LoadScene("GameOver");
     }
 
     public void LevelProgression()
@@ -309,50 +311,33 @@ public class GameController : MonoBehaviour {
 
     public void BeatLevel()
     {
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
-        //if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex && !isBonusLevel)
-        //{
-        //    levelManager.GetComponent<LevelManager>().levelIndex++; 
-        //}
-        ////[TODO] save # to player prefs
-        ////levelManager.GetComponent<LevelManager>().currentLevelEnemyDeathCount = enemyDeathCount;
-        //levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
-        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        PlayerDictionary playerDictionary = levelManager.GetComponent<PlayerDictionary>();
 
-        //Show Kyle
-        PlayerDictionary data = levelManager.GetComponent<PlayerDictionary>();
-
-        if (!data.levelData[levelIndexName])
+        //If the level hasn't been beaten before tells the game it is now beat. 
+        if (!playerDictionary.CheckLevelBeat(levelIndexName))
         {
-            data.levelData[levelIndexName] = true;
-        }
-        
-        if (enemyDeathCount >= data.levelKills["levelIndexName"])
-        {
-            data.levelKills["levelIndexName"] = enemyDeathCount;
+            playerDictionary.BeatLevel(levelIndexName, zoneGroup);
         }
 
-        //PlayerDictionary dataDictionary = levelManager.GetComponent<PlayerDictionary>();
-        //dataDictionary.UpdateLevelData(levelIndexName, enemyDeathCount);
+        //Tell the game about how many kills I got.
+        playerDictionary.UpdateEnemiesSlain(levelIndexName, enemyDeathCount);
 
-        //Takes us back tot he level select screen with the new data added.
-        //levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
-        //Saves the game
-        //levelManager.GetComponent<SaveData>().Save();
+        //[TODO]
+        levelManager.GetComponent<LevelManager>().LoadScene("LevelSelectScreen 1");
     }
 
 
-
-public void BeatLevel(int UnlockXLevels)
-    {
-        //[TODO] tell level manager to unlock the next level
-        //[TODO] change to a beat level screen or the next level.
-        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex)
-        {
-            levelManager.GetComponent<LevelManager>().levelIndex = levelManager.GetComponent<LevelManager>().levelIndex + UnlockXLevels;
-        }
-        levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
-    }
+    //Used with old level unlock model
+//public void BeatLevel(int UnlockXLevels)
+//    {
+//        //[TODO] tell level manager to unlock the next level
+//        //[TODO] change to a beat level screen or the next level.
+//        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex)
+//        {
+//            levelManager.GetComponent<LevelManager>().levelIndex = levelManager.GetComponent<LevelManager>().levelIndex + UnlockXLevels;
+//        }
+//        levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
+//    }
 
     public void EnemyDeath(GameObject enemy)
     {

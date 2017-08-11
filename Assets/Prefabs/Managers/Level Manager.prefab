@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114706408600343762}
   - component: {fileID: 114978668848430728}
   - component: {fileID: 114289232232492404}
+  - component: {fileID: 114075528724396142}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: GameController
@@ -42,6 +43,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114075528724396142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1886366687719568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dc5fa307a0338749ac8e9da213bc987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114289232232492404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,6 +65,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88554da47eb1efb469d60900c24acf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoneALevel1Beat: 0
+  zoneALevel1EnemiesSlain: 0
+  zoneALevel2Beat: 0
+  zoneALevel2EnemiesSlain: 0
+  zoneALevel3Beat: 0
+  zoneALevel3EnemiesSlain: 0
+  zoneALevel4Beat: 0
+  zoneALevel4EnemiesSlain: 0
+  zoneABossBeat: 0
+  zoneBLevel1Beat: 0
+  zoneBLevel1EnemiesSlain: 0
+  zoneBLevel2Beat: 0
+  zoneBLevel2EnemiesSlain: 0
+  zoneBLevel3Beat: 0
+  zoneBLevel3EnemiesSlain: 0
+  zoneBLevel4Beat: 0
+  zoneBLevel4EnemiesSlain: 0
+  zoneBBossBeat: 0
+  zoneCLevel1Beat: 0
+  zoneCLevel1EnemiesSlain: 0
+  zoneCLevel2Beat: 0
+  zoneCLevel2EnemiesSlain: 0
+  zoneCLevel3Beat: 0
+  zoneCLevel3EnemiesSlain: 0
+  zoneCLevel4Beat: 0
+  zoneCLevel4EnemiesSlain: 0
+  zoneCBossBeat: 0
+  zoneDLevel1Beat: 0
+  zoneDLevel1EnemiesSlain: 0
+  zoneDLevel2Beat: 0
+  zoneDLevel2EnemiesSlain: 0
+  zoneDLevel3Beat: 0
+  zoneDLevel3EnemiesSlain: 0
+  zoneDLevel4Beat: 0
+  zoneDLevel4EnemiesSlain: 0
+  zoneDBossBeat: 0
 --- !u!114 &114706408600343762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,9 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoLoadNextLevelAfter: 0
-  previousLevel: 
-  playableLevelIndex: 0
-  playingBonusLevel: 0
+  previousScene: 
+  playableZoneGroup: 
+  playableLevelIndex: 
   currentLevelEnemyDeathCount: 0
   levelSelectMap: {fileID: 0}
   fireCharacter: {fileID: 1606165041327818, guid: 94655fc95df670a44b5767b8ce2cb90c,

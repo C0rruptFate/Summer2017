@@ -4,26 +4,52 @@ using UnityEngine;
 
 public class LevelSelector : MonoBehaviour {
 
+    [Tooltip("Level to load in the scene manager 'use flavorful text' ")]
     public string sceneName;
-    public bool isUnlocked;
-    public bool isBeaten;
-    public bool bossLevel;
-    public int enemiesSlain;
-    public int beatTokensGathered;
-    public int beatTokensRequired;
+    [Tooltip("my level ID name 'ex. zoneALevel1' ")]
+    public string levelIDName;
+    [Tooltip("what Zone this is a part of 'A, B, C, D' ")]
+    public string zone;
+    [Tooltip("The prime element for this level.")]
+    public Element primeElement;
+
 
     public GameObject previousLevel;
     public GameObject nextLevel;
+    public GameObject myBossLevel;
 
-    public string levelName;
+    public bool isUnlocked;
+    public bool isBeaten;
+    public int enemiesSlain;
 
     private GameObject levelManager;
 
-	// Use this for initialization
-	void Start () {
+    private PlayerDictionary playerDictionary;
+
+    // Use this for initialization
+    void Start () {
         levelManager = GameObject.Find("Level Manager");
-        isBeaten = levelManager.GetComponent<PlayerData>().levelData[levelName];
-        enemiesSlain = levelManager.GetComponent<PlayerData>().levelKills[sceneName];
+        playerDictionary = levelManager.GetComponent<PlayerDictionary>();
+        levelIDName = gameObject.name;
+
+        /////////////////////
+        //Debug.Log("index count: " + playerDictionary.levelBeat.Count + " level ID Name: " + levelIDName + " level ID bool value: " + playerDictionary.CheckLevelBeat(levelIDName));
+
+        if (playerDictionary.levelBeat.ContainsKey(levelIDName))
+        {
+            //Debug.Log("level ID name " + levelIDName);
+            isBeaten = playerDictionary.CheckLevelBeat(levelIDName);
+        }
+        else
+        {
+            Debug.Log("Couldn't find level ID name " + levelIDName);
+        }
+
+
+        //isBeaten = playerDictionary.levelBeat[levelIDName];
+        //////////////////////
+        //Debug.Log("Enemy Kills: " + playerDictionary.CheckLevelKills(levelIDName));
+        enemiesSlain = playerDictionary.CheckLevelKills(levelIDName);
 
         // If I am not a boss level check to see if my previous level has been beaten
         CheckUnlock();
@@ -44,13 +70,13 @@ public class LevelSelector : MonoBehaviour {
 
     void CheckUnlock()
     {
-        if (!bossLevel && (previousLevel.GetComponent<LevelSelector>().isBeaten || previousLevel == null))
+        if (previousLevel == null || previousLevel.GetComponent<IsUnlocked>().isBeaten)
         {
             isUnlocked = true;
         }
-        else if (bossLevel && beatTokensGathered >= beatTokensRequired)
+        if (playerDictionary.CheckZoneClearCount(zone) >= myBossLevel.GetComponent<BossLevelSelector>().requiredLevelBeatCount && !myBossLevel.GetComponent<BossLevelSelector>().bossUnlocked)
         {
-            isUnlocked = true;
+            myBossLevel.GetComponent<BossLevelSelector>().bossUnlocked = true;
         }
     }
 }
