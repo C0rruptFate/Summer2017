@@ -32,7 +32,10 @@ public class WispSwitch : MonoBehaviour {
             activated = true;
             Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
             Destroy(unlitTorch);
-            parentObject.GetComponent<WispSwitchChecker>().CheckSwitches();
+            if (parentObject != null)
+            {
+                parentObject.GetComponent<WispSwitchChecker>().CheckSwitches();
+            }
         }
     }
 }

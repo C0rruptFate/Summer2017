@@ -17,31 +17,32 @@ public class Cursor : MonoBehaviour {
 
     [Tooltip("effect that starts to play when a player has locked in their character.")]
     public GameObject lockedInEffect;
+    public GameObject wispEffect;
     private GameObject ImLockedInEffect;//My copy of the locked in effect so that I can destroy it when I unselect a character.
 
-    [HideInInspector]//this cursor becomes active when the player pushes A (might add other buttons too) to activate themselves.
+    //[HideInInspector]//this cursor becomes active when the player pushes A (might add other buttons too) to activate themselves.
     public bool activePlayer = false;
-    [HideInInspector]//Button used to select their character.
+    //[HideInInspector]//Button used to select their character.
     public string playerSelect;
-    [HideInInspector]//Button used to deselect their chracter.
+    //[HideInInspector]//Button used to deselect their chracter.
     public string playerCancel;
 
     //[HideInInspector]//sets up the controls for the joystick of each player.
     //public string horizontalMovement;
     //[HideInInspector]//Sets up the controls for the joystick of each player.
     //public string verticalMovement;
-    [HideInInspector]//This becomes true when the player is active, and turned off again when they select a character.
+    //[HideInInspector]//This becomes true when the player is active, and turned off again when they select a character.
     public bool mouseMovementAllowed = false;
 
     private float horizontalDir;//Used to set up the joystick movement.
     private float verticalDir;//Used to set up the joystick movement.
 
-    [HideInInspector]//becomes true when I have selected a character.
+    //[HideInInspector]//becomes true when I have selected a character.
     public bool characterSelected = false;
 
-    [HideInInspector]//Element I have when it is locked in.
+    //[HideInInspector]//Element I have when it is locked in.
     public Element element = Element.None;
-    [HideInInspector]//element of the character tile I am currently touching.
+    //[HideInInspector]//element of the character tile I am currently touching.
     public Element possibleElement = Element.None;
 
     private Rigidbody2D rb;//my rigidbody.
@@ -69,6 +70,7 @@ public class Cursor : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         GetComponent<Image>().enabled = false;
         characterSelectionManager = GameObject.Find("Character Selection Manager");
+        wispEffect.SetActive(false);
 
         //initialize size attributes
         player_width = GetComponent<RectTransform>().localScale.x;
@@ -89,7 +91,8 @@ public class Cursor : MonoBehaviour {
             Constants.playerCount++;
             mouseMovementAllowed = true;
             //Debug.Log(activePlayer);
-            GetComponent<Image>().enabled = true;
+            wispEffect.SetActive(true);
+            //GetComponent<Image>().enabled = true;
         }
 
         if (mouseMovementAllowed)//Allows cursor movement, this disables when a character is selected.
