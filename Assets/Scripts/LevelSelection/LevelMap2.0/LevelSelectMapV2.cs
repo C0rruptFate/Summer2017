@@ -17,8 +17,11 @@ public class LevelSelectMapV2 : MonoBehaviour {
     public GameObject[] bossLevels;
 
     //Controls
-    private Player input_manager;
-    public int player_id;
+    private Player input_manager1;
+    private Player input_manager2;
+    private Player input_manager3;
+    private Player input_manager4;
+    //public int player_id;
 
     //UI
     public Text levelName;
@@ -38,7 +41,10 @@ public class LevelSelectMapV2 : MonoBehaviour {
         wisp = GameObject.Find("Wisp Cursor");
         levelManager = GameObject.Find("Level Manager");
         playerDictionary = levelManager.GetComponent<PlayerDictionary>();
-        input_manager = ReInput.players.GetPlayer(player_id);
+        input_manager1 = ReInput.players.GetPlayer(1);
+        input_manager2 = ReInput.players.GetPlayer(2);
+        input_manager3 = ReInput.players.GetPlayer(3);
+        input_manager4 = ReInput.players.GetPlayer(4);
         //Tell the wisp to target the highest value target it can find. Maybe it finds it target from the level manager string or something that tracks what it just beat.
         if (levelManager.GetComponent<LevelManager>().playableLevelIndex != "")
         {
@@ -73,18 +79,18 @@ public class LevelSelectMapV2 : MonoBehaviour {
 	void Update () {
 		
         //Look at the next level
-        if (input_manager.GetAxis("move_horizontal") == 1 && Time.time >= nextMoveWait && target.GetComponent<IsUnlocked>().nextLevel != null && target.GetComponent<IsUnlocked>().nextLevel.GetComponent<IsUnlocked>().isUnlocked == true)
+        if ((input_manager1.GetAxis("move_horizontal") == 1 || input_manager2.GetAxis("move_horizontal") == 1 || input_manager3.GetAxis("move_horizontal") == 1|| input_manager4.GetAxis("move_horizontal") == 1) && Time.time >= nextMoveWait && target.GetComponent<IsUnlocked>().nextLevel != null && target.GetComponent<IsUnlocked>().nextLevel.GetComponent<IsUnlocked>().isUnlocked == true)
         {
                 FindNextLevel();
         }//Go back to the last level we were looking at
-        else if (input_manager.GetAxis("move_horizontal") == -1 && Time.time >= nextMoveWait && target.GetComponent<IsUnlocked>().previousLevel != null && target.GetComponent<IsUnlocked>().previousLevel.GetComponent<IsUnlocked>().isUnlocked == true)
+        else if ((input_manager1.GetAxis("move_horizontal") == -1 || input_manager2.GetAxis("move_horizontal") == -1 || input_manager3.GetAxis("move_horizontal") == -1 || input_manager4.GetAxis("move_horizontal") == -1) && Time.time >= nextMoveWait && target.GetComponent<IsUnlocked>().previousLevel != null && target.GetComponent<IsUnlocked>().previousLevel.GetComponent<IsUnlocked>().isUnlocked == true)
 
         {
             FindPreviousLevel();
         }
 
         //Start the level
-        if (input_manager.GetButtonDown("Jump"))
+        if (input_manager1.GetButtonDown("Jump") || input_manager2.GetButtonDown("Jump") || input_manager3.GetButtonDown("Jump") || input_manager4.GetButtonDown("Jump"))
         {
             if (target.GetComponent<LevelSelector>() != null)
             {
@@ -99,7 +105,7 @@ public class LevelSelectMapV2 : MonoBehaviour {
                 Debug.LogError("Target is missing it's level Selector or boss level selector");
             }
         }//Go back to the character select screen.
-        else if (input_manager.GetButtonDown("Ranged"))
+        else if (input_manager1.GetButtonDown("Ranged") || input_manager2.GetButtonDown("Ranged") || input_manager3.GetButtonDown("Ranged") || input_manager4.GetButtonDown("Ranged"))
         {
             Debug.Log("Went back to Character Select");
             levelManager.GetComponent<LevelManager>().LoadScene(characterSelectionScreen);

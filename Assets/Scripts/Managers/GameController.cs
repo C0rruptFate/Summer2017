@@ -292,7 +292,7 @@ public class GameController : MonoBehaviour {
                 break;
             case BeatLevelCondition.ReachThePortal:
                 //Set up portal and find the portal and set up quest text
-                questText.GetComponent<Text>().text = "Reach the final portal to escape!" + playersOnPortal + " / " + totalPlayerCount + " standing on the portal.";
+                questText.GetComponent<Text>().text = "Reach the final portal to escape! " + playersOnPortal + " / " + totalPlayerCount + " standing on the portal.";
                 break;
             case BeatLevelCondition.PushAllSwitches:
                 //Set button checkers and quest text
