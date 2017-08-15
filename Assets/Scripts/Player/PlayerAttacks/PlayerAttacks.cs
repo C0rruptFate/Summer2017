@@ -897,6 +897,7 @@ public class PlayerAttacks : MonoBehaviour {
         melee.GetComponent<PlayerMelee>().meleeDamage = specialMeleeDamage;
         melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
         melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+        melee.GetComponent<PlayerMelee>().effectParticle = meleeEffectParticle;
     }
 
     public virtual void SetSpecialRangedAttackStats(GameObject projectile)//Sets the stats for the projectile object when it is created.

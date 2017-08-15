@@ -33,12 +33,15 @@ public class FallingPlatform : MonoBehaviour {
     public void PlatformFalling()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        alreadyFalling = true;
         Invoke("ResetPlatform", fallWaitTime * 5);
     }
 
     public void ResetPlatform()
     {
         rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
         transform.position = startPosition;
         transform.rotation = startRotation;
         alreadyFalling = false;

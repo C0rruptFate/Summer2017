@@ -237,6 +237,7 @@ public class AttacksFire : PlayerAttacks {
         melee.GetComponent<PlayerMelee>().meleeDamage = specialMeleeDamage;
         melee.GetComponent<PlayerMelee>().stunLockOut = meleeHitStun;
         melee.GetComponent<PlayerMelee>().knockBack = meleeKnockBack;
+        melee.GetComponent<PlayerMelee>().effectParticle = meleeEffectParticle;
     }
 
     public override void SetSpecialRangedAttackStats(GameObject projectile)

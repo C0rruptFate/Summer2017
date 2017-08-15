@@ -41,10 +41,10 @@ public class LevelSelectMapV2 : MonoBehaviour {
         wisp = GameObject.Find("Wisp Cursor");
         levelManager = GameObject.Find("Level Manager");
         playerDictionary = levelManager.GetComponent<PlayerDictionary>();
-        input_manager1 = ReInput.players.GetPlayer(1);
-        input_manager2 = ReInput.players.GetPlayer(2);
-        input_manager3 = ReInput.players.GetPlayer(3);
-        input_manager4 = ReInput.players.GetPlayer(4);
+        input_manager1 = ReInput.players.GetPlayer(0);
+        input_manager2 = ReInput.players.GetPlayer(1);
+        input_manager3 = ReInput.players.GetPlayer(2);
+        input_manager4 = ReInput.players.GetPlayer(3);
         //Tell the wisp to target the highest value target it can find. Maybe it finds it target from the level manager string or something that tracks what it just beat.
         if (levelManager.GetComponent<LevelManager>().playableLevelIndex != "")
         {
