@@ -48,7 +48,16 @@ public class LevelSelectMapV2 : MonoBehaviour {
         {
             target = GameObject.Find("zoneALevel1");
         }
-        wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        if (target.name.Contains("Boss"))
+        {
+            wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 7.5f);
+            Debug.Log("On a Boss level");
+        }
+        else
+        {
+            wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        }
+        
         LevelName();
 
         foreach(GameObject bossLevel in bossLevels)
@@ -113,8 +122,15 @@ public class LevelSelectMapV2 : MonoBehaviour {
             Debug.LogError("Target is missing it's level Selector or boss level selector");
         }
 
-        
-        wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        if (target.name.Contains("Boss"))
+        {
+            wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 7.5f);
+            Debug.Log("On a Boss level");
+        }
+        else
+        {
+            wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        }
         LevelName();
         nextMoveWait = Time.time + moveWait;
     }
@@ -133,7 +149,16 @@ public class LevelSelectMapV2 : MonoBehaviour {
         {
             Debug.LogError("Target is missing it's level Selector or boss level selector");
         }
-        wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+
+        if (target.name.Contains("Boss"))
+        {
+            wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 7.5f);
+            Debug.Log("On a Boss level");
+        }
+        else
+        {
+            wisp.transform.position = new Vector2(target.transform.position.x, target.transform.position.y + 5f);
+        }
         LevelName();
         nextMoveWait = Time.time + moveWait;
     }

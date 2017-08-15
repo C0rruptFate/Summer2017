@@ -81,7 +81,7 @@ public class BossLevelSelector : MonoBehaviour {
         torchLightSpot = transform.Find("Trigger Location");
         unlitTorch = transform.Find("Locked Level Effect").gameObject;
 
-        Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
+        Instantiate(switchActiveEffect, new Vector2 (torchLightSpot.position.x, torchLightSpot.position.y + 5f), switchActiveEffect.transform.rotation);
         Destroy(unlitTorch);
     }
 }

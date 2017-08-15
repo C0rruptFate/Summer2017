@@ -41,6 +41,7 @@ public class EndLevelPortal : MonoBehaviour {
         {
             playersOnPortal--;
             gameManager.GetComponent<GameController>().playersOnPortal = playersOnPortal;
+            gameManager.GetComponent<GameController>().LevelProgression();
         }
     }
 }

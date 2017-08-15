@@ -7,6 +7,8 @@ public class EnemyHealthTurret : EnemyHealth {
 
     public override void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
     {
+        //turrets don't take hitstun.
+        hitStun = 0;
         float totalDamageModifier = 0;
         //Checks the element of what hit me and causes me to take extra damage or reduced damage.
         if (whatHitMe.GetComponent<Projectiles>() != null)
