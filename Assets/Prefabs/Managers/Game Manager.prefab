@@ -51,9 +51,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314a0e188244add46883168eb5463d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoneGroup: 
+  levelIndexName: 
+  bossLevel: 0
   pauseText: {fileID: 0}
+  beatLevelCondition: 0
+  questText: {fileID: 0}
+  microQuestText: {fileID: 0}
+  secondaryTextBox: {fileID: 0}
+  boss: {fileID: 0}
+  requiredEnemyDeathCount: 0
+  enemyTypes: 0
+  uniqueEnemiesKilled: 0
+  requiredUniqueEnemies: 0
+  numberOfSwitchesToPush: 0
+  currentNumberOfSwitchesToPush: 0
+  numberOfTorchesToActivate: 0
+  currentNumberofTorchesActive: 0
+  playersOnPortal: 0
+  string1: 
+  string2: 
   players: []
   totalPlayerCount: 0
   alivePlayerCount: 0
   wisp: {fileID: 0}
+  cameraRig: {fileID: 0}
+  victoryEffect: {fileID: 1231711361688384, guid: 69f0634d1000c0a409987d25286691b9,
+    type: 2}
   respawnTime: 30

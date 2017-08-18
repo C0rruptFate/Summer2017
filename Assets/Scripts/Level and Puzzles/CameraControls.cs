@@ -27,6 +27,7 @@ public class CameraControls : MonoBehaviour {
     private void Start()
     {
         playersArray = players.ToArray();//adds all players to its player array so he knows who to track.
+        GameObject.Find("Game Manager").GetComponent<GameController>().cameraRig = gameObject;
     }
 
 

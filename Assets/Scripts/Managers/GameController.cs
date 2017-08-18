@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-
-    //public int levelIndex;
+   
     public string zoneGroup;
-    //[HideInInspector]
+    [HideInInspector]
     public string levelIndexName;
     public bool bossLevel;
-
     [Tooltip("Attach the pause text located on the CameraRig>UI>Pause Text!")]
     [HideInInspector]
     public Text pauseText;//Text displayed when a player pauses the game.
@@ -22,6 +21,8 @@ public class GameController : MonoBehaviour {
     public Text questText; //The quest text in the top right corner.
     [HideInInspector]
     public Text microQuestText;
+    [HideInInspector]
+    public Text secondaryTextBox;
     [HideInInspector] //The boss if one is in this level
     public GameObject boss;
     private int enemyDeathCount;
@@ -61,6 +62,10 @@ public class GameController : MonoBehaviour {
     private bool gamePaused = false;
     [HideInInspector]
     public GameObject wisp;
+    //[HideInInspector]
+    public GameObject cameraRig;
+    public GameObject victoryEffect;
+    private bool beatTheLevel = false;
 
     //Respawn wait time
     public int respawnTime = 30;
@@ -75,6 +80,7 @@ public class GameController : MonoBehaviour {
     private GameObject player3ReadyToRespawn;
     private GameObject player4ReadyToRespawn;
 
+
     // Use this for initialization
     void Awake()
     {
@@ -88,6 +94,7 @@ public class GameController : MonoBehaviour {
         totalPlayerCount = players.Length;
         //Counts how many players joined the game.
         alivePlayerCount = totalPlayerCount;
+        cameraRig = GameObject.Find("Camera Rig");
         //for (int i = 0; i < totalPlayerCount; i++)
         //{
         //    RaisePlayerCount();
@@ -108,10 +115,14 @@ public class GameController : MonoBehaviour {
     {
         enemyDeathCount = 0;
         uniqueEnemiesKilled = 0;
+
         questText = GameObject.Find("Quest Text").GetComponent<Text>();
         microQuestText = GameObject.Find("Micro Quest Text").GetComponent<Text>();
+        secondaryTextBox = GameObject.Find("Secondary Text Box").GetComponent<Text>();
         pauseText = GameObject.Find("Pause Text").GetComponent<Text>();
         microQuestText.text = "";
+        secondaryTextBox.text = "";
+        beatTheLevel = false;
         switch (beatLevelCondition)
         {
             case BeatLevelCondition.DefeatTheBoss:
@@ -192,6 +203,19 @@ public class GameController : MonoBehaviour {
         {
             Respawn(player4ReadyToRespawn);
             player4ReadyToRespawn = null;
+        }
+
+        //Level has been beat, go to the overworld or retry
+        if (beatTheLevel)
+        {
+            if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2") || Input.GetButtonDown("Jump3") || Input.GetButtonDown("Jump4"))
+            {
+                levelManager.GetComponent<LevelManager>().LoadScene("LevelSelectScreen 1");
+            }
+            else if (Input.GetButtonDown("Ranged1") || Input.GetButtonDown("Ranged2") || Input.GetButtonDown("Ranged3") || Input.GetButtonDown("Ranged4"))
+            {
+                levelManager.GetComponent<LevelManager>().RestartCurrentScene();
+            }
         }
     }
 
@@ -333,24 +357,25 @@ public class GameController : MonoBehaviour {
         {
             playerDictionary.UpdateEnemiesSlain(levelIndexName, enemyDeathCount);
         }
-        
 
-        //[TODO]
-        levelManager.GetComponent<LevelManager>().LoadScene("LevelSelectScreen 1");
+        //End level event
+        microQuestText.text = "Quest Complete!";
+        //Move wisp to the center of the screen
+        wisp.transform.position = new Vector2(cameraRig.transform.position.x, cameraRig.transform.position.y);
+        //[TODO] play music and effects
+        Instantiate(victoryEffect, new Vector2(cameraRig.transform.position.x, cameraRig.transform.position.y), victoryEffect.transform.rotation);
+        secondaryTextBox.text = "Jump to jump to the overworld, or shoot to take on this challenge again.";
+
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerHealth>().invulnerable = true;
+            player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            player.GetComponent<Rigidbody2D>().angularVelocity = 0;
+        }
+
+        Invoke("BeatTheLevel", 2f);
     }
-
-
-    //Used with old level unlock model
-//public void BeatLevel(int UnlockXLevels)
-//    {
-//        //[TODO] tell level manager to unlock the next level
-//        //[TODO] change to a beat level screen or the next level.
-//        if (levelIndex == levelManager.GetComponent<LevelManager>().levelIndex)
-//        {
-//            levelManager.GetComponent<LevelManager>().levelIndex = levelManager.GetComponent<LevelManager>().levelIndex + UnlockXLevels;
-//        }
-//        levelManager.GetComponent<LevelManager>().LoadLevel("LevelSelectScreen");
-//    }
 
     public void EnemyDeath(GameObject enemy)
     {
@@ -414,6 +439,11 @@ public class GameController : MonoBehaviour {
         playerToRespawn.SetActive(true);
         RaiseAlivePlayerCount();
         //StopCoroutine(player1RespawnTimer);
+    }
+
+    public void BeatTheLevel()
+    {
+        beatTheLevel = true;
     }
 
     IEnumerator Player1RepawnCountMethod(GameObject player1)

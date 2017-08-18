@@ -102,6 +102,13 @@ public class LevelManager : MonoBehaviour
         //SceneManager.LoadScene(SceneManager.loadedlevel + 1);
     }
 
+    //Reloads the existing scene, used when you restart a level.
+    public void RestartCurrentScene()
+    {
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
+    }
+
     //Spawns all playrs and sets up their controls.
     public void SpawnPlayers()
     {
