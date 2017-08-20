@@ -15,7 +15,6 @@ public class GameController : MonoBehaviour {
     public Text pauseText;//Text displayed when a player pauses the game.
 
     //End level requirments.
-    //[HideInInspector]
     public BeatLevelCondition beatLevelCondition;
     [HideInInspector]
     public Text questText; //The quest text in the top right corner.
@@ -62,7 +61,7 @@ public class GameController : MonoBehaviour {
     private bool gamePaused = false;
     [HideInInspector]
     public GameObject wisp;
-    //[HideInInspector]
+    [HideInInspector]
     public GameObject cameraRig;
     //public GameObject victoryEffect;
     private bool beatTheLevel = false;
