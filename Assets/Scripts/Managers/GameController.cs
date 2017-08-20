@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour {
     public GameObject wisp;
     //[HideInInspector]
     public GameObject cameraRig;
-    public GameObject victoryEffect;
+    //public GameObject victoryEffect;
     private bool beatTheLevel = false;
 
     //Respawn wait time
@@ -216,6 +216,14 @@ public class GameController : MonoBehaviour {
             {
                 levelManager.GetComponent<LevelManager>().RestartCurrentScene();
             }
+
+            Vector3 relativePos = cameraRig.GetComponent<CameraControls>().m_DesiredPosition - wisp.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(relativePos);
+
+            Quaternion current = wisp.transform.localRotation;
+
+            wisp.transform.localRotation = Quaternion.Slerp(current, rotation, Time.deltaTime);
+            wisp.transform.Translate(wisp.GetComponent<WispScript>().speed * Time.deltaTime, 0, wisp.GetComponent<WispScript>().speed * Time.deltaTime);
         }
     }
 
@@ -361,9 +369,10 @@ public class GameController : MonoBehaviour {
         //End level event
         microQuestText.text = "Quest Complete!";
         //Move wisp to the center of the screen
-        wisp.transform.position = new Vector2(cameraRig.transform.position.x, cameraRig.transform.position.y);
+
+        //wisp.transform.position = new Vector2(cameraRig.transform.position.x, cameraRig.transform.position.y);
         //[TODO] play music and effects
-        Instantiate(victoryEffect, new Vector2(cameraRig.transform.position.x, cameraRig.transform.position.y), victoryEffect.transform.rotation);
+        //Instantiate(victoryEffect, new Vector2(cameraRig.transform.position.x, cameraRig.transform.position.y), victoryEffect.transform.rotation);
         secondaryTextBox.text = "Jump to jump to the overworld, or shoot to take on this challenge again.";
 
         foreach (GameObject player in players)
@@ -443,6 +452,8 @@ public class GameController : MonoBehaviour {
 
     public void BeatTheLevel()
     {
+        wisp.transform.position = new Vector3(cameraRig.transform.position.x, cameraRig.transform.position.y + 4, cameraRig.transform.position.z);
+        wisp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         beatTheLevel = true;
     }
 

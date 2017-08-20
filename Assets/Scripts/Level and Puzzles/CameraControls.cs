@@ -14,7 +14,8 @@ public class CameraControls : MonoBehaviour {
     private Camera m_Camera; //The camera that is part of this rig
     private float m_ZoomSpeed; //Deals with the damping the function will use them.
     private Vector3 m_MoveVelocity; //Deals with the damping the function will use them.
-    private Vector3 m_DesiredPosition; //The point we want the camera rig to be at (middle position of all players).
+    [HideInInspector]
+    public Vector3 m_DesiredPosition; //The point we want the camera rig to be at (middle position of all players).
     [HideInInspector]//List of all the players it should be tracking.
     public Transform[] playersArray;
 

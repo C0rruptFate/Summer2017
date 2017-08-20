@@ -27,7 +27,6 @@ public class WispScript : MonoBehaviour
     public void Start()
     {
         targetLocation = gameObject.transform;
-        //ps = gameObject.GetComponent<ParticleSystem>();
 
         circleCollider = GetComponent<CircleCollider2D>();
 
@@ -42,7 +41,6 @@ public class WispScript : MonoBehaviour
         //if Moving will move to the target wisp location.
         if (moving && wispActive)
         {
-            //shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
             MoveToTarget();
         }
 
@@ -50,8 +48,6 @@ public class WispScript : MonoBehaviour
         if (transform.position == targetLocation.position && moving)
         {
             moving = false;
-            //Causes the particles to move clockwise
-            //shape.arcMode = ParticleSystemShapeMultiModeValue.Loop;
         }
     }
 
