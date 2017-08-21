@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212965966682097854}
   - component: {fileID: 61483176953264424}
   - component: {fileID: 50222803272864870}
-  - component: {fileID: 114297628538086114}
-  - component: {fileID: 114399348964226736}
+  - component: {fileID: 114740524844023164}
+  - component: {fileID: 114219294515893146}
   m_Layer: 11
   m_Name: Target Dummy Enemy
   m_TagString: Enemy
@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646592028277182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 105.99, y: -20.43, z: 0}
+  m_LocalPosition: {x: 93.75, y: -6.06, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
   - {fileID: 224227076338507538}
@@ -187,7 +187,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114297628538086114
+--- !u!114 &114219294515893146
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -195,26 +195,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1646592028277182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72997b7552c41344f8220d76b22801bd, type: 3}
+  m_Script: {fileID: 11500000, guid: ccca26a6da1633d4dbafb2a9248ca4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seenEverySeconds: 5
-  element: 0
-  health: 2000
-  enemyHPUI: {fileID: 114143142903779630}
+  seenEverySeconds: 0
+  element: 3
+  health: 1
+  enemyHPUI: {fileID: 0}
   enemyHPUISliderObject: {fileID: 0}
   counterDamageModifier: 0.5
   counterResistanceModifier: 0.25
-  drops:
-  - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
-  - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
-  - {fileID: 1360427287876576, guid: 60c702560d6949d4288f0efde99c9693, type: 2}
-  hpBarOffSet: {x: 0.0402832, y: 1.5, z: -20}
+  drops: []
+  hpBarOffSet: {x: 0, y: 0, z: 0}
   enemiesList: []
   myEnemyScript: {fileID: 0}
   whatCantHitMe: {fileID: 0}
   invulnerable: 0
---- !u!114 &114399348964226736
+--- !u!114 &114740524844023164
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -222,20 +219,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1646592028277182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401ae11e45aafb143877a53e82082aa5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1981c0937844ac24f80c7cd0ec1956b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: 1
+  element: 0
   enemyTargetType: 0
   relentless: 1
   newTargetAcquisition: 0
   speed: 0
-  maxMoveSpeed: 10
+  maxMoveSpeed: 0
   useBoundries: 0
   boundryRange: 15
+  hitEffect: {fileID: 0}
   damage: 0
-  hitStun: 0.1
-  knockback: 1
+  hitStun: 0
+  knockback: 0
   swingTimer: 0.5
   jumpForce: 0
   rb: {fileID: 0}
@@ -245,6 +243,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   newSwingTimer: 0
   grounded: 0
+  enemyWeaponParent: {fileID: 0}
 --- !u!114 &114832779421675544
 MonoBehaviour:
   m_ObjectHideFlags: 1
