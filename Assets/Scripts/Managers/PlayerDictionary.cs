@@ -73,8 +73,7 @@ public class PlayerDictionary : MonoBehaviour
         levelKills.Add("zoneDLevel4", 0);
         bossBeat.Add("zoneDBossBeat", false);
         zone.Add("D", 0);
-
-        Debug.Log("Added to dictonary");
+        
     }
 
     //Used when a level is beat for the first time.

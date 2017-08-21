@@ -9,6 +9,8 @@ public class BulkSpawner : Spawner {
     [Tooltip("how many unit's to spawn, set this then add the playercount and plus difficulty (if they are greater than 1).")]
     public int spawnCount;
 
+    public bool eventSpawner;
+
     private int playerCounted = 0;//This looks at how many players joined the game. If there are 2 or more players more enemies will spawn.
 
     int newDifficulty = 0; //This looks at what difficulty the game is set to if it has been increased more enemies will spawn.
@@ -30,7 +32,11 @@ public class BulkSpawner : Spawner {
         }
 
         //Combines the difficulty, player count, and the set spawn count to decide how many to spawn.
-        spawnCount = spawnCount + playerCounted + newDifficulty;
+        if (adjustForPlayerCount)
+        {
+            spawnCount = spawnCount + playerCounted + newDifficulty;
+        }
+        
 
     }
 	
@@ -57,7 +63,9 @@ public class BulkSpawner : Spawner {
         int spawnSelection = 0;//The position pulled from the array
         for (int i = 0; i < spawnCount; i++)
         {
-            Instantiate(enemyPrefabArray[spawnSelection], transform.position, transform.rotation);//Spawns the enemy in that array's position.
+            GameObject myEnemy = Instantiate(enemyPrefabArray[spawnSelection], transform.position, transform.rotation);//Spawns the enemy in that array's position.
+            myEnemy.transform.parent = transform;
+            myEnemy.transform.position = transform.position;
             spawnSelection++;//Increase the spawn selection
 
             if (spawnSelection >= (enemyPrefabArray.Length - 1))//Resets where in the array the spawn selection looks to spawn the units.
@@ -67,22 +75,11 @@ public class BulkSpawner : Spawner {
         }
     }
 
-    public override void OnTriggerStay2D(Collider2D other)
-    {//Wakes up if a player is inside this trigger spawn area.
-        if (other.CompareTag("Player"))
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!wakeUp && !active && transform.childCount < maxEnemies && !eventSpawner)
         {
-            if (wakeUp == false)
-            {
-                wakeUp = true;
-            }
-        }
-    }
-
-    public override void OnTriggerExit2D(Collider2D other)
-    {//Wake up becomes false when a player leaves the trigger area.
-        if (other.CompareTag("Player"))
-        {
-            wakeUp = false;
+            active = true;
         }
     }
 }

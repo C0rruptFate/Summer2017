@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour {
 
     [Tooltip("How many enemies can this have before it stops spawning new ones.")]
     public int maxEnemies = 5;
+    public bool adjustForPlayerCount = false;
 
     [HideInInspector]//If this is a child object of a Wisp switch
     public GameObject parent;
