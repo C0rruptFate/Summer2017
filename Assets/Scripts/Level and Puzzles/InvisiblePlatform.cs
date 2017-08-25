@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InvisiblePlatform : MonoBehaviour {
 
+    [HideInInspector]
     public bool fadingIn;
     private float fadeInSpeed = 1f;
     private float fadeAlpha;
