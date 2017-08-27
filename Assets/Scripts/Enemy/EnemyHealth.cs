@@ -29,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
     [Tooltip("The Y offset that the HP bar should be at.")]
     public Vector3 hpBarOffSet;
 
+    public bool takesHitStun = true;
+
 
     [HideInInspector]//Currently not being used.
     public GameObject[] enemiesList;
@@ -81,6 +83,12 @@ public class EnemyHealth : MonoBehaviour
     public virtual void TakeDamage(GameObject whatHitMe, float damage, float hitStun)
     {
         float totalDamageModifier = 0;
+
+        if (!takesHitStun)
+        {
+            hitStun = 0;
+        }
+
         //Checks the element of what hit me and causes me to take extra damage or reduced damage.
         if (whatHitMe.GetComponent<Projectiles>() != null)
         {

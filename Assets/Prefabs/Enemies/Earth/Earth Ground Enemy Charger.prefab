@@ -210,6 +210,7 @@ MonoBehaviour:
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
   - {fileID: 1360427287876576, guid: 60c702560d6949d4288f0efde99c9693, type: 2}
   hpBarOffSet: {x: 0.04, y: 1.3, z: -20}
+  takesHitStun: 0
   enemiesList: []
   myEnemyScript: {fileID: 0}
   whatCantHitMe: {fileID: 0}
@@ -236,7 +237,7 @@ MonoBehaviour:
   hitEffect: {fileID: 0}
   damage: 13
   hitStun: 0.1
-  knockback: 50
+  knockback: 30
   swingTimer: 0.5
   jumpForce: 0
   rb: {fileID: 0}
