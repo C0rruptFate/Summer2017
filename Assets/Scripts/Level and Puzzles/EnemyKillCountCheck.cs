@@ -34,10 +34,10 @@ public class EnemyKillCountCheck : MonoBehaviour {
         gameManager = GameObject.Find("Game Manager");
         microQuestText = GameObject.Find("Micro Quest Text").GetComponent<Text>();
 
-        foreach (GameObject parts in thingsToDisable)
-        {
-            parts.SetActive(false);
-        }
+        //foreach (GameObject parts in thingsToDisable)
+        //{
+        //    parts.SetActive(false);
+        //}
     }
 
     void OnTriggerEnter2D(Collider2D other)

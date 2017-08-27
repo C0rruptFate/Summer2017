@@ -15,7 +15,7 @@ public class WispSwitchChecker : MonoBehaviour
 
     private GameObject gameManager;
 
-    [HideInInspector]//All switches that are children of mine.
+    //[HideInInspector]//All switches that are children of mine.
     public GameObject[] mySwitches;
     [HideInInspector]//All spawners that are children of mine.
     public List<Transform> mySpawners;
@@ -27,18 +27,20 @@ public class WispSwitchChecker : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        foreach (Transform child in transform)
-        {
-            if (child.GetComponent<WispSwitch>() != null)//Finds all switches that are children of mine.
-            {
-                switchTotal++;
-            }
 
-            if (child.GetComponent<Spawner>() != null)//Finds all spawners that are children of mine.
-            {
-                mySpawners.Add(child);
-            }
-        }
+        switchTotal = mySwitches.Length;
+        //foreach (Transform child in transform)
+        //{
+        //    if (child.GetComponent<WispSwitch>() != null)//Finds all switches that are children of mine.
+        //    {
+        //        switchTotal++;
+        //    }
+
+        //    if (child.GetComponent<Spawner>() != null)//Finds all spawners that are children of mine.
+        //    {
+        //        mySpawners.Add(child);
+        //    }
+        //}
         if (puzzleType == PuzzleType.EndLevel)
         {
             gameManager = GameObject.Find("Game Manager");

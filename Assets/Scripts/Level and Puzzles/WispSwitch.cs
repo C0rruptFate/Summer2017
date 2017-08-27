@@ -10,14 +10,15 @@ public class WispSwitch : MonoBehaviour {
     public bool activated;
 
     private Transform torchLightSpot;//Where to spawn the effect when this has been activated
-    private Transform parentObject;//What door/end level or other object I am a part of.
+    //private Transform parentObject;//What door/end level or other object I am a part of.
+    public GameObject[] switchCheckers;
 
     private GameObject unlitTorch;
 
 	// Use this for initialization
 	void Start () {
         torchLightSpot = transform.Find("Trigger Location");//Sets the position of where the effect should spawn when this is active.
-        parentObject = transform.parent;//Sets what door or other object I am a part of, used to solve puzzles.
+        //parentObject = transform.parent;//Sets what door or other object I am a part of, used to solve puzzles.
         unlitTorch = transform.Find("Wisp Trigger Point").gameObject;
 
     }
@@ -32,10 +33,22 @@ public class WispSwitch : MonoBehaviour {
             activated = true;
             Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
             Destroy(unlitTorch);
-            if (parentObject != null)
+
+            foreach (GameObject switchChecker in switchCheckers)
             {
-                parentObject.GetComponent<WispSwitchChecker>().CheckSwitches();
+                if (switchChecker.GetComponent<WispSwitchChecker>() != null)
+                {
+                    switchChecker.GetComponent<WispSwitchChecker>().CheckSwitches();
+                }
+                else if (switchChecker.GetComponent<NewMovingPlatform>() != null)
+                {
+                    switchChecker.GetComponent<NewMovingPlatform>().allowedToMove = true;
+                }
             }
+            //if (parentObject != null)
+            //{
+            //    parentObject.GetComponent<WispSwitchChecker>().CheckSwitches();
+            //}
         }
     }
 }
