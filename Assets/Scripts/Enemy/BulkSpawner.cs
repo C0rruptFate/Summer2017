@@ -36,8 +36,6 @@ public class BulkSpawner : Spawner {
         {
             spawnCount = spawnCount + playerCounted + newDifficulty;
         }
-        
-
     }
 	
 	// Update is called once per frame
@@ -72,6 +70,11 @@ public class BulkSpawner : Spawner {
             {//This is used if the difficulty and player count cause it to spawn more enemies so that it can pull from the first second, and third slots if needed.
                 spawnSelection = 0;
             }
+
+            if (singleTimeSpawner)
+            {
+                active = false;
+            }
         }
     }
 
@@ -79,7 +82,12 @@ public class BulkSpawner : Spawner {
     {
         if (!wakeUp && !active && transform.childCount < maxEnemies && !eventSpawner)
         {
-            active = true;
+            wakeUp = true;
+
+            if (!singleTimeSpawner)
+            {
+                active = true;
+            }
         }
     }
 }

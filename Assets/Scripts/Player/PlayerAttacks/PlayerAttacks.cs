@@ -99,6 +99,8 @@ public class PlayerAttacks : MonoBehaviour {
 
     [Header("Special Attack Settings")]
     #region
+    //[HideInInspector]//Mark as true if they have learned how to use special. A switch should do this.
+    public bool learnedSpecial = true;
     [Tooltip("Attach a gameObject/effect that will play when my special is active.")]
     public GameObject specialActiveEffect;
     [HideInInspector]//Do I currently have my special button held down?
@@ -501,7 +503,7 @@ public class PlayerAttacks : MonoBehaviour {
         //Checks if the player is CC'd
         if (!crowdControl)
         {//Activate Special
-            if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
+            if (input_manager.GetAxisRaw("Special") == 1 && learnedSpecial)//Enables the special attack to be used by the melee, ranged, and defend attacks.
             {
                 //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
 

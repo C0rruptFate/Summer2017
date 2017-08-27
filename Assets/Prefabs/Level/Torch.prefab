@@ -199,9 +199,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.28}
+  m_Offset: {x: 0.06, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.65
 --- !u!61 &61477350810507716
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -293,6 +293,7 @@ MonoBehaviour:
   switchActiveEffect: {fileID: 1612092708304968, guid: f7793f371dce8484b8b739a132371bbf,
     type: 2}
   activated: 0
+  switchCheckers: []
 --- !u!198 &198329797683222292
 ParticleSystem:
   m_ObjectHideFlags: 1

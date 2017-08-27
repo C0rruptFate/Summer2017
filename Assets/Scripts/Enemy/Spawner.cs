@@ -22,6 +22,9 @@ public class Spawner : MonoBehaviour {
 
     public float spawnActiveDelay;
 
+    [Tooltip("Mark this as true if you want to only spawn a single time per level.")]
+    public bool singleTimeSpawner = false;
+
     public virtual bool isTimeToSpawn(GameObject enemyGameObject)
     {//Used by the over time spawner to control how often something should spawn.
         return false;

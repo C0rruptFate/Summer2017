@@ -46,6 +46,10 @@ public class OverTimeSpawner : Spawner {
             myEnemy.transform.position = transform.position;
         }
 
+        if (singleTimeSpawner)
+        {
+            active = false;
+        }
     }
 
     public override void OnTriggerStay2D(Collider2D other)

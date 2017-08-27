@@ -31,7 +31,7 @@ public class WispSwitch : MonoBehaviour {
         {
             //Debug.Log("Wisp switch hit");
             activated = true;
-            Instantiate(switchActiveEffect, torchLightSpot.position, switchActiveEffect.transform.rotation);
+            Instantiate(switchActiveEffect, torchLightSpot.position, transform.rotation);
             Destroy(unlitTorch);
 
             foreach (GameObject switchChecker in switchCheckers)

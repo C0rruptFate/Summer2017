@@ -22,6 +22,8 @@ public class EnemyKillCountCheck : MonoBehaviour {
 
     private bool beenBeaten;
 
+    private bool startedSpawning;
+
     void OnDrawGizmos()
     {
         //Wire for start position
@@ -42,7 +44,7 @@ public class EnemyKillCountCheck : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && !beenBeaten)
+        if(other.CompareTag("Player") && !beenBeaten && !startedSpawning)
         {
             CheckPlayers();
         }
@@ -88,6 +90,7 @@ public class EnemyKillCountCheck : MonoBehaviour {
             {
                 spawner.GetComponent<Spawner>().active = true;
             }
+            startedSpawning = true;
         }
     }
 

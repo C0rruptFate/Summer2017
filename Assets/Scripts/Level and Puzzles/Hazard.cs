@@ -85,7 +85,16 @@ public class Hazard : MonoBehaviour {
                 }
             }
         }
-	}
+
+        if (transform.position == endPosition)
+        {
+            //[TODO] DISABLE FLAME PARTICLE EFFECTS
+        }
+        else if (transform.position != endPosition)
+        {
+            //[TODO] ENABLE FLAME PARTICLE EFFECTS
+        }
+    }
 
     public virtual void FixedUpdate()
     {
@@ -182,5 +191,65 @@ public class Hazard : MonoBehaviour {
     {
         //[TODO] Destroy effect
         Destroy(gameObject);
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        if (transform.GetComponent<Rigidbody2D>() != null && other.gameObject.CompareTag("Ground") && isFallingHazard)//Makes sure we are destroyed when hitting the ground.
+        {
+            DestroyMyself();
+        }
+    }
+
+    public virtual void OnTriggerStay2D(Collider2D other)
+    {
+        //Deals damage to the player as long as they are touching this enemy.
+        if (other.transform.tag == ("Player") && Time.time > newSwingTimer)
+        {
+            //Debug.Log("Player should take damage");
+            newSwingTimer = Time.time + swingTimer;
+            PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+            PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
+            //PlayerAttacks playerAttacks = health.playerAttacks;
+            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+
+            //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+            if (playerMovement && health)
+            {
+                //float distX = (other.transform.position.x - transform.position.x) * knockback;
+                //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
+                //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
+                health.TakeDamage(gameObject, damage, hitStun);
+
+                if (isFallingHazard)//Removes itself if it is a falling hazard once it hits a player.
+                {
+                    DestroyMyself();
+                }
+
+            }
+        }
+        else if (other.transform.tag == ("Enemy") && Time.time > newSwingTimer)//Lets it hurt enemies
+        {
+            //Debug.Log("Player should take damage");
+            newSwingTimer = Time.time + swingTimer;
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            EnemyHealth health = other.gameObject.GetComponent<EnemyHealth>();
+            //PlayerAttacks playerAttacks = health.playerAttacks;
+            //Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+
+            //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+            if (enemy && health)
+            {
+                //float distX = (other.transform.position.x - transform.position.x) * knockback;
+                //otherRB.velocity = new Vector3(0.0f, 0.0f, otherRB.velocity.z);
+                //otherRB.AddForce(new Vector3(distX, otherRB.velocity.y, 0), ForceMode.Impulse);
+                health.TakeDamage(gameObject, damage, hitStun);
+
+                if (isFallingHazard)//Removes itself if it is a falling hazard once it hits a player.
+                {
+                    DestroyMyself();
+                }
+            }
+        }
     }
 }

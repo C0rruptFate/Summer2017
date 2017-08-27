@@ -94,7 +94,7 @@ public class WispSwitchChecker : MonoBehaviour
     {
         //[TODO] Set open more function.
         //[TODO] play music animate door opening or fading.
-        Destroy(door);
+        door.SetActive(false);
     }
 
     public void BeatLevel()

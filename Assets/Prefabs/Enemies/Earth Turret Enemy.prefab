@@ -199,8 +199,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1343743170124960}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.46, y: 3.89, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 345.13, y: -44.37, z: 0}
   m_LocalScale: {x: 1, y: 4, z: 1}
   m_Children:
   - {fileID: 224497037479815958}
@@ -210,7 +210,7 @@ Transform:
   - {fileID: 4803171101614110}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4194612580964424
 Transform:
   m_ObjectHideFlags: 1
@@ -432,6 +432,9 @@ MonoBehaviour:
   newTargetAcquisition: 0
   speed: 13
   maxMoveSpeed: 13
+  useBoundries: 0
+  boundryRange: 15
+  hitEffect: {fileID: 0}
   damage: 13
   hitStun: 0.1
   knockback: 1
@@ -444,6 +447,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   newSwingTimer: 0
   grounded: 0
+  enemyWeaponParent: {fileID: 0}
   sightRange: 7
   idleTarget: {fileID: 4565743899691230}
   shootPoint: {fileID: 4803171101614110}
@@ -584,8 +588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seenEverySeconds: 10
-  element: 3
-  health: 100
+  element: 0
+  health: 50
   enemyHPUI: {fileID: 114685975795590832}
   enemyHPUISliderObject: {fileID: 0}
   counterDamageModifier: 0.5
@@ -752,7 +756,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 90f85a7356d3f804884851c22d362f5a, type: 3}
-  m_Color: {r: 0.42745098, g: 0.3647059, b: 0.28627452, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

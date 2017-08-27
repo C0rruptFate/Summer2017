@@ -59,7 +59,7 @@ public class InvisiblePlatform : MonoBehaviour {
     {
         if (gameObject.CompareTag("Ground"))
         {
-            if (other.CompareTag("Player") || other.CompareTag("Enemy") || other.GetComponent<Hazard>() != null)
+            if (other.CompareTag("Player") || other.CompareTag("Enemy") || other.GetComponent<Hazard>() != null || other.CompareTag("Wisp"))
             {
                 //Debug.Log(other + " Is close to it, but not touching it");
                 if (!fadingIn)
@@ -81,7 +81,7 @@ public class InvisiblePlatform : MonoBehaviour {
     {
         if (gameObject.CompareTag("Ground"))
         {
-            if (other.CompareTag("Player") || other.CompareTag("Enemy") || other.GetComponent<Hazard>() != null)
+            if (other.CompareTag("Player") || other.CompareTag("Enemy") || other.GetComponent<Hazard>() != null || other.CompareTag("Wisp"))
             {
                 //sR.enabled = false;
                 //Debug.Log(other + " Is NO LONGER CLOSE to it, but not touching it");

@@ -18,6 +18,8 @@ public class PressurePlate : MonoBehaviour {
     public GameObject[] myButtons;
     //private int myButtonCount;
 
+    public GameObject[] nonButtonObjects;
+
     private int activeButtonCount;
 
     private GameObject gm;
@@ -88,23 +90,27 @@ public class PressurePlate : MonoBehaviour {
 
         if (pressurePlatePushedCount == pressurePlateTotal)
         {
-            foreach (Transform child in transform)
+            foreach (GameObject nonButtonObject in nonButtonObjects)
             {
-                if (child.name == "Door" || child.name == "Wisp Stopper")
-                {
-                    child.gameObject.SetActive(false);
-                }
-                if (child.GetComponent<Hazard>() != null)
+                if (nonButtonObject.GetComponent<Hazard>() != null)
                 {//causes the hazards to rise up.
-                    child.GetComponent<Hazard>().lowerHazard = true;
+                    nonButtonObject.GetComponent<Hazard>().lowerHazard = true;
                 }
-                if (child.GetComponent<NewMovingPlatform>() != null)
+                else if (nonButtonObject.GetComponent<NewMovingPlatform>() != null)
                 {
-                    child.GetComponent<NewMovingPlatform>().allowedToMove = true;
+                    nonButtonObject.GetComponent<NewMovingPlatform>().allowedToMove = true;
                 }
-                if (endLevelButtons)
+                else if (endLevelButtons)
                 {
                     BeatLevel();
+                }
+                else if (nonButtonObject.gameObject.activeSelf == true)
+                {
+                    nonButtonObject.gameObject.SetActive(false);
+                }
+                else if (nonButtonObject.gameObject.activeSelf == false)
+                {
+                    nonButtonObject.gameObject.SetActive(true);
                 }
             }
         }
@@ -116,19 +122,23 @@ public class PressurePlate : MonoBehaviour {
         if (pressurePlatePushedCount < 0)
             pressurePlatePushedCount = 0;
 
-        foreach (Transform child in transform)
+        foreach (GameObject nonButtonObject in nonButtonObjects)
         {
-            if (child.name == "Door")
-            {
-                child.gameObject.SetActive(true);
-            }
-            if (child.GetComponent<Hazard>() != null)
+            if (nonButtonObject.GetComponent<Hazard>() != null)
             {//causes the hazards to rise up.
-                child.GetComponent<Hazard>().raiseHazard = true;
+                nonButtonObject.GetComponent<Hazard>().raiseHazard = true;
             }
-            if (child.GetComponent<NewMovingPlatform>() != null)
+            else if (nonButtonObject.GetComponent<NewMovingPlatform>() != null)
             {
-                child.GetComponent<NewMovingPlatform>().allowedToMove = false;
+                nonButtonObject.GetComponent<NewMovingPlatform>().allowedToMove = false;
+            }
+            else if (nonButtonObject.gameObject.activeSelf == true)
+            {
+                nonButtonObject.gameObject.SetActive(false);
+            }
+            else if (nonButtonObject.gameObject.activeSelf == false)
+            {
+                nonButtonObject.gameObject.SetActive(true);
             }
         }
     }

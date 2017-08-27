@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
     [HideInInspector]
     public Text questText; //The quest text in the top right corner.
     [HideInInspector]
-    public Text microQuestText;
+    public Text microQuestText; //Text at the center top of the screen.
     [HideInInspector]
     public Text secondaryTextBox;
     [HideInInspector] //The boss if one is in this level

@@ -40,7 +40,7 @@ public class AttacksAir : PlayerAttacks {
         if (!crowdControl)
         {
             //Activate Special
-            if (input_manager.GetAxisRaw("Special") == 1)//Enables the special attack to be used by the melee, ranged, and defend attacks.
+            if (input_manager.GetAxisRaw("Special") == 1 && learnedSpecial)//Enables the special attack to be used by the melee, ranged, and defend attacks.
             {
                 //print("Special Trigger pressed" + Input.GetAxis("Special" + playerNumber));
 
