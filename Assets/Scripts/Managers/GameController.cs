@@ -431,7 +431,7 @@ public class GameController : MonoBehaviour {
             LevelProgression();
         }
 
-        if (enemyDeathCount >= requiredEnemyDeathCount || uniqueEnemiesKilled >= requiredUniqueEnemies)
+        if (beatLevelCondition == BeatLevelCondition.KillXEnemies && (enemyDeathCount >= requiredEnemyDeathCount || uniqueEnemiesKilled >= requiredUniqueEnemies))
         {
             BeatLevel();
         }
