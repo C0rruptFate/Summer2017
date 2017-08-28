@@ -9,7 +9,7 @@ public class SmokingLanternDamage : Hazard {
 		
 	}
 
-    void OnTriggerStay2D(Collider2D other)
+    public override void OnTriggerStay2D(Collider2D other)
     {
         if (other.transform.tag == ("Player") && Time.time > newSwingTimer)
         {

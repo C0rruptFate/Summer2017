@@ -32,7 +32,6 @@ public class Button : MonoBehaviour {
             transform.position = new Vector3(startPosition.x, startPosition.y - 0.25f, startPosition.z);
             pushed = true;
             pressurePlateMaster.GetComponent<PressurePlate>().CheckandIncreaseButtons();
-            Debug.Log("Button pushed");
         }
     }
 

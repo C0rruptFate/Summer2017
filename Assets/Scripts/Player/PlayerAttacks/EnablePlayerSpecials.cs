@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnablePlayerSpecials : MonoBehaviour {
 
+    [SerializeField]
     private GameObject GM;
 
     [SerializeField]
@@ -14,7 +15,6 @@ public class EnablePlayerSpecials : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GM = GameObject.Find("Game Manager");
 
         foreach (GameObject player in GM.GetComponent<GameController>().players)
         {
@@ -26,7 +26,7 @@ public class EnablePlayerSpecials : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-        if (taughtSpecials && removeTextTime >= Time.time && GM.GetComponent<GameController>().microQuestText.text == "Press RT or RB along with attack or defend to preform a special.")
+        if (taughtSpecials && removeTextTime < Time.time && GM.GetComponent<GameController>().microQuestText.text == "Press RT or RB along with attack or defend to preform a special.")
         {
             GM.GetComponent<GameController>().microQuestText.text = "";
         }

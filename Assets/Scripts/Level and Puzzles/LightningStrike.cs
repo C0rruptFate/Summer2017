@@ -15,7 +15,7 @@ public class LightningStrike : Hazard {
         Invoke("DestroyMyself", waitTime);
     }
     
-    void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerEnter2D(Collider2D other)
     {
         //Deals damage to the player as long as they are touching this enemy.
         if (other.transform.tag == ("Player"))

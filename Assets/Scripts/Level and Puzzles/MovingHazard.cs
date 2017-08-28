@@ -28,7 +28,7 @@ public class MovingHazard : Hazard
         transform.position = Vector3.MoveTowards(transform.position, targetPosition.position, moveSpeed * Time.deltaTime);
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerEnter2D(Collider2D other)
     {
         //Deals damage to the player as long as they are touching this enemy.
         if (other.transform.tag == ("Player"))

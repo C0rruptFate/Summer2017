@@ -34,13 +34,13 @@ public class LevelSelectMapV2 : MonoBehaviour {
     public Text statsText;
 
     private string characterSelectionScreen = "Main Menu";
-    private PlayerDictionary playerDictionary;
+    //private PlayerDictionary playerDictionary; Might need to reenable
 
     // Use this for initialization
     void Start () {
         wisp = GameObject.Find("Wisp Cursor");
         levelManager = GameObject.Find("Level Manager");
-        playerDictionary = levelManager.GetComponent<PlayerDictionary>();
+        //playerDictionary = levelManager.GetComponent<PlayerDictionary>();
         input_manager1 = ReInput.players.GetPlayer(0);
         input_manager2 = ReInput.players.GetPlayer(1);
         input_manager3 = ReInput.players.GetPlayer(2);

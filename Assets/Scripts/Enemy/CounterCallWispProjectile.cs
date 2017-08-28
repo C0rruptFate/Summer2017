@@ -42,7 +42,7 @@ public class CounterCallWispProjectile : Hazard {
         //transform.Translate(Vector2.right * projectileSpeed * Time.deltaTime);
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerEnter2D(Collider2D other)
     {
         if (hurtsPlayers == false)
         {

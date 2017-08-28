@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class WispScript : MonoBehaviour
 {
+    [Tooltip("If the wisp is further away than this it moves twice as fast.")]
+    public float speedUpDist = 20;
+
     [HideInInspector] //The transform location that the wisp will be flying to.
     public Transform targetLocation;
 
@@ -69,7 +72,14 @@ public class WispScript : MonoBehaviour
 
     void MoveToTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetLocation.position, speed * Time.deltaTime);
-        //Debug.Log("Moving To " + targetLocation.name);
+        float dist = Vector2.Distance(targetLocation.position, transform.position);
+
+        float newSpeed = speed;
+        if (dist >= speedUpDist)
+        {
+            newSpeed = speed * 2;
+        }
+        
+        transform.position = Vector2.MoveTowards(transform.position, targetLocation.position, newSpeed * Time.deltaTime);
     }
 }
