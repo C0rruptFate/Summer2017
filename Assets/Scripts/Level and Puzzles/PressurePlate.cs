@@ -104,11 +104,11 @@ public class PressurePlate : MonoBehaviour {
                 {
                     BeatLevel();
                 }
-                else if (nonButtonObject.gameObject.activeSelf == true)
+                else if (nonButtonObject.GetComponent<DisableMeButtonBlank>() != null)
                 {
                     nonButtonObject.gameObject.SetActive(false);
                 }
-                else if (nonButtonObject.gameObject.activeSelf == false)
+                else if (nonButtonObject.GetComponent<EnableMeButtonBlank>() != null)
                 {
                     nonButtonObject.gameObject.SetActive(true);
                 }
