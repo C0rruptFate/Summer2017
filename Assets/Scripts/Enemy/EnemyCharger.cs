@@ -10,13 +10,12 @@ public class EnemyCharger : Enemy {
     public float aggroRange;
     public float chargeRampUp = 1;
     public float timeBetweenCharge = 2;
+    public float chargingKnockback = 20;
     public Vector2 excited = new Vector2(0f, 1f);
     public Vector2 jumpBack = new Vector2(1f,1f);
     
     private float defaultSpeed;
     private float currentTimeBetweenCharge;
-    private IEnumerator coroutine;
-    [SerializeField]
     private bool isExcited = false;
 
     protected override void Start()
@@ -24,7 +23,6 @@ public class EnemyCharger : Enemy {
         base.Start();
         players = GameObject.FindGameObjectsWithTag("Player");
         defaultSpeed = speed;
-        coroutine = WindUp();
     }
 
     void Update()
@@ -42,7 +40,7 @@ public class EnemyCharger : Enemy {
                     target = possibleTarget;
                     enemyTargetType = EnemyTargetType.Proximity;
                     speed = 0;
-                    StartCoroutine(coroutine);
+                    StartCoroutine("WindUp");
                     //[TODO] Charger ramp up animation
                     Invoke("Charge", chargeRampUp);
                     
@@ -56,28 +54,100 @@ public class EnemyCharger : Enemy {
 
         if (target != null && (target.transform.position.y > yTargetingOffset + transform.position.y || target.transform.position.y < transform.position.y - yTargetingOffset))
         {
-            enemyTargetType = EnemyTargetType.Roam;
-            speed = defaultSpeed;
-            target = null;
-            
+            StopCharging();
         }
+    }
+
+    public void StopCharging()
+    {
+        enemyTargetType = EnemyTargetType.Roam;
+        speed = defaultSpeed;
+        knockback = 1f;
+        target = null;
     }
 
     IEnumerator WindUp()
     {
-        Debug.Log("Charging");
         isExcited = true;
-        rb.AddForce(excited, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(chargeRampUp / 2);
-        rb.AddForce(jumpBack, ForceMode2D.Impulse);
-        Debug.Log("Stopped Charging");
+        //rb.AddForce(excited, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.5f);
+        if (target != null && target.transform.position.x < transform.position.x)
+        {
+            rb.AddForce(new Vector2(jumpBack.x, jumpBack.y), ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(new Vector2(-jumpBack.x, jumpBack.y), ForceMode2D.Impulse);
+        }
         isExcited = false;
-        StopCoroutine(coroutine);
+        StopCoroutine("WindUp");
 
     }
 
     void Charge()
     {
         speed = chargingSpeed;
+        knockback = chargingKnockback;
+    }
+
+    public override void OnCollisionStay2D(Collision2D other)
+    {
+        //Deals damage to the player as long as they are touching this enemy.
+        if (other.transform.tag == ("Player") && Time.time > newSwingTimer) //Lets the charger hit players
+        {
+            //Debug.Log("Player should take damage");
+            newSwingTimer = Time.time + swingTimer;
+            PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+            PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
+            //PlayerAttacks playerAttacks = health.playerAttacks;
+            Rigidbody2D otherRB = other.gameObject.GetComponent<Rigidbody2D>();
+
+            //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+            if (playerMovement && health)
+            {
+                float distX = (other.transform.position.x - transform.position.x) * knockback;
+                otherRB.velocity = new Vector2(0.0f, 0.0f);
+                otherRB.AddForce(new Vector2(otherRB.velocity.x + distX, otherRB.velocity.y), ForceMode2D.Impulse);
+                health.TakeDamage(gameObject, damage, hitStun);
+                //[TODO]
+                if (hitEffect != null)
+                {
+                    Instantiate(hitEffect, other.transform.position, hitEffect.transform.rotation, enemyWeaponParent.transform);
+                }
+                else
+                {
+                    Debug.Log(gameObject.name + " is missing it's hit effect.");
+                }
+
+            }
+        }
+        else if (other.transform.tag == ("Enemy") && Time.time > newSwingTimer)//Lets the charger hit enemies
+        {
+            //Debug.Log("Player should take damage");
+            newSwingTimer = Time.time + swingTimer;
+            Enemy enemyScript = other.gameObject.GetComponent<Enemy>();
+            EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+            //PlayerAttacks playerAttacks = health.playerAttacks;
+            Rigidbody2D otherRB = other.gameObject.GetComponent<Rigidbody2D>();
+
+            //If what I am colliding with has both a player Controller and Health script, deal damage to them and knock them back.
+            if (enemyScript && enemyHealth)
+            {
+                float distX = (other.transform.position.x - transform.position.x) * knockback;
+                otherRB.velocity = new Vector2(0.0f, 0.0f);
+                otherRB.AddForce(new Vector2(otherRB.velocity.x + distX, otherRB.velocity.y), ForceMode2D.Impulse);
+                enemyHealth.TakeDamage(gameObject, damage, hitStun);
+                //[TODO]
+                if (hitEffect != null)
+                {
+                    Instantiate(hitEffect, other.transform.position, hitEffect.transform.rotation, enemyWeaponParent.transform);
+                }
+                else
+                {
+                    Debug.Log(gameObject.name + " is missing it's hit effect.");
+                }
+
+            }
+        }
     }
 }

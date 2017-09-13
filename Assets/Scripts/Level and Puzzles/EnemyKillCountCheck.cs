@@ -80,7 +80,15 @@ public class EnemyKillCountCheck : MonoBehaviour {
     {
         if (playersInArea == gameManager.GetComponent<GameController>().totalPlayerCount)
         {
-            microQuestText.text = needToKill + " enemies left to slay.";
+            if (needToKill > 1)
+            {
+                microQuestText.text = needToKill + " enemies left to slay.";
+            }
+            else if (needToKill == 1)
+            {
+                microQuestText.text = needToKill + " enemy left to slay.";
+            }
+            
             foreach (GameObject parts in thingsToEnable)
             {
                 parts.SetActive(true);
@@ -98,7 +106,14 @@ public class EnemyKillCountCheck : MonoBehaviour {
     {
         needToKill--;
 
-        microQuestText.text = needToKill + " enemies left to slay.";
+        if (needToKill > 1)
+        {
+            microQuestText.text = needToKill + " enemies left to slay.";
+        }
+        else if (needToKill == 1)
+        {
+            microQuestText.text = needToKill + " enemy left to slay.";
+        }
 
         if (needToKill <= 0)
         {
@@ -113,7 +128,7 @@ public class EnemyKillCountCheck : MonoBehaviour {
             }
 
             beenBeaten = true;
-            if (microQuestText.text.Contains(" enemies left to slay."))
+            if (microQuestText.text.Contains(" enemies left to slay.") || microQuestText.text.Contains(" enemy left to slay."))
             {
                 microQuestText.text = "";
             }
