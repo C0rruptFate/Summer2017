@@ -110,10 +110,10 @@ public class PlayerProjectileEarthBasic : PlayerProjectile {
                     }
 
                     currentHitCount++;
-                    Debug.Log("current Hit Count: " + currentHitCount);
+                    //Debug.Log("current Hit Count: " + currentHitCount);
                     if (breaking || currentHitCount == maxHitCount)
                     {
-                        Debug.Log("current Hit Count when dieing: " + currentHitCount);
+                        //Debug.Log("current Hit Count when dieing: " + currentHitCount);
                         Destroy(gameObject);
                     }
                 }

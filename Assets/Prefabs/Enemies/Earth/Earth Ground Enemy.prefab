@@ -162,6 +162,7 @@ MonoBehaviour:
   - {fileID: 1651156223399946, guid: aab375a58a719f0409ad2119e4b864bf, type: 2}
   - {fileID: 1360427287876576, guid: 60c702560d6949d4288f0efde99c9693, type: 2}
   hpBarOffSet: {x: 0.04, y: 1, z: -20}
+  takesHitStun: 1
   enemiesList: []
   myEnemyScript: {fileID: 0}
   whatCantHitMe: {fileID: 0}
@@ -318,7 +319,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 90f85a7356d3f804884851c22d362f5a, type: 3}
   m_Color: {r: 0.42745098, g: 0.3647059, b: 0.28627452, a: 1}
   m_FlipX: 0
